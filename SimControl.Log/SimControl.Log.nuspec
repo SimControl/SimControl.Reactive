@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>$author$</authors>
+        <description>$description$</description>
+        <copyright>Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.</copyright>
+        <iconUrl>https://raw.githubusercontent.com/SimControl/SimControl.Reactive/master/NuGetIcon.png</iconUrl>
+        <licenseUrl>https://raw.githubusercontent.com/SimControl/SimControl.Reactive/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/SimControl/SimControl.Reactive</projectUrl>
+    </metadata>
+    <files>
+        <file src="..\RELEASENOTES.md" target="" />
+    </files>
+</package>
