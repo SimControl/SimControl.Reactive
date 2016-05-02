@@ -188,13 +188,13 @@
     <None Include="SimControl.Samples.CSharp.ClassLibrary.v2.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">
-      <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
-      <Name>SimControl.Log</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Reactive\SimControl.Reactive.csproj">
       <Project>{DE345B4E-6256-4800-87B0-19277691D51E}</Project>
       <Name>SimControl.Reactive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <Project>{295a2388-18cd-42d4-98ee-dde8cc975c7b}</Project>
+      <Name>SimControl.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Samples.CSharp.Mef.Contracts\SimControl.Samples.CSharp.Mef.Contracts.csproj">
       <Project>{51EC6B6F-056E-42D9-95D2-20FC6305969C}</Project>
