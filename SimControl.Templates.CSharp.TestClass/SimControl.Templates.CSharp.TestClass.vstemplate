@@ -1,0 +1,14 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>TestClass.cs</DefaultName>
+    <Description>Test class template</Description>
+    <Name>TestClass</Name>
+    <ProjectType>CSharp</ProjectType>
+    <Icon>TemplateIcon.ico</Icon>
+    <PreviewImage>TemplateIcon.ico</PreviewImage>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">TestClass.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

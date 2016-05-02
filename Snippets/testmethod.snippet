@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>testmethod</Title>
+      <Author>wilhelm.medetz@simcontrol.com</Author>
+      <Description>Test method</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>testmethod</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.VisualStudio.TestTools.UnitTesting</Namespace>
+        </Import>
+      </Imports>
+      <References>
+        <Reference>
+          <Assembly>Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</Assembly>
+        </Reference>
+      </References>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>name</ID>
+          <ToolTip>Replace with the name of the test method</ToolTip>
+          <Default>UnitOfWorkName_ScenarioUnderTest_ExpectedBehavior</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="false">
+          <ID>TestMethod</ID>
+          <ToolTip>
+          </ToolTip>
+          <Default>
+          </Default>
+          <Function>SimpleTypeName(global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod)</Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[[$TestMethod$]
+public void $name$()
+{
+    throw new NotImplementedException();
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

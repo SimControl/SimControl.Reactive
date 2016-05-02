@@ -1,0 +1,25 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+    <TemplateData>
+        <Name>SimControl.Templates.CSharp.ConsoleApplication</Name>
+        <Description></Description>
+        <ProjectType>CSharp</ProjectType>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>SimControl.Templates.CSharp.ConsoleApplication</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+        <Icon>TemplateIcon.ico</Icon>
+        <CreateInPlace>true</CreateInPlace>
+    </TemplateData>
+    <TemplateContent>
+        <Project TargetFileName="SimControl.Templates.CSharp.ConsoleApplication.csproj" File="SimControl.Templates.CSharp.ConsoleApplication.csproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v2.ncrunchproject">SimControl.Templates.CSharp.ConsoleApplication.v2.ncrunchproject</ProjectItem>
+            <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="app.config">app.config</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="packages.config">packages.config</ProjectItem>
+            <Folder Name="Properties" TargetFolderName="Properties">
+                <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+            </Folder>
+        </Project>
+    </TemplateContent>
+</VSTemplate>
