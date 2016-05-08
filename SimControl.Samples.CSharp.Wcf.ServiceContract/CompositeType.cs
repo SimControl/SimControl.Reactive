@@ -23,7 +23,7 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         /// <summary>Integer value.</summary>
         /// <value>The int value.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "int"), DataMember]
-        public int IntValue { get; set; } = 0;
+        public int IntValue { get; set; }
 
         /// <summary>String value.</summary>
         [DataMember]
