@@ -9,7 +9,6 @@ using SimControl.Reactive;
 using SimControl.Samples.CSharp.Wcf.Client.SampleServiceTap;
 using SimControl.Samples.CSharp.Wcf.ServiceContract;
 using SimControl.TestUtils;
-using ISampleServiceCallback = SimControl.Samples.CSharp.Wcf.Client.SampleServiceTap.ISampleServiceCallback;
 
 namespace SimControl.Samples.CSharp.Wcf.Service.Tests
 {

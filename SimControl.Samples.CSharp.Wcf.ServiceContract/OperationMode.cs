@@ -23,5 +23,5 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 
         /// <summary>TimeoutException</summary>
         TimeoutException
-    };
+    }
 }

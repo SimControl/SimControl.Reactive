@@ -26,7 +26,7 @@ namespace SimControl.Reactive
 
         /// <summary>StateMachine execution has failed.</summary>
         Failed
-    };
+    }
 
     internal delegate void TimerCallback(object state);
 

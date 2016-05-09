@@ -286,6 +286,7 @@
     <Rule Id="S3234" Action="Warning" />
     <Rule Id="S3235" Action="Warning" />
     <Rule Id="S3240" Action="Warning" />
+    <Rule Id="S3246" Action="Warning" />
     <Rule Id="S3251" Action="Warning" />
     <Rule Id="S3253" Action="Warning" />
     <Rule Id="S3254" Action="Warning" />
