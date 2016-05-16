@@ -17,12 +17,12 @@ namespace SimControl.Reactive.Tests
 {
 #pragma warning disable CC0021 // Use nameof
 #pragma warning disable S2931 // Classes with "IDisposable" members should implement "IDisposable"
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
     [Log]
     [TestFixture]
     public class StateMachineTests : TestFrame
     {
-
         #region Test
 
         [SetUp]
@@ -1071,6 +1071,7 @@ namespace SimControl.Reactive.Tests
         private int count;
         private StateMachine sm;
     }
+
 #pragma warning restore S2931 // Classes with "IDisposable" members should implement "IDisposable"
 #pragma warning restore CC0021 // Use nameof
 

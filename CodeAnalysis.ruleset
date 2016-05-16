@@ -149,6 +149,9 @@
     <Rule Id="RCS1060" Action="None" />
     <Rule Id="RCS1061" Action="Warning" />
     <Rule Id="RCS1061FadeOut" Action="Warning" />
+    <Rule Id="RCS1062" Action="None" />
+    <Rule Id="RCS1062FadeOut" Action="None" />
+    <Rule Id="RCS1064" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="RefactoringEssentials" RuleNamespace="RefactoringEssentials">
     <Rule Id="CS0126ReturnMustBeFollowedByAnyExpression" Action="Warning" />
@@ -200,7 +203,6 @@
     <Rule Id="RECS0077" Action="Warning" />
     <Rule Id="RECS0078" Action="Warning" />
     <Rule Id="RECS0079" Action="Warning" />
-    <Rule Id="RECS0081" Action="None" />
     <Rule Id="RECS0082" Action="None" />
     <Rule Id="RECS0086" Action="Warning" />
     <Rule Id="RECS0087" Action="Warning" />
