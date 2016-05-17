@@ -27,6 +27,8 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
 
             try
             {
+                RegisterExceptionHandlers();
+
                 if (Thread.CurrentThread.Name == null)
                     Thread.CurrentThread.Name = nameof(Main);
 
@@ -38,20 +40,17 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
 
-                RegisterExceptionHandlers();
+                // ...                
 
-                // ...
-
-                UnregisterExceptionHandlers();
+                return 0;
             }
             catch (Exception ex)
             {
                 logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, ex);
 
-                Exit(1);
+                return 1;
             }
-
-            return 0;
+            finally { UnregisterExceptionHandlers(); }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
@@ -96,11 +95,18 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
 
         private static void UnregisterExceptionHandlers()
         {
-            if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, new Win32Exception());
+            try
+            {
+                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
+                    throw new Win32Exception();
 
-            TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
-            AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
+                TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
+                AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
+            }
+            catch (Exception e)
+            {
+                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, new Win32Exception());
+            }
         }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();

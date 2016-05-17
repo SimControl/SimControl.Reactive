@@ -38,6 +38,8 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
 
             try
             {
+                RegisterExceptionHandlers();
+
                 if (Thread.CurrentThread.Name == null)
                     Thread.CurrentThread.Name = nameof(Main);
 
@@ -52,8 +54,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                 command = args[0];
 
                 logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), command);
-
-                RegisterExceptionHandlers();
 
                 AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
                 Console.CancelKeyPress += ProcessExitEventHandler;
@@ -136,16 +136,15 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         break;
                 }
 
-                UnregisterExceptionHandlers();
+                return 0;
             }
             catch (Exception e)
             {
                 logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
 
-                Exit(command == nameof(ThrowException) ? 7 : 1);
+                return command == nameof(ThrowException) ? 7 : 1;
             }
-
-            return 0;
+            finally { UnregisterExceptionHandlers(); }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
@@ -199,7 +198,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         private static void UnregisterExceptionHandlers()
         {
             if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                //logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, new Win32Exception());
                 throw new Win32Exception();
 
             TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
