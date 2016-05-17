@@ -197,11 +197,18 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
 
         private static void UnregisterExceptionHandlers()
         {
-            if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                throw new Win32Exception();
+            try
+            {
+                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
+                    throw new Win32Exception();
 
-            TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
-            AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
+                TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
+                AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
+            }
+            catch (Exception e)
+            {
+                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, new Win32Exception());
+            }
         }
 
         /// <summary>Possible command line arguments.</summary>
