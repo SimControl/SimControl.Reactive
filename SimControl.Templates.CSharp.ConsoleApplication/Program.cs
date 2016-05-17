@@ -93,6 +93,7 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
             Exit(3);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static void UnregisterExceptionHandlers()
         {
             try
@@ -105,7 +106,7 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
             }
             catch (Exception e)
             {
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, new Win32Exception());
+                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
             }
         }
 
