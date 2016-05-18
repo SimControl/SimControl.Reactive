@@ -275,6 +275,7 @@
     <Rule Id="S1135" Action="Info" />
     <Rule Id="S1144" Action="Warning" />
     <Rule Id="S1185" Action="Warning" />
+    <Rule Id="S1226" Action="Warning" />
     <Rule Id="S1227" Action="Warning" />
     <Rule Id="S125" Action="None" />
     <Rule Id="S127" Action="Warning" />
@@ -299,6 +300,7 @@
     <Rule Id="S2955" Action="Warning" />
     <Rule Id="S3052" Action="Warning" />
     <Rule Id="S3215" Action="Warning" />
+    <Rule Id="S3216" Action="Warning" />
     <Rule Id="S3234" Action="Warning" />
     <Rule Id="S3235" Action="Warning" />
     <Rule Id="S3240" Action="Warning" />

@@ -246,3 +246,6 @@ ModelManifest.xml
 
 # SourceTree
 /perl.exe.stackdump
+
+# Per Project Configuration
+*.vsconfig
