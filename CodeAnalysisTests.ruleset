@@ -168,6 +168,19 @@
     <Rule Id="RCS1062" Action="None" />
     <Rule Id="RCS1062FadeOut" Action="None" />
     <Rule Id="RCS1064" Action="Warning" />
+    <Rule Id="RCS1066" Action="Warning" />
+    <Rule Id="RCS1067" Action="Warning" />
+    <Rule Id="RCS1069" Action="Warning" />
+    <Rule Id="RCS1070" Action="Warning" />
+    <Rule Id="RCS1071" Action="Warning" />
+    <Rule Id="RCS1072" Action="Warning" />
+    <Rule Id="RCS1073" Action="Warning" />
+    <Rule Id="RCS1073FadeOut" Action="Warning" />
+    <Rule Id="RCS1074" Action="Warning" />
+    <Rule Id="RCS1076" Action="None" />
+    <Rule Id="RCS1077" Action="Warning" />
+    <Rule Id="RCS1078" Action="Warning" />
+    <Rule Id="RCS1080" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="RefactoringEssentials" RuleNamespace="RefactoringEssentials">
     <Rule Id="CS0126ReturnMustBeFollowedByAnyExpression" Action="Warning" />
