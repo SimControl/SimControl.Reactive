@@ -165,6 +165,9 @@
     <Rule Id="RCS1077" Action="Warning" />
     <Rule Id="RCS1078" Action="Warning" />
     <Rule Id="RCS1080" Action="Warning" />
+    <Rule Id="RCS1084" Action="Warning" />
+    <Rule Id="RCS1085" Action="None" />
+    <Rule Id="RCS1085FadeOut" Action="None" />
   </Rules>
   <Rules AnalyzerId="RefactoringEssentials" RuleNamespace="RefactoringEssentials">
     <Rule Id="CS0126ReturnMustBeFollowedByAnyExpression" Action="Warning" />
