@@ -114,9 +114,7 @@ namespace SimControl.Reactive.Tests
         {
             using (var blockingCollection = new BlockingCollection<bool>())
             {
-                Task task = TaskEx.Run(() => {
-                    blockingCollection.Add(true);
-                });
+                Task task = TaskEx.Run(() => blockingCollection.Add(true));
 
                 Assert.IsTrue(blockingCollection.TakeAssertTimeout());
 
@@ -157,9 +155,7 @@ namespace SimControl.Reactive.Tests
         {
             using (var ready = new AutoResetEvent(false))
             {
-                Task task = TaskEx.Run(() => {
-                    ready.Set();
-                });
+                Task task = TaskEx.Run(() => ready.Set());
 
                 ready.WaitOneAssertTimeout();
                 task.WaitAssertTimeout();

@@ -99,11 +99,8 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                     await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
                     ready.Set();
                     throw new InvalidOperationException();
-                }).ContinueWith(
-                t => {
-                    logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null,
-                        t.Exception.InnerException);
-                }, TaskContinuationOptions.OnlyOnFaulted);
+                }).ContinueWith(t => logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null,
+                    t.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
 
                 ready.WaitOneAssertTimeout();
                 task.WaitAssertTimeout();

@@ -95,7 +95,7 @@ namespace SimControl.Reactive.Tests
                             Action(2);
                             await TaskEx.Delay(100000, cancellationTokenSource.Token).ConfigureAwait(false);
                         }, exit: () => Action(3)).Add(new Transition<OperationCanceledException>("SimpleState2",
-                            new ExceptionTrigger<OperationCanceledException>(), effect: (e) => Action(4))),
+                            new ExceptionTrigger<OperationCanceledException>(), effect: e => Action(4))),
                         new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(-1)));
 
                     sm.StateChanged += (sender, args) => stateChanged.Add(stateChangedCount++);
@@ -134,7 +134,7 @@ namespace SimControl.Reactive.Tests
                             Action(2);
                             throw new InvalidOperationException();
                         }, exit: () => Action(3)).Add(new Transition<InvalidOperationException>("SimpleState2",
-                            new ExceptionTrigger<InvalidOperationException>(), effect: (e) => Action(4))),
+                            new ExceptionTrigger<InvalidOperationException>(), effect: e => Action(4))),
                         new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(-1)));
 
                     sm.StateChanged += (sender, args) => stateChanged.Add(stateChangedCount++);
