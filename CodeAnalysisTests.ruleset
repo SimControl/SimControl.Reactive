@@ -332,6 +332,8 @@
     <Rule Id="S3458" Action="Warning" />
     <Rule Id="S3532" Action="Warning" />
     <Rule Id="S3597" Action="None" />
+    <Rule Id="S3604" Action="Warning" />
+    <Rule Id="S3626" Action="Warning" />
     <Rule Id="S818" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarLint" RuleNamespace="SonarLint">

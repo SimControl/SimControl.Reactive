@@ -57,7 +57,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         public async Task AsyncTests_AsyncTest_awaitTastExDelay_Async()
         {
             await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
-            return;
+            logger.Info("Delay finished");
         }
 
         [Test, Example]
@@ -160,7 +160,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 #pragma warning restore AsyncFixer002 // Long running / blocking operations under an async method
                 throw new InvalidOperationException();
             }).ConfigureAwait(false);
-            return;
+            logger.Info("TaskEx.Run finished");
         }
 
         private void UnhandledException(object sender, EventArgs<Exception> args)
