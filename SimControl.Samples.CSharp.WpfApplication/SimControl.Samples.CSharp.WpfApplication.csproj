@@ -201,6 +201,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="SimControl.Samples.CSharp.WpfApplication.v2.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
