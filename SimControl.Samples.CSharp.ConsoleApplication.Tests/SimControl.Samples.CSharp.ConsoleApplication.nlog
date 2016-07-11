@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.netfx40.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      internalLogLevel="Warn" internalLogToConsoleError="true">
+  <targets>
+    <target name="Console" xsi:type="ColoredConsole"
+            layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
+    <target name="Debugger" xsi:type="Debugger"
+            layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
+    <target name="File" xsi:type="File" deleteOldFileOnStartup="true" concurrentWrites="false" autoFlush="true" keepFileOpen="true" fileName="${processname}.log"
+            layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
+    <target name="Database" type="Database" dbProvider="System.Data.SqlServerCe.4.0" connectionString="Datasource=NLog.sdf" keepConnection="true" commandType="Text" commandText="insert into LogEvents(Date, MachineName, Processname, ThreadId, ThreadName, Logger, Level, Message, Exception) values (@Date, @Machinename, @ProcessName, @ThreadId, @ThreadName, @Logger, @Level, @Message, @Exception)">
+      <parameter name="@Date" layout="${longdate}"/>
+      <parameter name="@MachineName" layout="${machinename}"/>
+      <parameter name="@ProcessName" layout="${processname}"/>
+      <parameter name="@ThreadId" layout="${threadid}"/>
+      <parameter name="@ThreadName" layout="${threadname}"/>
+      <parameter name="@Logger" layout="${logger}"/>
+      <parameter name="@Level" layout="${level}"/>
+      <parameter name="@Message" layout="${message}"/>
+      <parameter name="@Exception" layout="${exception:format=Type,Message,StackTrace:separator=, }"/>
+    </target>
+  </targets>
+  <rules>
+    <logger name="*" minlevel="Trace" writeTo="Console"/>
+    <logger name="*" minlevel="Trace" writeTo="Debugger"/>
+    <logger name="*" minlevel="trace" writeTo="File"/>
+    <logger name="*" minlevel="trace" writeTo="Database"/>
+  </rules>
+</nlog>

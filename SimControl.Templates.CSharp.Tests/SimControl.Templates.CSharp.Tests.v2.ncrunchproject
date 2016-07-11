@@ -9,7 +9,7 @@
   <AllowCodeAnalysis>false</AllowCodeAnalysis>
   <IgnoreThisComponentCompletely>false</IgnoreThisComponentCompletely>
   <RunPreBuildEvents>false</RunPreBuildEvents>
-  <RunPostBuildEvents>false</RunPostBuildEvents>
+  <RunPostBuildEvents>true</RunPostBuildEvents>
   <PreviouslyBuiltSuccessfully>true</PreviouslyBuiltSuccessfully>
   <InstrumentAssembly>true</InstrumentAssembly>
   <PreventSigningOfAssembly>false</PreventSigningOfAssembly>

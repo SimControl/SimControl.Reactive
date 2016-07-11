@@ -208,13 +208,11 @@
       <Link>App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Configurations\Net40\App.config">
-      <Link>App.config</Link>
-    </None>
     <None Include="..\NLog.config">
       <Link>NLog.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="SimControl.Samples.CSharp.ClassLibrary.Tests.v2.ncrunchproject" />
   </ItemGroup>

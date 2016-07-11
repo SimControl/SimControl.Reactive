@@ -79,6 +79,10 @@
     <Rule Id="CS8020" Action="Warning" />
     <Rule Id="CS8040" Action="Warning" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.EditorFeatures" RuleNamespace="Microsoft.CodeAnalysis.CSharp.EditorFeatures">
+    <Rule Id="UseAutoProperty" Action="None" />
+    <Rule Id="UseAutoPropertyFadedToken" Action="None" />
+  </Rules>
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.Features" RuleNamespace="Microsoft.CodeAnalysis.CSharp.Features">
     <Rule Id="IDE0001" Action="None" />
     <Rule Id="IDE0002" Action="None" />

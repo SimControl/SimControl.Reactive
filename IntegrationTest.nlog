@@ -6,9 +6,12 @@
             layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
     <target name="Debugger" xsi:type="Debugger"
             layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
+    <target name="File" xsi:type="File" deleteOldFileOnStartup="true" concurrentWrites="false" autoFlush="true" keepFileOpen="true" fileName="${processname}.log"
+            layout="${qpc:normalize=True:alignDecimalPoint=True:precision=3:seconds=True}&#009;${threadname}-${threadid}&#009;${level}&#009;${logger}&#009;${message}&#009;${exception:format=tostring}"/>
   </targets>
   <rules>
-    <logger name="*" minlevel="Trace" writeTo="Console"/>
-    <logger name="*" minlevel="Trace" writeTo="Debugger"/>
+    <logger name="*" minlevel="Trace" writeTo="Console" />
+    <logger name="*" minlevel="Trace" writeTo="Debugger" />
+    <logger name="*" minlevel="trace" writeTo="File" />
   </rules>
 </nlog>
