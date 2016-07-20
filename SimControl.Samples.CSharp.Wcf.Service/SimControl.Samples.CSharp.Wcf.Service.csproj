@@ -183,7 +183,7 @@
       <Link>App.services.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Configurations\Net46\App.config">
+    <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
     <None Include="packages.config" />

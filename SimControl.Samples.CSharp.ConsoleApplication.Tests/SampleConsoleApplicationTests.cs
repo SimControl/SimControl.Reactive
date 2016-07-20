@@ -3,6 +3,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Reflection;
+using NCrunch.Framework;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
@@ -11,7 +12,7 @@ using SimControl.TestUtils;
 namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
 {
     [Log]
-    [TestFixture, NCrunch.Framework.ExclusivelyUses("Logging")]
+    [TestFixture, ExclusivelyUses("Logging")]
     public class SampleConsoleApplicationTests: TestFrame
     {
         #region Additional test attributes

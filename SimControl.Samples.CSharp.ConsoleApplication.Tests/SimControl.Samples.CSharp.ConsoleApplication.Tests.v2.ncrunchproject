@@ -24,5 +24,4 @@
   <MSTestThreadApartmentState>STA</MSTestThreadApartmentState>
   <BuildProcessArchitecture>x86</BuildProcessArchitecture>
   <AdditionalFilesToInclude>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\**.*</AdditionalFilesToInclude>
-  <HiddenWarnings>CopyReferencedAssembliesToWorkspaceIsOn</HiddenWarnings>
 </ProjectConfiguration>

@@ -71,6 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		App.config = App.config
 		App.Debug.config = App.Debug.config
 		App.Release.config = App.Release.config
 		CodeAnalysis.ruleset = CodeAnalysis.ruleset
@@ -129,11 +130,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Reactive", "SimControl.Reactive", "{C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net46", "Net46", "{9EFB3977-1A15-4021-897C-2184E1AF59C5}"
-	ProjectSection(SolutionItems) = preProject
-		Configurations\Net46\App.config = Configurations\Net46\App.config
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -565,6 +561,5 @@ Global
 		{6BCCED71-C761-4AAB-B841-D7AAE85C3697} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{954AACB0-D80E-4813-9382-4AB1C7BAAD34} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
 		{529C4463-2CB9-4739-B407-E1167BC8A4F6} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
-		{9EFB3977-1A15-4021-897C-2184E1AF59C5} = {050D8B5E-6C80-4E4D-9850-1A4536CB9AA8}
 	EndGlobalSection
 EndGlobal
