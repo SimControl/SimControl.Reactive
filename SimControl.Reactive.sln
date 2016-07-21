@@ -6,18 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples", "SimCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp", "SimControl.Templates.CSharp", "{05399D48-6CC6-44DD-90F4-D799C3C0A7EA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{050D8B5E-6C80-4E4D-9850-1A4536CB9AA8}"
-	ProjectSection(SolutionItems) = preProject
-		Configurations\App.behaviors.config = Configurations\App.behaviors.config
-		Configurations\App.bindings.config = Configurations\App.bindings.config
-		Configurations\App.client.config = Configurations\App.client.config
-		Configurations\App.services.config = Configurations\App.services.config
-		Configurations\App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config = Configurations\App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config
-		Configurations\App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config = Configurations\App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config
-		Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config = Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config
-		Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config = Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.PortableClassLibrary", "SimControl.Templates.CSharp.PortableClassLibrary\SimControl.Templates.CSharp.PortableClassLibrary.csproj", "{1873C2C1-603C-4674-87CC-A5045F1451DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.ClassLibrary", "SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj", "{F7D2F271-17E6-42E2-842F-784EFDF72C70}"

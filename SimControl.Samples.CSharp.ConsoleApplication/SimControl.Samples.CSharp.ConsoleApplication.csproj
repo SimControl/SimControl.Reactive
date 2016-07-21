@@ -179,28 +179,12 @@
     <Compile Include="VerifyJitOptimization.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\IntegrationTest.nlog">
       <Link>IntegrationTest.nlog</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="SimControl.Samples.CSharp.ConsoleApplication.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -173,22 +173,10 @@
     <Compile Include="SampleConsoleApplicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ConsoleApplication.applicationSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ConsoleApplication.userSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\NLog.config">
-      <Link>NLog.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="..\App.config">
+      <Link>App.config</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.ConsoleApplication.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="SimControl.Samples.CSharp.ConsoleApplication.Tests.v2.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
@@ -233,11 +221,16 @@
     <Content Include="NLog.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="SimControl.Samples.CSharp.ConsoleApplication.nlog" />
+    <None Include="SimControl.Samples.CSharp.ConsoleApplication.exe.nlog">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    <PostBuildEvent>copy $(SolutionDir)NLog.config $(TargetPath).nlog
+copy $(TargetPath).config $(TargetDir)SimControl.Samples.CSharp.ConsoleApplication.exe.config
+
+rem    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
 rem    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
 rem    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
 rem    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>

@@ -200,14 +200,6 @@
     <Compile Include="WpfApplicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ClassLibrary.applicationSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config">
-      <Link>App.SimControl.Samples.CSharp.ClassLibrary.userSettings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\NLog.config">
       <Link>NLog.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

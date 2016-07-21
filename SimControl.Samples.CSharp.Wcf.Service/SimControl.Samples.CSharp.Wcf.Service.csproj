@@ -171,18 +171,6 @@
     <Compile Include="WcfServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Configurations\App.behaviors.config">
-      <Link>App.behaviors.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.bindings.config">
-      <Link>App.bindings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\Configurations\App.services.config">
-      <Link>App.services.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
