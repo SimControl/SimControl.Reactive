@@ -4,9 +4,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples", "SimControl.Samples", "{8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp", "SimControl.Templates.CSharp", "{05399D48-6CC6-44DD-90F4-D799C3C0A7EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ProjectTemplates.CSharp", "SimControl.ProjectTemplates.CSharp", "{05399D48-6CC6-44DD-90F4-D799C3C0A7EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.PortableClassLibrary", "SimControl.Templates.CSharp.PortableClassLibrary\SimControl.Templates.CSharp.PortableClassLibrary.csproj", "{1873C2C1-603C-4674-87CC-A5045F1451DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.PortableClassLibrary", "SimControl.Templates.CSharp.PortableClassLibrary\SimControl.ProjectTemplates.CSharp.PortableClassLibrary.csproj", "{1873C2C1-603C-4674-87CC-A5045F1451DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.ClassLibrary", "SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj", "{F7D2F271-17E6-42E2-842F-784EFDF72C70}"
 EndProject
@@ -18,9 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Mef.Plugin2", "SimControl.Samples.CSharp.Mef.Plugin2\SimControl.Samples.CSharp.Mef.Plugin2.csproj", "{4A0E6394-A68F-4A74-8859-8488D74024BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.ConsoleApplication", "SimControl.Templates.CSharp.ConsoleApplication\SimControl.Templates.CSharp.ConsoleApplication.csproj", "{C0163020-159A-4FB0-9E14-309B2F9AB95E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.ConsoleApplication", "SimControl.Templates.CSharp.ConsoleApplication\SimControl.ProjectTemplates.CSharp.ConsoleApplication.csproj", "{C0163020-159A-4FB0-9E14-309B2F9AB95E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.UnitTestProject", "SimControl.Templates.CSharp.UnitTestProject\SimControl.Templates.CSharp.UnitTestProject.csproj", "{0E4B9437-C724-4B4B-ADE1-9BAC150B5FCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.UnitTestProject", "SimControl.Templates.CSharp.UnitTestProject\SimControl.ProjectTemplates.CSharp.UnitTestProject.csproj", "{0E4B9437-C724-4B4B-ADE1-9BAC150B5FCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Wcf.Client40", "SimControl.Samples.CSharp.Wcf.Client40\SimControl.Samples.CSharp.Wcf.Client40.csproj", "{39384B02-8F9A-4CE1-9302-2D306D6B772E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -38,13 +38,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Wcf.Service.Tests", "SimControl.Samples.CSharp.Wcf.Service.Tests\SimControl.Samples.CSharp.Wcf.Service.Tests.csproj", "{FC3F70A1-77B6-4A4E-9338-60C50C382985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.ClassLibrary", "SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj", "{F25C682E-C540-4EB4-8756-9CB942F37DE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.ClassLibrary", "SimControl.Templates.CSharp.ClassLibrary\SimControl.ProjectTemplates.CSharp.ClassLibrary.csproj", "{F25C682E-C540-4EB4-8756-9CB942F37DE0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp.Class", "SimControl.Templates.CSharp.Class", "{35AC83A2-3064-4CCE-A62C-8BBA850A913B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ItemTemplates.CSharp.Class", "SimControl.ItemTemplates.CSharp.Class", "{35AC83A2-3064-4CCE-A62C-8BBA850A913B}"
 	ProjectSection(SolutionItems) = preProject
-		SimControl.Templates.CSharp.Class\Class.cs = SimControl.Templates.CSharp.Class\Class.cs
-		SimControl.Templates.CSharp.Class\SimControl.Templates.CSharp.Class.vstemplate = SimControl.Templates.CSharp.Class\SimControl.Templates.CSharp.Class.vstemplate
-		SimControl.Templates.CSharp.Class\TemplateIcon.ico = SimControl.Templates.CSharp.Class\TemplateIcon.ico
+		SimControl.ItemTemplates.CSharp.Class\Class.cs = SimControl.ItemTemplates.CSharp.Class\Class.cs
+		SimControl.ItemTemplates.CSharp.Class\SimControl.Templates.CSharp.Class.vstemplate = SimControl.ItemTemplates.CSharp.Class\SimControl.Templates.CSharp.Class.vstemplate
+		SimControl.ItemTemplates.CSharp.Class\TemplateIcon.ico = SimControl.ItemTemplates.CSharp.Class\TemplateIcon.ico
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Reactive", "SimControl.Reactive\SimControl.Reactive.csproj", "{DE345B4E-6256-4800-87B0-19277691D51E}"
@@ -100,7 +100,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimControl.Samples.Cpp.Win3
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimControl.Samples.Cpp.Clr.ConsoleApplication", "SimControl.Samples.Cpp.Clr.ConsoleApplication\SimControl.Samples.Cpp.Clr.ConsoleApplication.vcxproj", "{6BCCED71-C761-4AAB-B841-D7AAE85C3697}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.Tests", "SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj", "{954AACB0-D80E-4813-9382-4AB1C7BAAD34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.Tests", "SimControl.Templates.CSharp.Tests\SimControl.ProjectTemplates.CSharp.Tests.csproj", "{954AACB0-D80E-4813-9382-4AB1C7BAAD34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{28444022-6A98-4F24-AC5B-DC35500D5C93}"
 	ProjectSection(SolutionItems) = preProject
@@ -110,14 +110,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{28
 		Snippets\testmethod.snippet = Snippets\testmethod.snippet
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp.TestClass", "SimControl.Templates.CSharp.TestClass", "{529C4463-2CB9-4739-B407-E1167BC8A4F6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ItemTemplates.CSharp.TestClass", "SimControl.ItemTemplates.CSharp.TestClass", "{529C4463-2CB9-4739-B407-E1167BC8A4F6}"
 	ProjectSection(SolutionItems) = preProject
-		SimControl.Templates.CSharp.TestClass\SimControl.Templates.CSharp.TestClass.vstemplate = SimControl.Templates.CSharp.TestClass\SimControl.Templates.CSharp.TestClass.vstemplate
-		SimControl.Templates.CSharp.TestClass\TemplateIcon.ico = SimControl.Templates.CSharp.TestClass\TemplateIcon.ico
-		SimControl.Templates.CSharp.TestClass\TestClass.cs = SimControl.Templates.CSharp.TestClass\TestClass.cs
+		SimControl.ItemTemplates.CSharp.TestClass\SimControl.Templates.CSharp.TestClass.vstemplate = SimControl.ItemTemplates.CSharp.TestClass\SimControl.Templates.CSharp.TestClass.vstemplate
+		SimControl.ItemTemplates.CSharp.TestClass\TemplateIcon.ico = SimControl.ItemTemplates.CSharp.TestClass\TemplateIcon.ico
+		SimControl.ItemTemplates.CSharp.TestClass\TestClass.cs = SimControl.ItemTemplates.CSharp.TestClass\TestClass.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Reactive", "SimControl.Reactive", "{C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ItemTemplates", "SimControl.ItemTemplates", "{4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -536,7 +538,7 @@ Global
 		{DD779B00-8B70-44F8-8EF8-5513F86760A6} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{FC3F70A1-77B6-4A4E-9338-60C50C382985} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{F25C682E-C540-4EB4-8756-9CB942F37DE0} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
-		{35AC83A2-3064-4CCE-A62C-8BBA850A913B} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
+		{35AC83A2-3064-4CCE-A62C-8BBA850A913B} = {4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}
 		{DE345B4E-6256-4800-87B0-19277691D51E} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{295A2388-18CD-42D4-98EE-DDE8CC975C7B} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{A23BD523-7C98-454C-9AC1-754087C91409} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
@@ -548,6 +550,6 @@ Global
 		{26D92D10-2013-45E2-8E27-2BD113DF97A8} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{6BCCED71-C761-4AAB-B841-D7AAE85C3697} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{954AACB0-D80E-4813-9382-4AB1C7BAAD34} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
-		{529C4463-2CB9-4739-B407-E1167BC8A4F6} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
+		{529C4463-2CB9-4739-B407-E1167BC8A4F6} = {4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}
 	EndGlobalSection
 EndGlobal
