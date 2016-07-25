@@ -203,15 +203,15 @@
       <Project>{de345b4e-6256-4800-87b0-19277691d51e}</Project>
       <Name>SimControl.Reactive</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.ProjectTemplates.CSharp.ClassLibrary.csproj">
+    <ProjectReference Include="..\SimControl.ProjectTemplates.CSharp.ClassLibrary\SimControl.ProjectTemplates.CSharp.ClassLibrary.csproj">
       <Project>{f25c682e-c540-4eb4-8756-9cb942f37de0}</Project>
       <Name>SimControl.ProjectTemplates.CSharp.ClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApplication\SimControl.ProjectTemplates.CSharp.ConsoleApplication.csproj">
+    <ProjectReference Include="..\SimControl.ProjectTemplates.CSharp.ConsoleApplication\SimControl.ProjectTemplates.CSharp.ConsoleApplication.csproj">
       <Project>{c0163020-159a-4fb0-9e14-309b2f9ab95e}</Project>
       <Name>SimControl.ProjectTemplates.CSharp.ConsoleApplication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.Templates.CSharp.PortableClassLibrary\SimControl.ProjectTemplates.CSharp.PortableClassLibrary.csproj">
+    <ProjectReference Include="..\SimControl.ProjectTemplates.CSharp.PortableClassLibrary\SimControl.ProjectTemplates.CSharp.PortableClassLibrary.csproj">
       <Project>{1873c2c1-603c-4674-87cc-a5045f1451df}</Project>
       <Name>SimControl.ProjectTemplates.CSharp.PortableClassLibrary</Name>
     </ProjectReference>

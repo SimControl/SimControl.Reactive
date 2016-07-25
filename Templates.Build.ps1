@@ -13,14 +13,14 @@ function RemoveItems($items)
 
 function CreateTemplates($templateType)
 {
-    gci *\*.vstemplate | foreach-object
-    { 
+    New-Item -ItemType Directory -Force -Path $templateType
+
+    gci ("*"+$templateType+"*\*.vstemplate") | foreach-object { 
         $t = $_.BaseName
 
         $temp = (Resolve-Path $templateType).Path + "\" + $t
-        Write-Host $temp
+        Write-Host $t
 
-		New-Item -ItemType Directory -Force -Path $temp
         RemoveItems $temp, ($templateType+"\"+$t+".zip")
     
         Copy-Item -Path $t -Destination $templateType -Recurse
@@ -38,7 +38,7 @@ function CreateTemplates($templateType)
 }
 
 
-CreateTemplate "ItemTemplates"
-CreateTemplate "ProjectTemplates"
+CreateTemplates "ItemTemplates"
+CreateTemplates "ProjectTemplates"
 
 Write-Host "Press 'Enter' to continue ..."; Read-Host
