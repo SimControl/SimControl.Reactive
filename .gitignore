@@ -248,4 +248,5 @@ ModelManifest.xml
 /perl.exe.stackdump
 
 # Per Project Configuration
-*.vsconfig
+/ItemTemplates/*
+/ProjectTemplates/*
