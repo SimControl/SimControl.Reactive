@@ -1,10 +1,10 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
     <TemplateData>
-        <Name>SimControl.Templates.CSharp.UnitTestProject</Name>
+        <Name>SimControl.ProjectTemplates.CSharp.UnitTestProject</Name>
         <Description></Description>
         <ProjectType>CSharp</ProjectType>
         <CreateNewFolder>true</CreateNewFolder>
-        <DefaultName>SimControl.Templates.CSharp.UnitTestProject</DefaultName>
+        <DefaultName>SimControl.ProjectTemplates.CSharp.UnitTestProject</DefaultName>
         <ProvideDefaultName>true</ProvideDefaultName>
         <LocationField>Enabled</LocationField>
         <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
@@ -12,8 +12,8 @@
         <CreateInPlace>true</CreateInPlace>
     </TemplateData>
     <TemplateContent>
-        <Project TargetFileName="SimControl.Templates.CSharp.UnitTestProject.csproj" File="SimControl.Templates.CSharp.UnitTestProject.csproj" ReplaceParameters="true">
-            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v2.ncrunchproject">SimControl.Templates.CSharp.UnitTestProject.v2.ncrunchproject</ProjectItem>
+        <Project TargetFileName="SimControl.ProjectTemplates.CSharp.UnitTestProject.csproj" File="SimControl.ProjectTemplates.CSharp.UnitTestProject.csproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v2.ncrunchproject">SimControl.ProjectTemplates.CSharp.UnitTestProject.v2.ncrunchproject</ProjectItem>
             <ProjectItem ReplaceParameters="true" TargetFileName="UnitTests1.cs">UnitTests1.cs</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="app.config">app.config</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="packages.config">packages.config</ProjectItem>

@@ -17,9 +17,6 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <DontImportPostSharp>True</DontImportPostSharp>
-    <AppCfgType>App</AppCfgType>
-    <InlineAppCfgTransforms>false</InlineAppCfgTransforms>
-    <BuildTimeAppCfgTransformsEnabled>true</BuildTimeAppCfgTransformsEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -188,6 +185,15 @@
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
+    <None Include="..\App.Debug.config">
+      <Link>App.Debug.config</Link>
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="..\App.Release.config">
+      <Link>App.Release.config</Link>
+      <DependentUpon>App.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\NLog.config">
       <Link>NLog.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -245,20 +251,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
-  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
-  <Target Name="TransformOnBuild" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <outputTypeExtension Condition="'$(OutputType)' == 'exe' or '$(OutputType)' == 'winexe'">exe</outputTypeExtension>
-      <outputTypeExtension Condition="'$(OutputType)' == 'Library'">dll</outputTypeExtension>
-    </PropertyGroup>
-    <TransformXml Condition="'$(AppCfgType)' == 'Web' and Exists('$(ConfigDir)\Web.Base.config') and Exists('$(ConfigDir)\Web.$(Configuration).config')" Source="$(ConfigDir)\Web.Base.config" Transform="$(ConfigDir)\Web.$(Configuration).config" Destination="Web.config" />
-    <TransformXml Condition="'$(AppCfgType)' == 'App' and $(InlineAppCfgTransforms) == true and Exists('$(ConfigDir)\App.Base.config') and Exists('$(ConfigDir)\App.$(Configuration).config')" Source="$(ConfigDir)\App.Base.config" Transform="$(ConfigDir)\App.$(Configuration).config" Destination="App.config" />
-    <MakeDir Condition="'$(AppCfgType)' == 'App' and $(InlineAppCfgTransforms) != true and Exists('App.config') and !Exists('$(OutDir)')" Directories="$(OutDir)" />
-    <TransformXml Condition="'$(AppCfgType)' == 'App' and $(InlineAppCfgTransforms) != true and Exists('App.config') and Exists('App.$(Configuration).config')" Source="App.config" Transform="App.$(Configuration).config" Destination="$(OutDir)$(AssemblyName).$(outputTypeExtension).config" />
-    <Copy Condition="'$(AppCfgType)' == 'Web' and Exists('$(ConfigDir)\Web.Base.config') and !Exists('$(ConfigDir)\Web.$(Configuration).config')" SourceFiles="$(ConfigDir)\Web.Base.config" DestinationFiles="Web.config" />
-    <Copy Condition="'$(AppCfgType)' == 'App' and $(InlineAppCfgTransforms) == true and Exists('$(ConfigDir)\App.Base.config') and !Exists('$(ConfigDir)\App.$(Configuration).config')" SourceFiles="$(ConfigDir)\App.Base.config" DestinationFiles="App.config" />
-    <Copy Condition="'$(AppCfgType)' == 'App' and $(InlineAppCfgTransforms) != true and Exists('App.config') and !Exists('App.$(Configuration).config')" SourceFiles="App.config" DestinationFiles="$(OutDir)$(AssemblyName).$(outputTypeExtension).config" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -266,4 +258,24 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="AfterCompile" Condition="Exists('..\App.$(Configuration).config')">
+    <!--Generate transformed app config in the intermediate directory-->
+    <TransformXml Source="..\App.config" Destination="$(IntermediateOutputPath)$(TargetFileName).config" Transform="..\App.$(Configuration).config" />
+    <!--Force build process to use the transformed configuration file from now on.-->
+    <ItemGroup>
+      <AppConfigWithTargetPath Remove="App.config" />
+      <AppConfigWithTargetPath Include="$(IntermediateOutputPath)$(TargetFileName).config">
+        <TargetPath>$(TargetFileName).config</TargetPath>
+      </AppConfigWithTargetPath>
+    </ItemGroup>
+  </Target>
+  <!--Override After Publish to support ClickOnce AfterPublish. Target replaces the untransformed config file copied to the deployment directory with the transformed one.-->
+  <Target Name="AfterPublish">
+    <PropertyGroup>
+      <DeployedConfig>$(_DeploymentApplicationDir)$(TargetName)$(TargetExt).config$(_DeploymentFileMappingExtension)</DeployedConfig>
+    </PropertyGroup>
+    <!--Publish copies the untransformed App.config to deployment directory so overwrite it-->
+    <Copy Condition="Exists('$(DeployedConfig)')" SourceFiles="$(IntermediateOutputPath)$(TargetFileName).config" DestinationFiles="$(DeployedConfig)" />
+  </Target>
 </Project>
