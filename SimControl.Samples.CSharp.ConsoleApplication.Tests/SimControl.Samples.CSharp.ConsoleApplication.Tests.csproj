@@ -176,6 +176,10 @@
     <None Include="..\App.config">
       <Link>App.config</Link>
     </None>
+    <None Include="..\NLog.config">
+      <Link>NLog.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="SimControl.Samples.CSharp.ConsoleApplication.Tests.v2.ncrunchproject" />
   </ItemGroup>
@@ -227,7 +231,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(SolutionDir)NLog.config $(TargetPath).nlog
+    <PostBuildEvent>copy $(TargetDir)NLog.config $(TargetPath).nlog
+delete $(TargetDir)NLog.config
 copy $(TargetPath).config $(TargetDir)SimControl.Samples.CSharp.ConsoleApplication.exe.config</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -222,7 +222,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)IntegrationTest.nlog $(TargetDir)SimControl.Templates.CSharp.ConsoleApplication.nlog</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)NLog.config $(TargetPath).nlog
+delete $(TargetDir)NLog.config
+copy $(TargetDir)IntegrationTest.nlog $(TargetDir)SimControl.Templates.CSharp.ConsoleApplication.exe.nlog</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
