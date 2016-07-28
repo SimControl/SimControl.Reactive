@@ -267,6 +267,7 @@
     <Rule Id="RECS0127" Action="Warning" />
     <Rule Id="RECS0128" Action="Warning" />
     <Rule Id="RECS0129" Action="None" />
+    <Rule Id="RECS0130" Action="None" />
     <Rule Id="RECS0131" Action="Warning" />
     <Rule Id="RECS0132" Action="Warning" />
     <Rule Id="RECS0134" Action="Warning" />
