@@ -131,7 +131,7 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.5\lib\net40\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.6\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -172,14 +172,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IntegrationTest.nlog">
-      <Link>IntegrationTest.nlog</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\NLog.config">
-      <Link>NLog.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -222,9 +214,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)NLog.config $(TargetPath).nlog
-delete $(TargetDir)NLog.config
-copy $(TargetDir)IntegrationTest.nlog $(TargetDir)SimControl.Templates.CSharp.ConsoleApplication.exe.nlog</PostBuildEvent>
+    <PostBuildEvent>copy $(SolutionDir)NLog.config $(TargetPath).nlog
+copy $(SolutionDir)IntegrationTest.nlog $(TargetDir)SimControl.Templates.CSharp.ConsoleApplication.exe.nlog</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

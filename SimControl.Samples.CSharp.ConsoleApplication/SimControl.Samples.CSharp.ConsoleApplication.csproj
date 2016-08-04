@@ -151,7 +151,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.6\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PostSharp, Version=4.1.32.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
@@ -179,11 +179,6 @@
     <Compile Include="VerifyJitOptimization.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\IntegrationTest.nlog">
-      <Link>IntegrationTest.nlog</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="SimControl.Samples.CSharp.ConsoleApplication.ini">
@@ -263,7 +258,7 @@
     <Error Condition="Exists('..\packages\PostSharp.4.1.32\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)IntegrationTest.nlog $(TargetDir)$(ProjectName).nlog</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)IntegrationTest.nlog $(TargetDir)NLog.config</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

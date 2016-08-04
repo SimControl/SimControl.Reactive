@@ -133,12 +133,12 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NCrunch.Framework, Version=2.23.0.2, Culture=neutral, PublicKeyToken=01d101bf6f3e0aea, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCrunch.Framework.2.23.0.2\lib\portable-windows8+net45\NCrunch.Framework.dll</HintPath>
+    <Reference Include="NCrunch.Framework, Version=2.24.0.2, Culture=neutral, PublicKeyToken=01d101bf6f3e0aea, processorArchitecture=MSIL">
+      <HintPath>..\packages\NCrunch.Framework.2.24.0.2\lib\portable-windows8+net45\NCrunch.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.6\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -175,10 +175,6 @@
   <ItemGroup>
     <None Include="..\App.config">
       <Link>App.config</Link>
-    </None>
-    <None Include="..\NLog.config">
-      <Link>NLog.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="SimControl.Samples.CSharp.ConsoleApplication.Tests.v2.ncrunchproject" />
@@ -231,8 +227,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)NLog.config $(TargetPath).nlog
-delete $(TargetDir)NLog.config
+    <PostBuildEvent>copy $(SolutionDir)NLog.config $(TargetPath).nlog
 copy $(TargetPath).config $(TargetDir)SimControl.Samples.CSharp.ConsoleApplication.exe.config</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
