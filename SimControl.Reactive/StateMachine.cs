@@ -150,8 +150,7 @@ namespace SimControl.Reactive
             Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized &&
                               ExecutionState != ExecutionStateValue.Failed);
 
-            if (call != null)
-                queuedEvents.Add(new StateMachineEvent(call, args));
+            queuedEvents.Add(new StateMachineEvent(call, args));
 
             Run();
         }

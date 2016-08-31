@@ -43,14 +43,14 @@ namespace SimControl.TestUtils
             using (var managementObjectCollection = managementObjectSearcher.Get())
                 foreach (var retObject in managementObjectCollection)
                 {
-                    string commandLine = ((string) retObject["CommandLine"]);
+                    string commandLine = (string) retObject["CommandLine"];
 
-                    logger.Warn(MethodBase.GetCurrentMethod().Name, "Running process found", ((string) retObject["ExecutablePath"]), commandLine);
+                    logger.Warn(MethodBase.GetCurrentMethod().Name, "Running process found", (string) retObject["ExecutablePath"], commandLine);
 
                     if (arguments == null || commandLine.Substring(commandLine.Length-arguments.Length)== arguments)
                         try
                         {
-                            logger.Warn(MethodBase.GetCurrentMethod().Name, "Killing process", ((uint) retObject["ProcessId"]), commandLine);
+                            logger.Warn(MethodBase.GetCurrentMethod().Name, "Killing process", (uint) retObject["ProcessId"], commandLine);
                             Process.GetProcessById((int) (uint) retObject["ProcessId"]).Kill();
                         }
                         catch (Exception e) { logger.Warn(e, MethodBase.GetCurrentMethod().ToString()); }
