@@ -9,3 +9,5 @@
 // You do not need to add suppressions to this file manually.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Scope="member", Target="SimControl.Samples.CSharp.ClassLibrary.SampleClass.#ValidateSettings()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Scope = "member", Target = "SimControl.Samples.CSharp.ClassLibrary.Component.Element.#.ctor(SimControl.Samples.CSharp.ClassLibrary.Component.Counter,System.String)")]
+

@@ -9,16 +9,16 @@ namespace SimControl.Samples.CSharp.Mef.Plugin
     /// <summary>Sample MEF plugin.</summary>
     [Export(typeof(IPlugin))]
     [Log]
-    public class Plugin2: IPlugin
+    public class Plugin2 : IPlugin
     {
+        /// <summary>Initializes a new instance of the <see cref="Plugin2"/> class.</summary>
+        /// <param name="resource">The resource.</param>
+        [ImportingConstructor]
+        public Plugin2(IResource resource) { this.resource = resource; }
+
         /// <inheritdoc/>
-        public string ResourceName() => Resource.ResourceName;
+        public string ResourceName() => resource.ResourceName;
 
-#pragma warning disable 0649
-
-        [Import]
-        private IResource Resource;
-
-#pragma warning restore 0649
+        private readonly IResource resource;
     }
 }

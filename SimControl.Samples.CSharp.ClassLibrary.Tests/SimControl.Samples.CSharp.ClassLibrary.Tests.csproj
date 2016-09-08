@@ -122,6 +122,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.Mef, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mef.3.0.3\lib\net40\Autofac.Integration.Mef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -195,7 +199,7 @@
     </Compile>
     <Compile Include="AsyncTests.cs" />
     <Compile Include="DisposableTestAdapterTests.cs" />
-    <Compile Include="ComponentLoaderTests.cs" />
+    <Compile Include="ComponentTests.cs" />
     <Compile Include="SetUpExceptionTest.cs" />
     <Compile Include="PluginLoaderTests.cs" />
     <Compile Include="SampleClassTests.cs" />

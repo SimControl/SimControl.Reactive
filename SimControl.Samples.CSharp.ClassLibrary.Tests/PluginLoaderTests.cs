@@ -1,8 +1,13 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using Autofac;
+using Autofac.Integration.Mef;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Samples.CSharp.ClassLibrary;
@@ -39,20 +44,27 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void PluginLoaderTests_Plugin_ResourceName_ReturnsInstantiatedResource()
         {
-            var loader = new PluginLoader();
-            loader.Load();
+            using (AggregateCatalog aggregateCatalog = new AggregateCatalog())
+            using (AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(Resource).Assembly))
+            using (DirectoryCatalog directoryCatalog = new DirectoryCatalog(Path.GetDirectoryName(
+                Assembly.GetExecutingAssembly().Location), "*.Plugin*.dll"))
+            {
+                aggregateCatalog.Catalogs.Add(assemblyCatalog);
+                aggregateCatalog.Catalogs.Add(directoryCatalog);
 
-            Assert.AreEqual(loader.Resource.ResourceName, loader.Plugins[0].ResourceName());
-            Assert.AreEqual(loader.Resource.ResourceName, loader.Plugins[1].ResourceName());
-        }
+                var builder = new ContainerBuilder();
+                builder.RegisterComposablePartCatalog(aggregateCatalog);
 
-        [Test]
-        public void PluginLoaderTests_PluginLoader_Load_Loads2Plugins()
-        {
-            var loader = new PluginLoader();
-            loader.Load();
+                using (IContainer container = builder.Build())
+                {
+                    var plugins = container.Resolve<IEnumerable<IPlugin>>().ToArray();
+                    var resource = container.Resolve<IResource>();
 
-            Assert.AreEqual(2, loader.Plugins.Count);
+                    Assert.AreEqual(2, plugins.Length);
+                    Assert.AreEqual(resource.ResourceName, plugins[0].ResourceName());
+                    Assert.AreEqual(resource.ResourceName, plugins[1].ResourceName());
+                }
+            }
         }
 
         [Test]

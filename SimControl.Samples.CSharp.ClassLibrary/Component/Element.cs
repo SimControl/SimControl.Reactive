@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.Contracts;
 using SimControl.Log;
 using SimControl.Samples.CSharp.Mef.Contracts;
 
@@ -16,6 +17,9 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Component
         /// <param name="name">The name.</param>
         public Element(Counter counter, string name)
         {
+            Contract.Requires(counter != null);
+            Contract.Requires(name != null);
+
             this.count = counter.Increment();
             this.name = name;
         }
