@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using NCrunch.Framework;
 using NLog;
+using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
@@ -13,8 +14,10 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
 {
     [Log]
     [TestFixture, ExclusivelyUses("Logging")]
-    public class SampleConsoleApplicationTests: TestFrame
+    public class SampleConsoleApplicationTests : TestFrame
     {
+        static SampleConsoleApplicationTests() { InitializeNLogConfiguration(); }
+
         #region Additional test attributes
 
         [SetUp]
@@ -24,8 +27,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         }
 
         #endregion
-
-        private string filePath;
 
         [Test, IntegrationTest]
         public void ConsoleApplication_Normal()
@@ -89,5 +90,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         {
             Assert.AreEqual(0, Program.Main("Normal"));
         }
+
+        private string filePath;
     }
 }

@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using NLog;
+using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Reactive;
@@ -39,9 +40,6 @@ namespace SimControl.TestUtils
             Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out minimumResolution, out maximumResolution, out currentResolution));
             MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
         }
-
-        /// <summary>Initializes a new instance of the <see cref="TestFrame"/> class.</summary>
-        protected TestFrame() { }
 
         #region Additional test attributes
 
@@ -69,7 +67,8 @@ namespace SimControl.TestUtils
         {
             TestAdapter tfa;
             while (oneTimeAdapters.TryPop(out tfa))
-                try { tfa.Dispose(); }
+                try
+                { tfa.Dispose(); }
                 catch (Exception e) { SetUnhandledException(e); }
 
             oneTimeAdapters = null;
@@ -101,7 +100,8 @@ namespace SimControl.TestUtils
         {
             TestAdapter tfa;
             while (testAdapters.TryPop(out tfa))
-                try { tfa.Dispose(); }
+                try
+                { tfa.Dispose(); }
                 catch (Exception e) { SetUnhandledException(e); }
 
             testAdapters = null;
@@ -204,7 +204,8 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            try { action(); }
+            try
+            { action(); }
             catch (Exception e) { SetUnhandledException(e); }
         }
 
@@ -216,7 +217,8 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            try { action(); }
+            try
+            { action(); }
             catch (Exception e) { SetUnhandledException(e); }
         }
 
@@ -276,6 +278,13 @@ namespace SimControl.TestUtils
         internal void TestDispatcherContextUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
         {
             SetUnhandledException(args.Exception);
+        }
+
+        /// <summary>Initializes the NLog configuration.</summary>
+        protected static void InitializeNLogConfiguration() //TODO for NLog 4.0 replace by reference to NLog.config
+        {
+            LogManager.Configuration = new XmlLoggingConfiguration(TestContext.CurrentContext.TestDirectory + "\\" +
+                Assembly.GetCallingAssembly().GetName().Name + ".dll.nlog", false); //TODO for NLog 4.0 reference NLog.config
         }
 
         [Log]

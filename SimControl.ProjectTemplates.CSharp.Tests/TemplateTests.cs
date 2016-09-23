@@ -3,6 +3,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using NLog;
+using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Templates.CSharp.ClassLibrary;
@@ -13,8 +14,10 @@ namespace SimControl.Templates.CSharp.Tests
 {
     [Log]
     [TestFixture]
-    public class TemplateTests: TestFrame
+    public class TemplateTests : TestFrame
     {
+        static TemplateTests() { InitializeNLogConfiguration(); }
+
         [Test]
         public void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeds()
         {
