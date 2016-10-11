@@ -93,9 +93,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         /// <summary>The state</summary>
         protected CompositeType State { get; set; }
 
-#pragma warning disable CC0033 // Dispose Fields Properly
         private static readonly BlockingCollection<int> BlockingCollection = new BlockingCollection<int>();
-#pragma warning restore CC0033 // Dispose Fields Properly
         private static readonly object locker = new object();
 
         private static int instanceCounter; //TODO instance count

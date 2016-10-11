@@ -16,11 +16,7 @@ namespace SimControl.Samples.CSharp.Mef.Plugin
         /// <returns>Resource name</returns>
         public string ResourceName() => Resource.ResourceName;
 
-#pragma warning disable 0649
-
         [Import]
         private IResource Resource;
-
-#pragma warning restore 0649
     }
 }

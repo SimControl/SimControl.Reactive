@@ -108,10 +108,10 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task AsyncTests_SynchronizationContextIsNull_Async()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
+            await TaskEx.Delay(0).ConfigureAwait(false);
+
             Assert.That(SynchronizationContext.Current, Is.Null);
         }
 
@@ -119,9 +119,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test, Ignore("Unstable"), Unstable]
         public void AsyncTests_UnhandledAsyncExceptions_TaskSchedulerUnobservedTaskException()
         {
-#pragma warning disable Async003 // Avoid fire & forget async method calls
             TaskEx.Run(() => { throw new InvalidOperationException(); });
-#pragma warning restore Async003 // Avoid fire & forget async method calls
 
             TaskEx.Delay(1000).Wait();
             GC.Collect();
@@ -155,9 +153,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         private async Task TestHelperAsync()
         {
             await TaskEx.Run(async () => {
-#pragma warning disable AsyncFixer002 // Long running / blocking operations under an async method
                 await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
-#pragma warning restore AsyncFixer002 // Long running / blocking operations under an async method
                 throw new InvalidOperationException();
             }).ConfigureAwait(false);
             logger.Info("TaskEx.Run finished");

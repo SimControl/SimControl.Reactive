@@ -6,7 +6,6 @@ using SimControl.Log;
 
 namespace SimControl.Reactive.Tests
 {
-#pragma warning disable CC0021 // Use nameof
     [Log]
     public class LampD: IDisposable
     {
@@ -70,5 +69,4 @@ namespace SimControl.Reactive.Tests
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private StateMachine sm = new StateMachine();
     }
-#pragma warning restore CC0021 // Use nameof
 }

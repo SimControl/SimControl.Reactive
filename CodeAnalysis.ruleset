@@ -18,6 +18,7 @@
     <Rule Id="CC0018" Action="Warning" />
     <Rule Id="CC0019" Action="Warning" />
     <Rule Id="CC0020" Action="Warning" />
+    <Rule Id="CC0021" Action="None" />
     <Rule Id="CC0026" Action="Warning" />
     <Rule Id="CC0030" Action="Warning" />
     <Rule Id="CC0031" Action="None" />
@@ -176,6 +177,12 @@
     <Rule Id="RCS1085" Action="None" />
     <Rule Id="RCS1085FadeOut" Action="None" />
   </Rules>
+  <Rules AnalyzerId="PostSharp.VisualStudio.Package.VS14.0" RuleNamespace="PostSharp.VisualStudio.Package.VS14.0">
+    <Rule Id="COM002" Action="None" />
+    <Rule Id="COM005" Action="None" />
+    <Rule Id="COM008" Action="None" />
+    <Rule Id="THR016" Action="None" />
+  </Rules>
   <Rules AnalyzerId="RefactoringEssentials" RuleNamespace="RefactoringEssentials">
     <Rule Id="CS0126ReturnMustBeFollowedByAnyExpression" Action="Warning" />
     <Rule Id="CS1729TypeHasNoConstructorWithNArgumentsAnalyzer" Action="Warning" />
@@ -230,7 +237,7 @@
     <Rule Id="RECS0086" Action="Warning" />
     <Rule Id="RECS0087" Action="Warning" />
     <Rule Id="RECS0091" Action="None" />
-    <Rule Id="RECS0092" Action="None" />
+    <Rule Id="RECS0092" Action="Warning" />
     <Rule Id="RECS0093" Action="Warning" />
     <Rule Id="RECS0094" Action="Warning" />
     <Rule Id="RECS0100" Action="Warning" />
@@ -253,7 +260,6 @@
     <Rule Id="RECS0127" Action="Warning" />
     <Rule Id="RECS0128" Action="Warning" />
     <Rule Id="RECS0129" Action="None" />
-    <Rule Id="RECS0130" Action="None" />
     <Rule Id="RECS0131" Action="Warning" />
     <Rule Id="RECS0132" Action="Warning" />
     <Rule Id="RECS0134" Action="Warning" />
