@@ -284,6 +284,7 @@
     <Rule Id="RCS1089" Action="Warning" />
     <Rule Id="RCS1090" Action="Warning" />
     <Rule Id="RCS1091" Action="Warning" />
+    <Rule Id="RCS1094" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
@@ -299,6 +300,7 @@
     <Rule Id="S125" Action="None" />
     <Rule Id="S127" Action="Warning" />
     <Rule Id="S1301" Action="Warning" />
+    <Rule Id="S1309" Action="None" />
     <Rule Id="S1313" Action="Warning" />
     <Rule Id="S1450" Action="Warning" />
     <Rule Id="S1659" Action="Warning" />
@@ -448,7 +450,7 @@
   </Rules>
   <Rules AnalyzerId="SonarLint.CSharp" RuleNamespace="SonarLint.CSharp">
     <Rule Id="S100" Action="Warning" />
-    <Rule Id="S101" Action="None" />
+    <Rule Id="S101" Action="Warning" />
     <Rule Id="S105" Action="Warning" />
     <Rule Id="S1109" Action="Warning" />
     <Rule Id="S1116" Action="Warning" />
