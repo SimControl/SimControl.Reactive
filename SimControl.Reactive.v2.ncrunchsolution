@@ -13,7 +13,6 @@
   <EngineModes>Run all tests automatically:DlN0cnVjdHVyYWxOb2RlBAAAABNEb2VzTm90SGF2ZUNhdGVnb3J5D0ludGVyYWN0aXZlVGVzdBNEb2VzTm90SGF2ZUNhdGVnb3J5D1BlcmZvcm1hbmNlVGVzdBNEb2VzTm90SGF2ZUNhdGVnb3J5DVN0YWJpbGl0eVRlc3QTRG9lc05vdEhhdmVDYXRlZ29yeQpEZXZpY2VUZXN0AAAAAAAAAAAAAAAA:BFRydWU=:BFRydWU=:False;Run all tests manually:BUZhbHNl:BFRydWU=:BFRydWU=:False;Run impacted tests automatically, others manually (experimental!):DlN0cnVjdHVyYWxOb2RlBQAAAApJc0ltcGFjdGVkE0RvZXNOb3RIYXZlQ2F0ZWdvcnkPSW50ZXJhY3RpdmVUZXN0E0RvZXNOb3RIYXZlQ2F0ZWdvcnkPUGVyZm9ybWFuY2V0ZXN0E0RvZXNOb3RIYXZlQ2F0ZWdvcnkNU3RhYmlsaXR5VGVzdBNEb2VzTm90SGF2ZUNhdGVnb3J5CkRldmljZVRlc3QAAAAAAAAAAAAAAAAAAAAA:BFRydWU=:BFRydWU=:False;Run pinned tests automatically, others manually:CElzUGlubmVk:BFRydWU=:BFRydWU=:False</EngineModes>
   <MetricsExclusionList>
 SimControl.Samples.CodeContracts\SimControl.Samples.CodeContracts.csproj
-SimControl.Samples.CSharp.ClassLibrary.Tests\SimControl.Samples.CSharp.ClassLibrary.Tests.csproj
 SimControl.Samples.CSharp.Wcf.Client\SimControl.Samples.CSharp.Wcf.Client.csproj
 SimControl.Samples.CSharp.Wcf.Client\SimControl.Samples.CSharp.Wcf.Client.csproj\Service References
 SimControl.Samples.CSharp.Wcf.Client40\SimControl.Samples.CSharp.Wcf.Client40.csproj
