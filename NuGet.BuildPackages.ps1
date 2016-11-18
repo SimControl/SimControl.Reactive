@@ -8,7 +8,7 @@ if ($?) {
 
     gci *\*.nuspec | foreach-object { 
         $p = $_.BaseName
-        tools\NuGet\NuGet.exe pack $p\$p.csproj -NonInteractive -OutputDirectory NuGet.Packages -includereferencedprojects -symbols -Properties Configuration=Release
+        tools\NuGet\NuGet.exe pack $p\$p.csproj -NonInteractive -OutputDirectory ..\SimControl.Reactive.NuGet -includereferencedprojects -symbols -Properties Configuration=Release
     }
 }
 

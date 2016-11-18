@@ -16,5 +16,5 @@ using System.Reflection;
 #endif
 
 // Product version information
-[assembly: AssemblyInformationalVersion("0.6.0")]
-[assembly: AssemblyFileVersion("0.6.0.0")]
+[assembly: AssemblyInformationalVersion("0.6.1")]
+[assembly: AssemblyFileVersion("0.6.1.0")]

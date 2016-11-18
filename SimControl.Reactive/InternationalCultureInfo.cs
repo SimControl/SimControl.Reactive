@@ -10,9 +10,6 @@ namespace SimControl.Reactive
     /// <summary>
     /// Generic <see cref="CultureInfo"/> for logging exceptions in English with dates formatted to "yyyy-MM-dd HH:mm:ss".
     /// </summary>
-    /// <summary>
-    /// Generic <see cref="CultureInfo"/> for logging exceptions in English with dates formatted to "yyyy-MM-dd HH:mm:ss".
-    /// </summary>
     public static class InternationalCultureInfo
     {
         /// <summary>Default constructor.</summary>

@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>SimControl.Reactive</id>
-        <version>0.6.0</version>
+        <version>0.6.1</version>
         <title>SimControl.Reactive</title>
         <authors>SimControl e.U. - Wilhelm Medetz"</authors>
         <description>C# framework for UML 2 state machines</description>

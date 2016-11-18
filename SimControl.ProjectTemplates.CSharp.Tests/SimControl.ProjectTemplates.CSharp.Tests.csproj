@@ -130,6 +130,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Nito.AsyncEx, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.1\lib\net40\Nito.AsyncEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.1\lib\net40\Nito.AsyncEx.Concurrent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.AsyncEx.3.0.1\lib\net40\Nito.AsyncEx.Enlightenment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.9\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
@@ -140,6 +152,18 @@
     </Reference>
     <Reference Include="PostSharp, Version=4.1.32.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.1.32\lib\net35-client\PostSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimControl.Log, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimControl.Log.0.6.1\lib\net40-client\SimControl.Log.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimControl.Reactive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimControl.Reactive.0.6.1\lib\portable40-net40+win8\SimControl.Reactive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimControl.TestUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimControl.TestUtils.0.6.1\lib\net40\SimControl.TestUtils.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -187,14 +211,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
-      <Project>{295a2388-18cd-42d4-98ee-dde8cc975c7b}</Project>
-      <Name>SimControl.Log</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimControl.Reactive\SimControl.Reactive.csproj">
-      <Project>{de345b4e-6256-4800-87b0-19277691d51e}</Project>
-      <Name>SimControl.Reactive</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimControl.ProjectTemplates.CSharp.ClassLibrary\SimControl.ProjectTemplates.CSharp.ClassLibrary.csproj">
       <Project>{f25c682e-c540-4eb4-8756-9cb942f37de0}</Project>
       <Name>SimControl.ProjectTemplates.CSharp.ClassLibrary</Name>
@@ -206,10 +222,6 @@
     <ProjectReference Include="..\SimControl.ProjectTemplates.CSharp.PortableClassLibrary\SimControl.ProjectTemplates.CSharp.PortableClassLibrary.csproj">
       <Project>{1873c2c1-603c-4674-87cc-a5045f1451df}</Project>
       <Name>SimControl.ProjectTemplates.CSharp.PortableClassLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
-      <Project>{a23bd523-7c98-454c-9ac1-754087c91409}</Project>
-      <Name>SimControl.TestUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,8 +1,12 @@
 SimControl.Reactive Release Notes
 =================================
 
-2016-05-02: 0.6.00
-------------------
+2016-05-02: 0.6.1
+-----------------
+* Minor changes
+
+2016-05-02: 0.6.0
+-----------------
 * Published on GitHub
 * Removed signing from SimControl.Reactive
 
