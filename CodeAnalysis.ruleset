@@ -288,6 +288,10 @@
     <Rule Id="RCS1097" Action="Warning" />
     <Rule Id="RCS1098" Action="Warning" />
     <Rule Id="RCS1099" Action="Warning" />
+    <Rule Id="RCS1106" Action="Warning" />
+    <Rule Id="RCS1107" Action="Warning" />
+    <Rule Id="RCS1108" Action="Warning" />
+    <Rule Id="RCS1109" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />

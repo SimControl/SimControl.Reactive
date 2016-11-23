@@ -112,16 +112,16 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
-}
 
-internal static class NativeMethods
-{
-    // Delegate type to be used as the Handler Routine
-    internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
+    internal static class NativeMethods
+    {
+        // Delegate type to be used as the Handler Routine
+        internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-    [Log(AttributeExclude = true)]
-    [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
-                                                            [MarshalAs(UnmanagedType.Bool)] bool add);
+        [Log(AttributeExclude = true)]
+        [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
+                                                                [MarshalAs(UnmanagedType.Bool)] bool add);
+    }
 }
