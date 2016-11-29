@@ -292,6 +292,11 @@
     <Rule Id="RCS1107" Action="Warning" />
     <Rule Id="RCS1108" Action="Warning" />
     <Rule Id="RCS1109" Action="Warning" />
+    <Rule Id="RCS1112" Action="Warning" />
+    <Rule Id="RCS1112FadeOut" Action="Warning" />
+    <Rule Id="RCS1113" Action="Warning" />
+    <Rule Id="RCS1114" Action="Warning" />
+    <Rule Id="RCS1114FadeOut" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
