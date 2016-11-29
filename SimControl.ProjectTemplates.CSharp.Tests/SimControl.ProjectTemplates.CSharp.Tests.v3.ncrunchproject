@@ -1,0 +1,11 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <CopyReferencedAssembliesToWorkspace>True</CopyReferencedAssembliesToWorkspace>
+    <HiddenComponentWarnings>
+      <Value>CopyReferencedAssembliesToWorkspaceIsOn</Value>
+      <Value>LostReference</Value>
+    </HiddenComponentWarnings>
+    <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
+    <RunPostBuildEvents>True</RunPostBuildEvents>
+  </Settings>
+</ProjectConfiguration>

@@ -137,12 +137,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimControl.ProjectTemplates.CSharp.ClassLibrary.v2.ncrunchproject" />
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimControl.ProjectTemplates.CSharp.ClassLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

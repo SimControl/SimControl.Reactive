@@ -137,7 +137,7 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimControl.ProjectTemplates.CSharp.PortableClassLibrary.v2.ncrunchproject" />
+    <None Include="SimControl.ProjectTemplates.CSharp.PortableClassLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>

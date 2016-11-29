@@ -1,0 +1,38 @@
+﻿<SolutionConfiguration>
+  <Settings>
+    <AdditionalFilesToIncludeForSolution>
+      <Value>IntegrationTest.nlog</Value>
+      <Value>NLog.config</Value>
+    </AdditionalFilesToIncludeForSolution>
+    <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>SimControl.Samples.CodeContracts\SimControl.Samples.CodeContracts.csproj</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.Client\SimControl.Samples.CSharp.Wcf.Client.csproj</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.Client\SimControl.Samples.CSharp.Wcf.Client.csproj\Service References</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.Client40\SimControl.Samples.CSharp.Wcf.Client40.csproj</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.Client45\SimControl.Samples.CSharp.Wcf.Client45.csproj</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.ServiceReference\SimControl.Samples.CSharp.Wcf.ServiceReference.csproj</Value>
+      <Value>SimControl.ProjectTemplates.CSharp.Tests\SimControl.ProjectTemplates.CSharp.Tests.csproj</Value>
+      <Value>SimControl.Reactive.Tests\SimControl.Reactive.Tests.csproj</Value>
+      <Value>SimControl.Samples.CSharp.Wcf.Service.Tests\SimControl.Samples.CSharp.Wcf.Service.Tests.csproj</Value>
+      <Value>SimControl.Samples.CSharp.ConsoleApplication.Tests\SimControl.Samples.CSharp.ConsoleApplication.Tests.csproj</Value>
+      <Value>SimControl.Samples.CSharp.ClassLibrary.Tests\SimControl.Samples.CSharp.ClassLibrary.Tests.csproj</Value>
+    </MetricsExclusionList>
+    <SolutionConfigured>True</SolutionConfigured>
+  </Settings>
+  <EngineModes>
+    <EngineMode>
+      <Name>Run all tests automatically</Name>
+      <Settings>
+        <TestsToExecuteAutomatically>(DoesNotHaveCategory 'DeviceTest' AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
+      </Settings>
+    </EngineMode>
+    <EngineMode>
+      <Name>Run impacted tests automatically, others manually</Name>
+      <Settings>
+        <AlignOutOfDateStatusWithImpactStatus>True</AlignOutOfDateStatusWithImpactStatus>
+        <TestsToExecuteAutomatically>(IsImpacted AND DoesNotHaveCategory 'DeviceTest' AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
+      </Settings>
+    </EngineMode>
+  </EngineModes>
+</SolutionConfiguration>

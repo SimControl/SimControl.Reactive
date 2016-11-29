@@ -78,6 +78,7 @@ ipch/
 *.ncb
 *.opendb
 *.opensdf
+*.sdf
 *.cachefile
 *.VC.db
 
@@ -139,7 +140,7 @@ publish/
 *.[Pp]ublish.xml
 *.azurePubxml
 
-# TODO: Un-comment the next line if you do not want to checkin 
+# TODO: Un-comment the next line if you do not want to checkin
 # your web deploy settings because they may include unencrypted
 # passwords
 #*.pubxml
@@ -164,9 +165,6 @@ csx/
 # Microsoft Azure Emulator
 ecf/
 rcf/
-
-# Microsoft Azure ApplicationInsights config file
-ApplicationInsights.config
 
 # Windows Store app package directory
 AppPackages/
@@ -246,6 +244,6 @@ ModelManifest.xml
 # SourceTree
 /perl.exe.stackdump
 
-# Per Project Configuration
+# Per repository configuration
 /ItemTemplates/*
 /ProjectTemplates/*

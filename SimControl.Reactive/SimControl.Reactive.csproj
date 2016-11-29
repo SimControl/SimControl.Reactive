@@ -198,7 +198,7 @@
     <None Include="SimControl.Reactive.cd" />
     <None Include="SimControl.Reactive.nuspec" />
     <None Include="SimControl.Reactive.shfbproj" />
-    <None Include="SimControl.Reactive.v2.ncrunchproject" />
+    <None Include="SimControl.Reactive.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

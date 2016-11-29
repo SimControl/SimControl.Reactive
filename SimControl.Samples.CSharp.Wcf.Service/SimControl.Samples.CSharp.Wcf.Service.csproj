@@ -146,7 +146,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.9\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.11\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PostSharp, Version=4.1.32.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
@@ -175,7 +175,7 @@
       <Link>App.config</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.Wcf.Service.v2.ncrunchproject" />
+    <None Include="SimControl.Samples.CSharp.Wcf.Service.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
