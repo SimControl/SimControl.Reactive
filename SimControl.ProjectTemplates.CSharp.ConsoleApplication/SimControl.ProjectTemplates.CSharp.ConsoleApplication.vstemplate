@@ -13,7 +13,7 @@
     </TemplateData>
     <TemplateContent>
         <Project TargetFileName="SimControl.ProjectTemplates.CSharp.ConsoleApplication.csproj" File="SimControl.ProjectTemplates.CSharp.ConsoleApplication.csproj" ReplaceParameters="true">
-            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v2.ncrunchproject">SimControl.ProjectTemplates.CSharp.ConsoleApplication.v2.ncrunchproject</ProjectItem>
+            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v3.ncrunchproject">SimControl.ProjectTemplates.CSharp.ConsoleApplication.v3.ncrunchproject</ProjectItem>
             <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="app.config">app.config</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="packages.config">packages.config</ProjectItem>
