@@ -199,7 +199,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.Wcf.Service.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">

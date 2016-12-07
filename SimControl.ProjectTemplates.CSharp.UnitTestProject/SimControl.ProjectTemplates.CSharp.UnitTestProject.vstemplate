@@ -13,7 +13,6 @@
     </TemplateData>
     <TemplateContent>
         <Project TargetFileName="SimControl.ProjectTemplates.CSharp.UnitTestProject.csproj" File="SimControl.ProjectTemplates.CSharp.UnitTestProject.csproj" ReplaceParameters="true">
-            <ProjectItem ReplaceParameters="false" TargetFileName="$safeprojectname$.v3.ncrunchproject">SimControl.ProjectTemplates.CSharp.UnitTestProject.v3.ncrunchproject</ProjectItem>
             <ProjectItem ReplaceParameters="true" TargetFileName="UnitTests1.cs">UnitTests1.cs</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="app.config">app.config</ProjectItem>
             <ProjectItem ReplaceParameters="false" TargetFileName="packages.config">packages.config</ProjectItem>

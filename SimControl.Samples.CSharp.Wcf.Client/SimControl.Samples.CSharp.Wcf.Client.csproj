@@ -177,7 +177,6 @@
     <None Include="Service References\SampleServiceTap\System1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SimControl.Samples.CSharp.Wcf.Client.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

@@ -193,7 +193,6 @@
     <None Include="SimControl.Log.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SimControl.Log.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

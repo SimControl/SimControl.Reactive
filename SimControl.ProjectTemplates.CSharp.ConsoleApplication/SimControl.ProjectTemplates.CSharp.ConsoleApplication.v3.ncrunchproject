@@ -1,9 +1,9 @@
 ﻿<ProjectConfiguration>
   <Settings>
     <HiddenComponentWarnings>
+      <Value>PostBuildEventDisabled</Value>
       <Value>LostReference</Value>
     </HiddenComponentWarnings>
     <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
-    <RunPostBuildEvents>True</RunPostBuildEvents>
   </Settings>
 </ProjectConfiguration>

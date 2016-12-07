@@ -210,7 +210,6 @@
     <None Include="SimControl.TestUtils.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SimControl.TestUtils.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

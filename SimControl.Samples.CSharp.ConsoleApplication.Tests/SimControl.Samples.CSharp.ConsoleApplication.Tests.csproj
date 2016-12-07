@@ -177,7 +177,6 @@
       <Link>App.config</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.ConsoleApplication.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

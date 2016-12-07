@@ -194,7 +194,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="SimControl.Samples.CSharp.ClassLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Reactive\SimControl.Reactive.csproj">

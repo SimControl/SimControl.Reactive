@@ -242,7 +242,6 @@
     <None Include="LampD.tastate.diagram">
       <DependentUpon>LampD.tastate</DependentUpon>
     </None>
-    <None Include="SimControl.Reactive.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

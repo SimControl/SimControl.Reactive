@@ -188,7 +188,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="SimControl.Samples.CSharp.ConsoleApplication.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">

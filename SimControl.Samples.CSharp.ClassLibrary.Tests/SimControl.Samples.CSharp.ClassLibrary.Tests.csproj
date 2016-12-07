@@ -215,7 +215,6 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.ClassLibrary.Tests.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

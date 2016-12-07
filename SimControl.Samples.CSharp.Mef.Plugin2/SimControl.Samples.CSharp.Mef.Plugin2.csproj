@@ -162,7 +162,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SimControl.Samples.CSharp.Mef.Plugin2.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">
