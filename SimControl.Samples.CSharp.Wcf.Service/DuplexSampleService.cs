@@ -17,10 +17,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         protected DuplexSampleService() { }
 
         /// <inheritdoc/>
-        public override void Connect()
-        {
-            callback = OperationContext.Current.GetCallbackChannel<IDuplexSampleServiceCallback>();
-        }
+        public override void Connect() => callback = OperationContext.Current.GetCallbackChannel<IDuplexSampleServiceCallback>();
 
         /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
@@ -28,10 +25,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
 
         /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public void InvokeCallbackOneWay(CompositeType data)
-        {
-            callback.OneWayCallback(State = data.Increment());
-        }
+        public void InvokeCallbackOneWay(CompositeType data) => callback.OneWayCallback(State = data.Increment());
 
         private IDuplexSampleServiceCallback callback;
     }

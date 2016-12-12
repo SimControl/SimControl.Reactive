@@ -68,9 +68,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void PluginLoaderTests_TestDirectory_Cotains2Plugins()
-        {
-            Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
-        }
+        public void PluginLoaderTests_TestDirectory_Cotains2Plugins() => Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
     }
 }

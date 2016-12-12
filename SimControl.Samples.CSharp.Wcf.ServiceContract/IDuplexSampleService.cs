@@ -57,10 +57,7 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         }
 
         /// <inheritdoc/>
-        public void OneWayCallback(CompositeType data)
-        {
-            Contract.Requires(data != null);
-        }
+        public void OneWayCallback(CompositeType data) => Contract.Requires(data != null);
     }
 
     [ContractClassFor(typeof(IDuplexSampleService))]

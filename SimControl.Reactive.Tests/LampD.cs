@@ -43,14 +43,11 @@ namespace SimControl.Reactive.Tests
             GC.SuppressFinalize(this);
         }
 
-        public void Fault(string s)
-        { sm.TriggerCallEvent(new CallTrigger<string>(Fault), s); }
+        public void Fault(string s) => sm.TriggerCallEvent(new CallTrigger<string>(Fault), s);
 
-        public void Off()
-        { sm.TriggerCallEvent(new CallTrigger(Off)); }
+        public void Off() => sm.TriggerCallEvent(new CallTrigger(Off));
 
-        public void On()
-        { sm.TriggerCallEvent(new CallTrigger(On)); }
+        public void On() => sm.TriggerCallEvent(new CallTrigger(On));
 
         public override string ToString() => LogFormat.FormatObject(typeof(Lamp), sm.ActiveStates, Counter);
 

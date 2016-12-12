@@ -78,10 +78,7 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
-        public void RunAssertTimeout_Action()
-        {
-            RunAssertTimeout(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod()));
-        }
+        public void RunAssertTimeout_Action() => RunAssertTimeout(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod()));
 
         [Test]
         public void RunAssertTimeout_Action_TimeoutException()
@@ -131,10 +128,7 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
-        public void WaitAssertTimeout_Task()
-        {
-            TaskEx.Run(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod())).Wait();
-        }
+        public void WaitAssertTimeout_Task() => TaskEx.Run(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod())).Wait();
 
         [Test]
         public void WaitAssertTimeout_Task_ExceptionIsCaught()

@@ -45,10 +45,7 @@ namespace SimControl.Templates.CSharp.Tests
         }
 
         [Test]
-        public void SimControlTemplatesCSharpConsoleApplicationMain_Returns0()
-        {
-            Assert.AreEqual(0, Program.Main());
-        }
+        public void SimControlTemplatesCSharpConsoleApplicationMain_Returns0() => Assert.AreEqual(0, Program.Main());
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

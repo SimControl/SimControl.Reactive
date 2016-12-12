@@ -24,10 +24,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         public CompositeType ComplexOperation(CompositeType data) => State = data.Increment();
 
         /// <inheritdoc/>
-        public void ComplexOperationOneWay(CompositeType data)
-        {
-            State = data.Increment();
-        }
+        public void ComplexOperationOneWay(CompositeType data) => State = data.Increment();
 
         /// <inheritdoc/>
         public virtual void Connect() { }

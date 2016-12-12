@@ -84,10 +84,7 @@ namespace SimControl.Reactive
         /// <summary>Code contract for validating transition names.</summary>
         /// <param name="name">The name.</param>
         [ContractAbbreviator]
-        protected static void ContractRequiredName(string name)
-        {
-            Contract.Requires(name == null || name.Length > 0);
-        }
+        protected static void ContractRequiredName(string name) => Contract.Requires(name == null || name.Length > 0);
 
         internal Delegate Effect { get; }
 

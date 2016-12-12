@@ -33,10 +33,10 @@ namespace SimControl.Samples.CSharp.ClassLibrary
 
         private static void BadMethod() { throw new InvalidOperationException("generic bad thing"); }
 
-        private static void MethodA() { MethodB(); }
+        private static void MethodA() => MethodB();
 
-        private static void MethodB() { MethodC(); }
+        private static void MethodB() => MethodC();
 
-        private static void MethodC() { BadMethod(); }
+        private static void MethodC() => BadMethod();
     }
 }

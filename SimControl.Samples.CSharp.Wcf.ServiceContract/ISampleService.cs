@@ -57,10 +57,7 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
             return null;
         }
 
-        public void ComplexOperationOneWay(CompositeType data)
-        {
-            Contract.Requires(data != null);
-        }
+        public void ComplexOperationOneWay(CompositeType data) => Contract.Requires(data != null);
 
         /// <inheritdoc/>
         public abstract void Connect();

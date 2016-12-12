@@ -275,10 +275,7 @@ namespace SimControl.TestUtils
         }
 
         [Log]
-        internal void TestDispatcherContextUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
-        {
-            SetUnhandledException(args.Exception);
-        }
+        internal void TestDispatcherContextUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args) => SetUnhandledException(args.Exception);
 
         /// <summary>Initializes the NLog configuration.</summary>
         protected static void InitializeNLogConfiguration() //TODO for NLog 4.0 replace by reference to NLog.config
@@ -288,10 +285,7 @@ namespace SimControl.TestUtils
         }
 
         [Log]
-        private void AppDomainUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
-        {
-            SetUnhandledException((Exception) args.ExceptionObject);
-        }
+        private void AppDomainUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
 
         [Log]
         private void TaskSchedulerUnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)

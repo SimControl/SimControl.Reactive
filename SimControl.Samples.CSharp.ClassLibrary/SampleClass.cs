@@ -34,16 +34,10 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         }
 
         /// <summary>Increment the static counter</summary>
-        public static void IncrementStaticCounter()
-        {
-            counter++;
-        }
+        public static void IncrementStaticCounter() => counter++;
 
         /// <summary>Saves the user settings.</summary>
-        public static void SaveUserSettings()
-        {
-            Settings.Default.Save();
-        }
+        public static void SaveUserSettings() => Settings.Default.Save();
 
         /// <summary>Does something</summary>
         /// <returns></returns>
@@ -79,10 +73,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         /// <summary>Validate the settings.</summary>
         /// <param name="valid">if set to <c>true</c> [valid].</param>
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public void ValidateCodeContract(bool valid)
-        {
-            Contract.Requires(valid);
-        }
+        public void ValidateCodeContract(bool valid) => Contract.Requires(valid);
 
         /// <summary>Validates the settings.</summary>
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]

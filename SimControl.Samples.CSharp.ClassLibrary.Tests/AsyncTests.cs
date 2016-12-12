@@ -31,10 +31,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [TearDown]
-        new public void TearDown()
-        {
-            UnhandledExceptionEvent -= UnhandledException;
-        }
+        new public void TearDown() => UnhandledExceptionEvent -= UnhandledException;
 
         #endregion
 
@@ -85,10 +82,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait()
-        {
-            Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
-        }
+        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
 
         [Test, Example]
         public void AsyncTests_ObserveTaskException()

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,16 +24,10 @@ namespace SimControl.Reactive.Tests
         #region Test
 
         [SetUp]
-        new public void SetUp()
-        {
-            count = 0;
-        }
+        new public void SetUp() => count = 0;
 
         [TearDown]
-        new public void TearDown()
-        {
-            sm = null;
-        }
+        new public void TearDown() => sm = null;
 
         #endregion
 
@@ -1026,6 +1021,62 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
+        public void DoActivity_Complex_42()
+        {
+            //TODO add Action(x)
+            int iterations = 3;
+            var history = new List<string>();
+
+            using (sm = new StateMachine())
+            {
+                sm.Add(
+                    new CompositeState("Run").Add(
+                    new InitialState("Init")
+                        .Add(new Transition("Start")),
+                    new SimpleState("Start", doActivity: async () =>
+                    {
+                        await TaskEx.Delay(50).ConfigureAwait(false);
+                        iterations--;
+                        if (iterations > 0)
+                            throw new InvalidOperationException();
+                    })
+                        .Add(new Transition("M"))
+                        .Add(new Transition<Exception>(".Idle.Fail", new ExceptionTrigger<Exception>())),
+                    new SimpleState("M"))
+                );
+
+                sm.Add(
+                    new InitialState("Init2").Add(new Transition(".Run")),
+                    new CompositeState("Idle").Add(
+                        new SimpleState("Fail", doActivity: async () => await TaskEx.Delay(50).ConfigureAwait(false))
+                            .Add(new Transition("Failed")),
+                        new SimpleState("Failed")
+                            .Add(new Transition(".Run", new TimeSpanTrigger(new TimeSpanExpression(() => TimeSpan.FromMilliseconds(50) ))))
+                    ));
+
+                sm.StateChanged += (sender, args) => {
+                    foreach (var s in sm.ActiveStates.Where(l => l.FullName != "."))
+                        history.Add(s.FullName);
+                };
+
+                using (var context = new DispatcherContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA))
+                {
+                    context.PostAssertTimeout(sm.Initialize);
+                    TaskEx.Delay(1000).Wait();
+                    Assert.AreEqual(".Run", history[0]);
+                    Assert.AreEqual(".Run.Init", history[1]);
+                    Assert.AreEqual(".Run", history[2]);
+                    Assert.AreEqual(".Run.Start", history[3]);
+                    Assert.AreEqual(".Idle", history[4]);
+                    Assert.AreEqual(".Idle.Fail", history[5]);
+                    Assert.AreEqual(".Idle", history[6]);
+                    Assert.AreEqual(".Idle.Failed", history[7]);
+                    Assert.IsTrue(history.Count > 8);
+                }
+            }
+        }
+
+        [Test]
         public void TestRecursiveStateDefinition()
         {
             using (sm = new StateMachine())
@@ -1061,8 +1112,7 @@ namespace SimControl.Reactive.Tests
             count++;
         }
 
-        private void Call(int i)
-        { RunAssertTimeout(() => sm.TriggerCallEvent(new CallTrigger<int>(Call), i)); }
+        private void Call(int i) => RunAssertTimeout(() => sm.TriggerCallEvent(new CallTrigger<int>(Call), i));
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private int count;

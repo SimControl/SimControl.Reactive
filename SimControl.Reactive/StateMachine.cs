@@ -591,7 +591,7 @@ namespace SimControl.Reactive
             Failed?.Invoke(this, new EventArgs<StateMachineException>(e));
         }
 
-        private void RaiseStateChanged() { StateChanged?.Invoke(this, EventArgs.Empty); }
+        private void RaiseStateChanged() => StateChanged?.Invoke(this, EventArgs.Empty);
 
         private void Run()
         {
@@ -668,17 +668,15 @@ namespace SimControl.Reactive
         {
             get
             {
-                //TODO check statMachine executuon state
+                //TODO check statMachine execution state
 
                 Contract.Ensures(Contract.Result<ICollection<State>>() != null);
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
-                {
-                    var activeStates = new List<State>();
-                    AppendActiveSimpleStates(this, activeStates);
-                    return activeStates;
-                }
+                var activeStates = new List<State>();
+                AppendActiveSimpleStates(this, activeStates);
+                return activeStates;
             }
         }
 
@@ -693,11 +691,9 @@ namespace SimControl.Reactive
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
-                {
-                    var activeStates = new List<State>();
-                    AppendActiveStates(this, activeStates);
-                    return activeStates;
-                }
+                var activeStates = new List<State>();
+                AppendActiveStates(this, activeStates);
+                return activeStates;
             }
         }
 

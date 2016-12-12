@@ -23,10 +23,7 @@ namespace SimControl.TestUtils
         /// while asserting the test timeout.
         /// </summary>
         /// <param name="client">The client to act on.</param>
-        public static void AbortOrCloseAssertTimeout(this ICommunicationObject client)
-        {
-            client.AbortOrCloseAssertTimeout(TestFrame.DefaultTestTimeout);
-        }
+        public static void AbortOrCloseAssertTimeout(this ICommunicationObject client) => client.AbortOrCloseAssertTimeout(TestFrame.DefaultTestTimeout);
 
         /// <summary>
         /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
@@ -386,10 +383,7 @@ namespace SimControl.TestUtils
                 throw new TimeoutException("Test timeout " + timeout.ToString(CultureInfo.InvariantCulture) + " expired");
         }
 
-        private static void IgnoreFaults(this Task task)
-        {
-            task.ContinueWith(t => { }, TaskContinuationOptions.OnlyOnFaulted);
-        }
+        private static void IgnoreFaults(this Task task) => task.ContinueWith(t => { }, TaskContinuationOptions.OnlyOnFaulted);
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

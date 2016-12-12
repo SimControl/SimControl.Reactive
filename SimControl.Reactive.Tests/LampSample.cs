@@ -42,11 +42,9 @@ namespace SimControl.Reactive.Tests
 
         public bool IsActive(string state) => sm.IsActive(state);
 
-        public void Off()
-        { sm.TriggerCallEvent(new CallTrigger(Off)); }
+        public void Off() => sm.TriggerCallEvent(new CallTrigger(Off));
 
-        public void On()
-        { sm.TriggerCallEvent(new CallTrigger(On)); }
+        public void On() => sm.TriggerCallEvent(new CallTrigger(On));
 
         public override string ToString() => LogFormat.FormatObject(typeof(Lamp), sm.ActiveStates);
 

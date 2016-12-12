@@ -21,10 +21,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         #region Additional test attributes
 
         [SetUp]
-        new public void SetUp()
-        {
-            filePath = TestContext.CurrentContext.TestDirectory + "\\SimControl.Samples.CSharp.ConsoleApplication.exe";
-        }
+        new public void SetUp() => filePath = TestContext.CurrentContext.TestDirectory + "\\SimControl.Samples.CSharp.ConsoleApplication.exe";
 
         #endregion
 
@@ -86,10 +83,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         }
 
         [Test]
-        public void ConsoleApplicationMain_Normal()
-        {
-            Assert.AreEqual(0, Program.Main("Normal"));
-        }
+        public void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
 
         private string filePath;
     }

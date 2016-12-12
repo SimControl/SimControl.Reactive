@@ -184,10 +184,7 @@ namespace SimControl.Reactive
 
         /// <summary>Code contract for validating state names.</summary>
         /// <param name="name">The name.</param>
-        protected static void ContractRequiredName(string name)
-        {
-            Contract.Requires(!string.IsNullOrEmpty(name) && !name.Contains(" ") && (name == "." || !name.Contains(".")));
-        }
+        protected static void ContractRequiredName(string name) => Contract.Requires(!string.IsNullOrEmpty(name) && !name.Contains(" ") && (name == "." || !name.Contains(".")));
 
         /// <summary>Gets the full name of a state.</summary>
         public string FullName { get; internal set; }

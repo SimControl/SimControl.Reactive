@@ -30,10 +30,7 @@ namespace SimControl.Reactive
             throw new NotImplementedException();
         }
 
-        internal override void Next()
-        {
-            Due = expression.Invoke();
-        }
+        internal override void Next() => Due = expression.Invoke();
 
         private readonly DateTimeExpression expression;
     }
@@ -50,10 +47,7 @@ namespace SimControl.Reactive
             this.expression = expression;
         }
 
-        internal override void Next()
-        {
-            Due = DateTime.Now + expression.Invoke();
-        }
+        internal override void Next() => Due = DateTime.Now + expression.Invoke();
 
         private readonly TimeSpanExpression expression;
     }
