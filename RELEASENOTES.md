@@ -1,6 +1,10 @@
 SimControl.Reactive Release Notes
 =================================
 
+2016-05-02: 0.6.2
+-----------------
+* NuGet package references updates
+
 2016-05-02: 0.6.1
 -----------------
 * Minor changes

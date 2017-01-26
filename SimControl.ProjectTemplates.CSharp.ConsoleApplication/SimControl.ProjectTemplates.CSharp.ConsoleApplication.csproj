@@ -151,11 +151,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SimControl.Log, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimControl.Log.0.6.1\lib\net40-client\SimControl.Log.dll</HintPath>
+      <HintPath>..\packages\SimControl.Log.0.6.2\lib\net40-client\SimControl.Log.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimControl.Reactive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimControl.Reactive.0.6.1\lib\portable40-net40+win8\SimControl.Reactive.dll</HintPath>
+      <HintPath>..\packages\SimControl.Reactive.0.6.2\lib\portable40-net40+win8\SimControl.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -313,11 +313,12 @@
     <Rule Id="S125" Action="None" />
     <Rule Id="S127" Action="Warning" />
     <Rule Id="S1301" Action="Warning" />
-    <Rule Id="S1309" Action="None" />
     <Rule Id="S1313" Action="Warning" />
     <Rule Id="S1450" Action="Warning" />
+    <Rule Id="S1451" Action="Warning" />
     <Rule Id="S1659" Action="Warning" />
     <Rule Id="S1697" Action="Warning" />
+    <Rule Id="S1698" Action="Warning" />
     <Rule Id="S1858" Action="Warning" />
     <Rule Id="S1905" Action="Warning" />
     <Rule Id="S1939" Action="Warning" />

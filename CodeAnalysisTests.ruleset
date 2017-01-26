@@ -328,10 +328,11 @@
     <Rule Id="S125" Action="None" />
     <Rule Id="S127" Action="Warning" />
     <Rule Id="S1301" Action="Warning" />
-    <Rule Id="S1309" Action="None" />
     <Rule Id="S1450" Action="Warning" />
+    <Rule Id="S1451" Action="Warning" />
     <Rule Id="S1659" Action="Warning" />
     <Rule Id="S1697" Action="Warning" />
+    <Rule Id="S1698" Action="Warning" />
     <Rule Id="S1858" Action="Warning" />
     <Rule Id="S1905" Action="Warning" />
     <Rule Id="S1939" Action="Warning" />
@@ -476,7 +477,7 @@
     <Rule Id="S927" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarLint.CSharp" RuleNamespace="SonarLint.CSharp">
-    <Rule Id="S100" Action="Warning" />
+    <Rule Id="S100" Action="None" />
     <Rule Id="S101" Action="Warning" />
     <Rule Id="S105" Action="Warning" />
     <Rule Id="S1109" Action="Warning" />
