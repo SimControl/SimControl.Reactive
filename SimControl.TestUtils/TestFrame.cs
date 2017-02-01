@@ -19,10 +19,12 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Reactive;
 
+[assembly: NonTestAssemblyAttribute]
+
 namespace SimControl.TestUtils
 {
     /// <summary>Test frame for writing asynchronous unit tests.</summary>
-    public class TestFrame
+    public abstract class TestFrame
     {
         private static class NativeMethods
         {
