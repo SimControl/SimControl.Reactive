@@ -270,8 +270,7 @@ namespace SimControl.TestUtils
             if (exception.GetType() != typeof(ThreadAbortException))
             {
                 lock (locker)
-                    if (unhandledAsyncException == null)
-                        unhandledAsyncException = exception;
+                    unhandledAsyncException = unhandledAsyncException ?? exception;
                 UnhandledExceptionEvent?.Invoke(this, new EventArgs<Exception>(exception));
             }
         }

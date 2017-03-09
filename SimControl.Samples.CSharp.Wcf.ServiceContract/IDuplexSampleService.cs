@@ -47,9 +47,9 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
     internal abstract class DuplexSampleServiceCallbackContract : IDuplexSampleServiceCallback
     {
         /// <inheritdoc/>
-        public CompositeType Callback(CompositeType date)
+        public CompositeType Callback(CompositeType compositeType)
         {
-            Contract.Requires(date != null);
+            Contract.Requires(compositeType != null);
 
             Contract.Ensures(Contract.Result<CompositeType>() != null);
 
@@ -71,9 +71,9 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         public abstract void Connect();
 
         /// <inheritdoc/>
-        public CompositeType InvokeCallback(CompositeType data)
+        public CompositeType InvokeCallback(CompositeType compositeType)
         {
-            Contract.Requires(data != null);
+            Contract.Requires(compositeType != null);
 
             Contract.Ensures(Contract.Result<CompositeType>() != null);
 

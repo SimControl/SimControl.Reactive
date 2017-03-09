@@ -277,6 +277,7 @@
     <Rule Id="RCS1061" Action="Warning" />
     <Rule Id="RCS1061FadeOut" Action="Warning" />
     <Rule Id="RCS1062" Action="None" />
+    <Rule Id="RCS1063" Action="Warning" />
     <Rule Id="RCS1064" Action="Warning" />
     <Rule Id="RCS1066" Action="Warning" />
     <Rule Id="RCS1067" Action="Warning" />
@@ -301,10 +302,14 @@
     <Rule Id="RCS1090" Action="Warning" />
     <Rule Id="RCS1091" Action="Warning" />
     <Rule Id="RCS1094" Action="Warning" />
+    <Rule Id="RCS1095" Action="Warning" />
     <Rule Id="RCS1096" Action="Warning" />
     <Rule Id="RCS1097" Action="Warning" />
     <Rule Id="RCS1098" Action="Warning" />
     <Rule Id="RCS1099" Action="Warning" />
+    <Rule Id="RCS1103" Action="Warning" />
+    <Rule Id="RCS1104" Action="Warning" />
+    <Rule Id="RCS1105" Action="Warning" />
     <Rule Id="RCS1106" Action="Warning" />
     <Rule Id="RCS1107" Action="Warning" />
     <Rule Id="RCS1108" Action="Warning" />
@@ -314,6 +319,58 @@
     <Rule Id="RCS1113" Action="Warning" />
     <Rule Id="RCS1114" Action="Warning" />
     <Rule Id="RCS1114FadeOut" Action="Warning" />
+    <Rule Id="RCS1115" Action="Warning" />
+    <Rule Id="RCS1116" Action="Warning" />
+    <Rule Id="RCS1117" Action="Warning" />
+    <Rule Id="RCS1118" Action="Warning" />
+    <Rule Id="RCS1119" Action="Warning" />
+    <Rule Id="RCS1120" Action="Warning" />
+    <Rule Id="RCS1121" Action="Warning" />
+    <Rule Id="RCS1123" Action="None" />
+    <Rule Id="RCS1124" Action="Warning" />
+    <Rule Id="RCS1124FadeOut" Action="Warning" />
+    <Rule Id="RCS1125" Action="Warning" />
+    <Rule Id="RCS1127" Action="Warning" />
+    <Rule Id="RCS1127FadeOut" Action="Warning" />
+    <Rule Id="RCS1128" Action="Warning" />
+    <Rule Id="RCS1129" Action="Warning" />
+    <Rule Id="RCS1130" Action="Warning" />
+    <Rule Id="RCS1131" Action="Warning" />
+    <Rule Id="RCS1132" Action="Warning" />
+    <Rule Id="RCS1133" Action="Warning" />
+    <Rule Id="RCS1134" Action="Warning" />
+    <Rule Id="RCS1135" Action="Warning" />
+    <Rule Id="RCS1136" Action="Warning" />
+    <Rule Id="RCS1137" Action="Warning" />
+    <Rule Id="RCS1140" Action="Warning" />
+    <Rule Id="RCS1141" Action="Warning" />
+    <Rule Id="RCS1142" Action="Warning" />
+    <Rule Id="RCS1143" Action="Warning" />
+    <Rule Id="RCS1144" Action="Warning" />
+    <Rule Id="RCS1145" Action="Warning" />
+    <Rule Id="RCS1146" Action="Warning" />
+    <Rule Id="RCS1147" Action="Warning" />
+    <Rule Id="RCS1148" Action="Warning" />
+    <Rule Id="RCS1149" Action="Warning" />
+    <Rule Id="RCS1150" Action="Warning" />
+    <Rule Id="RCS1151" Action="Warning" />
+    <Rule Id="RCS1152" Action="Warning" />
+    <Rule Id="RCS1154" Action="Warning" />
+    <Rule Id="RCS1156" Action="Warning" />
+    <Rule Id="RCS1158" Action="Warning" />
+    <Rule Id="RCS1159" Action="Warning" />
+    <Rule Id="RCS1160" Action="Warning" />
+    <Rule Id="RCS1161" Action="None" />
+    <Rule Id="RCS1163" Action="Warning" />
+    <Rule Id="RCS1164" Action="Warning" />
+    <Rule Id="RCS1166" Action="Warning" />
+    <Rule Id="RCS1167" Action="Warning" />
+    <Rule Id="RCS1169" Action="Warning" />
+    <Rule Id="RCS1170" Action="Warning" />
+    <Rule Id="RCS1171" Action="Warning" />
+    <Rule Id="RCS1173" Action="Warning" />
+    <Rule Id="RCS1174" Action="Warning" />
+    <Rule Id="RCS1174FadeOut" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S105" Action="Warning" />

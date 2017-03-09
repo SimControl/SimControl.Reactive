@@ -115,7 +115,7 @@ namespace SimControl.Log
 
         /// <summary>Log level used for entry and exit log messages.</summary>
         [SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
-        public LogAttributeLevel LogLevel = LogAttributeLevel.Trace;
+        public LogAttributeLevel LogLevel;
 
         [NonSerialized]
         private LogLevel exceptionLogLevel;
