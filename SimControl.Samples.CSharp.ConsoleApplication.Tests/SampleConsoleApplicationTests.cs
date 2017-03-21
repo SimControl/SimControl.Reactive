@@ -66,7 +66,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         }
 
         [Test, IntegrationTest]
-        public void ConsoleApplication_Wait()
+        public void ConsoleApplication_Wait() //TODO fails with NUnit TestAdapter
         {
             BlockingCollection<string> standardOutput;
             BlockingCollection<string> standardError;

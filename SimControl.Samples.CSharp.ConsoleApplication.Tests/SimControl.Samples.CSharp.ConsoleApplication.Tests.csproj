@@ -172,9 +172,6 @@
     <Compile Include="SampleConsoleApplicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\App.config">
-      <Link>App.config</Link>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +223,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(SolutionDir)NLog.config $(TargetPath).nlog
-copy $(TargetPath).config $(TargetDir)SimControl.Samples.CSharp.ConsoleApplication.exe.config</PostBuildEvent>
+copy $(SolutionDir)App.config $(TargetDir)SimControl.Samples.CSharp.ConsoleApplication.exe.config</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

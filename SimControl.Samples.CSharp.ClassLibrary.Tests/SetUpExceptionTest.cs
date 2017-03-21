@@ -38,7 +38,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
         #endregion
 
-        [Test, Ignore("Will fail by design")]
+        [Test, Ignore("Will fail by design"), Unstable]
         public void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() { }
     }
 }
