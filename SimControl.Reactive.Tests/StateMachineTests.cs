@@ -680,17 +680,28 @@ namespace SimControl.Reactive.Tests
                 sm.Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                     new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
-                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: i => {
+                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), name: "T1", effect: i => {
                             Action(i);
                             Call(6);
                         })),
                     new SimpleState("SimpleState2", entry: () => Action(4), exit: () => Action(5)).Add(
-                        new Transition<int>("SimpleState3", new CallTrigger<int>(Call), effect: Action)),
+                        new Transition<int>("SimpleState3", new CallTrigger<int>(Call), name: "T2", effect: Action)),
                     new SimpleState("SimpleState3", entry: () => Action(7), exit: () => Action(-1)));
 
                 RunAssertTimeout(sm.Initialize);
 
-                Call(3);
+                IEnumerable<State> exited = null;
+                TransitionBase t = null;
+                IEnumerable<State> entered = null;
+
+                sm.TransitionExecuted += (o, e) => {
+                    Executed ex = e;
+                    exited = ex.Exited;
+                    t = ex.Transition;
+                    entered = ex.Entered;
+                };
+
+                Call( 3);
 
                 Assert.IsTrue(sm.IsActive("."));
                 Assert.IsTrue(sm.IsActive(".SimpleState3"));
@@ -700,6 +711,10 @@ namespace SimControl.Reactive.Tests
                 Assert.IsFalse(sm.IsActive(".SimpleState2"));
 
                 Assert.AreEqual(8, count);
+
+                Assert.That(exited.First().FullName, Is.EqualTo(".SimpleState2"));
+                Assert.That(t.Name, Is.EqualTo( "T2" ));
+                Assert.That(entered.First().FullName, Is.EqualTo(".SimpleState3") );
             }
         }
 

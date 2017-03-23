@@ -28,6 +28,13 @@ namespace SimControl.Reactive
         Failed
     }
 
+    public class Executed
+    {
+        public IEnumerable<State> Entered { get; set; }
+        public TransitionBase Transition { get; set; }
+        public IEnumerable<State> Exited { get; set; }
+    }
+
     internal delegate void TimerCallback(object state);
 
     /// <summary>UML state machine.</summary>
@@ -267,8 +274,14 @@ namespace SimControl.Reactive
             }
         }
 
+        private List<State> exited;
+        private List<State> entered;
+
         private void ExecuteTransition(TransitionBase t, object[] args)
         {
+            exited = new List<State>();
+            entered = new List<State>();
+
             int lcai = Math.Min(t.SourceState.rootPath.Length - 2, t.TargetState.rootPath.Length - 2);
 
             if (t.Kind == TransitionBase.TransitionKind.External)
@@ -287,6 +300,8 @@ namespace SimControl.Reactive
                 InvokeStateEntry(lca, t.TargetState);
                 RaiseStateChanged();
             }
+
+            TransitionExecuted?.Invoke(this, new EventArgs<Executed>(new Executed { Exited = exited, Transition =  t, Entered = entered } ));
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -395,7 +410,10 @@ namespace SimControl.Reactive
 
                 var ca = c.Active as ConcreteState;
 
-                if (ca != null && ca.Entry != null)
+                if(ca != null)
+                    entered.Add(ca);
+
+                if(ca != null && ca.Entry != null)
                     try
                     {
                         ca.Entry.Invoke();
@@ -459,7 +477,9 @@ namespace SimControl.Reactive
             if (o != null)
                 foreach (CompositeState child in o.Children)
                 {
-                    if (child.Entry != null)
+                    entered.Add(child);
+
+                    if( child.Entry != null)
                         try
                         {
                             child.Entry.Invoke();
@@ -497,6 +517,9 @@ namespace SimControl.Reactive
 
                 var ca = c.Active as ConcreteState;
 
+                if (ca != null)
+                    exited.Add(ca);
+
                 if (ca != null && ca.Exit != null)
                     try
                     {
@@ -519,7 +542,9 @@ namespace SimControl.Reactive
                 {
                     InvokeStateExit(child);
 
-                    if (child.Exit != null)
+                    exited.Add(child);
+
+                    if( child.Exit != null)
                         try
                         {
                             child.Exit.Invoke();
@@ -662,6 +687,10 @@ namespace SimControl.Reactive
 
         /// <summary>Occurs when [state changed].</summary>
         public event EventHandler StateChanged;
+
+        /// <summary>Occurs when a transition has been executed.</summary>
+        public event EventHandler<EventArgs<Executed>> 
+            TransitionExecuted;
 
         /// <summary>Gets the Active states.</summary>
         public ICollection<State> ActiveSimpleStates

@@ -92,7 +92,7 @@ namespace SimControl.Reactive
 
         internal TransitionKind Kind { get; }
 
-        internal string Name { get; set; }
+        public string Name { get; set; }
 
         internal State SourceState { get; set; }
 

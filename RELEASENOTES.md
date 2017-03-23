@@ -1,7 +1,11 @@
 SimControl.Reactive Release Notes
 =================================
 
-2016-05-02: 0.6.2
+2017-03-22: 0.7.0
+-----------------
+* TransitionExecuted event added.
+
+2017-01-26: 0.6.2
 -----------------
 * NuGet package references updates
 
