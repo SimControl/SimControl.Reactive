@@ -281,7 +281,7 @@ namespace SimControl.TestUtils
             {
                 timeoutCancel.CancelAfter(TestFrame.DisableDebugTimeout(timeout));
 
-                while (true)
+                for (;;)
                     try
                     {
                         T item = asyncCollection.Take(timeoutCancel.Token);

@@ -35,7 +35,6 @@ namespace SimControl.Templates.CSharp.Tests
         [Test, IntegrationTest]
         public void SimControlTemplatesCSharpConsoleApplication_RunApplication_Returns0()
         {
-
             using (var process = new ConsoleProcessTestAdapter(
                 TestContext.CurrentContext.TestDirectory + "\\SimControl.Templates.CSharp.ConsoleApplication.exe",
                 null, null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))

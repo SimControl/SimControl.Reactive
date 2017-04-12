@@ -27,7 +27,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         [Test, IntegrationTest]
         public void ConsoleApplication_Normal()
         {
-
             using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Normal", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
         }
@@ -35,7 +34,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowException()
         {
-
             using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowException", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(7, processAdapter.WaitForExitAssertTimeout());
         }
@@ -43,7 +41,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowExceptionOnThread()
         {
-
             using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowExceptionOnThread", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(6, processAdapter.WaitForExitAssertTimeout());
         }
@@ -51,7 +48,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         [Test, IntegrationTest]
         public void ConsoleApplication_ValidateSettings()
         {
-
             using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
         }
