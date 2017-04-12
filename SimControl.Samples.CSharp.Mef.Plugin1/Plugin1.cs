@@ -14,9 +14,9 @@ namespace SimControl.Samples.CSharp.Mef.Plugin
     {
         /// <summary>Get the resource Name</summary>
         /// <returns>Resource name</returns>
-        public string ResourceName() => Resource.ResourceName;
+        public string ResourceName() => resource.ResourceName;
 
         [Import]
-        private IResource Resource;
+        private IResource resource;
     }
 }

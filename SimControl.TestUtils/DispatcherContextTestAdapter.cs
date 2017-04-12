@@ -20,19 +20,17 @@ namespace SimControl.TestUtils
         /// <param name="testFrame">The test frame.</param>
         /// <param name="threadName">Name of the thread.</param>
         /// <param name="apartmentState">State of the apartment.</param>
-        /// <exception cref="System.ArgumentException">threadName must not be null</exception>
+        /// <exception cref="ArgumentException">threadName must not be null</exception>
         [Log]
         public DispatcherContextTestAdapter(TestFrame testFrame, string threadName, ApartmentState apartmentState = ApartmentState.MTA)
         {
-            if (testFrame == null)
-                throw new ArgumentException("testFrame must not be null");
             if (string.IsNullOrEmpty(threadName))
                 throw new ArgumentException("threadName must not be null or empty");
             //TODO Contract fails with NullReferenceException
             //Contract.Requires(testFrame != null);
             //Contract.Requires(!string.IsNullOrEmpty(threadName));
 
-            this.testFrame = testFrame;
+            this.testFrame = testFrame ?? throw new ArgumentException("testFrame must not be null");
 
             var tcs = new TaskCompletionSource();
 
@@ -197,7 +195,7 @@ namespace SimControl.TestUtils
         /// <summary>Send this message while asserting the test timeout.</summary>
         /// <param name="action">The action.</param>
         /// <param name="timeout">The timeout.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
         public void SendAssertTimeout(Action action, int timeout)
         {
@@ -237,7 +235,7 @@ namespace SimControl.TestUtils
         /// <param name="func">The function.</param>
         /// <param name="timeout">The timeout.</param>
         /// <returns>A Task&lt;T&gt;</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
         public T SendAssertTimeout<T>(Func<T> func, int timeout)
         {
@@ -260,7 +258,7 @@ namespace SimControl.TestUtils
         }
 
         /// <inheritdoc/>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log]
         protected override void Dispose(bool disposing)
         {

@@ -44,7 +44,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Test]
-        public void SampleClassTests_SampleClass_ValidateCodeContractfalse_ThrowsContractException()
+        public void SampleClassTests_SampleClass_ValidateCodeContractFalse_ThrowsContractException()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         public void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() => sampleClass.ValidateCodeContract(true);
 
         [Test]
-        public void SampleClassTests_SampleLacss_ValidateSettings_NoException() => sampleClass.ValidateSettings();
+        public void SampleClassTests_SampleClass_ValidateSettings_NoException() => sampleClass.ValidateSettings();
 
         [Test, Sequential]
         public void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) => Assert.That(arg*arg, Is.EqualTo(res));

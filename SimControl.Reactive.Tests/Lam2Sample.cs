@@ -8,18 +8,18 @@ namespace SimControl.Reactive.Tests
 {
     [Log]
     [TestFixture]
-    public class LamDSample: TestFrame
+    public class Lam2Sample: TestFrame
     {
         [Test, Example]
-        public void LampD_OnOff()
+        public void Lamp2_OnOff()
         {
-            using (var lampd = new LampD())
+            using (var lamp2 = new Lamp2())
             {
-                lampd.On();
-                lampd.Off();
-                lampd.Fault("Error");
+                lamp2.On();
+                lamp2.Off();
+                lamp2.Fault("Error");
 
-                Assert.That(lampd.Counter, Is.EqualTo(1));
+                Assert.That(lamp2.Counter, Is.EqualTo(1));
             }
         }
     }

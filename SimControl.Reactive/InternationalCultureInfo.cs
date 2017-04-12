@@ -38,7 +38,7 @@ namespace SimControl.Reactive
         }
 
         /// <summary>The instance.</summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly CultureInfo Instance;
     }
 }

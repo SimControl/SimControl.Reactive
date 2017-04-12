@@ -72,7 +72,7 @@ namespace SimControl.Reactive.Tests
         [Test, Example]
         public void Lamp_OnOffTriggered_CounterIs1()
         {
-            using (Lamp lamp = new Lamp())
+            using (var lamp = new Lamp())
             {
                 RunAssertTimeout(lamp.On);
                 RunAssertTimeout(lamp.Off);

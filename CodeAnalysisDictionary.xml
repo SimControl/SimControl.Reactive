@@ -11,6 +11,7 @@
     <DiscreteExceptions>
       <Term>OneTime</Term>
       <Term>SetUp</Term>
+      <Term>TapPer</Term>
       <Term>TearDown</Term>
     </DiscreteExceptions>
   </Words>

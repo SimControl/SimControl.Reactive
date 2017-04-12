@@ -22,7 +22,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void Test1()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.Register(c => new Counter()).As<Counter>().SingleInstance();
             builder.Register(c => new Element(c.Resolve<Counter>(), "A")).As<IElement>();
@@ -37,7 +37,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void Test2()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.Register(c => new Counter()).As<Counter>().SingleInstance();
             builder.RegisterInstance("Text").Named<string>("Text").ExternallyOwned();
@@ -53,7 +53,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void Test3()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.Register(c => new Counter()).As<Counter>().SingleInstance();
             builder.RegisterInstance("Text").Named<string>("Text").ExternallyOwned();
@@ -73,7 +73,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void Test4()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.Register(c => new Counter()).As<Counter>().SingleInstance();
             builder.RegisterInstance("Text").Named<string>("Text").ExternallyOwned();
@@ -95,7 +95,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void Test5()
         {
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.RegisterType<Counter>().SingleInstance();
             builder.Register(c => new Element(c.Resolve<Counter>(), "A")).As<IElement>();

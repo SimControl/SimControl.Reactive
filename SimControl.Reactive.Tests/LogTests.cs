@@ -26,13 +26,10 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
-        public void LogFormat_LongArray_MaxCollectionElementsAreFormatted()
-        {
-            logger.Message(LogLevel.Info,
+        public void LogFormat_LongArray_MaxCollectionElementsAreFormatted() => logger.Message(LogLevel.Info,
                 MethodBase.GetCurrentMethod(),
                 "Message",
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
-        }
 
         [Test]
         public void LogFormat_Tests()

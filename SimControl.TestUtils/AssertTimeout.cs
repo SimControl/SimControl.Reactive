@@ -241,8 +241,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(blockingCollection != null);
 
-            T result;
-            if (!blockingCollection.TryTake(out result, timeout))
+            if (!blockingCollection.TryTake(out T result, timeout))
                 throw new TimeoutException("Test timeout " + timeout.ToString(CultureInfo.InvariantCulture) + " expired");
 
             return result;
@@ -278,7 +277,7 @@ namespace SimControl.TestUtils
 
             var result = new List<T>();
 
-            using (CancellationTokenSource timeoutCancel = new CancellationTokenSource())
+            using (var timeoutCancel = new CancellationTokenSource())
             {
                 timeoutCancel.CancelAfter(TestFrame.DisableDebugTimeout(timeout));
 
@@ -343,7 +342,7 @@ namespace SimControl.TestUtils
         /// <param name="semaphore">The semaphore.</param>
         /// <param name="count">The count.</param>
         /// <param name="timeout">The timeout.</param>
-        /// <exception cref="System.TimeoutException">
+        /// <exception cref="TimeoutException">
         /// Test timeout + timeout.ToString(CultureInfo.InvariantCulture) + expired
         /// </exception>
         [Log(LogLevel = LogAttributeLevel.Off)]
@@ -351,7 +350,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(semaphore != null);
 
-            using (CancellationTokenSource timeoutCancel = new CancellationTokenSource())
+            using (var timeoutCancel = new CancellationTokenSource())
             {
                 timeoutCancel.CancelAfter(TestFrame.DisableDebugTimeout(timeout));
 

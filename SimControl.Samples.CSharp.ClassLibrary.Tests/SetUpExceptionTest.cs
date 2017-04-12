@@ -19,22 +19,13 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [OneTimeTearDown]
-        new public void OneTimeTearDown()
-        {
-            throw new InvalidOperationException();
-        }
+        new public void OneTimeTearDown() => throw new InvalidOperationException();
 
         [SetUp]
-        new public void SetUp()
-        {
-            throw new InvalidOperationException();
-        }
+        new public void SetUp() => throw new InvalidOperationException();
 
         [TearDown]
-        new public static void TearDown()
-        {
-            throw new InvalidOperationException();
-        }
+        new public static void TearDown() => throw new InvalidOperationException();
 
         #endregion
 

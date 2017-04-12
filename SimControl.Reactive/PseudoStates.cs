@@ -12,10 +12,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="ChoiceState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public ChoiceState(string name): base(name)
-        {
-            ContractRequiredName(name);
-        }
+        public ChoiceState(string name) : base(name) => ContractRequiredName(name);
     }
 
     /// <summary>UML state machine "deep history" pseudo state.</summary>
@@ -122,10 +119,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="PseudoState"/> class.</summary>
         /// <param name="name">State name.</param>
-        protected PseudoState(string name): base(name)
-        {
-            ContractRequiredName(name);
-        }
+        protected PseudoState(string name) : base(name) => ContractRequiredName(name);
     }
 
     /// <summary>UML state machine "shallow history" pseudo state.</summary>

@@ -15,10 +15,7 @@ namespace SimControl.Log
     /// <summary>Utility class to format log messages.</summary>
     public static class LogMethod
     {
-        static LogMethod()
-        {
-            LogFormat.LogFormatMaxCollectionElements = Settings.Default.LogFormatMaxCollectionElements;
-        }
+        static LogMethod() => LogFormat.LogFormatMaxCollectionElements = Settings.Default.LogFormatMaxCollectionElements;
 
         /// <summary>Format a log message for a method entry.</summary>
         /// <param name="logger">The logger.</param>
@@ -120,11 +117,8 @@ namespace SimControl.Log
         }
 
         internal static void LogEntryFromLogAttribute(Logger logger, LogLevel logLevel, MethodBase method,
-                                                      object instance, ICollection<object> args)
-        {
-            logger.Log(logLevel,
-                "{ " + method.Name + LogFormat.FormatToString(instance) +
+                                                      object instance, ICollection<object> args) =>
+            logger.Log(logLevel, "{ " + method.Name + LogFormat.FormatToString(instance) +
                 (args.Count > 0 ? LogFormat.FormatArgsList(args) : ""));
-        }
     }
 }

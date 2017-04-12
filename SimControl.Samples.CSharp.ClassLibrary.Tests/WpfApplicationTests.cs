@@ -13,7 +13,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 {
     [Log]
     [TestFixture]
-    public class WpfApplicationTestsWithInitialzeAndCleanup: TestFrame
+    public class WpfApplicationTestsWithInitializeAndCleanup: TestFrame
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
@@ -49,7 +49,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
     [Log]
     [TestFixture]
-    public class WpfApplicationTestsWithoutInitialzeAndCleanup: TestFrame
+    public class WpfApplicationTestsWithoutInitializeAndCleanup: TestFrame
     {
         [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTest))]
         public void WpfApplicationTests_DisplayWindow()

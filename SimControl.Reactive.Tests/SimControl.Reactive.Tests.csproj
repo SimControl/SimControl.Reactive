@@ -199,7 +199,7 @@
     </Compile>
     <Compile Include="AssertTimeoutTests.cs" />
     <Compile Include="LampD.cs" />
-    <Compile Include="LamDSample.cs" />
+    <Compile Include="Lam2Sample.cs" />
     <Compile Include="LampSample.cs" />
     <Compile Include="InternationalCultureInfoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

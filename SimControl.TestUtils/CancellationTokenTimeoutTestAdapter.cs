@@ -22,10 +22,7 @@ namespace SimControl.TestUtils
         /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
         /// <param name="timeout">The timeout in ms.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        public CancellationTokenTimeoutTestAdapter(int timeout)
-        {
-            cancellationTokenSource.CancelAfter(TestFrame.DisableDebugTimeout(timeout));
-        }
+        public CancellationTokenTimeoutTestAdapter(int timeout) => cancellationTokenSource.CancelAfter(TestFrame.DisableDebugTimeout(timeout));
 
         /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]

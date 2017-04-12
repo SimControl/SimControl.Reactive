@@ -13,8 +13,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Component
     {
         /// <summary>Initializes a new instance of the <see cref="Component1"/> class.</summary>
         /// <param name="element">The element.</param>
-        public Component1(IElement element) { this.element = element; }
-
+        public Component1(IElement element) => this.element = element;
         /// <summary>Get the resource Name</summary>
         /// <returns>Resource name</returns>
         public string ElementName() => element.ElementName;

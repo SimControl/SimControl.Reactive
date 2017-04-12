@@ -51,7 +51,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public async Task AsyncTests_AsyncTest_awaitTastExDelay_Async()
+        public async Task AsyncTests_AsyncTest_awaitTaskExDelay_Async()
         {
             await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
             logger.Info("Delay finished");
@@ -60,7 +60,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test, Example]
         public void AsyncTests_AutoResetEvent_SetInTaskOnOtherThread_IsSignaled()
         {
-            using (AutoResetEvent ready = new AutoResetEvent(false))
+            using (var ready = new AutoResetEvent(false))
             {
                 Task task = TaskEx.Run(async () => {
                     await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
@@ -73,13 +73,11 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtInWait()
+        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtInWait() => Assert.That(Assert.Catch<AggregateException>(() => TaskEx.Run(() =>
         {
-            Assert.That(Assert.Catch<AggregateException>(() => TaskEx.Run(() => {
-                TaskEx.Delay(MinTimerResolution).Wait();
-                throw new InvalidOperationException();
-            }).Wait()).InnerExceptions[0], Is.InstanceOf<InvalidOperationException>());
-        }
+            TaskEx.Delay(MinTimerResolution).Wait();
+            throw new InvalidOperationException();
+        }).Wait()).InnerExceptions[0], Is.InstanceOf<InvalidOperationException>());
 
         [Test]
         public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
@@ -87,7 +85,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test, Example]
         public void AsyncTests_ObserveTaskException()
         {
-            using (AutoResetEvent ready = new AutoResetEvent(false))
+            using (var ready = new AutoResetEvent(false))
             {
                 Task task = TaskEx.Run(async () => {
                     await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);

@@ -16,10 +16,7 @@ namespace SimControl.Reactive
         /// <param name="effect">Transition effect action.</param>
         /// <param name="name">Transition name.</param>
         public InternalTransition(Trigger trigger = null, Constraint guard = null, Effect effect = null,
-                                  string name = null): base(TransitionKind.Internal, null, trigger, guard, effect, name)
-        {
-            ContractRequiredName(name);
-        }
+                                  string name = null) : base(TransitionKind.Internal, null, trigger, guard, effect, name) => ContractRequiredName(name);
     }
 
     /// <summary>Local trransition.</summary>
@@ -32,10 +29,7 @@ namespace SimControl.Reactive
         /// <param name="effect">The effect.</param>
         /// <param name="name">The name.</param>
         public LocalTransition(Trigger trigger = null, Constraint guard = null, Effect effect = null, string name = null)
-            : base(TransitionKind.Internal, null, trigger, guard, effect, name)
-        {
-            ContractRequiredName(name);
-        }
+            : base(TransitionKind.Internal, null, trigger, guard, effect, name) => ContractRequiredName(name);
     }
 
     /// <summary>External transition.</summary>
@@ -92,6 +86,7 @@ namespace SimControl.Reactive
 
         internal TransitionKind Kind { get; }
 
+        /// <summary>Readable name for reporting transition executions.</summary>
         public string Name { get; set; }
 
         internal State SourceState { get; set; }

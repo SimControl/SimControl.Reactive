@@ -16,31 +16,29 @@ namespace SimControl.Templates.CSharp.Tests
     [TestFixture]
     public class TemplateTests : TestFrame
     {
-        static TemplateTests() { InitializeNLogConfiguration(); }
+        static TemplateTests() => InitializeNLogConfiguration(); //TODO why is this required?
 
         [Test]
-        public void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeds()
+        public void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeeds()
         {
-            Class1 class1 = new Class1();
+            var class1 = new Class1();
             logger.Message(LogLevel.Trace, MethodBase.GetCurrentMethod(), class1.ToString());
         }
 
         [Test]
-        public void SampleClassTests_SimControlTemplatesCSharpPortableClassLibraryClass1Constructor_Succeds()
+        public void SampleClassTests_SimControlTemplatesCSharpPortableClassLibraryClass1Constructor_Succeeds()
         {
-            PortableClassLibrary.Class1 class1 = new PortableClassLibrary.Class1();
+            var class1 = new PortableClassLibrary.Class1();
             logger.Message(LogLevel.Trace, MethodBase.GetCurrentMethod(), class1.ToString());
         }
 
         [Test, IntegrationTest]
         public void SimControlTemplatesCSharpConsoleApplication_RunApplication_Returns0()
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
 
             using (var process = new ConsoleProcessTestAdapter(
                 TestContext.CurrentContext.TestDirectory + "\\SimControl.Templates.CSharp.ConsoleApplication.exe",
-                null, null, out standardOutput, out standardError))
+                null, null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(0, process.WaitForExitAssertTimeout());
         }
 

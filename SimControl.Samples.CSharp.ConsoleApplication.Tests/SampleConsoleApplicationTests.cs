@@ -16,8 +16,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
     [TestFixture, ExclusivelyUses("Logging")]
     public class SampleConsoleApplicationTests : TestFrame
     {
-        static SampleConsoleApplicationTests() { InitializeNLogConfiguration(); }
-
+        static SampleConsoleApplicationTests() => InitializeNLogConfiguration();
         #region Additional test attributes
 
         [SetUp]
@@ -28,50 +27,39 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         [Test, IntegrationTest]
         public void ConsoleApplication_Normal()
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
 
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Normal", null, out standardOutput, out standardError))
+            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Normal", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowException()
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
 
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowException", null, out standardOutput, out standardError))
+            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowException", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(7, processAdapter.WaitForExitAssertTimeout());
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowExceptionOnThread()
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
 
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowExceptionOnThread", null, out standardOutput, out standardError))
+            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowExceptionOnThread", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(6, processAdapter.WaitForExitAssertTimeout());
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_ValidateSettings()
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
 
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings", null, out standardOutput, out standardError))
+            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
                 Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_Wait() //TODO fails with NUnit TestAdapter
         {
-            BlockingCollection<string> standardOutput;
-            BlockingCollection<string> standardError;
-
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Wait", null, out standardOutput, out standardError))
+            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Wait", null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
             {
                 standardOutput.TakeUntilAssertTimeout(s => s.Contains("SimControl.Samples.CSharp.ConsoleApplication.Program"));
 

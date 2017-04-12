@@ -64,8 +64,7 @@ namespace SimControl.Samples.CSharp.WpfApplication
         /// <value>The countdown.</value>
         public int Countdown
         {
-            get { return countdown; }
-            set
+            get => countdown; set
             {
                 countdown = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CountDown"));
@@ -76,8 +75,7 @@ namespace SimControl.Samples.CSharp.WpfApplication
         /// <value>The text.</value>
         public string Text
         {
-            get { return text; }
-            set
+            get => text; set
             {
                 text = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));

@@ -21,7 +21,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service.Tests
     //        public void OneWayCallback(CompositeType compositeType) { }
     //    }
 
-    [Log]
+[Log]
 [TestFixture]
 public class SampleServiceTapPerSessionTests: TestFrame
 {

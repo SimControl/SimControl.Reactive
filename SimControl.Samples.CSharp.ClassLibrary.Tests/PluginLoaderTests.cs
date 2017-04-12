@@ -44,9 +44,9 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test]
         public void PluginLoaderTests_Plugin_ResourceName_ReturnsInstantiatedResource()
         {
-            using (AggregateCatalog aggregateCatalog = new AggregateCatalog())
-            using (AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(Resource).Assembly))
-            using (DirectoryCatalog directoryCatalog = new DirectoryCatalog(Path.GetDirectoryName(
+            using (var aggregateCatalog = new AggregateCatalog())
+            using (var assemblyCatalog = new AssemblyCatalog(typeof(Resource).Assembly))
+            using (var directoryCatalog = new DirectoryCatalog(Path.GetDirectoryName(
                 Assembly.GetExecutingAssembly().Location), "*.Plugin*.dll"))
             {
                 aggregateCatalog.Catalogs.Add(assemblyCatalog);
@@ -68,6 +68,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void PluginLoaderTests_TestDirectory_Cotains2Plugins() => Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
+        public void PluginLoaderTests_TestDirectory_Contains2Plugins() => Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
     }
 }

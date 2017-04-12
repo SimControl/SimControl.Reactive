@@ -58,7 +58,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                 AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
                 Console.CancelKeyPress += ProcessExitEventHandler;
 
-                SampleClass sampleClass = new SampleClass();
+                var sampleClass = new SampleClass();
 
                 switch (command)
                 {
@@ -85,7 +85,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         break;
                     case "ThrowExceptionOnThread":
                         logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ThrowExceptionOnThread");
-                        Thread thread = new Thread(ThrowException);
+                        var thread = new Thread(ThrowException);
                         thread.Start();
                         Console.ReadLine();
                         break;
@@ -134,6 +134,8 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         //client.Close();
                         //host.Close();
                         break;
+                    default:
+                        break;
                 }
 
                 return 0;
@@ -147,7 +149,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             finally { UnregisterExceptionHandlers(); }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
+        [SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
         private static bool ConsoleCtrlHandler(uint sig)
         {
             Exit(4);
@@ -177,8 +179,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                 throw new Win32Exception();
         }
 
-        private static void ThrowException() { throw new InvalidOperationException(); }
-
+        private static void ThrowException() => throw new InvalidOperationException();
         private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);
@@ -216,7 +217,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         /// <value>The arguments.</value>
         public static IEnumerable<string> Arguments => new[] { "ChangeUserSettings", "Normal", nameof(ThrowException),
             "ThrowExceptionOnThread", "ValidateSettings", nameof(VerifyJitOptimization), "Wait", "WCF"
-        }.AsEnumerable<string>();
+        }.AsEnumerable();
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static string command;

@@ -26,10 +26,7 @@ namespace SimControl.Reactive
         /// <param name="deferrable">Deferrable triggers.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public CompositeState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
-                              Trigger[] deferrable = null): base(name, entry, doActivity, exit, deferrable)
-        {
-            ContractRequiredName(name);
-        }
+                              Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
 
         /// <summary>Gets or sets the active.</summary>
         /// <value>The active.</value>
@@ -106,10 +103,7 @@ namespace SimControl.Reactive
         /// <param name="deferrable">Deferrable triggers.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public OrthogonalState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
-                               Trigger[] deferrable = null): base(name, entry, doActivity, exit, deferrable)
-        {
-            ContractRequiredName(name);
-        }
+                               Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
 
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
@@ -150,10 +144,7 @@ namespace SimControl.Reactive
         /// <param name="deferrable">Deferrable triggers.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public SimpleState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
-                           Trigger[] deferrable = null): base(name, entry, doActivity, exit, deferrable)
-        {
-            ContractRequiredName(name);
-        }
+                           Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
     }
 
     /// <summary>Base class for UML state machine states.</summary>

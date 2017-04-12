@@ -12,7 +12,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
     /// </summary>
     public static class VerifyJitOptimization
     {
-        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Run
@@ -31,8 +31,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             catch (InvalidOperationException e) { logger.Exception(LogLevel.Debug, MethodBase.GetCurrentMethod(), null, e); }
         }
 
-        private static void BadMethod() { throw new InvalidOperationException("generic bad thing"); }
-
+        private static void BadMethod() => throw new InvalidOperationException("generic bad thing");
         private static void MethodA() => MethodB();
 
         private static void MethodB() => MethodC();

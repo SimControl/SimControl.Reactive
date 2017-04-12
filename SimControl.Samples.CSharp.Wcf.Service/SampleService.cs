@@ -15,10 +15,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
     public abstract class SampleService : ISampleService, IDisposable
     {
         /// <summary>Initializes a new instance of the <see cref="SampleService"/> class.</summary>
-        protected SampleService()
-        {
-            BlockingCollection.Add(IncrementInstances());
-        }
+        protected SampleService() => blockingCollection.Add(IncrementInstances());
 
         /// <inheritdoc/>
         public CompositeType ComplexOperation(CompositeType data) => State = data.Increment();
@@ -52,6 +49,10 @@ namespace SimControl.Samples.CSharp.Wcf.Service
                 case OperationMode.TimeoutException:
                     Thread.Sleep(5000);
                     break;
+                case OperationMode.CodeContractException:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -66,7 +67,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         {
             if (disposing && !disposed)
             {
-                BlockingCollection.Add(DecrementInstances());
+                blockingCollection.Add(DecrementInstances());
 
                 disposed = true;
             }
@@ -90,7 +91,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         /// <summary>The state</summary>
         protected CompositeType State { get; set; }
 
-        private static readonly BlockingCollection<int> BlockingCollection = new BlockingCollection<int>();
+        private static readonly BlockingCollection<int> blockingCollection = new BlockingCollection<int>();
         private static readonly object locker = new object();
 
         private static int instanceCounter; //TODO instance count

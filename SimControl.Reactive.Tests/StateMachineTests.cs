@@ -74,7 +74,7 @@ namespace SimControl.Reactive.Tests
         public void DoActivity_Cancel()
         {
             using (var stateChanged = new BlockingCollection<int>())
-            using (CancellationTokenSource cancellationTokenSource = new CancellationTokenSource())
+            using (var cancellationTokenSource = new CancellationTokenSource())
             {
                 int stateChangedCount = 0;
 
@@ -1136,8 +1136,7 @@ namespace SimControl.Reactive.Tests
 
     internal class Sequence
     {
-        public Sequence(params object[] args) { sequence = args; }
-
+        public Sequence(params object[] args) => sequence = args;
         public int Next => (int) sequence[i++];
 
         private readonly object[] sequence;

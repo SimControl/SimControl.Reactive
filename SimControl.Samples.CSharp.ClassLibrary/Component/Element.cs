@@ -20,7 +20,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Component
             Contract.Requires(counter != null);
             Contract.Requires(name != null);
 
-            this.count = counter.Increment();
+            count = counter.Increment();
             this.name = name;
         }
 

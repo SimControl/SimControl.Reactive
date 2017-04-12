@@ -16,13 +16,8 @@ namespace SimControl.Samples.CSharp.ClassLibrary
     [Log]
     public class SampleClass
     {
-        static SampleClass()
-        {
-            logger.Message(LogLevel.Info,
-                MethodBase.GetCurrentMethod(),
-                "SimControl.Samples.CSharp.ConsoleApplication",
-                typeof(SampleClass).AssemblyQualifiedName);
-        }
+        static SampleClass() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(),
+            typeof(SampleClass).AssemblyQualifiedName);
 
         /// <summary>Change user settings.</summary>
         /// <param name="newSettings">The new settings.</param>

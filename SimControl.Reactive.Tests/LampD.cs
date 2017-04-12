@@ -7,9 +7,9 @@ using SimControl.Log;
 namespace SimControl.Reactive.Tests
 {
     [Log]
-    public class LampD: IDisposable
+    public class Lamp2: IDisposable
     {
-        public LampD()
+        public Lamp2()
         {
             sm.Add(
                 new InitialState("*")
@@ -43,7 +43,7 @@ namespace SimControl.Reactive.Tests
             GC.SuppressFinalize(this);
         }
 
-        public void Fault(string s) => sm.TriggerCallEvent(new CallTrigger<string>(Fault), s);
+        public void Fault(string message) => sm.TriggerCallEvent(new CallTrigger<string>(Fault), message);
 
         public void Off() => sm.TriggerCallEvent(new CallTrigger(Off));
 

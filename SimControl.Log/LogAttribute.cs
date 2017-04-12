@@ -44,9 +44,7 @@ namespace SimControl.Log
     public sealed class LogAttribute: OnMethodBoundaryAspect
     {
         /// <summary>Default constructor.</summary>
-        public LogAttribute()
-        { ApplyToStateMachine = false; }
-
+        public LogAttribute() => ApplyToStateMachine = false;
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public override void CompileTimeInitialize(MethodBase method, AspectInfo aspectInfo)
@@ -57,7 +55,7 @@ namespace SimControl.Log
             var methodInfo = method as MethodInfo;
             hasReturnValue = methodInfo != null && methodInfo.ReturnType != typeof(void);
 
-            excluded |= this.method.Name == nameof(System.Object) || this.method.Name == nameof(ToString) ||
+            excluded |= this.method.Name == nameof(Object) || this.method.Name == nameof(ToString) ||
                 this.method.Name.StartsWith("get_", StringComparison.Ordinal) ||
                 method.Name == "Dispose" && method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) &&
                 method.GetParameters().Length == 1;
