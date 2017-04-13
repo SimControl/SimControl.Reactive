@@ -11,6 +11,7 @@ namespace SimControl.TestUtils
     public class TempFilesTestAdapter : TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
+        /// <param name="tempFiles">The temporary files.</param>
         public TempFilesTestAdapter(params string[] tempFiles)
         {
             Contract.Requires(tempFiles != null);

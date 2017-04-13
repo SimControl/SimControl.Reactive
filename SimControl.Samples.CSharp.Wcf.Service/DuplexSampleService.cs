@@ -13,9 +13,6 @@ namespace SimControl.Samples.CSharp.Wcf.Service
     [Log]
     public abstract class DuplexSampleService : SampleService, IDuplexSampleService
     {
-        /// <summary>Initializes a new instance of the <see cref="DuplexSampleService"/> class.</summary>
-        protected DuplexSampleService() { }
-
         /// <inheritdoc/>
         public override void Connect() => callback = OperationContext.Current.GetCallbackChannel<IDuplexSampleServiceCallback>();
 

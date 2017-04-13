@@ -1070,7 +1070,7 @@ namespace SimControl.Reactive.Tests
                     ));
 
                 sm.StateChanged += (sender, args) => {
-                    foreach (var s in sm.ActiveStates.Where(l => l.FullName != "."))
+                    foreach (State s in sm.ActiveStates.Where(l => l.FullName != "."))
                         history.Add(s.FullName);
                 };
 

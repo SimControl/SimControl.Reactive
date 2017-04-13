@@ -45,6 +45,7 @@ namespace SimControl.Log
     {
         /// <summary>Default constructor.</summary>
         public LogAttribute() => ApplyToStateMachine = false;
+
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public override void CompileTimeInitialize(MethodBase method, AspectInfo aspectInfo)

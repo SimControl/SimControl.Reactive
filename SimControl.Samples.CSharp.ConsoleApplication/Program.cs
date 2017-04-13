@@ -75,9 +75,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
                             "CSharpConsoleApplication_UserSetting",
                             Settings.Default.CSharpConsoleApplication_UserSetting);
-                        sampleClass.LogSettings();
+                        SampleClass.LogSettings();
                         sampleClass.DoSomething();
-                        sampleClass.ValidateCodeContract(true);
+                        SampleClass.ValidateCodeContract(true);
                         break;
 
                     case nameof(ThrowException):
@@ -100,7 +100,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                             throw new InvalidOperationException(
                                 "Invalid Default.CSharpConsoleApplication_UserSetting: " +
                                 Settings.Default.CSharpConsoleApplication_UserSetting);
-                        sampleClass.ValidateSettings();
+                        SampleClass.ValidateSettings();
                         break;
                     case nameof(VerifyJitOptimization):
                         logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(VerifyJitOptimization));
@@ -133,8 +133,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         //Console.ReadLine();
                         //client.Close();
                         //host.Close();
-                        break;
-                    default:
                         break;
                 }
 

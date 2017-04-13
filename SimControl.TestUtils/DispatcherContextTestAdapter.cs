@@ -34,7 +34,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            var thread = new Thread(() => {
+            var thread = new Thread(() =>
+            {
                 Thread.CurrentThread.Name = threadName;
 
                 Dispatcher = Dispatcher.CurrentDispatcher;
@@ -74,7 +75,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Post(o => {
+            SynchronizationContext.Post(o =>
+            {
                 try
                 {
                     action();
@@ -91,9 +93,10 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Post this message while asserting the test timeout.</summary>
-        /// <tparam name="T">Generic type parameter.</tparam>
+        /// <typeparam name="T"></typeparam>
         /// <param name="func">The function.</param>
         /// <returns>A T.</returns>
+        /// <tparam name="T">Generic type parameter.</tparam>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public T PostAssertTimeout<T>(Func<T> func)
         {
@@ -103,10 +106,11 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Post this message while asserting the test timeout.</summary>
-        /// <tparam name="T">Generic type parameter.</tparam>
+        /// <typeparam name="T"></typeparam>
         /// <param name="func">The function.</param>
         /// <param name="timeout">The timeout.</param>
         /// <returns>A T.</returns>
+        /// <tparam name="T">Generic type parameter.</tparam>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
         public T PostAssertTimeout<T>(Func<T> func, int timeout)
@@ -115,7 +119,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Post(o => {
+            SynchronizationContext.Post(o =>
+            {
                 try
                 {
                     tcs.SetResult(func());
@@ -140,7 +145,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Post(o => {
+            SynchronizationContext.Post(o =>
+            {
                 try
                 {
                     action();
@@ -167,7 +173,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Post(o => {
+            SynchronizationContext.Post(o =>
+            {
                 try
                 {
                     tcs.SetResult(func());
@@ -203,7 +210,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Send(o => {
+            SynchronizationContext.Send(o =>
+            {
                 try
                 {
                     action();
@@ -231,10 +239,11 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Send this message.</summary>
-        /// <tparam name="T">Generic type parameter.</tparam>
+        /// <typeparam name="T"></typeparam>
         /// <param name="func">The function.</param>
         /// <param name="timeout">The timeout.</param>
         /// <returns>A Task&lt;T&gt;</returns>
+        /// <tparam name="T">Generic type parameter.</tparam>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
         public T SendAssertTimeout<T>(Func<T> func, int timeout)
@@ -243,7 +252,8 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Send(o => {
+            SynchronizationContext.Send(o =>
+            {
                 try
                 {
                     tcs.SetResult(func());

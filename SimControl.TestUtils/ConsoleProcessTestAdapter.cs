@@ -41,7 +41,7 @@ namespace SimControl.TestUtils
             using (var managementObjectSearcher = new ManagementObjectSearcher(
                 "select CommandLine, ExecutablePath, ProcessId from Win32_Process where Name='" + Path.GetFileName(fileName) + "'"))
             using (var managementObjectCollection = managementObjectSearcher.Get())
-                foreach (var retObject in managementObjectCollection)
+                foreach (ManagementBaseObject retObject in managementObjectCollection)
                 {
                     string commandLine = (string) retObject["CommandLine"];
 

@@ -6,9 +6,12 @@ using System.Diagnostics.Contracts;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for automatically disposing <see cref="IDisposable"/> objects.</summary>
+    /// <typeparam name="TDisposable">The type of the disposable.</typeparam>
+    /// <seealso cref="TestAdapter"/>
     public class DisposableTestAdapter<TDisposable> : TestAdapter where TDisposable : class, IDisposable
     {
         /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
+        /// <param name="disposable">The disposable.</param>
         public DisposableTestAdapter(TDisposable disposable)
         {
             Contract.Requires(disposable != null);

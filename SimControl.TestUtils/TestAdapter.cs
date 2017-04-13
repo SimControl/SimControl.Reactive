@@ -9,9 +9,6 @@ namespace SimControl.TestUtils
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public abstract class TestAdapter : IDisposable
     {
-        /// <summary>Initializes a new instance of the <see cref="TestAdapter"/> class.</summary>
-        protected TestAdapter() { }
-
         /// <inheritdoc/>
         public void Dispose()
         {

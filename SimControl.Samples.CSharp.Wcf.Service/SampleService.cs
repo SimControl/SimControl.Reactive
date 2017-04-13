@@ -12,7 +12,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service
 {
     /// <summary>WCF sample service.</summary>
     [Log]
-    public abstract class SampleService : ISampleService, IDisposable
+    public class SampleService : ISampleService, IDisposable
     {
         /// <summary>Initializes a new instance of the <see cref="SampleService"/> class.</summary>
         protected SampleService() => blockingCollection.Add(IncrementInstances());
@@ -48,10 +48,6 @@ namespace SimControl.Samples.CSharp.Wcf.Service
                     throw new InvalidOperationException();
                 case OperationMode.TimeoutException:
                     Thread.Sleep(5000);
-                    break;
-                case OperationMode.CodeContractException:
-                    break;
-                default:
                     break;
             }
         }

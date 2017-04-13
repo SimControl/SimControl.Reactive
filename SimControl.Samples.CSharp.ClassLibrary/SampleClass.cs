@@ -29,24 +29,24 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         }
 
         /// <summary>Increment the static counter</summary>
-        public static void IncrementStaticCounter() => counter++;
+        public static void IncrementStaticCounter() => staticCounter++;
 
         /// <summary>Saves the user settings.</summary>
         public static void SaveUserSettings() => Settings.Default.Save();
 
         /// <summary>Does something</summary>
         /// <returns></returns>
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public bool DoSomething()
         {
             logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(DoSomething));
+
+            counter++;
 
             return true;
         }
 
         /// <summary>Writes the settings.</summary>
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public void LogSettings()
+        public static void LogSettings()
         {
             logger.Message(LogLevel.Debug,
                 MethodBase.GetCurrentMethod(),
@@ -63,16 +63,15 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         }
 
         /// <inheritdoc/>
-        public override string ToString() => LogFormat.FormatObject(typeof(SampleClass));
+        public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
 
         /// <summary>Validate the settings.</summary>
         /// <param name="valid">if set to <c>true</c> [valid].</param>
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public void ValidateCodeContract(bool valid) => Contract.Requires(valid);
+        public static void ValidateCodeContract(bool valid) => Contract.Requires(valid);
 
         /// <summary>Validates the settings.</summary>
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
-        public void ValidateSettings()
+        public static void ValidateSettings()
         {
             logger.Message(LogLevel.Debug,
                 MethodBase.GetCurrentMethod(),
@@ -108,9 +107,10 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         }
 
         /// <summary>Get the static counter</summary>
-        public static int StaticCounter => counter;
+        public static int StaticCounter => staticCounter;
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private static int counter;
+        private static int staticCounter;
+        private int counter;
     }
 }

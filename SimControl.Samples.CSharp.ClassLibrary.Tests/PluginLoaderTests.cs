@@ -47,7 +47,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
             using (var aggregateCatalog = new AggregateCatalog())
             using (var assemblyCatalog = new AssemblyCatalog(typeof(Resource).Assembly))
             using (var directoryCatalog = new DirectoryCatalog(Path.GetDirectoryName(
-                Assembly.GetExecutingAssembly().Location), "*.Plugin*.dll"))
+                typeof(PluginLoaderTest).Assembly.Location), "*.Plugin*.dll"))
             {
                 aggregateCatalog.Catalogs.Add(assemblyCatalog);
                 aggregateCatalog.Catalogs.Add(directoryCatalog);

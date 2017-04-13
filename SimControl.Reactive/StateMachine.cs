@@ -50,6 +50,10 @@ namespace SimControl.Reactive
     public class StateMachine : CompositeState, IDisposable /*ActiveObjectCollection,*/
     {
         /// <summary>Initializes a new instance of the <see cref="StateMachine"/> class.</summary>
+        /// <param name="entry">The entry.</param>
+        /// <param name="doActivity">The do activity.</param>
+        /// <param name="exit">The exit.</param>
+        /// <param name="deferrable">The deferrable.</param>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public StateMachine(Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                             Trigger[] deferrable = null) : base(".", entry, doActivity, exit, deferrable)
@@ -63,10 +67,7 @@ namespace SimControl.Reactive
         }
 
         /// <summary>Finalizes an instance of the <see cref="StateMachine"/> class.</summary>
-        ~StateMachine()
-        {
-            Dispose(false);
-        }
+        ~StateMachine() => Dispose(false);
 
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
@@ -246,12 +247,9 @@ namespace SimControl.Reactive
 
                 if (s is CompositeState state)
                     AppendActiveSimpleStates(state.Active, activeStates);
-                else
-                {
-                    if (s is OrthogonalState orthogonalState)
-                        foreach (CompositeState child in orthogonalState.Children)
-                            AppendActiveSimpleStates(child, activeStates);
-                }
+                else if (s is OrthogonalState orthogonalState)
+                    foreach (CompositeState child in orthogonalState.Children)
+                        AppendActiveSimpleStates(child, activeStates);
             }
         }
 
@@ -263,12 +261,9 @@ namespace SimControl.Reactive
 
                 if (s is CompositeState compositeState)
                     AppendActiveStates(((CompositeState) s).Active, activeStates);
-                else
-                {
-                    if (s is OrthogonalState orthogonalState)
-                        foreach (CompositeState child in ((OrthogonalState) s).Children)
-                            AppendActiveStates(child, activeStates);
-                }
+                else if (s is OrthogonalState orthogonalState)
+                    foreach (CompositeState child in ((OrthogonalState) s).Children)
+                        AppendActiveStates(child, activeStates);
             }
         }
 
@@ -316,7 +311,7 @@ namespace SimControl.Reactive
                         return result;
 
             foreach (TransitionBase t in s.Transitions)
-                if (t.Trigger != null && t.Trigger.Matches(trigger))
+                if (t.Trigger?.Matches(trigger) == true)
                 {
                     if (t.Guard == null)
                         return t;
@@ -404,7 +399,7 @@ namespace SimControl.Reactive
                 if (ca != null)
                     entered.Add(ca);
 
-                if (ca != null && ca.Entry != null)
+                if (ca?.Entry != null)
                     try
                     {
                         ca.Entry.Invoke();
@@ -419,7 +414,7 @@ namespace SimControl.Reactive
                                 new object[] { e }));
                     }
 
-                if (ca != null && ca.DoActivity != null)
+                if (ca?.DoActivity != null)
                 {
                     ca.doActivityStarted = true;
 
@@ -510,7 +505,7 @@ namespace SimControl.Reactive
                 if (ca != null)
                     exited.Add(ca);
 
-                if (ca != null && ca.Exit != null)
+                if (ca?.Exit != null)
                     try
                     {
                         ca.Exit.Invoke();
@@ -573,16 +568,13 @@ namespace SimControl.Reactive
 
             if (s is CompositeState compositeState)
                 result = NextTimeTrigger(((CompositeState) s).Active, now);
-            else
-            {
-                if (s is OrthogonalState orthogonalState)
-                    foreach (CompositeState child in ((OrthogonalState) s).Children)
-                    {
-                        DateTime subresult = NextTimeTrigger(child, now);
-                        if (subresult < result)
-                            result = subresult;
-                    }
-            }
+            else if (s is OrthogonalState orthogonalState)
+                foreach (CompositeState child in ((OrthogonalState) s).Children)
+                {
+                    DateTime subresult = NextTimeTrigger(child, now);
+                    if (subresult < result)
+                        result = subresult;
+                }
 
             foreach (TransitionBase t in s.Transitions)
             {
@@ -628,10 +620,8 @@ namespace SimControl.Reactive
 
                         if ((t = FindTriggeredTransition(this, ev.Trigger, ev.Args)) != null)
                             ExecuteTransition(t, ev.Args);
-                        else
-                        {
-                            if (ev.Trigger is ExceptionTrigger exceptionTrigger) throw exceptionTrigger.exception;
-                        }
+                        else if (ev.Trigger is ExceptionTrigger exceptionTrigger)
+                            throw exceptionTrigger.exception;
                     }
 
                     completeionTransitionFound = false;

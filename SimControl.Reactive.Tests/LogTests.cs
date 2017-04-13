@@ -56,10 +56,7 @@ namespace SimControl.Reactive.Tests
     [Log(AttributeExclude = true, AttributePriority = 1, AttributeTargetMembers = ".cctor*")]
     public class TestClass: IDisposable
     {
-        ~TestClass()
-        {
-            Dispose(false);
-        }
+        ~TestClass() => Dispose(false);
 
         public static string StaticFoo(int par1, string par2) => par1 + par2;
 

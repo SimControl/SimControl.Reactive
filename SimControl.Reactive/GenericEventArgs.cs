@@ -13,7 +13,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Constructor.</summary>
         /// <param name="value">The value.</param>
-        public GenericEventArgs(T value) => this.value = value;
+        public GenericEventArgs(T value) => Value = value;
 
         /// <summary>T casting operator.</summary>
         /// <param name="args">The arguments.</param>
@@ -27,8 +27,6 @@ namespace SimControl.Reactive
 
         /// <summary>Gets the value.</summary>
         /// <value>The value.</value>
-        public T Value => value;
-
-        private readonly T value;
+        public T Value { get; }
     }
 }

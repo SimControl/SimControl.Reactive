@@ -114,7 +114,9 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
             TaskEx.Run(() => { throw new InvalidOperationException(); });
 
             TaskEx.Delay(1000).Wait();
+#pragma warning disable S1215 // "GC.Collect" should not be called
             GC.Collect();
+#pragma warning restore S1215 // "GC.Collect" should not be called
             GC.WaitForPendingFinalizers();
 
             unhandledExceptionEvent.WaitOneAssertTimeout();

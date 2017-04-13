@@ -13,20 +13,22 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 {
     [Log]
     [TestFixture]
-    public class SampleClassTests: TestFrame
+    public class SampleClassTests : TestFrame
     {
         #region Additional test attributes
 
         [SetUp]
-        new public void SetUp() => SetPrivateStaticField(typeof(SampleClass), "counter", 0);
+        new public void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
 
         #endregion
 
         [Test]
-        public void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() => sampleClass.DoSomething();
+        public void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
+            new SampleClass().DoSomething();
 
         [Test]
-        public void SampleClassTests_SampleClass_LogSettingsTest_WriteAppAndUserSettingsToLogTargets() => sampleClass.LogSettings();
+        public void SampleClassTests_SampleClass_LogSettingsTest_WriteAppAndUserSettingsToLogTargets() =>
+            SampleClass.LogSettings();
 
         [Test]
         public void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize1()
@@ -48,7 +50,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         {
             try
             {
-                sampleClass.ValidateCodeContract(false);
+                SampleClass.ValidateCodeContract(false);
             }
             catch (Exception e)
             {
@@ -57,17 +59,17 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() => sampleClass.ValidateCodeContract(true);
+        public void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() =>
+            SampleClass.ValidateCodeContract(true);
 
         [Test]
-        public void SampleClassTests_SampleClass_ValidateSettings_NoException() => sampleClass.ValidateSettings();
+        public void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
 
         [Test, Sequential]
-        public void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) => Assert.That(arg*arg, Is.EqualTo(res));
+        public void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) =>
+            Assert.That(arg*arg, Is.EqualTo(res));
 
         [Test]
         public void SampleClassTests_VerifyJitOptimization_Run() => VerifyJitOptimization.Run();
-
-        private readonly SampleClass sampleClass = new SampleClass();
     }
 }
