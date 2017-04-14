@@ -1107,8 +1107,8 @@ namespace SimControl.Reactive.Tests
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [Test]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
+        [Test]
         public void Validate_Code_Contract_Exception()
         {
             try

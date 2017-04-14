@@ -23,7 +23,7 @@
     <Rule Id="CC0043" Action="Warning" />
     <Rule Id="CC0044" Action="None" />
     <Rule Id="CC0045" Action="None" />
-    <Rule Id="CC0046" Action="Warning" />
+    <Rule Id="CC0046" Action="None" />
     <Rule Id="CC0047" Action="None" />
     <Rule Id="CC0048" Action="Warning" />
     <Rule Id="CC0049" Action="Warning" />
@@ -829,7 +829,7 @@
     <Rule Id="RCS1022" Action="Warning" />
     <Rule Id="RCS1022FadeOut" Action="Warning" />
     <Rule Id="RCS1023" Action="None" />
-    <Rule Id="RCS1024" Action="Warning" />
+    <Rule Id="RCS1024" Action="None" />
     <Rule Id="RCS1025" Action="Warning" />
     <Rule Id="RCS1026" Action="Warning" />
     <Rule Id="RCS1028" Action="Warning" />
