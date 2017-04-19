@@ -274,8 +274,8 @@ namespace SimControl.TestUtils
 
         /// <summary>Initializes the NLog configuration.</summary>
         protected static void InitializeNLogConfiguration() //TODO for NLog 4.0 replace by reference to NLog.config
-=> LogManager.Configuration = new XmlLoggingConfiguration(TestContext.CurrentContext.TestDirectory + "\\" +
-                Assembly.GetCallingAssembly().GetName().Name + ".dll.nlog", false); //TODO for NLog 4.0 reference NLog.config
+            => LogManager.Configuration = new XmlLoggingConfiguration(TestContext.CurrentContext.TestDirectory + "\\" +
+                Assembly.GetCallingAssembly().GetName().Name + ".dll.nlog", false);
 
         [Log]
         private void AppDomainUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
