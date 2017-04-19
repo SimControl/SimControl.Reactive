@@ -45,9 +45,9 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                 ready.Set();
             });
 
-            ready.WaitAsync().AssertTimeout();
+            ready.WaitAsync().WaitAssertTimeout();
 
-            task.AssertTimeout();
+            task.WaitAssertTimeout();
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                 });
 
                 ready.WaitOneAssertTimeout();
-                task.AssertTimeout();
+                task.WaitAssertTimeout();
             }
         }
 
@@ -80,7 +80,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }).Wait()).InnerExceptions[0], Is.InstanceOf<InvalidOperationException>());
 
         [Test]
-        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().AssertTimeout());
+        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
 
         [Test, Example]
         public void AsyncTests_ObserveTaskException()
@@ -95,7 +95,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                     t.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
 
                 ready.WaitOneAssertTimeout();
-                task.AssertTimeout();
+                task.WaitAssertTimeout();
             }
         }
 
@@ -136,7 +136,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                 {
                     SetUnhandledException(e);
                 }
-            }).AssertTimeout();
+            }).WaitAssertTimeout();
 
             unhandledExceptionEvent.WaitOneAssertTimeout();
 

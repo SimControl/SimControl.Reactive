@@ -16,7 +16,7 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
-    public static class AssertTimeoutEx
+    public static class AssertTimeout
     {
         /// <summary>
         /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
@@ -119,11 +119,11 @@ namespace SimControl.TestUtils
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="task">The task to act on.</param>
         /// <returns>A T.</returns>
-        public static T AssertTimeout<T>(this Task<T> task)
+        public static T ResultAssertTimeout<T>(this Task<T> task)
         {
             Contract.Requires(task != null);
 
-            return task.AssertTimeout(TestFrame.DefaultTestTimeout);
+            return task.ResultAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task{T}.Result"/> wrapper that asserts the test timeout.</summary>
@@ -133,7 +133,7 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         /// <returns>A T.</returns>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static T AssertTimeout<T>(this Task<T> task, int timeout)
+        public static T ResultAssertTimeout<T>(this Task<T> task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -152,11 +152,11 @@ namespace SimControl.TestUtils
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
         /// <param name="action">The action.</param>
-        public static void AssertTimeout(this Action action)
+        public static void RunAssertTimeout(this Action action)
         {
             Contract.Requires(action != null);
 
-            action.AssertTimeout(TestFrame.DefaultTestTimeout);
+            action.RunAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
@@ -164,7 +164,7 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void AssertTimeout(this Action action, int timeout)
+        public static void RunAssertTimeout(this Action action, int timeout)
         {
             Contract.Requires(action != null);
 
@@ -186,11 +186,11 @@ namespace SimControl.TestUtils
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="function">The function.</param>
         /// <returns>A T.</returns>
-        public static T AssertTimeout<T>(this Func<T> function)
+        public static T RunAssertTimeout<T>(this Func<T> function)
         {
             Contract.Requires(function != null);
 
-            return function.AssertTimeout(TestFrame.DefaultTestTimeout);
+            return function.RunAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
@@ -200,7 +200,7 @@ namespace SimControl.TestUtils
         /// <returns>A T.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static T AssertTimeout<T>(this Func<T> function, int timeout)
+        public static T RunAssertTimeout<T>(this Func<T> function, int timeout)
         {
             Contract.Requires(function != null);
 
@@ -300,11 +300,11 @@ namespace SimControl.TestUtils
 
         /// <summary><see cref="Task.Wait()"/> wrapper that asserts the test timeout.</summary>
         /// <param name="task">The task to act on.</param>
-        public static void AssertTimeout(this Task task)
+        public static void WaitAssertTimeout(this Task task)
         {
             Contract.Requires(task != null);
 
-            task.AssertTimeout(TestFrame.DefaultTestTimeout);
+            task.WaitAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task.Wait()"/> wrapper that asserts the test timeout.</summary>
@@ -312,7 +312,7 @@ namespace SimControl.TestUtils
         /// <param name="task">The task to act on.</param>
         /// <param name="timeout">The timeout.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void AssertTimeout(this Task task, int timeout)
+        public static void WaitAssertTimeout(this Task task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -331,11 +331,11 @@ namespace SimControl.TestUtils
         /// <summary>Wrapper that asserts the test timeout.</summary>
         /// <param name="semaphore">The semaphore.</param>
         /// <param name="count">The count.</param>
-        public static void AssertTimeout(this SemaphoreSlim semaphore, int count = 1)
+        public static void WaitAssertTimeout(this SemaphoreSlim semaphore, int count = 1)
         {
             Contract.Requires(semaphore != null);
 
-            semaphore.AssertTimeout(count, TestFrame.DefaultTestTimeout);
+            semaphore.WaitAssertTimeout(count, TestFrame.DefaultTestTimeout);
         }
 
         /// <summary>Wrapper that asserts the test timeout.</summary>
@@ -346,7 +346,7 @@ namespace SimControl.TestUtils
         /// Test timeout + timeout.ToString(CultureInfo.InvariantCulture) + expired
         /// </exception>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void AssertTimeout(this SemaphoreSlim semaphore, int count, int timeout)
+        public static void WaitAssertTimeout(this SemaphoreSlim semaphore, int count, int timeout)
         {
             Contract.Requires(semaphore != null);
 

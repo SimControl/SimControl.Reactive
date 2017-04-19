@@ -35,12 +35,12 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         {
             Task<bool> buttonPressed =
                 context.PostAsync(() => window.DisplayTestMessageAsync("Press 'OK'\nJust some more text.",
-                    DisableDebugTimeout(DefaultTestTimeout))).AssertTimeout();
-            Assert.IsTrue(buttonPressed.AssertTimeout());
+                    DisableDebugTimeout(DefaultTestTimeout))).ResultAssertTimeout();
+            Assert.IsTrue(buttonPressed.ResultAssertTimeout());
 
             buttonPressed = context.PostAssertTimeout(() => window.DisplayTestMessageAsync("Press 'Cancel'",
                 DisableDebugTimeout(DefaultTestTimeout)));
-            Assert.IsFalse(buttonPressed.AssertTimeout());
+            Assert.IsFalse(buttonPressed.ResultAssertTimeout());
         }
 
         private DispatcherContextTestAdapter context;
@@ -64,12 +64,12 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                 });
 
                 Task<bool> buttonPressed = context.PostAsync(() => window.DisplayTestMessageAsync("Press 'OK'\nJust some more text.",
-                DisableDebugTimeout(DefaultTestTimeout))).AssertTimeout();
-                Assert.IsTrue(buttonPressed.AssertTimeout());
+                DisableDebugTimeout(DefaultTestTimeout))).ResultAssertTimeout();
+                Assert.IsTrue(buttonPressed.ResultAssertTimeout());
 
                 buttonPressed = context.PostAssertTimeout(() => window.DisplayTestMessageAsync("Press 'Cancel'",
                     DisableDebugTimeout(DefaultTestTimeout)));
-                Assert.IsFalse(buttonPressed.AssertTimeout());
+                Assert.IsFalse(buttonPressed.ResultAssertTimeout());
 
                 context.SendAssertTimeout(() => window.Close());
             }

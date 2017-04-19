@@ -49,21 +49,21 @@ namespace SimControl.Reactive.Tests
         [Test]
         public void ResultAssertTimeout_Task()
         {
-            bool ret = TaskEx.Run(() => true).AssertTimeout();
+            bool ret = TaskEx.Run(() => true).ResultAssertTimeout();
 
             Assert.IsTrue(ret);
         }
 
         [Test]
         public void ResultAssertTimeout_Task_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => Task<bool>.Factory.StartNew(
-                                                                      () => { throw new InvalidOperationException(); }).AssertTimeout());
+                                                                      () => { throw new InvalidOperationException(); }).ResultAssertTimeout());
 
         [Test]
         public void ResultAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() => TaskEx.Run(() =>
         {
             TaskEx.Delay(int.MaxValue).Wait();
             return true;
-        }).AssertTimeout(MinTimerResolution));
+        }).ResultAssertTimeout(MinTimerResolution));
 
         [Test]
         public void RunAction_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => RunAssertTimeout(
@@ -104,7 +104,7 @@ namespace SimControl.Reactive.Tests
 
                 Assert.IsTrue(blockingCollection.TakeAssertTimeout());
 
-                task.AssertTimeout();
+                task.WaitAssertTimeout();
             }
         }
 
@@ -121,11 +121,11 @@ namespace SimControl.Reactive.Tests
 
         [Test]
         public void WaitAssertTimeout_Task_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => TaskEx.Run(
-                                                                    () => { throw new InvalidOperationException(); }).AssertTimeout());
+                                                                    () => { throw new InvalidOperationException(); }).WaitAssertTimeout());
 
         [Test]
         public void WaitAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() => TaskEx.Run(
-                                                                   () => TaskEx.Delay(int.MaxValue).Wait()).AssertTimeout(MinTimerResolution));
+                                                                   () => TaskEx.Delay(int.MaxValue).Wait()).WaitAssertTimeout(MinTimerResolution));
 
         [Test]
         public void WaitOneAssertTimeout_WaitHandle()
@@ -135,7 +135,7 @@ namespace SimControl.Reactive.Tests
                 Task task = TaskEx.Run(() => ready.Set());
 
                 ready.WaitOneAssertTimeout();
-                task.AssertTimeout();
+                task.WaitAssertTimeout();
             }
         }
 

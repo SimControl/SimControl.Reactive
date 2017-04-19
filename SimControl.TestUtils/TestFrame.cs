@@ -140,7 +140,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            action.AssertTimeout();
+            action.RunAssertTimeout();
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
@@ -152,7 +152,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            action.AssertTimeout(timeout);
+            action.RunAssertTimeout(timeout);
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
@@ -164,7 +164,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(function != null);
 
-            return function.AssertTimeout();
+            return function.RunAssertTimeout();
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
@@ -177,7 +177,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(function != null);
 
-            return function.AssertTimeout(timeout);
+            return function.RunAssertTimeout(timeout);
         }
 
         /// <summary>Sets private static field.</summary>
