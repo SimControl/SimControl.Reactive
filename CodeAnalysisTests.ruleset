@@ -971,6 +971,7 @@
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
+    <Rule Id="S101" Action="None" />
     <Rule Id="S105" Action="Warning" />
     <Rule Id="S110" Action="None" />
     <Rule Id="S1104" Action="None" />
