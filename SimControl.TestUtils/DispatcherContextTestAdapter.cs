@@ -51,7 +51,7 @@ namespace SimControl.TestUtils
             thread.SetApartmentState(apartmentState);
             thread.Start();
 
-            tcs.Task.WaitAssertTimeout();
+            tcs.Task.AssertTimeout();
         }
 
         /// <summary>Post this message while asserting the test timeout.</summary>
@@ -89,7 +89,7 @@ namespace SimControl.TestUtils
                 }
             }, null);
 
-            tcs.Task.WaitAssertTimeout(timeout);
+            tcs.Task.AssertTimeout(timeout);
         }
 
         /// <summary>Post this message while asserting the test timeout.</summary>
@@ -131,7 +131,7 @@ namespace SimControl.TestUtils
                 }
             }, null);
 
-            return tcs.Task.ResultAssertTimeout(timeout);
+            return tcs.Task.AssertTimeout(timeout);
         }
 
         /// <summary>Post this message.</summary>
@@ -223,7 +223,7 @@ namespace SimControl.TestUtils
                 }
             }, null);
 
-            tcs.Task.WaitAssertTimeout(timeout);
+            tcs.Task.AssertTimeout(timeout);
         }
 
         /// <summary>Send this message.</summary>
@@ -264,7 +264,7 @@ namespace SimControl.TestUtils
                 }
             }, null);
 
-            return tcs.Task.ResultAssertTimeout(timeout);
+            return tcs.Task.AssertTimeout(timeout);
         }
 
         /// <inheritdoc/>

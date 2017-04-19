@@ -97,7 +97,7 @@ namespace SimControl.Reactive.Tests
                         context.PostAssertTimeout(sm.Initialize);
 
                         Assert.AreEqual(0, stateChanged.TakeAssertTimeout());
-                        TaskEx.Delay(50).WaitAssertTimeout(); //TODO why?
+                        TaskEx.Delay(50).AssertTimeout(); //TODO why?
                         cancellationTokenSource.Cancel();
                         Assert.AreEqual(1, stateChanged.TakeAssertTimeout());
                         Assert.IsTrue(sm.IsActive("."));
