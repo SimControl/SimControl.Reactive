@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples", "SimControl.Samples", "{8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}"
 EndProject
@@ -69,6 +69,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NUnit.runsettings = NUnit.runsettings
 		PostSharp.Custom.targets = PostSharp.Custom.targets
 		README.md = README.md
+		Rebracer.xml = Rebracer.xml
 		RELEASENOTES.md = RELEASENOTES.md
 		SimControl.Reactive.v3.ncrunchsolution = SimControl.Reactive.v3.ncrunchsolution
 		SimControl.Samples.VisualState.xml = SimControl.Samples.VisualState.xml
