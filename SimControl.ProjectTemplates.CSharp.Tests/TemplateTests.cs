@@ -16,8 +16,6 @@ namespace SimControl.Templates.CSharp.Tests
     [TestFixture]
     public class TemplateTests : TestFrame
     {
-        static TemplateTests() => InitializeNLogConfiguration(); //TODO why is this required?
-
         [Test]
         public void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeeds()
         {

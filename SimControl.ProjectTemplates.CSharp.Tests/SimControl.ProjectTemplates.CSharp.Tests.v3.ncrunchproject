@@ -6,6 +6,5 @@
       <Value>LostReference</Value>
     </HiddenComponentWarnings>
     <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
-    <RunPostBuildEvents>True</RunPostBuildEvents>
   </Settings>
 </ProjectConfiguration>

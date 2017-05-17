@@ -1,10 +1,5 @@
 ﻿<SolutionConfiguration>
   <Settings>
-    <AdditionalFilesToIncludeForSolution>
-      <Value>IntegrationTest.nlog</Value>
-      <Value>NLog.config</Value>
-      <Value>App.config</Value>
-    </AdditionalFilesToIncludeForSolution>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
     <MetricsExclusionList>
       <Value>SimControl.Samples.CodeContracts\SimControl.Samples.CodeContracts.csproj</Value>

@@ -980,6 +980,7 @@
     <Rule Id="S1116" Action="Warning" />
     <Rule Id="S1121" Action="None" />
     <Rule Id="S1125" Action="Warning" />
+    <Rule Id="S1134" Action="Info" />
     <Rule Id="S1135" Action="Info" />
     <Rule Id="S1144" Action="Warning" />
     <Rule Id="S1185" Action="Warning" />
@@ -990,10 +991,12 @@
     <Rule Id="S127" Action="Warning" />
     <Rule Id="S1301" Action="Warning" />
     <Rule Id="S1313" Action="Warning" />
+    <Rule Id="S1449" Action="Warning" />
     <Rule Id="S1450" Action="None" />
     <Rule Id="S1479" Action="Warning" />
     <Rule Id="S1659" Action="Warning" />
     <Rule Id="S1697" Action="Warning" />
+    <Rule Id="S1698" Action="Warning" />
     <Rule Id="S1858" Action="Warning" />
     <Rule Id="S1905" Action="Warning" />
     <Rule Id="S1939" Action="Warning" />
@@ -1039,6 +1042,8 @@
     <Rule Id="S3881" Action="None" />
     <Rule Id="S3898" Action="Warning" />
     <Rule Id="S3902" Action="Warning" />
+    <Rule Id="S3962" Action="Warning" />
+    <Rule Id="S3967" Action="Warning" />
     <Rule Id="S818" Action="Warning" />
   </Rules>
 </RuleSet>

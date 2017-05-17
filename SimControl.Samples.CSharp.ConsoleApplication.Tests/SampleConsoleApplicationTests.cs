@@ -16,7 +16,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
     [TestFixture, ExclusivelyUses("Logging")]
     public class SampleConsoleApplicationTests : TestFrame
     {
-        static SampleConsoleApplicationTests() => InitializeNLogConfiguration();
         #region Additional test attributes
 
         [SetUp]
