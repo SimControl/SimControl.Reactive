@@ -32,7 +32,7 @@ namespace SimControl.TestUtils
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "4#")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         [Log]
-        public ConsoleProcessTestAdapter(string fileName, string arguments, string standardInput,
+        public ConsoleProcessTestAdapter(string fileName, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
         {
             Contract.Requires(fileName != null);
@@ -65,14 +65,12 @@ namespace SimControl.TestUtils
             var stdOutput = standardOutput = new BlockingCollection<string>();
             var stdError = standardError = new BlockingCollection<string>();
 
-            Process.OutputDataReceived += (sender, args) => stdOutput.Add(args.Data);
+            Process.OutputDataReceived += (sender, args) => 
+            stdOutput.Add(args.Data);
             Process.ErrorDataReceived += (sender, args) => stdError.Add(args.Data);
 
             Process.BeginOutputReadLine();
             Process.BeginErrorReadLine();
-
-            if (standardInput != null)
-                Process.StandardInput.Write(standardInput);
         }
 
         /// <summary>Closes the main window while asserting the specified timeout.</summary>

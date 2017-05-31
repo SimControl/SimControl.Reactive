@@ -36,7 +36,10 @@ namespace SimControl.Templates.CSharp.Tests
             using (var process = new ConsoleProcessTestAdapter(
                 TestContext.CurrentContext.TestDirectory + "\\SimControl.Templates.CSharp.ConsoleApplication.exe",
                 null, null, out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
+            {
+                process.Process.StandardInput.Close();
                 Assert.AreEqual(0, process.WaitForExitAssertTimeout());
+            }
         }
 
         [Test]

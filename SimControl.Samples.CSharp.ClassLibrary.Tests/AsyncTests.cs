@@ -111,7 +111,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         [Test, Ignore("Unstable"), Unstable]
         public void AsyncTests_UnhandledAsyncExceptions_TaskSchedulerUnobservedTaskException()
         {
-            TaskEx.Run(() => { throw new InvalidOperationException(); });
+            TaskEx.Run(() => throw new InvalidOperationException());
 
             TaskEx.Delay(1000).Wait();
 #pragma warning disable S1215 // "GC.Collect" should not be called

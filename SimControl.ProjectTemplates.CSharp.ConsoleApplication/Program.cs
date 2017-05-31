@@ -40,7 +40,13 @@ namespace SimControl.Templates.CSharp.ConsoleApplication
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
 
-                // ...                
+                string input;
+                while ((input = Console.ReadLine()) != null)
+                {
+                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
+
+                    // ...                
+                }
 
                 return 0;
             }

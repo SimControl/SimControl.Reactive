@@ -56,7 +56,7 @@ namespace SimControl.Reactive.Tests
 
         [Test]
         public void ResultAssertTimeout_Task_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => Task<bool>.Factory.StartNew(
-                                                                      () => { throw new InvalidOperationException(); }).ResultAssertTimeout());
+                                                                      () => throw new InvalidOperationException()).ResultAssertTimeout());
 
         [Test]
         public void ResultAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() => TaskEx.Run(() =>
@@ -67,7 +67,7 @@ namespace SimControl.Reactive.Tests
 
         [Test]
         public void RunAction_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => RunAssertTimeout(
-                                                       () => { throw new InvalidOperationException(); }));
+                                                       () => throw new InvalidOperationException()));
 
         [Test]
         public void RunAssertTimeout_Action() => RunAssertTimeout(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod()));
@@ -92,7 +92,7 @@ namespace SimControl.Reactive.Tests
         {
             bool ret;
             Assert.Throws<InvalidOperationException>(() => ret = RunAssertTimeout<bool>(
-                () => { throw new InvalidOperationException(); }));
+                () => throw new InvalidOperationException()));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace SimControl.Reactive.Tests
 
         [Test]
         public void WaitAssertTimeout_Task_ExceptionIsCaught() => Assert.Throws<InvalidOperationException>(() => TaskEx.Run(
-                                                                    () => { throw new InvalidOperationException(); }).WaitAssertTimeout());
+                                                                    () => throw new InvalidOperationException()).WaitAssertTimeout());
 
         [Test]
         public void WaitAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() => TaskEx.Run(

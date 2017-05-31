@@ -110,7 +110,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         ClassLibrary.VerifyJitOptimization.Run();
                         break;
                     case "Wait":
-                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Wait");
+                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Waiting");
                         string s = Console.ReadLine();
                         if (s == null)
                             Environment.Exit(5);

@@ -199,7 +199,7 @@ namespace SimControl.Reactive.Tests
                     new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(4)).Add(
                         new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(3)).Add(
                             new Transition<int>("SimpleState1", new CallTrigger<int>(Call),
-                                guard: i => { throw new InvalidOperationException(); }, effect: Action)),
+                                guard: i => throw new InvalidOperationException(), effect: Action)),
                         new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
                             new Transition<Exception>("SimpleState3", new ExceptionTrigger<Exception>(), effect: e => {
                                 Action(5);
@@ -341,7 +341,7 @@ namespace SimControl.Reactive.Tests
                     new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(4)).Add(
                         new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(3)).Add(
                             new Transition<int>("SimpleState1", new CallTrigger<int>(Call),
-                                guard: i => { throw new InvalidOperationException(); }, effect: Action)),
+                                guard: i => throw new InvalidOperationException(), effect: Action)),
                         new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
                             new Transition<InvalidOperationException>("SimpleState3",
                                 new ExceptionTrigger<InvalidOperationException>(), effect: e => {
@@ -377,7 +377,7 @@ namespace SimControl.Reactive.Tests
                     new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
                         new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(-1)).Add(
                             new Transition<int>("SimpleState1", new CallTrigger<int>(Call),
-                                guard: i => { throw new InvalidOperationException(); }, effect: Action)),
+                                guard: i => throw new InvalidOperationException(), effect: Action)),
                         new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
                             new Transition<ArgumentException>("SimpleState3", new ExceptionTrigger<ArgumentException>(),
                                 effect: e => Action(-1))),
@@ -409,7 +409,7 @@ namespace SimControl.Reactive.Tests
             {
                 sm.Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState",
-                        guard: () => { throw new InvalidOperationException(); }, effect: () => Action(0))),
+                        guard: () => throw new InvalidOperationException(), effect: () => Action(0))),
                     new SimpleState("SimpleState", entry: () => Action(1), exit: () => Action(-1)));
 
                 Assert.Throws<StateMachineException>(() => RunAssertTimeout(sm.Initialize));
@@ -423,7 +423,7 @@ namespace SimControl.Reactive.Tests
             {
                 sm.Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
-                    new SimpleState("SimpleState", entry: () => { throw new InvalidOperationException(); },
+                    new SimpleState("SimpleState", entry: () => throw new InvalidOperationException(),
                         exit: () => Action(-1)));
 
                 Assert.Throws<StateMachineException>(() => RunAssertTimeout(sm.Initialize));
@@ -438,7 +438,7 @@ namespace SimControl.Reactive.Tests
                 sm.Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                     new SimpleState("SimpleState1", entry: () => Action(1),
-                        exit: () => { throw new InvalidOperationException(); }).Add(new Transition("SimpleState2",
+                        exit: () => throw new InvalidOperationException()).Add(new Transition("SimpleState2",
                             effect: () => Action(-1))),
                     new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1)));
 
@@ -460,7 +460,7 @@ namespace SimControl.Reactive.Tests
             {
                 sm.Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState",
-                        effect: () => { throw new InvalidOperationException(); })),
+                        effect: () => throw new InvalidOperationException())),
                     new SimpleState("SimpleState", entry: () => Action(-1), exit: () => Action(-1)));
 
                 Assert.Throws<StateMachineException>(() => RunAssertTimeout(sm.Initialize));
@@ -1026,7 +1026,7 @@ namespace SimControl.Reactive.Tests
                     new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                     new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
                         new Transition<int>("SimpleState2", new CallTrigger<int>(Call),
-                            effect: i => { throw new InvalidOperationException(); })),
+                            effect: i => throw new InvalidOperationException())),
                     new SimpleState("SimpleState2", entry: () => Action(4), exit: () => Action(-1)));
 
                 RunAssertTimeout(sm.Initialize);
@@ -1035,8 +1035,8 @@ namespace SimControl.Reactive.Tests
             }
         }
 
-        [Test]
-        public void DoActivity_Complex_42()
+        [Test, Unstable]
+        public void DoActivity_Complex_42() //TODO fix
         {
             //TODO add Action(x)
             int iterations = 3;
