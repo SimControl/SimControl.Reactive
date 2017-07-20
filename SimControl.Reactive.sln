@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples", "SimControl.Samples", "{8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}"
 EndProject
@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Mef.Plugin2", "SimControl.Samples.CSharp.Mef.Plugin2\SimControl.Samples.CSharp.Mef.Plugin2.csproj", "{4A0E6394-A68F-4A74-8859-8488D74024BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Wcf.Client40", "SimControl.Samples.CSharp.Wcf.Client40\SimControl.Samples.CSharp.Wcf.Client40.csproj", "{39384B02-8F9A-4CE1-9302-2D306D6B772E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Wcf.Client.Net40", "SimControl.Samples.CSharp.Wcf.Client.Net40\SimControl.Samples.CSharp.Wcf.Client.Net40.csproj", "{39384B02-8F9A-4CE1-9302-2D306D6B772E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B1C2BECA-356C-4D9B-8660-B515307E1871} = {B1C2BECA-356C-4D9B-8660-B515307E1871}
 	EndProjectSection
@@ -68,7 +68,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NUnit.runsettings = NUnit.runsettings
 		PostSharp.Custom.targets = PostSharp.Custom.targets
 		README.md = README.md
-		Rebracer.xml = Rebracer.xml
 		RELEASENOTES.md = RELEASENOTES.md
 		SimControl.Reactive.v3.ncrunchsolution = SimControl.Reactive.v3.ncrunchsolution
 		SimControl.Samples.VisualState.xml = SimControl.Samples.VisualState.xml

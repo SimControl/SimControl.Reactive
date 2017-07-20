@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
-    /// <summary>Interface for generic trigger with ony type parameter.</summary>
+    /// <summary>Interface for generic trigger with only type parameter.</summary>
     /// <typeparam name="T"></typeparam>
     /// <tparam name="T">Generic type parameter.</tparam>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]

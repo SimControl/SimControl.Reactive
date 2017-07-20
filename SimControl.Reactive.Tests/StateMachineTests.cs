@@ -147,6 +147,43 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
+        public void DoActivity_Exception2()
+        {
+            using (var stateChanged = new BlockingCollection<int>())
+            {
+                int stateChangedCount = 0;
+
+                using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
+                {
+                    sm.Add(
+                        new InitialState("InitialState").Add(new Transition("SimpleState1", name: "Transition1",
+                            effect: () => Action(0))),
+                        new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () => {
+                            await TaskEx.Delay(100).ConfigureAwait(false);
+                            Action(2);
+                            throw new InvalidOperationException();
+                        }, exit: () => Action(3)),
+                        new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(-1)));
+
+                    sm.StateChanged += (sender, args) => stateChanged.Add(stateChangedCount++);
+                    sm.Failed += (o, args) => logger.Error(((StateMachineException) args).ToString());
+
+                    using (var context = new DispatcherContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA))
+                    {
+                        context.PostAssertTimeout(sm.Initialize);
+
+                        Assert.AreEqual(0, stateChanged.TakeAssertTimeout());
+                        Assert.AreEqual(1, stateChanged.TakeAssertTimeout());
+                        Assert.IsTrue(sm.IsActive("."));
+                        Assert.IsTrue(sm.IsActive(".SimpleState2"));
+
+                        Assert.AreEqual(6, count);
+                    }
+                }
+            }
+        }
+
+        [Test]
         public void ExceptionTrigger__should__be_queued__when__more_than_exceptions_are_thrown_within_one_transition()
         {
             using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
@@ -201,7 +238,8 @@ namespace SimControl.Reactive.Tests
                             new Transition<int>("SimpleState1", new CallTrigger<int>(Call),
                                 guard: i => throw new InvalidOperationException(), effect: Action)),
                         new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
-                            new Transition<Exception>("SimpleState3", new ExceptionTrigger<Exception>(), effect: e => {
+                            new Transition<Exception>("SimpleState3", new ExceptionTrigger<Exception>(), effect: e =>
+                            {
                                 Action(5);
                                 Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                             })), new SimpleState("SimpleState3", entry: () => Action(6), exit: () => Action(-1)));
@@ -273,7 +311,8 @@ namespace SimControl.Reactive.Tests
                             Action(5);
                             throw new InvalidOperationException();
                         }, exit: () => Action(6))).Add(new Transition<InvalidOperationException>("SimpleState3",
-                            new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                            new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                            {
                                 Action(8);
                                 Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                             })), new SimpleState("SimpleState3", entry: () => Action(9), exit: () => Action(-1)));

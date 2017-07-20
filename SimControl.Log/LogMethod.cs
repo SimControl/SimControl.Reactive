@@ -10,6 +10,8 @@ using NLog;
 using SimControl.Log.Properties;
 using SimControl.Reactive;
 
+#pragma warning disable S3242 // Method parameters should be declared with base types
+
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>
@@ -106,9 +108,8 @@ namespace SimControl.Log
         }
 
         /// <summary>Sets the default thread culture.</summary>
-        /// <param name="currentCulture">  The current culture.</param>
-        /// <param name="currentUICulture">The current user interface
-        ///                                culture.</param>
+        /// <param name="currentCulture">The current culture.</param>
+        /// <param name="currentUICulture">The current user interface culture.</param>
         public static void SetDefaultThreadCulture(CultureInfo currentCulture, CultureInfo currentUICulture)
         {
             typeof(CultureInfo).InvokeMember("s_userDefaultCulture", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null, new object[] { currentCulture }, CultureInfo.InvariantCulture);
@@ -122,3 +123,5 @@ namespace SimControl.Log
                 (args.Count > 0 ? LogFormat.FormatArgsList(args) : ""));
     }
 }
+
+#pragma warning restore S3242

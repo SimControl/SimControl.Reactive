@@ -22,14 +22,13 @@ namespace SimControl.TestUtils
         /// <summary>Initializes a new instance of the <see cref="ConsoleProcessTestAdapter"/> class.</summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="arguments">The arguments.</param>
-        /// <param name="standardInput">The standard input.</param>
         /// <param name="standardOutput">The standard output.</param>
         /// <param name="standardError">The standard error.</param>
         /// <remarks>
         /// Tries to kill all processes with the same filename and command line arguments before starting a new console application.
         /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "4#")]
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         [Log]
         public ConsoleProcessTestAdapter(string fileName, string arguments,
@@ -65,8 +64,7 @@ namespace SimControl.TestUtils
             var stdOutput = standardOutput = new BlockingCollection<string>();
             var stdError = standardError = new BlockingCollection<string>();
 
-            Process.OutputDataReceived += (sender, args) => 
-            stdOutput.Add(args.Data);
+            Process.OutputDataReceived += (sender, args) => stdOutput.Add(args.Data);
             Process.ErrorDataReceived += (sender, args) => stdError.Add(args.Data);
 
             Process.BeginOutputReadLine();

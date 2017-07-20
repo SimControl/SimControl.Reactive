@@ -3,7 +3,7 @@
 using SimControl.Log;
 using System;
 
-namespace SimControl.Samples.CSharp.Wcf.Client40.SampleServiceEap
+namespace SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap
 {
     [Log]
     public partial class SampleServiceClient { }

@@ -4,7 +4,6 @@ using System;
 
 namespace SimControl.Templates.CSharp.ClassLibrary
 {
-    /// <summary></summary>
     public class Class1
     {
     }

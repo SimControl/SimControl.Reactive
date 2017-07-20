@@ -45,7 +45,8 @@ namespace SimControl.Reactive
 
     /// <summary>UML state machine.</summary>
     /// <remarks>
-    /// For a detailed description of UML state machines see "OMG Unified Modeling Language TM (OMG UML), Superstructure 2.3.pdf".
+    /// For a detailed description of UML state machines see "OMG Unified Modeling Language TM (OMG UML), Superstructure
+    /// 2.3.pdf".
     /// </remarks>
     public class StateMachine : CompositeState, IDisposable /*ActiveObjectCollection,*/
     {
@@ -180,7 +181,8 @@ namespace SimControl.Reactive
 
         /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
         /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged
+        /// resources.
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
@@ -420,8 +422,7 @@ namespace SimControl.Reactive
 
                     var doActivity = ca.DoActivity();
 
-                    doActivity.ContinueWith(task =>
-                    {
+                    doActivity.ContinueWith(task => {
                         ca.doActivityStarted = false;
 
                         if (task.IsFaulted)

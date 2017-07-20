@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using SimControl.Log;
 using SimControl.Samples.CSharp.Mef.Contracts;
 
@@ -25,7 +26,8 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Component
         }
 
         /// <summary>Get the element name</summary>
-        public string ElementName => typeof(Element).Name + "." + count + "." + name;
+        public string ElementName =>
+            typeof(Element).Name + "." + count.ToString(CultureInfo.InvariantCulture) + "." +name;
 
         private readonly int count;
         private readonly string name;

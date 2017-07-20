@@ -1,6 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using NLog;
@@ -24,6 +25,18 @@ namespace SimControl.Reactive.Tests
                 TestClass.StaticFoo(789, "mno");
             }
         }
+
+        [Test]
+        public void LambdaExpressionLogging_Tests()
+        {
+            int x = Foo(1);
+
+            Func<int, int> func = i => i + 1;
+
+            func(x);
+        }
+
+        private int Foo(int i) => i + 1;
 
         [Test]
         public void LogFormat_LongArray_MaxCollectionElementsAreFormatted() => logger.Message(LogLevel.Info,
@@ -58,7 +71,7 @@ namespace SimControl.Reactive.Tests
     {
         ~TestClass() => Dispose(false);
 
-        public static string StaticFoo(int par1, string par2) => par1 + par2;
+        public static string StaticFoo(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
 
         /// <inheritdoc/>
         public void Dispose()
@@ -68,10 +81,10 @@ namespace SimControl.Reactive.Tests
             GC.SuppressFinalize(this);
         }
 
-        public string Foo(int par1, string par2) => par1 + par2;
+        public string Foo(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
 
         [Log(AttributeExclude = true, AttributePriority = 2)]
-        public string Foo2(int par1, string par2) => par1 + par2;
+        public string Foo2(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
 
         public override string ToString() => LogFormat.FormatObject(typeof(TestClass), member1, member2, member3, member4, member5, staticMember);
 
