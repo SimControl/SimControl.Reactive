@@ -1089,7 +1089,6 @@
     <Rule Id="S4049" Action="Warning" />
     <Rule Id="S4050" Action="Warning" />
     <Rule Id="S4052" Action="Warning" />
-    <Rule Id="S4055" Action="Warning" />
     <Rule Id="S4057" Action="Warning" />
     <Rule Id="S4058" Action="Warning" />
     <Rule Id="S4059" Action="Warning" />
