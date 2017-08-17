@@ -85,7 +85,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         }
 
         [Test]
-        public void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
+        public static void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
 
         private string filePath;
     }

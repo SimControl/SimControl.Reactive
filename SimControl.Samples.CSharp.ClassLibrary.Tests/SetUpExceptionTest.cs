@@ -14,15 +14,15 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #region Test
 
         [OneTimeSetUp]
-        new public void OneTimeSetUp()
+        new public static void OneTimeSetUp()
         {
         }
 
         [OneTimeTearDown]
-        new public void OneTimeTearDown() => throw new InvalidOperationException();
+        new public static void OneTimeTearDown() => throw new InvalidOperationException();
 
         [SetUp]
-        new public void SetUp() => throw new InvalidOperationException();
+        new public static void SetUp() => throw new InvalidOperationException();
 
         [TearDown]
         new public static void TearDown() => throw new InvalidOperationException();
@@ -30,6 +30,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #endregion
 
         [Test, Ignore("Will fail by design"), Unstable]
-        public void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() { }
+        public static void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() { }
     }
 }

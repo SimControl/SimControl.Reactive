@@ -11,7 +11,7 @@ namespace SimControl.Reactive.Tests
     public class Lam2Sample: TestFrame
     {
         [Test, Example]
-        public void Lamp2_OnOff()
+        public static void Lamp2_OnOff()
         {
             using (var lamp2 = new Lamp2())
             {

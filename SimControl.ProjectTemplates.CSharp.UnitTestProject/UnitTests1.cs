@@ -13,7 +13,7 @@ namespace SimControl.Templates.CSharp.UnitTestProject
     public class UnitTests1: TestFrame
     {
         [Test]
-        public void UnitOfWorkName_ScenarioUnderTest_ExpectedBehavior()
+        public static void UnitOfWorkName_ScenarioUnderTest_ExpectedBehavior()
         {
             //throw new NotImplementedException();
         }

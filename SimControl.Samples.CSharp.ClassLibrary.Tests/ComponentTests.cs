@@ -20,7 +20,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
     public class ComponentLoaderTest : TestFrame
     {
         [Test]
-        public void Test1()
+        public static void Test1()
         {
             var builder = new ContainerBuilder();
 
@@ -35,7 +35,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void Test2()
+        public static void Test2()
         {
             var builder = new ContainerBuilder();
 
@@ -51,7 +51,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void Test3()
+        public static void Test3()
         {
             var builder = new ContainerBuilder();
 
@@ -71,7 +71,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void Test4()
+        public static void Test4()
         {
             var builder = new ContainerBuilder();
 
@@ -93,7 +93,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void Test5()
+        public static void Test5()
         {
             var builder = new ContainerBuilder();
 

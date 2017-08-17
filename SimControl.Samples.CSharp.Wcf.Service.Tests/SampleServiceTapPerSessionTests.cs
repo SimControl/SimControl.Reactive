@@ -26,7 +26,7 @@ namespace SimControl.Samples.CSharp.Wcf.Service.Tests
 public class SampleServiceTapPerSessionTests: TestFrame
 {
         [Test]
-        public void SomeTest() { }
+        public static void SomeTest() { }
         //        //private ITtuSpServiceCallback       ttuSpCallback = Substitute.For<ITtuSpServiceCallback>();
         //        //    ttuSpCallback.When( x => x.UiConnectionCountChanged( Arg.Any<int>() )                       ).Do( x => { uiConnectionCountChanged = x.Arg<int>();                       uiConnectionCountChangedReady.Set(); } );
         //        //private AutoResetEvent              uiConnectionCountChangedReady = new AutoResetEvent( false );

@@ -23,7 +23,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
     public class PluginLoaderTest: TestFrame
     {
         [Test]
-        public void PluginLoaderTests_MEFCompositionContainer_GetExportedValue_InstantiatesPlugin1Object()
+        public static void PluginLoaderTests_MEFCompositionContainer_GetExportedValue_InstantiatesPlugin1Object()
         {
             IPlugin plugin1;
             IResource resource;
@@ -42,7 +42,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void PluginLoaderTests_Plugin_ResourceName_ReturnsInstantiatedResource()
+        public static void PluginLoaderTests_Plugin_ResourceName_ReturnsInstantiatedResource()
         {
             using (var aggregateCatalog = new AggregateCatalog())
             using (var assemblyCatalog = new AssemblyCatalog(typeof(Resource).Assembly))
@@ -68,6 +68,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void PluginLoaderTests_TestDirectory_Contains2Plugins() => Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
+        public static void PluginLoaderTests_TestDirectory_Contains2Plugins() => Assert.AreEqual(2, Directory.GetFiles(TestContext.CurrentContext.TestDirectory, "SimControl.Samples.CSharp.Mef.Plugin?.dll").Length);
     }
 }

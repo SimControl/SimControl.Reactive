@@ -36,7 +36,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #endregion
 
         [Test, Example]
-        public void AsyncTests_AsyncAutoResetEvent_SetInTaskOnOtherThread_IsSignaled()
+        public static void AsyncTests_AsyncAutoResetEvent_SetInTaskOnOtherThread_IsSignaled()
         {
             var ready = new AsyncAutoResetEvent(false);
 
@@ -51,14 +51,14 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public async Task AsyncTests_AsyncTest_awaitTaskExDelay_Async()
+        public static async Task AsyncTests_AsyncTest_awaitTaskExDelay_Async()
         {
             await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
             logger.Info("Delay finished");
         }
 
         [Test, Example]
-        public void AsyncTests_AutoResetEvent_SetInTaskOnOtherThread_IsSignaled()
+        public static void AsyncTests_AutoResetEvent_SetInTaskOnOtherThread_IsSignaled()
         {
             using (var ready = new AutoResetEvent(false))
             {
@@ -73,17 +73,17 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtInWait() => Assert.That(Assert.Catch<AggregateException>(() => TaskEx.Run(() =>
+        public static void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtInWait() => Assert.That(Assert.Catch<AggregateException>(() => TaskEx.Run(() =>
         {
             TaskEx.Delay(MinTimerResolution).Wait();
             throw new InvalidOperationException();
         }).Wait()).InnerExceptions[0], Is.InstanceOf<InvalidOperationException>());
 
         [Test]
-        public void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
+        public static void AsyncTests_Exception_ThrownInTaskOnOtherThread_IsCaughtOnAwait() => Assert.Catch<InvalidOperationException>(() => TestHelperAsync().WaitAssertTimeout());
 
         [Test, Example]
-        public void AsyncTests_ObserveTaskException()
+        public static void AsyncTests_ObserveTaskException()
         {
             using (var ready = new AutoResetEvent(false))
             {
@@ -100,7 +100,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public async Task AsyncTests_SynchronizationContextIsNull_Async()
+        public static async Task AsyncTests_SynchronizationContextIsNull_Async()
         {
             await TaskEx.Delay(0).ConfigureAwait(false);
 
@@ -144,7 +144,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
             ClearUnhandledException();
         }
 
-        private async Task TestHelperAsync()
+        private static async Task TestHelperAsync()
         {
             await TaskEx.Run(async () => {
                 await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);

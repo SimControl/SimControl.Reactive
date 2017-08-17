@@ -16,7 +16,7 @@ namespace SimControl.Reactive.Tests
     public class LogTests: TestFrame
     {
         [Test]
-        public void LogAttribute_Tests()
+        public static void LogAttribute_Tests()
         {
             using (var testClass = new TestClass())
             {
@@ -27,7 +27,7 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
-        public void LambdaExpressionLogging_Tests()
+        public static void LambdaExpressionLogging_Tests()
         {
             int x = Foo(1);
 
@@ -36,10 +36,10 @@ namespace SimControl.Reactive.Tests
             func(x);
         }
 
-        private int Foo(int i) => i + 1;
+        private static int Foo(int i) => i + 1;
 
         [Test]
-        public void LogFormat_LongArray_MaxCollectionElementsAreFormatted() => logger.Message(LogLevel.Info,
+        public static void LogFormat_LongArray_MaxCollectionElementsAreFormatted() => logger.Message(LogLevel.Info,
                 MethodBase.GetCurrentMethod(),
                 "Message",
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
@@ -81,10 +81,12 @@ namespace SimControl.Reactive.Tests
             GC.SuppressFinalize(this);
         }
 
-        public string Foo(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
+        public string Foo(int par1, string par2) =>
+            par1.ToString(CultureInfo.InvariantCulture) + par2 + member2.ToString(CultureInfo.CurrentCulture);
 
         [Log(AttributeExclude = true, AttributePriority = 2)]
-        public string Foo2(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
+        public string Foo2(int par1, string par2) =>
+            par1.ToString(CultureInfo.InvariantCulture) + par2 + member2.ToString(CultureInfo.CurrentCulture);
 
         public override string ToString() => LogFormat.FormatObject(typeof(TestClass), member1, member2, member3, member4, member5, staticMember);
 

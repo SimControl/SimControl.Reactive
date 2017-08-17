@@ -18,27 +18,27 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #region Additional test attributes
 
         [SetUp]
-        new public void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
+        new public static void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
 
         #endregion
 
         [Test]
-        public void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
+        public static void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
             new SampleClass().DoSomething();
 
         [Test]
-        public void SampleClassTests_SampleClass_LogSettingsTest_WriteAppAndUserSettingsToLogTargets() =>
+        public static void SampleClassTests_SampleClass_LogSettingsTest_WriteAppAndUserSettingsToLogTargets() =>
             SampleClass.LogSettings();
 
         [Test]
-        public void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize1()
+        public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize1()
         {
             Assert.AreEqual(0, SampleClass.StaticCounter);
             SampleClass.IncrementStaticCounter();
         }
 
         [Test]
-        public void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize2()
+        public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize2()
         {
             Assert.AreEqual(0, SampleClass.StaticCounter);
             SampleClass.IncrementStaticCounter();
@@ -46,7 +46,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Test]
-        public void SampleClassTests_SampleClass_ValidateCodeContractFalse_ThrowsContractException()
+        public static void SampleClassTests_SampleClass_ValidateCodeContractFalse_ThrowsContractException()
         {
             try
             {
@@ -59,17 +59,17 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [Test]
-        public void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() =>
+        public static void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() =>
             SampleClass.ValidateCodeContract(true);
 
         [Test]
-        public void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
+        public static void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
 
         [Test, Sequential]
-        public void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) =>
+        public static void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) =>
             Assert.That(arg*arg, Is.EqualTo(res));
 
         [Test]
-        public void SampleClassTests_VerifyJitOptimization_Run() => VerifyJitOptimization.Run();
+        public static void SampleClassTests_VerifyJitOptimization_Run() => VerifyJitOptimization.Run();
     }
 }

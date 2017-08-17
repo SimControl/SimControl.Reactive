@@ -17,21 +17,21 @@ namespace SimControl.Templates.CSharp.Tests
     public class TemplateTests : TestFrame
     {
         [Test]
-        public void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeeds()
+        public static void SampleClassTests_SimControlTemplatesCSharpClassLibraryClass1Constructor_Succeeds()
         {
             var class1 = new Class1();
             logger.Message(LogLevel.Trace, MethodBase.GetCurrentMethod(), class1.ToString());
         }
 
         [Test]
-        public void SampleClassTests_SimControlTemplatesCSharpPortableClassLibraryClass1Constructor_Succeeds()
+        public static void SampleClassTests_SimControlTemplatesCSharpPortableClassLibraryClass1Constructor_Succeeds()
         {
             var class1 = new PortableClassLibrary.Class1();
             logger.Message(LogLevel.Trace, MethodBase.GetCurrentMethod(), class1.ToString());
         }
 
         [Test, IntegrationTest]
-        public void SimControlTemplatesCSharpConsoleApplication_RunApplication_Returns0()
+        public static void SimControlTemplatesCSharpConsoleApplication_RunApplication_Returns0()
         {
             using (var process = new ConsoleProcessTestAdapter(
                 TestContext.CurrentContext.TestDirectory + "\\SimControl.Templates.CSharp.ConsoleApplication.exe",
@@ -43,7 +43,7 @@ namespace SimControl.Templates.CSharp.Tests
         }
 
         [Test]
-        public void SimControlTemplatesCSharpConsoleApplicationMain_Returns0() => Assert.AreEqual(0, Program.Main());
+        public static void SimControlTemplatesCSharpConsoleApplicationMain_Returns0() => Assert.AreEqual(0, Program.Main());
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

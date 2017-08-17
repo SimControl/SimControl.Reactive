@@ -16,7 +16,7 @@ namespace SimControl.Reactive.Tests
     public class InternationalCultureInfoTests: TestFrame
     {
         [Test]
-        public void LogAttribute_Tests()
+        public static void LogAttribute_Tests()
         {
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)
@@ -28,7 +28,7 @@ namespace SimControl.Reactive.Tests
         }
 
         [Test]
-        public void LogAttribute_Tests2()
+        public static void LogAttribute_Tests2()
         {
             var cultureInfo = new CultureInfo( "de-AT", false );
             Thread.CurrentThread.CurrentCulture = cultureInfo;
