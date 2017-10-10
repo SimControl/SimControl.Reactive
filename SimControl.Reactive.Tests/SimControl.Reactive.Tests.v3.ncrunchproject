@@ -1,6 +1,11 @@
 ﻿<ProjectConfiguration>
   <Settings>
     <HiddenComponentWarnings />
+    <IgnoredTests>
+      <NamedTestSelector>
+        <TestName>SimControl.Reactive.Tests.StateMachineTests.DoActivity_Exception2</TestName>
+      </NamedTestSelector>
+    </IgnoredTests>
     <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
   </Settings>
 </ProjectConfiguration>

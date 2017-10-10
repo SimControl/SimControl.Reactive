@@ -28,7 +28,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [TearDown]
-        new public void TearDown() => CatchTearDownExceptions(() => context.SendAssertTimeout(() => window.Close()));
+        new public void TearDown() => CatchTearDownExceptions(() => context.SendAssertTimeout(window.Close));
 
         [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTest))]
         public void WpfApplicationTests_DisplayWindow()
@@ -71,7 +71,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
                     DisableDebugTimeout(DefaultTestTimeout)));
                 Assert.IsFalse(buttonPressed.ResultAssertTimeout());
 
-                context.SendAssertTimeout(() => window.Close());
+                context.SendAssertTimeout(window.Close);
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="SimControl Code Analysis Rules " Description=" " ToolsVersion="15.0">
+<RuleSet Name="General Code Analysis Rules " Description=" " ToolsVersion="15.0">
   <Include Path="allrules.ruleset" Action="Default" />
   <Rules AnalyzerId="CodeCracker.CSharp" RuleNamespace="CodeCracker.CSharp">
     <Rule Id="CC0001" Action="None" />
@@ -1195,6 +1195,12 @@
     <Rule Id="RCS1200" Action="Warning" />
     <Rule Id="RCS1201" Action="Warning" />
     <Rule Id="RCS1202" Action="Warning" />
+    <Rule Id="RCS1204" Action="Warning" />
+    <Rule Id="RCS1205" Action="Warning" />
+    <Rule Id="RCS1206" Action="Warning" />
+    <Rule Id="RCS1207" Action="Warning" />
+    <Rule Id="RCS1207FadeOut" Action="Warning" />
+    <Rule Id="RCS1209" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
