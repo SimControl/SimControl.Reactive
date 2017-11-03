@@ -1206,6 +1206,7 @@
     <Rule Id="RCS1207" Action="Warning" />
     <Rule Id="RCS1207FadeOut" Action="Warning" />
     <Rule Id="RCS1209" Action="Warning" />
+    <Rule Id="RCS1211" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
@@ -1233,6 +1234,7 @@
     <Rule Id="S1450" Action="None" />
     <Rule Id="S1479" Action="Warning" />
     <Rule Id="S1659" Action="Warning" />
+    <Rule Id="S1696" Action="Warning" />
     <Rule Id="S1697" Action="Warning" />
     <Rule Id="S1698" Action="Warning" />
     <Rule Id="S1858" Action="Warning" />
@@ -1245,10 +1247,13 @@
     <Rule Id="S2330" Action="Warning" />
     <Rule Id="S2333" Action="Warning" />
     <Rule Id="S2339" Action="Warning" />
+    <Rule Id="S2357" Action="Warning" />
     <Rule Id="S2387" Action="Warning" />
     <Rule Id="S2436" Action="None" />
     <Rule Id="S2551" Action="Warning" />
     <Rule Id="S2674" Action="Warning" />
+    <Rule Id="S2699" Action="Warning" />
+    <Rule Id="S2701" Action="Warning" />
     <Rule Id="S2737" Action="Warning" />
     <Rule Id="S2760" Action="Warning" />
     <Rule Id="S2931" Action="Warning" />
@@ -1261,17 +1266,20 @@
     <Rule Id="S3234" Action="Warning" />
     <Rule Id="S3235" Action="Warning" />
     <Rule Id="S3240" Action="Warning" />
+    <Rule Id="S3242" Action="Warning" />
     <Rule Id="S3251" Action="Warning" />
     <Rule Id="S3253" Action="Warning" />
     <Rule Id="S3254" Action="Warning" />
     <Rule Id="S3257" Action="Warning" />
     <Rule Id="S3261" Action="Warning" />
+    <Rule Id="S3431" Action="Warning" />
     <Rule Id="S3441" Action="Warning" />
     <Rule Id="S3458" Action="Warning" />
     <Rule Id="S3532" Action="Warning" />
     <Rule Id="S3597" Action="None" />
     <Rule Id="S3604" Action="Warning" />
     <Rule Id="S3626" Action="Warning" />
+    <Rule Id="S3717" Action="Info" />
     <Rule Id="S3872" Action="Warning" />
     <Rule Id="S3876" Action="Warning" />
     <Rule Id="S3880" Action="Warning" />
@@ -1316,6 +1324,9 @@
     <Rule Id="S4061" Action="Warning" />
     <Rule Id="S4069" Action="Warning" />
     <Rule Id="S4070" Action="Warning" />
+    <Rule Id="S4142" Action="Warning" />
+    <Rule Id="S4225" Action="Warning" />
+    <Rule Id="S4226" Action="Warning" />
     <Rule Id="S818" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.VisualBasic" RuleNamespace="SonarAnalyzer.VisualBasic">
