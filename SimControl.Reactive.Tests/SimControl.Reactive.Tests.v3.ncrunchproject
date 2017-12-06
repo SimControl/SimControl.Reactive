@@ -5,6 +5,9 @@
       <NamedTestSelector>
         <TestName>SimControl.Reactive.Tests.StateMachineTests.DoActivity_Exception2</TestName>
       </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Reactive.Tests.StateMachineTests.DoActivity_Complex_42</TestName>
+      </NamedTestSelector>
     </IgnoredTests>
     <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
   </Settings>
