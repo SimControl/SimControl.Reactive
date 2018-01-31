@@ -21,7 +21,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
-        new public void SetUp()
+        public new void SetUp()
         {
             UnhandledExceptionEvent += UnhandledException;
             unhandledException = null;
@@ -31,7 +31,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [TearDown]
-        new public void TearDown() => UnhandledExceptionEvent -= UnhandledException;
+        public new void TearDown() => UnhandledExceptionEvent -= UnhandledException;
 
         #endregion
 

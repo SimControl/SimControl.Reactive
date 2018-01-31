@@ -17,7 +17,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
-        new public void SetUp()
+        public new void SetUp()
         {
             context = RegisterTestAdapter(new DispatcherContextTestAdapter(this, "DispatcherContext", ApartmentState.STA));
 
@@ -28,7 +28,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         }
 
         [TearDown]
-        new public void TearDown() => CatchTearDownExceptions(() => context.SendAssertTimeout(window.Close));
+        public new void TearDown() => CatchTearDownExceptions(() => context.SendAssertTimeout(window.Close));
 
         [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTest))]
         public void WpfApplicationTests_DisplayWindow()

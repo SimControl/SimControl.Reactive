@@ -90,7 +90,7 @@ namespace SimControl.Reactive.Tests
 
         public override string ToString() => LogFormat.FormatObject(typeof(TestClass), member1, member2, member3, member4, member5, staticMember);
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing && autoResetEvent != null)
             {

@@ -19,7 +19,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         #region Additional test attributes
 
         [SetUp]
-        new public void SetUp() =>
+        public new void SetUp() =>
             filePath = TestContext.CurrentContext.TestDirectory + "\\SimControl.Samples.CSharp.ConsoleApplication.exe";
 
         #endregion

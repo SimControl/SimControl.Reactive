@@ -35,7 +35,7 @@ namespace SimControl.Reactive
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
         /// <returns>This state instance</returns>
-        new public CompositeState Add(params TransitionBase[] transitions)
+        public new CompositeState Add(params TransitionBase[] transitions)
         {
             Contract.Requires(transitions != null);
 
@@ -108,7 +108,7 @@ namespace SimControl.Reactive
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
         /// <returns>This state instance</returns>
-        new public OrthogonalState Add(params TransitionBase[] transitions)
+        public new OrthogonalState Add(params TransitionBase[] transitions)
         {
             Contract.Requires(transitions != null);
 

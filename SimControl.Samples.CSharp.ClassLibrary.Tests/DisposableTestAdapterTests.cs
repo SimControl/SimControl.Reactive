@@ -16,7 +16,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
-        new public void SetUp() => autoResetEvent = RegisterTestAdapter(
+        public new void SetUp() => autoResetEvent = RegisterTestAdapter(
                 new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
 
         #endregion

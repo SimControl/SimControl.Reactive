@@ -14,18 +14,18 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #region Test
 
         [OneTimeSetUp]
-        new public static void OneTimeSetUp()
+        public static new void OneTimeSetUp()
         {
         }
 
         [OneTimeTearDown]
-        new public static void OneTimeTearDown() => throw new InvalidOperationException();
+        public static new void OneTimeTearDown() => throw new InvalidOperationException();
 
         [SetUp]
-        new public static void SetUp() => throw new InvalidOperationException();
+        public static new void SetUp() => throw new InvalidOperationException();
 
         [TearDown]
-        new public static void TearDown() => throw new InvalidOperationException();
+        public static new void TearDown() => throw new InvalidOperationException();
 
         #endregion
 

@@ -18,7 +18,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         #region Additional test attributes
 
         [SetUp]
-        new public static void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
+        public static new void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
 
         #endregion
 

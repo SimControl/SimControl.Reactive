@@ -24,10 +24,10 @@ namespace SimControl.Reactive.Tests
         #region Test
 
         [SetUp]
-        new public void SetUp() => count = 0;
+        public new void SetUp() => count = 0;
 
         [TearDown]
-        new public void TearDown() => sm = null;
+        public new void TearDown() => sm = null;
 
         #endregion
 

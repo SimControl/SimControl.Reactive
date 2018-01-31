@@ -93,7 +93,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary
             if (Settings.Default.CSharpClassLibrary_UserSetting_StringCollection.Count != 2)
                 throw new InvalidOperationException("CSharpClassLibrary_UserSetting_StringCollection.Count: " +
                                                     Settings.Default.CSharpClassLibrary_UserSetting_StringCollection
-                                                            .Count);
+                                                            .Count.ToString(InternationalCultureInfo.Instance));
 
             if (!Settings.Default.CSharpClassLibrary_UserSetting_StringCollection.Contains("GHI"))
                 throw new InvalidOperationException(

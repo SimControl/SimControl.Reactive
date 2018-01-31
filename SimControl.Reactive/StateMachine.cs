@@ -73,7 +73,7 @@ namespace SimControl.Reactive
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
         /// <returns>This state instance</returns>
-        new public StateMachine Add(params TransitionBase[] transitions)
+        public new StateMachine Add(params TransitionBase[] transitions)
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
@@ -84,7 +84,7 @@ namespace SimControl.Reactive
         /// <summary>Adds the specified sub states.</summary>
         /// <param name="states">Sub states of this state instance.</param>
         /// <returns>This state instance</returns>
-        new public StateMachine Add(params State[] states)
+        public new StateMachine Add(params State[] states)
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
