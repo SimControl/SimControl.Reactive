@@ -137,7 +137,7 @@
     <Rule Id="CA1306" Action="Warning" />
     <Rule Id="CA1307" Action="Warning" />
     <Rule Id="CA1308" Action="Warning" />
-    <Rule Id="CA1309" Action="Warning" />
+    <Rule Id="CA1309" Action="None" />
     <Rule Id="CA1400" Action="Warning" />
     <Rule Id="CA1401" Action="Warning" />
     <Rule Id="CA1402" Action="Warning" />
@@ -186,12 +186,12 @@
     <Rule Id="CA1725" Action="Warning" />
     <Rule Id="CA1726" Action="Warning" />
     <Rule Id="CA1800" Action="Warning" />
-    <Rule Id="CA1801" Action="Warning" />
+    <Rule Id="CA1801" Action="None" />
     <Rule Id="CA1802" Action="Warning" />
     <Rule Id="CA1804" Action="Warning" />
     <Rule Id="CA1806" Action="Warning" />
     <Rule Id="CA1809" Action="Warning" />
-    <Rule Id="CA1810" Action="Warning" />
+    <Rule Id="CA1810" Action="None" />
     <Rule Id="CA1811" Action="Warning" />
     <Rule Id="CA1812" Action="Warning" />
     <Rule Id="CA1813" Action="Warning" />
@@ -670,8 +670,8 @@
     <Rule Id="IDE0003" Action="Warning" />
     <Rule Id="IDE0004" Action="Warning" />
     <Rule Id="IDE0005" Action="Warning" />
-    <Rule Id="IDE0007" Action="Warning" />
-    <Rule Id="IDE0007WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0007" Action="None" />
+    <Rule Id="IDE0007WithoutSuggestion" Action="None" />
     <Rule Id="IDE0008" Action="None" />
     <Rule Id="IDE0008WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0009" Action="Warning" />
@@ -811,7 +811,6 @@
     <Rule Id="CA1721" Action="Warning" />
     <Rule Id="CA1724" Action="Warning" />
     <Rule Id="CA1725" Action="Warning" />
-    <Rule Id="CA1801" Action="Warning" />
     <Rule Id="CA1802" Action="Warning" />
     <Rule Id="CA1806" Action="Warning" />
     <Rule Id="CA1812" Action="Warning" />
@@ -894,10 +893,9 @@
     <Rule Id="RS0023" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
-    <Rule Id="CA1309" Action="Warning" />
     <Rule Id="CA1414" Action="Warning" />
     <Rule Id="CA1601" Action="Warning" />
-    <Rule Id="CA1810" Action="Warning" />
+    <Rule Id="CA1810" Action="None" />
     <Rule Id="CA1824" Action="Warning" />
     <Rule Id="CA1825" Action="Warning" />
     <Rule Id="CA2010" Action="Warning" />
@@ -910,7 +908,7 @@
     <Rule Id="RS0015" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.VisualBasic.Analyzers" RuleNamespace="Microsoft.NetCore.VisualBasic.Analyzers">
-    <Rule Id="CA1309" Action="Warning" />
+    <Rule Id="CA1309" Action="None" />
     <Rule Id="CA1414" Action="Warning" />
     <Rule Id="CA1601" Action="Warning" />
     <Rule Id="CA1824" Action="Warning" />
@@ -1210,7 +1208,6 @@
     <Rule Id="RCS1181" Action="None" />
     <Rule Id="RCS1182" Action="Warning" />
     <Rule Id="RCS1183" Action="Warning" />
-    <Rule Id="RCS1184" Action="Warning" />
     <Rule Id="RCS1186" Action="Warning" />
     <Rule Id="RCS1187" Action="Warning" />
     <Rule Id="RCS1188" Action="Warning" />
@@ -1237,6 +1234,9 @@
     <Rule Id="RCS1213" Action="Warning" />
     <Rule Id="RCS1214" Action="Warning" />
     <Rule Id="RCS1214FadeOut" Action="Warning" />
+    <Rule Id="RCS1216" Action="Warning" />
+    <Rule Id="RCS1217" Action="None" />
+    <Rule Id="RCS1217FadeOut" Action="None" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
@@ -1274,7 +1274,9 @@
     <Rule Id="S1994" Action="Warning" />
     <Rule Id="S2070" Action="Warning" />
     <Rule Id="S2156" Action="Warning" />
+    <Rule Id="S2187" Action="None" />
     <Rule Id="S2197" Action="Warning" />
+    <Rule Id="S2302" Action="Warning" />
     <Rule Id="S2330" Action="Warning" />
     <Rule Id="S2333" Action="Warning" />
     <Rule Id="S2339" Action="Warning" />
@@ -1302,6 +1304,8 @@
     <Rule Id="S3254" Action="Warning" />
     <Rule Id="S3257" Action="Warning" />
     <Rule Id="S3261" Action="Warning" />
+    <Rule Id="S3353" Action="Warning" />
+    <Rule Id="S3366" Action="Warning" />
     <Rule Id="S3431" Action="Warning" />
     <Rule Id="S3441" Action="Warning" />
     <Rule Id="S3458" Action="Warning" />
@@ -1347,6 +1351,7 @@
     <Rule Id="S4049" Action="Warning" />
     <Rule Id="S4050" Action="Warning" />
     <Rule Id="S4052" Action="Warning" />
+    <Rule Id="S4056" Action="Warning" />
     <Rule Id="S4057" Action="Warning" />
     <Rule Id="S4058" Action="Warning" />
     <Rule Id="S4059" Action="Warning" />
@@ -1355,6 +1360,7 @@
     <Rule Id="S4069" Action="Warning" />
     <Rule Id="S4070" Action="Warning" />
     <Rule Id="S4142" Action="Warning" />
+    <Rule Id="S4212" Action="Warning" />
     <Rule Id="S4225" Action="Warning" />
     <Rule Id="S4226" Action="Warning" />
     <Rule Id="S818" Action="Warning" />
