@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Reflection;
 using System.Threading;
 using NLog;
@@ -9,7 +8,7 @@ using NLog;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for creating cancellation tokens with a specified timeout.</summary>
-    public class CancellationTokenTimeoutTestAdapter: TestAdapter
+    public class CancellationTokenTimeoutTestAdapter : TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
         /// <remarks>The timeout is set to <see cref="TestFrame.DefaultTestTimeout"/></remarks>

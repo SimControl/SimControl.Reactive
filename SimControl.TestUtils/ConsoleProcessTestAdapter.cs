@@ -9,7 +9,6 @@ using System.Globalization;
 using System.IO;
 using System.Management;
 using System.Reflection;
-using System.Threading;
 using NLog;
 using SimControl.Log;
 using SimControl.Reactive;
@@ -25,7 +24,8 @@ namespace SimControl.TestUtils
         /// <param name="standardOutput">The standard output.</param>
         /// <param name="standardError">The standard error.</param>
         /// <remarks>
-        /// Tries to kill all processes with the same filename and command line arguments before starting a new console application.
+        /// Tries to kill all processes with the same filename and command line arguments before starting a new console
+        /// application.
         /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
@@ -94,7 +94,9 @@ namespace SimControl.TestUtils
         public override string ToString() => LogFormat.FormatObject(typeof(ConsoleProcessTestAdapter), Process == null,
             Process == null || Process.HasExited);
 
-        /// <summary>Waits for a process to exit while asserting the <see cref="TestFrame.DefaultTestTimeout"/>.</summary>
+        /// <summary>
+        /// Waits for a process to exit while asserting the <see cref="TestFrame.DefaultTestTimeout"/>.
+        /// </summary>
         /// <returns>the process exit code.</returns>
         public int WaitForExitAssertTimeout() => WaitForExitAssertTimeout(TestFrame.DefaultTestTimeout);
 

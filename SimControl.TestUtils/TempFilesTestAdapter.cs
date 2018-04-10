@@ -1,6 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System;
 using System.Diagnostics.Contracts;
 using System.IO;
 using NUnit.Framework;

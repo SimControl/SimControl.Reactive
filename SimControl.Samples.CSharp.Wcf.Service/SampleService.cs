@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.ServiceModel;
 using System.Threading;
 using SimControl.Log;
-using SimControl.Reactive;
 using SimControl.Samples.CSharp.Wcf.ServiceContract;
 
 namespace SimControl.Samples.CSharp.Wcf.Service
@@ -57,7 +56,8 @@ namespace SimControl.Samples.CSharp.Wcf.Service
 
         /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
         /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged
+        /// resources.
         /// </param>
         protected virtual void Dispose(bool disposing)
         {

@@ -656,7 +656,6 @@
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
     <Rule Id="AD0001" Action="None" />
     <Rule Id="CS3016" Action="None" />
-    <Rule Id="CS8019" Action="None" />
     <Rule Id="CS8020" Action="Warning" />
     <Rule Id="CS8040" Action="Warning" />
   </Rules>
@@ -1054,9 +1053,7 @@
     <Rule Id="RCS1005FadeOut" Action="Warning" />
     <Rule Id="RCS1006" Action="Warning" />
     <Rule Id="RCS1006FadeOut" Action="Warning" />
-    <Rule Id="RCS1008" Action="None" />
     <Rule Id="RCS1009" Action="Warning" />
-    <Rule Id="RCS1010" Action="None" />
     <Rule Id="RCS1015" Action="Warning" />
     <Rule Id="RCS1015FadeOut" Action="Warning" />
     <Rule Id="RCS1016" Action="Warning" />
@@ -1141,6 +1138,7 @@
     <Rule Id="RCS1107" Action="Warning" />
     <Rule Id="RCS1108" Action="Warning" />
     <Rule Id="RCS1109" Action="Warning" />
+    <Rule Id="RCS1110" Action="Warning" />
     <Rule Id="RCS1112" Action="Warning" />
     <Rule Id="RCS1112FadeOut" Action="Warning" />
     <Rule Id="RCS1113" Action="Warning" />

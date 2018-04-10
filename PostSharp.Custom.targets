@@ -2,5 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PostSharpSkipVsxCheck>False</PostSharpSkipVsxCheck>
+  <PostSharpDisabledMessages>LA0134</PostSharpDisabledMessages>
   </PropertyGroup>
 </Project>

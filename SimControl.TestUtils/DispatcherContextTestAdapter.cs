@@ -1,19 +1,20 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Nito.AsyncEx;
-using NLog;
 using SimControl.Log;
 
 namespace SimControl.TestUtils
 {
-    /// <summary>Test adapter for creating a thread with a <see cref="Dispatcher"/> and a <see cref="DispatcherSynchronizationContext"/>.</summary>
+    /// <summary>
+    /// Test adapter for creating a thread with a <see cref="Dispatcher"/> and a
+    /// <see cref="DispatcherSynchronizationContext"/>.
+    /// </summary>
     public class DispatcherContextTestAdapter : TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="DispatcherContextTestAdapter"/> class.</summary>
@@ -34,8 +35,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            var thread = new Thread(() =>
-            {
+            var thread = new Thread(() => {
                 Thread.CurrentThread.Name = threadName;
 
                 Dispatcher = Dispatcher.CurrentDispatcher;
@@ -75,8 +75,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Post(o =>
-            {
+            SynchronizationContext.Post(o => {
                 try
                 {
                     action();
@@ -119,8 +118,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Post(o =>
-            {
+            SynchronizationContext.Post(o => {
                 try
                 {
                     tcs.SetResult(func());
@@ -145,8 +143,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Post(o =>
-            {
+            SynchronizationContext.Post(o => {
                 try
                 {
                     action();
@@ -173,8 +170,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Post(o =>
-            {
+            SynchronizationContext.Post(o => {
                 try
                 {
                     tcs.SetResult(func());
@@ -210,8 +206,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource();
 
-            SynchronizationContext.Send(o =>
-            {
+            SynchronizationContext.Send(o => {
                 try
                 {
                     action();
@@ -252,8 +247,7 @@ namespace SimControl.TestUtils
 
             var tcs = new TaskCompletionSource<T>();
 
-            SynchronizationContext.Send(o =>
-            {
+            SynchronizationContext.Send(o => {
                 try
                 {
                     tcs.SetResult(func());

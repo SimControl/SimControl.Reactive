@@ -1,11 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Reflection;
 using NCrunch.Framework;
-using NLog;
-using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
@@ -23,6 +19,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
             filePath = TestContext.CurrentContext.TestDirectory + "\\SimControl.Samples.CSharp.ConsoleApplication.exe";
 
         #endregion
+
+        [Test]
+        public static void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
 
         [Test, IntegrationTest]
         public void ConsoleApplication_Normal()
@@ -83,9 +82,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
                 Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
             }
         }
-
-        [Test]
-        public static void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
 
         private string filePath;
     }

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using NCrunch.Framework;
@@ -13,7 +12,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 {
     [Log]
     [TestFixture]
-    public class WpfApplicationTestsWithInitializeAndCleanup: TestFrame
+    public class WpfApplicationTestsWithInitializeAndCleanup : TestFrame
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
@@ -49,7 +48,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 
     [Log]
     [TestFixture]
-    public class WpfApplicationTestsWithoutInitializeAndCleanup: TestFrame
+    public class WpfApplicationTestsWithoutInitializeAndCleanup : TestFrame
     {
         [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTest))]
         public void WpfApplicationTests_DisplayWindow()

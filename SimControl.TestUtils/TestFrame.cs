@@ -2,19 +2,15 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using System.IO;
-using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using NLog;
-using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Reactive;

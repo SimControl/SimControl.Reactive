@@ -3,7 +3,6 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using NLog;
-using NLog.Config;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Templates.CSharp.ClassLibrary;

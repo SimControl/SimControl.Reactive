@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Reflection;
-using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 using SimControl.Reactive;
@@ -31,20 +30,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary
         /// <summary>Increment the static counter</summary>
         public static void IncrementStaticCounter() => staticCounter++;
 
-        /// <summary>Saves the user settings.</summary>
-        public static void SaveUserSettings() => Settings.Default.Save();
-
-        /// <summary>Does something</summary>
-        /// <returns></returns>
-        public bool DoSomething()
-        {
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(DoSomething));
-
-            counter++;
-
-            return true;
-        }
-
         /// <summary>Writes the settings.</summary>
         public static void LogSettings()
         {
@@ -62,8 +47,8 @@ namespace SimControl.Samples.CSharp.ClassLibrary
                 Settings.Default.CSharpClassLibrary_UserSetting_StringCollection);
         }
 
-        /// <inheritdoc/>
-        public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
+        /// <summary>Saves the user settings.</summary>
+        public static void SaveUserSettings() => Settings.Default.Save();
 
         /// <summary>Validate the settings.</summary>
         /// <param name="valid">if set to <c>true</c> [valid].</param>
@@ -105,6 +90,20 @@ namespace SimControl.Samples.CSharp.ClassLibrary
                     "CSharpClassLibrary_UserSetting_StringCollection.Contains(\"JKL\"): " +
                     Settings.Default.CSharpClassLibrary_UserSetting_StringCollection);
         }
+
+        /// <summary>Does something</summary>
+        /// <returns></returns>
+        public bool DoSomething()
+        {
+            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(DoSomething));
+
+            counter++;
+
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
 
         /// <summary>Get the static counter</summary>
         public static int StaticCounter => staticCounter;

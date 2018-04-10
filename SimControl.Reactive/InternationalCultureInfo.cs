@@ -2,13 +2,13 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Reflection;
 using System.Threading;
 
 namespace SimControl.Reactive
 {
     /// <summary>
-    /// Generic <see cref="CultureInfo"/> for logging exceptions in English with dates formatted to "yyyy-MM-dd HH:mm:ss".
+    /// Generic <see cref="CultureInfo"/> for logging exceptions in English with dates formatted to "yyyy-MM-dd
+    /// HH:mm:ss".
     /// </summary>
     public static class InternationalCultureInfo
     {
