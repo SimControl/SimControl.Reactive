@@ -178,6 +178,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         }
 
         private static void ThrowException() => throw new InvalidOperationException();
+
         private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);

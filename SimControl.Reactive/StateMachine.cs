@@ -657,11 +657,12 @@ namespace SimControl.Reactive
 
         /// <summary>Event queue for all listeners interested in Failed events.</summary>
         public event EventHandler<EventArgs<StateMachineException>> Failed;
+
         /// <summary>Occurs when [state changed].</summary>
         public event EventHandler StateChanged;
+
         /// <summary>Occurs when a transition has been executed.</summary>
-        public event EventHandler<EventArgs<Executed>>
-            TransitionExecuted;
+        public event EventHandler<EventArgs<Executed>> TransitionExecuted;
 
         /// <summary>Gets the Active states.</summary>
         public ICollection<State> ActiveSimpleStates

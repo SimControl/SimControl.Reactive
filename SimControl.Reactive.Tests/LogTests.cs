@@ -31,7 +31,7 @@ namespace SimControl.Reactive.Tests
         {
             int x = Foo(1);
 
-            Func<int, int> func = i => i + 1;
+            int func(int i) => i + 1;
 
             func(x);
         }

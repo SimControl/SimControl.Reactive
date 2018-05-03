@@ -902,7 +902,6 @@
     <Rule Id="RS0015" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.VisualBasic.Analyzers" RuleNamespace="Microsoft.NetCore.VisualBasic.Analyzers">
-    <Rule Id="CA1309" Action="None" />
     <Rule Id="CA1414" Action="Warning" />
     <Rule Id="CA1601" Action="Warning" />
     <Rule Id="CA1824" Action="Warning" />
@@ -1229,6 +1228,11 @@
     <Rule Id="RCS1216" Action="Warning" />
     <Rule Id="RCS1217" Action="None" />
     <Rule Id="RCS1217FadeOut" Action="None" />
+    <Rule Id="RCS1218" Action="Warning" />
+    <Rule Id="RCS1219" Action="Warning" />
+    <Rule Id="RCS1220" Action="Warning" />
+    <Rule Id="RCS1221" Action="Warning" />
+    <Rule Id="RCS1222" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
@@ -1299,6 +1303,7 @@
     <Rule Id="S3257" Action="Warning" />
     <Rule Id="S3261" Action="Warning" />
     <Rule Id="S3353" Action="Warning" />
+    <Rule Id="S3358" Action="None" />
     <Rule Id="S3366" Action="Warning" />
     <Rule Id="S3431" Action="Warning" />
     <Rule Id="S3441" Action="Warning" />

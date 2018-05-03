@@ -15,6 +15,7 @@ namespace SimControl.Samples.CSharp.Mef.Plugin
         /// <param name="resource">The resource.</param>
         [ImportingConstructor]
         public Plugin2(IResource resource) => this.resource = resource;
+
         /// <inheritdoc/>
         public string ResourceName() => resource.ResourceName;
 
