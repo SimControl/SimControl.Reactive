@@ -14,6 +14,8 @@ using SimControl.Log;
 using SimControl.TestUtils;
 
 // TODO: change method names
+#pragma warning disable CC0021 // Use nameof
+
 namespace SimControl.Reactive.Tests
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
@@ -1182,3 +1184,5 @@ namespace SimControl.Reactive.Tests
         private int i;
     }
 }
+
+#pragma warning restore CC0021 // Use nameof

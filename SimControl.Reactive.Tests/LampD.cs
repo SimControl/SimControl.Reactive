@@ -4,6 +4,8 @@ using System;
 using NLog;
 using SimControl.Log;
 
+#pragma warning disable CC0021 // Use nameof
+
 namespace SimControl.Reactive.Tests
 {
     [Log]
@@ -67,3 +69,5 @@ namespace SimControl.Reactive.Tests
         private StateMachine sm = new StateMachine();
     }
 }
+
+#pragma warning restore CC0021 // Use nameof
