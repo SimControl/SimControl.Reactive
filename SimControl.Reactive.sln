@@ -66,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.PushSymbolPackages.ps1 = NuGet.PushSymbolPackages.ps1
 		NuGetIcon.png = NuGetIcon.png
 		NUnit.runsettings = NUnit.runsettings
+		PlantUMLSample.plantuml = PlantUMLSample.plantuml
 		PostSharp.Custom.targets = PostSharp.Custom.targets
 		README.md = README.md
 		Release-Notes.md = Release-Notes.md
