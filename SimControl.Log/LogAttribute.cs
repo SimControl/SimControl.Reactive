@@ -58,8 +58,8 @@ namespace SimControl.Log
 
             excluded |= this.method.Name == nameof(Object) || this.method.Name == nameof(ToString) ||
                 this.method.Name.StartsWith("get_", StringComparison.Ordinal) ||
-                method.Name == "Dispose" && method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) &&
-                method.GetParameters().Length == 1;
+                (method.Name == "Dispose" && method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) &&
+                method.GetParameters().Length == 1);
             logInstanceOnEntry &=!method.IsConstructor;
             logInstanceOnExit &= method.Name !="Dispose" ||
                                  !method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) ||

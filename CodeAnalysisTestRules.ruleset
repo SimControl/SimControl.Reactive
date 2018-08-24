@@ -670,7 +670,9 @@
     <Rule Id="IDE0001" Action="Warning" />
     <Rule Id="IDE0002" Action="Warning" />
     <Rule Id="IDE0003" Action="Warning" />
+    <Rule Id="IDE0003WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0004" Action="Warning" />
+    <Rule Id="IDE0004WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0005" Action="Warning" />
     <Rule Id="IDE0007" Action="None" />
     <Rule Id="IDE0007WithoutSuggestion" Action="None" />
@@ -716,6 +718,8 @@
     <Rule Id="IDE0030WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0031" Action="Warning" />
     <Rule Id="IDE0031WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0032" Action="Warning" />
+    <Rule Id="IDE0032WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0034" Action="Warning" />
     <Rule Id="IDE0034WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0036" Action="Warning" />
@@ -732,6 +736,16 @@
     <Rule Id="IDE0042WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0044" Action="Warning" />
     <Rule Id="IDE0044WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0045" Action="Warning" />
+    <Rule Id="IDE0045WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0046" Action="Warning" />
+    <Rule Id="IDE0046WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0047" Action="Warning" />
+    <Rule Id="IDE0047WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0048" Action="Warning" />
+    <Rule Id="IDE0048WithoutSuggestion" Action="Warning" />
+    <Rule Id="IDE0049" Action="Warning" />
+    <Rule Id="IDE0049WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE1005" Action="Warning" />
     <Rule Id="IDE1005WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE1006" Action="Warning" />
@@ -1172,7 +1186,7 @@
     <Rule Id="RCS1135" Action="Warning" />
     <Rule Id="RCS1136" Action="Warning" />
     <Rule Id="RCS1137" Action="Warning" />
-    <Rule Id="RCS1140" Action="Warning" />
+    <Rule Id="RCS1140" Action="None" />
     <Rule Id="RCS1141" Action="Warning" />
     <Rule Id="RCS1142" Action="Warning" />
     <Rule Id="RCS1143" Action="Warning" />
@@ -1209,7 +1223,7 @@
     <Rule Id="RCS1181" Action="None" />
     <Rule Id="RCS1182" Action="Warning" />
     <Rule Id="RCS1183" Action="Warning" />
-    <Rule Id="RCS1186" Action="Warning" />
+    <Rule Id="RCS1186" Action="None" />
     <Rule Id="RCS1187" Action="Warning" />
     <Rule Id="RCS1188" Action="Warning" />
     <Rule Id="RCS1189" Action="None" />
@@ -1246,11 +1260,15 @@
     <Rule Id="RCS1224" Action="Warning" />
     <Rule Id="RCS1225" Action="Warning" />
     <Rule Id="RCS1226" Action="Warning" />
+    <Rule Id="RCS1227" Action="Warning" />
+    <Rule Id="RCS1228" Action="Warning" />
+    <Rule Id="RCS1229" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="Warning" />
     <Rule Id="S101" Action="None" />
     <Rule Id="S105" Action="Warning" />
+    <Rule Id="S109" Action="Warning" />
     <Rule Id="S1104" Action="None" />
     <Rule Id="S1109" Action="Warning" />
     <Rule Id="S1116" Action="Warning" />
@@ -1294,7 +1312,6 @@
     <Rule Id="S2302" Action="Warning" />
     <Rule Id="S2330" Action="Warning" />
     <Rule Id="S2333" Action="Warning" />
-    <Rule Id="S2339" Action="Warning" />
     <Rule Id="S2342" Action="Warning" />
     <Rule Id="S2357" Action="Warning" />
     <Rule Id="S2387" Action="Warning" />
@@ -1342,6 +1359,7 @@
     <Rule Id="S3909" Action="Warning" />
     <Rule Id="S3956" Action="Warning" />
     <Rule Id="S3962" Action="Warning" />
+    <Rule Id="S3963" Action="None" />
     <Rule Id="S3967" Action="Warning" />
     <Rule Id="S3990" Action="Warning" />
     <Rule Id="S3992" Action="Warning" />

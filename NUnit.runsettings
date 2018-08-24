@@ -24,6 +24,6 @@
     <DefaultTimeout>60000</DefaultTimeout>
     <NumberOfTestWorkers>-1</NumberOfTestWorkers>
     <ShadowCopyFiles>False</ShadowCopyFiles>
-    <UseVsKeepEngineRunning>True</UseVsKeepEngineRunning>
+    <UseVsKeepEngineRunning>False</UseVsKeepEngineRunning>
   </NUnit>
 </RunSettings>

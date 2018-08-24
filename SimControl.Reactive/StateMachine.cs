@@ -145,11 +145,7 @@ namespace SimControl.Reactive
 
             State s = allStates[state];
 
-            if (s == this)
-                return true;
-            if (s.ParentState is OrthogonalState)
-                return true;
-            return ((CompositeState) (s.ParentState)).Active == s;
+            return s == this || s.ParentState is OrthogonalState || ((CompositeState) s.ParentState).Active == s;
         }
 
         /// <inheritdoc/>
@@ -352,7 +348,7 @@ namespace SimControl.Reactive
 
             if (!s.doActivityStarted)
                 foreach (TransitionBase t in s.Transitions)
-                    if (t.Trigger == null || t.Trigger is TimeTrigger && ((TimeTrigger) t.Trigger).Due <= now)
+                    if (t.Trigger == null || (t.Trigger is TimeTrigger && ((TimeTrigger) t.Trigger).Due <= now))
                     {
                         if (t.Guard == null)
                             return t;
@@ -384,7 +380,7 @@ namespace SimControl.Reactive
         [SuppressMessage("SonarQube", "S1226:Method parameters and caught exceptions should not be reassigned", Justification = "<Pending>")]
         private void InvokeStateEntry(State s, State target)
         {
-            if (s == target || target != null && target.rootPath[s.rootPath.Length - 1] != s)
+            if (s == target || (target != null && target.rootPath[s.rootPath.Length - 1] != s))
                 target = null;
 
             var c = s as CompositeState;

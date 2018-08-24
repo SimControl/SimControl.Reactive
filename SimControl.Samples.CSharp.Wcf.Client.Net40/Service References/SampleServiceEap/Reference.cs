@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap {
+namespace SimControl.Samples.CSharp.Wcf.Client.Net40.SampleServiceEap {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,7 +67,7 @@ namespace SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ISampleServiceChannel : SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap.ISampleService, System.ServiceModel.IClientChannel {
+    public interface ISampleServiceChannel : SimControl.Samples.CSharp.Wcf.Client.Net40.SampleServiceEap.ISampleService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -110,7 +110,7 @@ namespace SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SampleServiceClient : System.ServiceModel.ClientBase<SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap.ISampleService>, SimControl.Samples.CSharp.Wcf.net40.SampleServiceEap.ISampleService {
+    public partial class SampleServiceClient : System.ServiceModel.ClientBase<SimControl.Samples.CSharp.Wcf.Client.Net40.SampleServiceEap.ISampleService>, SimControl.Samples.CSharp.Wcf.Client.Net40.SampleServiceEap.ISampleService {
         
         private BeginOperationDelegate onBeginComplexOperationDelegate;
         
