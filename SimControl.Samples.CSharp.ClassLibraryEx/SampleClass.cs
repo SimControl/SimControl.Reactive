@@ -7,9 +7,9 @@ using System.Reflection;
 using NLog;
 using SimControl.LogEx;
 using SimControl.Reactive;
-using SimControl.Samples.CSharp.ClassLibrary.Properties;
+using SimControl.Samples.CSharp.ClassLibraryEx.Properties;
 
-namespace SimControl.Samples.CSharp.ClassLibrary
+namespace SimControl.Samples.CSharp.ClassLibraryEx
 {
     /// <summary>SampleClass implementation.</summary>
     [Log]

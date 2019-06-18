@@ -235,9 +235,9 @@
       <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
       <Name>SimControl.LogEx</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj">
+    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibraryEx\SimControl.Samples.CSharp.ClassLibraryEx.csproj">
       <Project>{f7d2f271-17e6-42e2-842f-784efdf72c70}</Project>
-      <Name>SimControl.Samples.CSharp.ClassLibrary</Name>
+      <Name>SimControl.Samples.CSharp.ClassLibraryEx</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Samples.CSharp.Mef.Contracts\SimControl.Samples.CSharp.Mef.Contracts.csproj">
       <Project>{51ec6b6f-056e-42d9-95d2-20fc6305969c}</Project>

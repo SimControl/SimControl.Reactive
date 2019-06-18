@@ -47,13 +47,13 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
                 Assert.AreEqual(6, processAdapter.WaitForExitAssertTimeout());
         }
 
-        [Test, IntegrationTest]
-        public void ConsoleApplication_ValidateSettings()
-        {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-                Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
-        }
+        //[Test, IntegrationTest]
+        //public void ConsoleApplication_ValidateSettings()
+        //{
+        //    using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings",
+        //        out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
+        //        Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
+        //}
 
         [Test, IntegrationTest]
         public void ConsoleApplication_Wait_StandardInputClosed() //TODO fails with NUnit TestAdapter

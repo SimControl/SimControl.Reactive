@@ -4,7 +4,7 @@ using NUnit.Framework;
 using SimControl.LogEx;
 using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Tests
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
 {
     [Log]
     [TestFixture]

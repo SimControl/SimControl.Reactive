@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using SimControl.LogEx;
 using SimControl.Samples.CSharp.Mef.Contracts;
 
-namespace SimControl.Samples.CSharp.ClassLibrary
+namespace SimControl.Samples.CSharp.ClassLibraryEx
 {
     /// <summary>Sample MEF plugin.</summary>
     [Export(typeof(IResource))]

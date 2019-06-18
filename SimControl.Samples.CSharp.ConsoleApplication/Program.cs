@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.LogEx;
 using SimControl.Reactive;
-using SimControl.Samples.CSharp.ClassLibrary;
+using SimControl.Samples.CSharp.ClassLibraryEx;
 using SimControl.Samples.CSharp.ConsoleApplication.Properties;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication
@@ -107,7 +107,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                         Console.WriteLine("Press 'Return' to continue");
                         Console.ReadLine();
                         VerifyJitOptimization.Run();
-                        ClassLibrary.VerifyJitOptimization.Run();
+                        ClassLibraryEx.VerifyJitOptimization.Run();
                         break;
                     case "Wait":
                         logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Waiting");

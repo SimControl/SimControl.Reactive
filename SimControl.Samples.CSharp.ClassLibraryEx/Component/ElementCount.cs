@@ -2,7 +2,7 @@
 
 using SimControl.LogEx;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Component
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
 {
     /// <summary>Element counter.</summary>
     [Log]

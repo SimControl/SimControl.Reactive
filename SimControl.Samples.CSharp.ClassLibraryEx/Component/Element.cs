@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using SimControl.LogEx;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Component
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
 {
     /// <summary>Autofac sample element.</summary>
     [Log]

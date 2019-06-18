@@ -11,7 +11,7 @@ using SimControl.LogEx;
 using SimControl.Reactive;
 using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Tests
+namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
 {
     [Log]
     [TestFixture]

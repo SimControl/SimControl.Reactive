@@ -5,7 +5,7 @@ using SimControl.LogEx;
 using System;
 using System.Reflection;
 
-namespace SimControl.Samples.CSharp.ClassLibrary
+namespace SimControl.Samples.CSharp.ClassLibraryEx
 {
     /// <summary>
     /// SampleClass implementation.
