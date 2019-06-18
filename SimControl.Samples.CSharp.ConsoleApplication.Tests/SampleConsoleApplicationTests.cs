@@ -3,7 +3,7 @@
 using System.Collections.Concurrent;
 using NCrunch.Framework;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication.Tests

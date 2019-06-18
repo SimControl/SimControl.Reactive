@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Reactive;
 
 [assembly: NonTestAssembly]

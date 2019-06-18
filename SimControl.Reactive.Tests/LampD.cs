@@ -2,7 +2,7 @@
 
 using System;
 using NLog;
-using SimControl.Log;
+using SimControl.LogEx;
 
 #pragma warning disable CC0021 // Use nameof
 

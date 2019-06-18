@@ -2,7 +2,7 @@
 
 using System.IO;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests

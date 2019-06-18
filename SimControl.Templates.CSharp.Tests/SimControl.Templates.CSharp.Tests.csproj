@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net40;net472;netcoreapp2.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.6.5" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibraryOld\SimControl.Templates.CSharp.ClassLibraryOld.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleAppOld\SimControl.Templates.CSharp.ConsoleAppOld.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibraryOld\SimControl.Templates.CSharp.ClassLibraryOld.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleAppOld\SimControl.Templates.CSharp.ConsoleAppOld.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj" />
+  </ItemGroup>
+
+</Project>

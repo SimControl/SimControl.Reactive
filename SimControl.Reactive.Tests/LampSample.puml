@@ -1,0 +1,13 @@
+﻿@startuml
+
+[*] --> LampOff
+
+LampOff : entry / logger.Message(...)
+LampOff : exit / logger.Message(...)
+LampOn : entry / logger.Message(...)
+LampOn : exit / logger.Message(...)
+
+LampOff -> LampOn: On / logger.Message(...); Counter++;
+LampOn --> LampOff: Off / logger.Message(...)
+
+@enduml

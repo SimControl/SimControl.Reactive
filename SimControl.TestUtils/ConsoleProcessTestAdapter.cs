@@ -10,7 +10,7 @@ using System.IO;
 using System.Management;
 using System.Reflection;
 using NLog;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Reactive;
 
 namespace SimControl.TestUtils

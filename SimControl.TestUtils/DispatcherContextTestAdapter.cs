@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Nito.AsyncEx;
-using SimControl.Log;
+using SimControl.LogEx;
 
 namespace SimControl.TestUtils
 {

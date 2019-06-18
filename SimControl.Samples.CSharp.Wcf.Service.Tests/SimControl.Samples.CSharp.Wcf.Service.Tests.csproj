@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit.3.11.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" />
+  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -151,10 +151,10 @@
       <HintPath>..\packages\NCrunch.Framework.3.17.0\lib\net35\NCrunch.Framework.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.10\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.11.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PostSharp, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.2.29\lib\net35-client\PostSharp.dll</HintPath>
@@ -207,10 +207,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">
-      <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
-      <Name>SimControl.Log</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Reactive.Tests\SimControl.Reactive.Tests.csproj">
       <Project>{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84}</Project>
       <Name>SimControl.Reactive.Tests</Name>
@@ -218,6 +214,10 @@
     <ProjectReference Include="..\..\SimControl.Reactive\SimControl.TestUtils\SimControl.TestUtils.csproj">
       <Project>{A23BD523-7C98-454C-9AC1-754087C91409}</Project>
       <Name>SimControl.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.LogEx\SimControl.LogEx.csproj">
+      <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
+      <Name>SimControl.LogEx</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Reactive\SimControl.Reactive.csproj">
       <Project>{de345b4e-6256-4800-87b0-19277691d51e}</Project>
@@ -258,7 +258,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\NUnit.3.11.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.11.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

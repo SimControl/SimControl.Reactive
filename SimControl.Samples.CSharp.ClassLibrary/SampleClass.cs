@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Reflection;
 using NLog;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Reactive;
 using SimControl.Samples.CSharp.ClassLibrary.Properties;
 

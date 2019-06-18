@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Nito.AsyncEx;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Reactive;
 using SimControl.TestUtils;
 

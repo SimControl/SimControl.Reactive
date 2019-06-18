@@ -4,9 +4,7 @@
       <Value>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\**.*</Value>
     </AdditionalFilesToIncludeForProject>
     <CopyReferencedAssembliesToWorkspace>True</CopyReferencedAssembliesToWorkspace>
-    <HiddenComponentWarnings>
-      <Value>CopyReferencedAssembliesToWorkspaceIsOn</Value>
-    </HiddenComponentWarnings>
+    <HiddenComponentWarnings />
     <PreviouslyBuiltSuccessfully>True</PreviouslyBuiltSuccessfully>
   </Settings>
 </ProjectConfiguration>

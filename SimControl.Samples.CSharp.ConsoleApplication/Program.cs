@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Reactive;
 using SimControl.Samples.CSharp.ClassLibrary;
 using SimControl.Samples.CSharp.ConsoleApplication.Properties;

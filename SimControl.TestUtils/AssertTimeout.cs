@@ -11,7 +11,7 @@ using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
-using SimControl.Log;
+using SimControl.LogEx;
 
 namespace SimControl.TestUtils
 {

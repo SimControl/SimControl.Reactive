@@ -135,7 +135,7 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.10\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PostSharp, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.2.29\lib\net35-client\PostSharp.dll</HintPath>
@@ -209,9 +209,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimControl.Reactive\SimControl.Log\SimControl.Log.csproj">
+    <ProjectReference Include="..\SimControl.LogEx\SimControl.LogEx.csproj">
       <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
-      <Name>SimControl.Log</Name>
+      <Name>SimControl.LogEx</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Samples.CSharp.Wcf.ServiceContract\SimControl.Samples.CSharp.Wcf.ServiceContract.csproj">
       <Project>{DD779B00-8B70-44F8-8EF8-5513F86760A6}</Project>

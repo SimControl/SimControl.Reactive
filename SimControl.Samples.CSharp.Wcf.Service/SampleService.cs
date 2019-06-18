@@ -4,7 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.ServiceModel;
 using System.Threading;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Samples.CSharp.Wcf.ServiceContract;
 
 namespace SimControl.Samples.CSharp.Wcf.Service

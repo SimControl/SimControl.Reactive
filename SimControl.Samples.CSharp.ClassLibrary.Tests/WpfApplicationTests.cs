@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NCrunch.Framework;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.Samples.CSharp.WpfApplication;
 using SimControl.TestUtils;
 

@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.LogEx;
 using SimControl.TestUtils;
 
 // TODO: change method names

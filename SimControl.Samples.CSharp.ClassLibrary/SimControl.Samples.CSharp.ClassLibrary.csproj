@@ -137,7 +137,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.10\lib\net40-client\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.5\lib\net40-client\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PostSharp, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.2.29\lib\net35-client\PostSharp.dll</HintPath>
@@ -202,9 +202,9 @@
       <Project>{DE345B4E-6256-4800-87B0-19277691D51E}</Project>
       <Name>SimControl.Reactive</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+    <ProjectReference Include="..\SimControl.LogEx\SimControl.LogEx.csproj">
       <Project>{295a2388-18cd-42d4-98ee-dde8cc975c7b}</Project>
-      <Name>SimControl.Log</Name>
+      <Name>SimControl.LogEx</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Samples.CSharp.Mef.Contracts\SimControl.Samples.CSharp.Mef.Contracts.csproj">
       <Project>{51EC6B6F-056E-42D9-95D2-20FC6305969C}</Project>

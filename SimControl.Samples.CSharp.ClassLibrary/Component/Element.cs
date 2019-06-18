@@ -2,7 +2,7 @@
 
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using SimControl.Log;
+using SimControl.LogEx;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Component
 {
