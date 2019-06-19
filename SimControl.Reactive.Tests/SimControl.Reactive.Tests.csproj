@@ -225,9 +225,9 @@
       <Project>{de345b4e-6256-4800-87b0-19277691d51e}</Project>
       <Name>SimControl.Reactive</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
+    <ProjectReference Include="..\SimControl.TestUtilsEx\SimControl.TestUtilsEx.csproj">
       <Project>{a23bd523-7c98-454c-9ac1-754087c91409}</Project>
-      <Name>SimControl.TestUtils</Name>
+      <Name>SimControl.TestUtilsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

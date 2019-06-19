@@ -213,9 +213,9 @@
       <Project>{93b26f5b-9604-4681-9fbf-295f785816fb}</Project>
       <Name>SimControl.Samples.CSharp.Wcf.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
-      <Project>{a23bd523-7c98-454c-9ac1-754087c91409}</Project>
-      <Name>SimControl.TestUtils</Name>
+    <ProjectReference Include="..\SimControl.TestUtilsEx\SimControl.TestUtilsEx.csproj">
+      <Project>{A23BD523-7C98-454C-9AC1-754087C91409}</Project>
+      <Name>SimControl.TestUtilsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -211,10 +211,6 @@
       <Project>{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84}</Project>
       <Name>SimControl.Reactive.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SimControl.Reactive\SimControl.TestUtils\SimControl.TestUtils.csproj">
-      <Project>{A23BD523-7C98-454C-9AC1-754087C91409}</Project>
-      <Name>SimControl.TestUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimControl.LogEx\SimControl.LogEx.csproj">
       <Project>{295A2388-18CD-42D4-98EE-DDE8CC975C7B}</Project>
       <Name>SimControl.LogEx</Name>
@@ -238,6 +234,10 @@
     <ProjectReference Include="..\SimControl.Samples.CSharp.Wcf.Service\SimControl.Samples.CSharp.Wcf.Service.csproj">
       <Project>{b1c2beca-356c-4d9b-8660-b515307e1871}</Project>
       <Name>SimControl.Samples.CSharp.Wcf.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.TestUtilsEx\SimControl.TestUtilsEx.csproj">
+      <Project>{A23BD523-7C98-454C-9AC1-754087C91409}</Project>
+      <Name>SimControl.TestUtilsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
