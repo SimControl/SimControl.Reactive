@@ -4,7 +4,11 @@ using System;
 using NUnit.Framework;
 using SimControl.Log;
 
+#if OLD_PROJECT_TYPE
+namespace SimControl.Templates.CSharp.TestsOld
+#else
 namespace SimControl.Templates.CSharp.Tests
+#endif
 {
     [Log, TestFixture]
     public class LogTests

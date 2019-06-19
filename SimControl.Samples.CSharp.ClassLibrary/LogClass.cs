@@ -4,7 +4,7 @@ using System;
 using NLog;
 using SimControl.Log;
 
-#if CLASS_LIBRARY_OLD
+#if OLD_PROJECT_TYPE
 namespace SimControl.Templates.CSharp.ClassLibraryOld
 #else
 namespace SimControl.Templates.CSharp.ClassLibrary

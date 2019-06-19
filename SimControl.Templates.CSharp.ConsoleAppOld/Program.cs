@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 
+//TODO SynchronizationContext
 
 namespace SimControl.Templates.CSharp.ConsoleAppOld
 {

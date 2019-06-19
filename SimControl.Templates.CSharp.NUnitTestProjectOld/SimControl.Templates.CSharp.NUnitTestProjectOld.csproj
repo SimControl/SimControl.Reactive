@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D72F9BFD-266A-4ED2-96D3-370673D434EF}</ProjectGuid>
+    <ProjectGuid>{F142684C-92CD-4B03-BBBE-5D2DB1C9CD7D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimControl.Samples.CSharp.ClassLibraryOld</RootNamespace>
-    <AssemblyName>SimControl.Samples.CSharp.ClassLibraryOld</AssemblyName>
+    <RootNamespace>SimControl.Templates.CSharp.NUnitTestProjectOld</RootNamespace>
+    <AssemblyName>SimControl.Templates.CSharp.NUnitTestProjectOld</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;OLD_PROJECT_TYPE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;OLD_PROJECT_TYPE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -40,24 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SimControl.Samples.CSharp.ClassLibrary\LogClass.cs">
-      <Link>LogClass.cs</Link>
-    </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="MrAdvice">
-      <Version>2.8.5</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.6.5</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
-      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
-      <Name>SimControl.Log</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

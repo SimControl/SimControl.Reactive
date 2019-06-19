@@ -1,10 +1,13 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using ArxOne.MrAdvice.Advice;
 using NLog;
-
 
 namespace SimControl.Log
 {
@@ -34,33 +37,23 @@ namespace SimControl.Log
     }
 
     /// <summary>Automatically log all method calls (except property getters) with NLOG.</summary>
-    [Serializable]
+    //[Serializable]
     [AttributeUsage(
         AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
         AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
         AllowMultiple = true, Inherited = true)]
-    public sealed class LogAttribute: Attribute
+    public class LogAttribute : Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
     {
-        /// <summary>Default constructor.</summary>
-        public LogAttribute() { }
-
-
         /// <summary>Log level used for exception log messages.</summary>
-        [SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
         public LogAttributeLevel ExceptionLogLevel = LogAttributeLevel.Error;
 
         /// <summary>Log level used for entry and exit log messages.</summary>
-        [SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
-        public LogAttributeLevel LogLevel;
+        public LogAttributeLevel LogLevel = LogAttributeLevel.Info;
 
-        [NonSerialized]
         private LogLevel exceptionLogLevel;
 
         private bool excluded;
         private bool hasReturnValue;
-
-        [NonSerialized]
-        private Logger logger;
 
         private bool logInstanceOnEntry = true;
         private bool logInstanceOnExit = true;
@@ -68,6 +61,64 @@ namespace SimControl.Log
         [NonSerialized]
         private LogLevel logLevel;
 
-        private MethodBase method;
+        //private MethodBase method;
+
+        public void Advise(MethodAdviceContext context)
+        {
+            //this.method = method;
+            //var methodInfo = method as MethodInfo;
+            //hasReturnValue = methodInfo != null && methodInfo.ReturnType != typeof(void);
+
+            //excluded |= this.method.Name == nameof(Object) || this.method.Name == nameof(ToString) ||
+            //    this.method.Name.StartsWith("get_", StringComparison.Ordinal) ||
+            //    (method.Name == "Dispose" && method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) &&
+            //    method.GetParameters().Length == 1);
+            //logInstanceOnEntry &= !method.IsConstructor;
+            //logInstanceOnExit &= method.Name != "Dispose" ||
+            //                     !method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) ||
+            //                     method.GetParameters().Length != 0;
+
+
+
+
+            logger = LogManager.GetLogger(context.TargetName);
+            logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
+            exceptionLogLevel = NLog.LogLevel.FromOrdinal((int) ExceptionLogLevel);
+
+            var res = context.TargetMethod is MethodInfo ? (MethodInfo) context.TargetMethod : null ;
+            hasReturnValue = res != null && res.ReturnType != typeof(void);
+
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && !excluded)
+                LogMethod.LogEntryFromLogAttribute(logger,
+                    logLevel,
+                    context.TargetMethod,
+                    logInstanceOnEntry ? context.Target : null,
+                    context.Arguments);
+
+            try { context.Proceed(); }
+            catch (Exception e)
+            {
+                if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel) && !excluded)
+                    logger.Exception(exceptionLogLevel, context.TargetMethod, context.Target, e);
+                throw;
+            }
+
+
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && !excluded)
+                logger.Exit(logLevel, context.TargetMethod, logInstanceOnExit ? context.Target : null,
+                    hasReturnValue ? context.ReturnValue : null);
+        }
+
+        public Task Advise(MethodAsyncAdviceContext context)
+        {
+            return context.ProceedAsync();
+        }
+
+        public void Advise(PropertyAdviceContext context)
+        {
+            context.Proceed();
+        }
+
+    private Logger logger;
     }
 }

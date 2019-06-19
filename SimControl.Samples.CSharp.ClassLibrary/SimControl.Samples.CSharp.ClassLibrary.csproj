@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MrAdvice" Version="2.8.5" />
     <PackageReference Include="NLog" Version="4.6.5" />
   </ItemGroup>
 
