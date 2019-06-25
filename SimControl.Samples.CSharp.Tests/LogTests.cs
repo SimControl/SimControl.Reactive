@@ -5,9 +5,9 @@ using NUnit.Framework;
 using SimControl.Log;
 
 #if OLD_PROJECT_TYPE
-namespace SimControl.Templates.CSharp.TestsOld
+namespace SimControl.Samples.CSharp.TestsOld
 #else
-namespace SimControl.Templates.CSharp.Tests
+namespace SimControl.Samples.CSharp.Tests
 #endif
 {
     [Log, TestFixture]

@@ -5,9 +5,9 @@ using NLog;
 using SimControl.Log;
 
 #if OLD_PROJECT_TYPE
-namespace SimControl.Templates.CSharp.ClassLibraryOld
+namespace SimControl.Samples.CSharp.ClassLibraryOld
 #else
-namespace SimControl.Templates.CSharp.ClassLibrary
+namespace SimControl.Samples.CSharp.ClassLibrary
 #endif
 {
     [Log]
