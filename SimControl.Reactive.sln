@@ -45,8 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WE-Markdown.css = WE-Markdown.css
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.Wcf.Service", "SimControl.Samples.CSharp.Wcf.Service\SimControl.Samples.CSharp.Wcf.Service.csproj", "{B1C2BECA-356C-4D9B-8660-B515307E1871}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{07A28337-B2B3-4FEC-AE99-51F2FB52FBAA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{1CA8F84E-C5C8-4C25-8A4F-74B43936CD74}"
@@ -165,22 +163,6 @@ Global
 		{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84}.Release|x64.ActiveCfg = Release|Any CPU
 		{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84}.Release|x86.Build.0 = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Debug|x86.Build.0 = Debug|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|Win32.ActiveCfg = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|x64.ActiveCfg = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|x86.ActiveCfg = Release|Any CPU
-		{B1C2BECA-356C-4D9B-8660-B515307E1871}.Release|x86.Build.0 = Release|Any CPU
 		{D5271804-ADE2-4E9D-AEC6-4339F24F70E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5271804-ADE2-4E9D-AEC6-4339F24F70E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5271804-ADE2-4E9D-AEC6-4339F24F70E3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

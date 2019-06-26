@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimControl.TestUtils</name>
+    </assembly>
+    <members>
+        <member name="T:SimControl.TestUtils.AssertTimeout">
+            <summary>Test extensions for asserting timeouts.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.AssertTimeoutAsync(System.Threading.Tasks.Task)">
+            <summary><see cref="T:System.Threading.Tasks.Task"/> wrapper that asserts the test timeout.</summary>
+            <param name="task">The task to act on.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.AssertTimeoutAsync``1(System.Threading.Tasks.Task{``0})">
+            <summary><see cref="T:System.Threading.Tasks.Task"/> wrapper that asserts the test timeout.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="task">The task to act on.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.AssertTimeoutAsync(System.Threading.Tasks.Task,System.Int32)">
+            <summary><see cref="T:System.Threading.Tasks.Task"/> wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <param name="task">The task to act on.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.AssertTimeoutAsync``1(System.Threading.Tasks.Task{``0},System.Int32)">
+            <summary><see cref="T:System.Threading.Tasks.Task"/> wrapper that asserts the test timeout.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="task">The task to act on.</param>
+            <param name="timeout">The timeout.</param>
+            <returns></returns>
+            <exception cref="T:System.TimeoutException">
+            Test timeout " + timeout.ToString( CultureInfo.InvariantCulture ) + " expired
+            </exception>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.JoinAssertTimeout(System.Threading.Thread)">
+            <summary><see cref="M:System.Threading.Thread.Join"/> wrapper that asserts the test timeout.</summary>
+            <param name="thread">The thread to act on.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.JoinAssertTimeout(System.Threading.Thread,System.Int32)">
+            <summary><see cref="M:System.Threading.Thread.Join"/> wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <param name="thread">The thread to act on.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.KillAssertTimeout(System.Diagnostics.Process)">
+            <summary>The Process extension method that kills a process while asserting the test timeout.</summary>
+            <param name="process">The process to act on.</param>
+            <returns>An int.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.KillAssertTimeout(System.Diagnostics.Process,System.Int32)">
+            <summary>The Process extension method that kills a process while asserting the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <param name="process">The process to act on.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>An int.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.ResultAssertTimeout``1(System.Threading.Tasks.Task{``0})">
+            <summary><see cref="P:System.Threading.Tasks.Task`1.Result"/> wrapper that asserts the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="task">The task to act on.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.ResultAssertTimeout``1(System.Threading.Tasks.Task{``0},System.Int32)">
+            <summary><see cref="P:System.Threading.Tasks.Task`1.Result"/> wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="task">The task to act on.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.RunAssertTimeout(System.Action)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.RunAssertTimeout(System.Action,System.Int32)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <param name="action">The action.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.RunAssertTimeout``1(System.Func{``0})">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="function">The function.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.RunAssertTimeout``1(System.Func{``0},System.Int32)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="function">The function.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.TakeAssertTimeout``1(System.Collections.Concurrent.BlockingCollection{``0})">
+            <summary><see cref="M:System.Collections.Concurrent.BlockingCollection`1.Take"/> wrapper that asserts the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="blockingCollection">The asyncCollection to act on.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.TakeAssertTimeout``1(System.Collections.Concurrent.BlockingCollection{``0},System.Int32)">
+            <summary><see cref="M:System.Collections.Concurrent.BlockingCollection`1.Take"/> wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="blockingCollection">The asyncCollection to act on.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.TakeUntilAssertTimeout``1(System.Collections.Concurrent.BlockingCollection{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Take an item from the blockingCollection until either func becomes true or the timeout expires.
+            </summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="blockingCollection">The blockingCollection to act on.</param>
+            <param name="func">The function.</param>
+            <returns>
+            An enumerator that allows foreach to be used to process take until assert timeout in this collection.
+            </returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.TakeUntilAssertTimeout``1(System.Collections.Concurrent.BlockingCollection{``0},System.Func{``0,System.Boolean},System.Int32)">
+            <summary>
+            Take an item from the blockingCollection until either func becomes true or the timeout expires.
+            </summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="asyncCollection">The asyncCollection to act on.</param>
+            <param name="func">The function.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>
+            An enumerator that allows foreach to be used to process take until assert timeout in this collection.
+            </returns>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.Tasks.Task)">
+            <summary><see cref="M:System.Threading.Tasks.Task.Wait"/> wrapper that asserts the test timeout.</summary>
+            <param name="task">The task to act on.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.Tasks.Task,System.Int32)">
+            <summary><see cref="M:System.Threading.Tasks.Task.Wait"/> wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <param name="task">The task to act on.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.SemaphoreSlim,System.Int32)">
+            <summary>Wrapper that asserts the test timeout.</summary>
+            <param name="semaphore">The semaphore.</param>
+            <param name="count">The count.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.SemaphoreSlim,System.Int32,System.Int32)">
+            <summary>Wrapper that asserts the test timeout.</summary>
+            <param name="semaphore">The semaphore.</param>
+            <param name="count">The count.</param>
+            <param name="timeout">The timeout.</param>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">
+            Test timeout + timeout.ToString(CultureInfo.InvariantCulture) + expired
+            </exception>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitOneAssertTimeout(System.Threading.WaitHandle)">
+            <summary><see cref="M:System.Threading.WaitHandle.WaitOne"/> Wrapper that asserts the test timeout.</summary>
+            <param name="waitHandle">The waitHandle to act on.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.AssertTimeout.WaitOneAssertTimeout(System.Threading.WaitHandle,System.Int32)">
+            <summary>cref="WaitHandle.WaitOne()"&gt; Wrapper that asserts the test timeout.</summary>
+            <exception cref="M:SimControl.TestUtils.AssertTimeout.TimeoutException(System.Int32)">Thrown when a Timeout error condition occurs.</exception>
+            <param name="waitHandle">The waitHandle to act on.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="T:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter">
+            <summary>Test adapter for creating cancellation tokens with a specified timeout.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter"/> class.</summary>
+            <remarks>The timeout is set to <see cref="P:SimControl.TestUtils.TestFrame.DefaultTestTimeout"/></remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter"/> class.</summary>
+            <param name="timeout">The timeout in ms.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter.Token">
+            <summary>Gets the token.</summary>
+            <value>The token.</value>
+        </member>
+        <member name="T:SimControl.TestUtils.ConsoleProcessTestAdapter">
+            <summary>Test adapter for starting a console process.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.#ctor(System.String,System.String,System.Collections.Concurrent.BlockingCollection{System.String}@,System.Collections.Concurrent.BlockingCollection{System.String}@)">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.ConsoleProcessTestAdapter"/> class.</summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="arguments">The arguments.</param>
+            <param name="standardOutput">The standard output.</param>
+            <param name="standardError">The standard error.</param>
+            <remarks>
+            Tries to kill all processes with the same filename and command line arguments before starting a new console
+            application.
+            </remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.CloseMainWindowAssertTimeout(System.Int32)">
+            <summary>Closes the main window while asserting the specified timeout.</summary>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.Kill">
+            <summary>Kills the process instance.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.WaitForExitAssertTimeout">
+            <summary>
+            Waits for a process to exit while asserting the <see cref="P:SimControl.TestUtils.TestFrame.DefaultTestTimeout"/>.
+            </summary>
+            <returns>the process exit code.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.WaitForExitAssertTimeout(System.Int32)">
+            <summary>Waits for a process to exit while asserting the timeout.</summary>
+            <param name="timeout">The timeout.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SimControl.TestUtils.ConsoleProcessTestAdapter.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:SimControl.TestUtils.ConsoleProcessTestAdapter.Process">
+            <summary>Gets the process.</summary>
+            <value>The process.</value>
+        </member>
+        <member name="T:SimControl.TestUtils.CopyFileTestAdapter">
+            <summary>Test adapter for copying files.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.CopyFileTestAdapter.#ctor(System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.CopyFileTestAdapter"/> class.</summary>
+            <param name="source">The source.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.CopyFileTestAdapter.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SimControl.TestUtils.DisposableTestAdapter`1">
+            <summary>Test adapter for automatically disposing <see cref="T:System.IDisposable"/> objects.</summary>
+            <typeparam name="TDisposable">The type of the disposable.</typeparam>
+            <seealso cref="T:SimControl.TestUtils.TestAdapter"/>
+        </member>
+        <member name="M:SimControl.TestUtils.DisposableTestAdapter`1.#ctor(`0)">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter"/> class.</summary>
+            <param name="disposable">The disposable.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.DisposableTestAdapter`1.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:SimControl.TestUtils.DisposableTestAdapter`1.Disposable">
+            <summary>Gets the disposable object.</summary>
+            <value>The disposable object.</value>
+        </member>
+        <member name="T:SimControl.TestUtils.TempFilesTestAdapter">
+            <summary>Test adapter for automatically deleting temporary files.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TempFilesTestAdapter.#ctor(System.String[])">
+            <summary>Initializes a new instance of the <see cref="T:SimControl.TestUtils.CancellationTokenTimeoutTestAdapter"/> class.</summary>
+            <param name="tempFiles">The temporary files.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TempFilesTestAdapter.DeleteTempFiles">
+            <summary>Deletes the temporary files.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TempFilesTestAdapter.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SimControl.TestUtils.TestAdapter">
+            <summary>Abstract base class for test adapters.</summary>
+            <remarks>TestAdapters are (if registered properly) automatically destroyed in the test cleanup methods.</remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.TestAdapter.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:SimControl.TestUtils.TestAdapter.Dispose(System.Boolean)">
+            <summary>Releases unmanaged and - optionally - managed resources.</summary>
+            <param name="disposing">
+            <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+            </param>
+        </member>
+        <member name="T:SimControl.TestUtils.ExampleAttribute">
+            <summary>A sample showing how to use an API.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.IntegrationTestAttribute">
+            <summary>An integration tests tests the integration of several disjoint components.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.InteractiveTestAttribute">
+            <summary>An interactive test requires some user interaction during test execution.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.PerformanceTestAttribute">
+            <summary>A performance test tests the performance of specific operations.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.StabilityTestAttribute">
+            <summary>A stability test tests the stability of specific operations/components.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.UnstableAttribute">
+            <summary>Unstable tests, that are not garanteed to run successfully.</summary>
+        </member>
+        <member name="T:SimControl.TestUtils.TestFrame">
+            <summary>Test frame for writing asynchronous unit tests.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.OneTimeSetUp">
+            <summary>Onetime test setup.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.OneTimeTearDown">
+            <summary>Onetime test tear down.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.SetUp">
+            <summary>Setup test execution.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.TearDown">
+            <summary>Tear down test execution.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.AssertIsContractException(System.Exception)">
+            <summary>Asserts that exception is a <see cref="T:System.Diagnostics.Contracts.ContractException"/></summary>
+            <param name="exception">.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.DisableDebugTimeout(System.Int32)">
+            <summary>Disable timeouts if a debugger is attached.</summary>
+            <param name="timeout">The timeout.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.InvokePrivateStaticMethod(System.Type,System.String)">
+            <summary>Invoke a private static method.</summary>
+            <param name="type">The type.</param>
+            <param name="methodName">Name of the method.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.RunAssertTimeout(System.Action)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.RunAssertTimeout(System.Action,System.Int32)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <exception cref="T:System.TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+            <param name="action">The action.</param>
+            <param name="timeout">The timeout.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.RunAssertTimeout``1(System.Func{``0})">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="function">The function.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.RunAssertTimeout``1(System.Func{``0},System.Int32)">
+            <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
+            <typeparam name="T">Generic type parameter.</typeparam>
+            <param name="function">The function.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A T.</returns>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.SetPrivateStaticField(System.Type,System.String,System.Object)">
+            <summary>Sets private static field.</summary>
+            <param name="type">The type.</param>
+            <param name="field">The field.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.CatchOneTimeTearDownExceptions(System.Action)">
+            <summary>Catches any exception fired by a onetime tear down action.</summary>
+            <param name="action">The action.</param>
+            <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.CatchTearDownExceptions(System.Action)">
+            <summary>Catches any exception fired by a tear down action.</summary>
+            <param name="action">The action.</param>
+            <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.ClearUnhandledException">
+            <summary>Remove an unhandled exception.</summary>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.OneTimeRegisterTestAdapter``1(``0)">
+            <summary>Register a test adapter for this class.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="testAdapter">The test adapter.</param>
+            <returns>The test adapter</returns>
+            <remarks>Registered test adapters are automatically disposed during the class cleanup.</remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.RegisterTestAdapter``1(``0)">
+            <summary>Register a test adapter for this test.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="testAdapter">The test adapter.</param>
+            <returns>The test adapter</returns>
+            <remarks>Registered test adapters are automatically disposed during the test cleanup.</remarks>
+        </member>
+        <member name="M:SimControl.TestUtils.TestFrame.SetUnhandledException(System.Exception)">
+            <summary>Unhandled exception.</summary>
+            <exception cref="T:System.Exception">Thrown when an exception error condition occurs.</exception>
+            <param name="exception">.</param>
+        </member>
+        <member name="P:SimControl.TestUtils.TestFrame.DefaultInteractiveTestTimeout">
+            <summary>The default timeout for interactive tests.</summary>
+            <remarks>Returns int.MaxValue if a debugger is attached, otherwise 60 seconds.</remarks>
+        </member>
+        <member name="P:SimControl.TestUtils.TestFrame.DefaultTestTimeout">
+            <summary>The test timeout in milliseconds.</summary>
+            <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
+        </member>
+        <member name="F:SimControl.TestUtils.TestFrame.MinTimerResolution">
+            <summary>The minimum thread switch.</summary>
+        </member>
+    </members>
+</doc>

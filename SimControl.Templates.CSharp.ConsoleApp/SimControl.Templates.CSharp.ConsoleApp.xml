@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimControl.Templates.CSharp.ConsoleApp</name>
+    </assembly>
+    <members>
+        <member name="T:SimControl.Templates.CSharp.ConsoleApp.Program">
+            <summary>Console application main class.</summary>
+        </member>
+        <member name="M:SimControl.Templates.CSharp.ConsoleApp.Program.Main(System.String[])">
+            <summary>Console application entry point.</summary>
+            <param name="args">The arguments.</param>
+            <returns>Return code.</returns>
+        </member>
+    </members>
+</doc>

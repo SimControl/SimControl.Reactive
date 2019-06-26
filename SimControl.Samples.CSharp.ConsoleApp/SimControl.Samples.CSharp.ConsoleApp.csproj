@@ -5,6 +5,10 @@
     <TargetFrameworks>net40;net472;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Samples.CSharp.ConsoleApp\SimControl.Samples.CSharp.ConsoleApp.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\NLog.config" Link="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

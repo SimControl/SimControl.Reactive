@@ -4,6 +4,10 @@
     <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.TestUtils\SimControl.TestUtils.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MrAdvice" Version="2.8.5" />
     <PackageReference Include="NLog" Version="4.6.5" />
