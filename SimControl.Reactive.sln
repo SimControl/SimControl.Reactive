@@ -4,10 +4,6 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples.CSharp", "SimControl.Samples.CSharp", "{8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ProjectTemplates.CSharp", "SimControl.ProjectTemplates.CSharp", "{05399D48-6CC6-44DD-90F4-D799C3C0A7EA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.ProjectTemplates.CSharp.ClassLibrary", "SimControl.ProjectTemplates.CSharp.ClassLibrary\SimControl.ProjectTemplates.CSharp.ClassLibrary.csproj", "{F25C682E-C540-4EB4-8756-9CB942F37DE0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ItemTemplates.CSharp.Class", "SimControl.ItemTemplates.CSharp.Class", "{35AC83A2-3064-4CCE-A62C-8BBA850A913B}"
 	ProjectSection(SolutionItems) = preProject
 		SimControl.ItemTemplates.CSharp.Class\Class.cs = SimControl.ItemTemplates.CSharp.Class\Class.cs
@@ -137,22 +133,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Debug|x86.Build.0 = Debug|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|Win32.ActiveCfg = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|x64.ActiveCfg = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|x86.ActiveCfg = Release|Any CPU
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0}.Release|x86.Build.0 = Release|Any CPU
 		{DE345B4E-6256-4800-87B0-19277691D51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE345B4E-6256-4800-87B0-19277691D51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE345B4E-6256-4800-87B0-19277691D51E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -642,7 +622,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F25C682E-C540-4EB4-8756-9CB942F37DE0} = {05399D48-6CC6-44DD-90F4-D799C3C0A7EA}
 		{35AC83A2-3064-4CCE-A62C-8BBA850A913B} = {4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}
 		{DE345B4E-6256-4800-87B0-19277691D51E} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
