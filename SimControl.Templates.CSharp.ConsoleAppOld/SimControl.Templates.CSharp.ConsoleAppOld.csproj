@@ -61,6 +61,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async">
+      <Version>1.0.168</Version>
+    </PackageReference>
     <PackageReference Include="MrAdvice">
       <Version>2.8.5</Version>
     </PackageReference>

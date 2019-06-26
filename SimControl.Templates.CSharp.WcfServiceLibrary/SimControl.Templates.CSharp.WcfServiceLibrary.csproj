@@ -51,6 +51,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async">
+      <Version>1.0.168</Version>
+    </PackageReference>
+    <PackageReference Include="MrAdvice">
+      <Version>2.8.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
+      <Name>SimControl.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

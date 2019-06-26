@@ -43,5 +43,23 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async">
+      <Version>1.0.168</Version>
+    </PackageReference>
+    <PackageReference Include="MrAdvice">
+      <Version>2.8.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
+      <Name>SimControl.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
+      <Project>{3c6a3fc3-d929-495a-9e6b-c8335e78306d}</Project>
+      <Name>SimControl.TestUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
