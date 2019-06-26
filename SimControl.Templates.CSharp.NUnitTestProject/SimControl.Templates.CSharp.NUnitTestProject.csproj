@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Templates.CSharp.NUnitTestProject\SimControl.Templates.CSharp.NUnitTestProject.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MrAdvice" Version="2.8.5" />
     <PackageReference Include="NUnit" Version="3.12.0" />
