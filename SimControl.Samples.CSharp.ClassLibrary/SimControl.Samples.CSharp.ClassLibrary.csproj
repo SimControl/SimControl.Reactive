@@ -13,4 +13,10 @@
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="app.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
 </Project>

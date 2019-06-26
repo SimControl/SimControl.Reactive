@@ -168,28 +168,14 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Component\ElementCount.cs" />
-    <Compile Include="Component\IComponent.cs" />
-    <Compile Include="Component\IElement.cs" />
-    <Compile Include="Component\Component1.cs" />
-    <Compile Include="Component\Component2.cs" />
-    <Compile Include="Component\Element.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SampleClass.cs" />
-    <Compile Include="VerifyJitOptimization.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -202,19 +188,6 @@
       <Project>{DE345B4E-6256-4800-87B0-19277691D51E}</Project>
       <Name>SimControl.Reactive</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimControl.LogEx\SimControl.LogEx.csproj">
-      <Project>{295a2388-18cd-42d4-98ee-dde8cc975c7b}</Project>
-      <Name>SimControl.LogEx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimControl.Samples.CSharp.Mef.Contracts\SimControl.Samples.CSharp.Mef.Contracts.csproj">
-      <Project>{51EC6B6F-056E-42D9-95D2-20FC6305969C}</Project>
-      <Name>SimControl.Samples.CSharp.Mef.Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
-      <Link>CodeAnalysisDictionary.xml</Link>
-    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

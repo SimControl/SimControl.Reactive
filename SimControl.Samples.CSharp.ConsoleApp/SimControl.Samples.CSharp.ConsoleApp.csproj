@@ -20,4 +20,10 @@
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SimControl.Samples.CSharp.ConsoleApplication.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
