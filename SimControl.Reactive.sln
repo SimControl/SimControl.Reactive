@@ -76,9 +76,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.ItemTemplates", "SimControl.ItemTemplates", "{4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Templates.CSharp", "SimControl.Templates.CSharp", "{79384A33-5F3F-4B83-9B7E-9FC91709C362}"
-	ProjectSection(SolutionItems) = preProject
-		SimControl.Templates.CSharp.Tests\app.config = SimControl.Templates.CSharp.Tests\app.config
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Templates.CSharp.ClassLibrary", "SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj", "{42328CAD-9A5E-482A-AC7C-7CAC96A9EF70}"
 EndProject
