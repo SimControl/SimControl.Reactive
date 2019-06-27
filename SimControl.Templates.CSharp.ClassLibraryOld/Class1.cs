@@ -4,6 +4,7 @@ using SimControl.Log;
 
 namespace SimControl.Templates.CSharp.ClassLibraryOld
 {
+    /// <summary>Summary.</summary>
     [Log]
     public class Class1
     {

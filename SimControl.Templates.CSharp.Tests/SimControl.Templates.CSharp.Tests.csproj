@@ -2,12 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net472;netcoreapp2.1</TargetFrameworks>
-    <CodeAnalysisRuleSet>..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\CodeAnalysisTestRules.ruleset</CodeAnalysisRuleSet>
     <IsPackable>false</IsPackable>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

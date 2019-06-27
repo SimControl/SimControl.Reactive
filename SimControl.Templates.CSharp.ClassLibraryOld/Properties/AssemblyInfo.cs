@@ -1,5 +1,6 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following

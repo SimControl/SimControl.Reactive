@@ -19,7 +19,7 @@ namespace SimControl.Templates.CSharp.Tests
             "SimControl.Templates.CSharp.ConsoleAppOld.Program" + ".exe" }), Is.Zero);
 #endif
 
-#if (NET472 || NETCOREAPP)
+#if NET472 || NETCOREAPP
         [Test]
         public void ClassLibrary_Class1__constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);

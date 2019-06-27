@@ -8,15 +8,15 @@ using SimControl.TestUtils;
 namespace SimControl.Templates.CSharp.NUnitTestProjectOld
 {
     [Log, TestFixture]
-    public class Tests1 : TestFrame
+    public class Tests1: TestFrame
     {
-        #region Test
+        #region Test SetUp/TearDown
 
         [SetUp]
-        public void Setup() => logger.Trace("Setup");
+        public void Setup() => logger.Trace(nameof(Setup));
 
         [TearDown]
-        public new void TearDown() => logger.Trace("TearDown");
+        public new void TearDown() => logger.Trace(nameof(TearDown));
 
         #endregion
 

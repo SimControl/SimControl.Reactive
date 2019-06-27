@@ -30,7 +30,6 @@
     <DefineConstants>TRACE;OLD_PROJECT_TYPE; NETFRAMEWORK</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SimControl.Samples.CSharp.TestsOld.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <CodeAnalysisRuleSet>..\CodeAnalysisTestRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

@@ -31,7 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SimControl.Templates.CSharp.NUnitTestProjectOld.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <CodeAnalysisRuleSet>..\CodeAnalysisTestRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

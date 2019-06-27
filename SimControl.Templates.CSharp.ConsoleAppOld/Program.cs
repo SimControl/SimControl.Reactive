@@ -19,6 +19,15 @@ namespace SimControl.Templates.CSharp.ConsoleAppOld
     [Log]
     public static class Program
     {
+        private enum ExitCode
+        {
+            Success = 0,
+            UnhandledException = 1,
+            UnhandledExceptionEvent = 2,
+            UnobservedTaskException = 3,
+            ConsoleCtrl = 4,
+        }
+
         /// <summary>Console application entry point.</summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Return code.</returns>
@@ -46,33 +55,34 @@ namespace SimControl.Templates.CSharp.ConsoleAppOld
                 {
                     logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
 
-                    // ...                
+                    // ...
                 }
 
-                return 0;
+                return (int) ExitCode.Success;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031
             {
                 logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, ex);
 
-                return 1;
+                return (int) ExitCode.UnhandledException;
             }
             finally { UnregisterExceptionHandlers(); }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
         private static bool ConsoleCtrlHandler(uint sig)
         {
-            Exit(4);
+            Exit(ExitCode.ConsoleCtrl);
 
             return true;
         }
 
-        private static void Exit(int exitCode)
+        private static void Exit(ExitCode exitCode)
         {
             UnregisterExceptionHandlers();
 
-            Environment.Exit(exitCode);
+            Environment.Exit((int) exitCode);
         }
 
         private static void RegisterExceptionHandlers()
@@ -88,7 +98,7 @@ namespace SimControl.Templates.CSharp.ConsoleAppOld
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);
 
-            Exit(2); // otherwise the CLR would terminate with an application error
+            Exit(ExitCode.UnhandledExceptionEvent); // otherwise the CLR would terminate with an application error
         }
 
         private static void UnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
@@ -97,10 +107,9 @@ namespace SimControl.Templates.CSharp.ConsoleAppOld
 
             //args.SetObserved();  // as we have observed the exception, the process should not terminate abnormally
 
-            Exit(3);
+            Exit(ExitCode.UnobservedTaskException);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static void UnregisterExceptionHandlers()
         {
             try
@@ -111,7 +120,9 @@ namespace SimControl.Templates.CSharp.ConsoleAppOld
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception e)
+#pragma warning restore CA1031
             {
                 logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
             }
