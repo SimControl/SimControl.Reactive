@@ -1,8 +1,8 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using NLog;
-using SimControl.LogEx;
+using SimControl.Log;
 
 #pragma warning disable CC0021 // Use nameof
 

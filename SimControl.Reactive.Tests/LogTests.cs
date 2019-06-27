@@ -6,11 +6,12 @@ using System.Reflection;
 using System.Threading;
 using NLog;
 using NUnit.Framework;
-using SimControl.LogEx;
+using SimControl.Log;
 using SimControl.TestUtils;
 
 namespace SimControl.Reactive.Tests
 {
+    /*
     [Log]
     [TestFixture]
     public class LogTests: TestFrame
@@ -108,4 +109,5 @@ namespace SimControl.Reactive.Tests
         private readonly DateTime member5 = DateTime.Now;
         private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
     }
+    */
 }

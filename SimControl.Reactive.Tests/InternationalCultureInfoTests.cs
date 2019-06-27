@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading;
 using NLog;
 using NUnit.Framework;
-using SimControl.LogEx;
+using SimControl.Log;
 using SimControl.TestUtils;
 
 namespace SimControl.Reactive.Tests
@@ -43,7 +43,7 @@ namespace SimControl.Reactive.Tests
             }
 
             InternationalCultureInfo.SetCurrentThreadCulture();
-            LogMethod.SetDefaultThreadCulture();
+            //LogMethod.SetDefaultThreadCulture();
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)

@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using System;
 using System.Collections.Concurrent;
 using System.ServiceModel;
@@ -94,3 +94,4 @@ namespace SimControl.Samples.CSharp.Wcf.Service
         private bool disposed;
     }
 }
+*/

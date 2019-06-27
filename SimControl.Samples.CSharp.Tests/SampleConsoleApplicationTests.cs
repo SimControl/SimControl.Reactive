@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using System.Collections.Concurrent;
 using NCrunch.Framework;
 using NUnit.Framework;
@@ -86,3 +86,4 @@ namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
         private string filePath;
     }
 }
+*/

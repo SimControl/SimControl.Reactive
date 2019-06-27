@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Collections.Concurrent;
@@ -10,12 +10,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.LogEx;
+using SimControl.Log;
 using SimControl.TestUtils;
 
 // TODO: change method names
 #pragma warning disable CC0021 // Use nameof
-
+/*
 namespace SimControl.Reactive.Tests
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
@@ -1186,3 +1186,4 @@ namespace SimControl.Reactive.Tests
 }
 
 #pragma warning restore CC0021 // Use nameof
+*/

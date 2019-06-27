@@ -12,10 +12,10 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
-using SimControl.LogEx;
-using SimControl.Reactive;
-using SimControl.Samples.CSharp.ClassLibraryEx;
-using SimControl.Samples.CSharp.ConsoleApplication.Properties;
+using SimControl.Log;
+//using SimControl.Reactive;
+//using SimControl.Samples.CSharp.ClassLibraryEx;
+//using SimControl.Samples.CSharp.ConsoleApplication.Properties;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication
 {
@@ -32,108 +32,109 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public static int Main(params string[] args)
         {
-            Contract.Requires(args != null);
-            Contract.Requires(args.Length == 1);
-            Contract.Requires(Arguments.Contains(args[0]));
+            /*
+                        Contract.Requires(args != null);
+                        Contract.Requires(args.Length == 1);
+                        Contract.Requires(Arguments.Contains(args[0]));
 
-            try
-            {
-                RegisterExceptionHandlers();
+                        try
+                        {
+                            RegisterExceptionHandlers();
 
-                if (Thread.CurrentThread.Name == null)
-                    Thread.CurrentThread.Name = nameof(Main);
+                            if (Thread.CurrentThread.Name == null)
+                                Thread.CurrentThread.Name = nameof(Main);
 
-                InternationalCultureInfo.SetCurrentThreadCulture();
-                LogMethod.SetDefaultThreadCulture();
+                            InternationalCultureInfo.SetCurrentThreadCulture();
+                            LogMethod.SetDefaultThreadCulture();
 
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
-                    typeof(Program).Assembly.GetName().Name,
-                    FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
-                    DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
+                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
+                                typeof(Program).Assembly.GetName().Name,
+                                FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
+                                DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
 
-                command = args[0];
+                            command = args[0];
 
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), command);
+                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), command);
 
-                AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
-                Console.CancelKeyPress += ProcessExitEventHandler;
+                            AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
+                            Console.CancelKeyPress += ProcessExitEventHandler;
 
-                var sampleClass = new SampleClass();
+                            var sampleClass = new SampleClass();
 
-                switch (command)
-                {
-                    case "ChangeUserSettings":
-                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ChangeUserSettings");
-                        Settings.Default.CSharpConsoleApplication_UserSetting =
-                            "CSharpConsoleApplication_UserSetting_Changed";
-                        SampleClass.ChangeUserSettings("CSharpClassLibrary_UserSetting_Changed");
-                        Settings.Default.Save();
-                        break;
-                    case "Normal":
-                        logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
-                            "CSharpConsoleApplication_AppSetting", Settings.Default.CSharpConsoleApplication_AppSetting);
-                        logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
-                            "CSharpConsoleApplication_UserSetting",
-                            Settings.Default.CSharpConsoleApplication_UserSetting);
-                        SampleClass.LogSettings();
-                        sampleClass.DoSomething();
-                        SampleClass.ValidateCodeContract(true);
-                        break;
+                            switch (command)
+                            {
+                                case "ChangeUserSettings":
+                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ChangeUserSettings");
+                                    Settings.Default.CSharpConsoleApplication_UserSetting =
+                                        "CSharpConsoleApplication_UserSetting_Changed";
+                                    SampleClass.ChangeUserSettings("CSharpClassLibrary_UserSetting_Changed");
+                                    Settings.Default.Save();
+                                    break;
+                                case "Normal":
+                                    logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
+                                        "CSharpConsoleApplication_AppSetting", Settings.Default.CSharpConsoleApplication_AppSetting);
+                                    logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
+                                        "CSharpConsoleApplication_UserSetting",
+                                        Settings.Default.CSharpConsoleApplication_UserSetting);
+                                    SampleClass.LogSettings();
+                                    sampleClass.DoSomething();
+                                    SampleClass.ValidateCodeContract(true);
+                                    break;
 
-                    case nameof(ThrowException):
-                        ThrowException();
-                        break;
-                    case "ThrowExceptionOnThread":
-                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ThrowExceptionOnThread");
-                        var thread = new Thread(ThrowException);
-                        thread.Start();
-                        Console.ReadLine();
-                        break;
-                    case "ValidateSettings":
-                        if (Settings.Default.CSharpConsoleApplication_AppSetting !=
-                            "CSharpConsoleApplication_AppSetting_Test")
-                            throw new InvalidOperationException(
-                                "Invalid Default.CSharpConsoleApplication_AppSetting: " +
-                                Settings.Default.CSharpConsoleApplication_AppSetting);
-                        if (Settings.Default.CSharpConsoleApplication_UserSetting !=
-                            "CSharpConsoleApplication_UserSetting_Test")
-                            throw new InvalidOperationException(
-                                "Invalid Default.CSharpConsoleApplication_UserSetting: " +
-                                Settings.Default.CSharpConsoleApplication_UserSetting);
-                        SampleClass.ValidateSettings();
-                        break;
-                    case nameof(VerifyJitOptimization):
-                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(VerifyJitOptimization));
-                        Console.WriteLine("Press 'Return' to continue");
-                        Console.ReadLine();
-                        VerifyJitOptimization.Run();
-                        ClassLibraryEx.VerifyJitOptimization.Run();
-                        break;
-                    case "Wait":
-                        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Waiting");
-                        string s = Console.ReadLine();
-                        if (s == null)
-                            Environment.Exit(5);
-                        break;
-                    case "WCF":
-                        //TODO WCF service hosting
-                        //private const string testBaseAddress =
-                        //    "http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.Wcf.Service/SampleServicePerSession/";
+                                case nameof(ThrowException):
+                                    ThrowException();
+                                    break;
+                                case "ThrowExceptionOnThread":
+                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ThrowExceptionOnThread");
+                                    var thread = new Thread(ThrowException);
+                                    thread.Start();
+                                    Console.ReadLine();
+                                    break;
+                                case "ValidateSettings":
+                                    if (Settings.Default.CSharpConsoleApplication_AppSetting !=
+                                        "CSharpConsoleApplication_AppSetting_Test")
+                                        throw new InvalidOperationException(
+                                            "Invalid Default.CSharpConsoleApplication_AppSetting: " +
+                                            Settings.Default.CSharpConsoleApplication_AppSetting);
+                                    if (Settings.Default.CSharpConsoleApplication_UserSetting !=
+                                        "CSharpConsoleApplication_UserSetting_Test")
+                                        throw new InvalidOperationException(
+                                            "Invalid Default.CSharpConsoleApplication_UserSetting: " +
+                                            Settings.Default.CSharpConsoleApplication_UserSetting);
+                                    SampleClass.ValidateSettings();
+                                    break;
+                                case nameof(VerifyJitOptimization):
+                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(VerifyJitOptimization));
+                                    Console.WriteLine("Press 'Return' to continue");
+                                    Console.ReadLine();
+                                    VerifyJitOptimization.Run();
+                                    ClassLibraryEx.VerifyJitOptimization.Run();
+                                    break;
+                                case "Wait":
+                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Waiting");
+                                    string s = Console.ReadLine();
+                                    if (s == null)
+                                        Environment.Exit(5);
+                                    break;
+                                case "WCF":
+                                    //TODO WCF service hosting
+                                    //private const string testBaseAddress =
+                                    //    "http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.Wcf.Service/SampleServicePerSession/";
 
-                        //logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "WCF");
+                                    //logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "WCF");
 
-                        //var host = new ServiceHost(typeof(SampleServicePerSessionInstance)/*, new Uri(TestBaseAddress)*/);
-                        //host.Open();
+                                    //var host = new ServiceHost(typeof(SampleServicePerSessionInstance),//, new Uri(TestBaseAddress));
+                                    //host.Open();
 
-                        //var client = new SampleServiceClient(new InstanceContext(new SampleServiceEapCallback()),
-                        //    typeof(SampleServiceClient).FullName, new EndpointAddress(TestBaseAddress));
-                        //((WSDualHttpBinding) client.Endpoint.Binding).ClientBaseAddress =  new Uri(host.BaseAddresses[0] /*TestBaseAddress*/ + "Callback");
+                                    //var client = new SampleServiceClient(new InstanceContext(new SampleServiceEapCallback()),
+                                    //    typeof(SampleServiceClient).FullName, new EndpointAddress(TestBaseAddress));
+                                    //((WSDualHttpBinding) client.Endpoint.Binding).ClientBaseAddress =  new Uri(host.BaseAddresses[0]  + "Callback"); //TestBaseAddress
 
-                        //client.Connect();
-                        //Console.ReadLine();
-                        //client.Close();
-                        //host.Close();
-                        break;
+            //client.Connect();
+            //Console.ReadLine();
+            //client.Close();
+            //host.Close();
+            break;
                 }
 
                 return 0;
@@ -145,6 +146,8 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                 return command == nameof(ThrowException) ? 7 : 1;
             }
             finally { UnregisterExceptionHandlers(); }
+*/
+            return 0;
         }
 
         [SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
@@ -227,7 +230,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-        [Log(AttributeExclude = true)]
+//        [Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,

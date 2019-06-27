@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using System.ServiceModel;
 using SimControl.LogEx;
 
@@ -25,3 +25,4 @@ namespace SimControl.Samples.CSharp.Wcf.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class SampleServiceSingleInstance : SampleService { }
 }
+*/

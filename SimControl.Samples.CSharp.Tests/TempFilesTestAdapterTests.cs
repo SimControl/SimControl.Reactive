@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using System.IO;
 using NUnit.Framework;
 using SimControl.LogEx;
@@ -24,3 +24,4 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
             TestContext.CurrentContext.TestDirectory + "\\" + "tempfile2", true);
     }
 }
+*/

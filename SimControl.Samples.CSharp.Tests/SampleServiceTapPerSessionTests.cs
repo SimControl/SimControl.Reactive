@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using NUnit.Framework;
 using SimControl.LogEx;
 using SimControl.TestUtils;
@@ -74,3 +74,4 @@ namespace SimControl.Samples.CSharp.Wcf.Service.Tests
         // Justification = "<Pending>")] //private ServiceHost host;
     }
 }
+*/

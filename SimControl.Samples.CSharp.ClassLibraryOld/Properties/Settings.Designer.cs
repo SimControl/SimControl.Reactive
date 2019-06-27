@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx.Properties {
+namespace SimControl.Samples.CSharp.ClassLibraryOld.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

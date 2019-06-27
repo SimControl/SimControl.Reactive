@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using NUnit.Framework;
 using SimControl.LogEx;
 using SimControl.TestUtils;
@@ -21,3 +21,4 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
         public static void CopyFileTestAdapter() { }
     }
 }
+*/
