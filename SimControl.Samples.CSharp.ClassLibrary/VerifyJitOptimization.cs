@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using NLog;
 using SimControl.LogEx;
 using System;
@@ -39,3 +39,4 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
         private static void MethodC() => BadMethod();
     }
 }
+*/

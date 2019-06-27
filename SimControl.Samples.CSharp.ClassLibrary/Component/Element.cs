@@ -1,5 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
+/*
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using SimControl.LogEx;
@@ -30,3 +30,4 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
         private readonly string name;
     }
 }
+*/
