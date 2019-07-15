@@ -46,6 +46,7 @@
     <Compile Include="..\SimControl.Samples.CSharp.Tests\LogTests.cs">
       <Link>LogTests.cs</Link>
     </Compile>
+    <Compile Include="MethodInfoAdviceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
