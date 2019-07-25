@@ -23,20 +23,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		App.config = App.config
 		App.Debug.config = App.Debug.config
 		App.Release.config = App.Release.config
+		CHANGELOG.md = CHANGELOG.md
 		CodeAnalysisDictionary.xml = CodeAnalysisDictionary.xml
 		CodeAnalysisRules.ruleset = CodeAnalysisRules.ruleset
 		CodeAnalysisTestRules.ruleset = CodeAnalysisTestRules.ruleset
 		LICENSE = LICENSE
 		NLog.config = NLog.config
-		NuGet update -self.ps1 = NuGet update -self.ps1
-		NuGet.BuildPackages.ps1 = NuGet.BuildPackages.ps1
-		NuGet.PushSymbolPackages.ps1 = NuGet.PushSymbolPackages.ps1
 		NuGetIcon.png = NuGetIcon.png
 		NUnit.runsettings = NUnit.runsettings
 		PlantUMLSample.plantuml = PlantUMLSample.plantuml
-		PostSharp.Custom.targets = PostSharp.Custom.targets
 		README.md = README.md
-		Release-Notes.md = Release-Notes.md
 		SimControl.Reactive.v3.ncrunchsolution = SimControl.Reactive.v3.ncrunchsolution
 		SimControl.Samples.VisualState.xml = SimControl.Samples.VisualState.xml
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
@@ -44,13 +40,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Templates.Build.ps1 = Templates.Build.ps1
 		Templates.Install.ps1 = Templates.Install.ps1
 		WE-Markdown.css = WE-Markdown.css
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{07A28337-B2B3-4FEC-AE99-51F2FB52FBAA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{1CA8F84E-C5C8-4C25-8A4F-74B43936CD74}"
-	ProjectSection(SolutionItems) = preProject
-		tools\NuGet\NuGet.exe = tools\NuGet\NuGet.exe
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.WpfApplication", "SimControl.Samples.CSharp.WpfApplication\SimControl.Samples.CSharp.WpfApplication.csproj", "{D5271804-ADE2-4E9D-AEC6-4339F24F70E3}"
@@ -586,7 +575,6 @@ Global
 		{35AC83A2-3064-4CCE-A62C-8BBA850A913B} = {4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}
 		{DE345B4E-6256-4800-87B0-19277691D51E} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{F9BE2A77-54D0-4981-93BA-98D1B6FA4A84} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
-		{1CA8F84E-C5C8-4C25-8A4F-74B43936CD74} = {07A28337-B2B3-4FEC-AE99-51F2FB52FBAA}
 		{D5271804-ADE2-4E9D-AEC6-4339F24F70E3} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{529C4463-2CB9-4739-B407-E1167BC8A4F6} = {4ED78A4F-B2C7-49EE-9D49-912B93BEDEB6}
 		{42328CAD-9A5E-482A-AC7C-7CAC96A9EF70} = {79384A33-5F3F-4B83-9B7E-9FC91709C362}
