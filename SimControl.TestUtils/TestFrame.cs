@@ -269,10 +269,10 @@ namespace SimControl.TestUtils
         //internal void TestDispatcherContextUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args) => SetUnhandledException(args.Exception);
 
         [Log]
-        private void AppDomainUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
+        private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
 
         [Log]
-        private void TaskSchedulerUnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
+        private void TaskSchedulerUnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
             SetUnhandledException(args.Exception);
             args.SetObserved(); // as we have observed the exception, the process should not terminate

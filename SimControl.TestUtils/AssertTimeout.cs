@@ -236,7 +236,7 @@ namespace SimControl.TestUtils
 #if NET40
             Task task = TaskEx.Run(action);
 #else
-            Task task = Task.Run(action);
+            var task = Task.Run(action);
 #endif
 
             bool timeoutFailed;
@@ -277,7 +277,7 @@ namespace SimControl.TestUtils
 #if NET40
             Task<T> task = TaskEx.Run(function);
 #else
-            Task<T> task = Task.Run(function);
+            var task = Task.Run(function);
 #endif
 
             bool timeoutFailed;

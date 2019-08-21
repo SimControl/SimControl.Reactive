@@ -49,7 +49,6 @@ namespace SimControl.Log
 
         private LogLevel exceptionLogLevel;
 
-        private readonly bool excluded;
         private bool hasReturnValue;
 
         private readonly bool logInstanceOnEntry = true;
@@ -85,7 +84,7 @@ namespace SimControl.Log
             MethodInfo res = context.TargetMethod is MethodInfo ? (MethodInfo) context.TargetMethod : null ;
             hasReturnValue = res != null && res.ReturnType != typeof(void);
 
-            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && !excluded)
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
                 LogMethod.LogEntryFromLogAttribute(logger,
                     logLevel,
                     context.TargetMethod,
@@ -96,13 +95,12 @@ namespace SimControl.Log
             { context.Proceed(); }
             catch (Exception e)
             {
-                if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel) && !excluded)
+                if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel))
                     logger.Exception(exceptionLogLevel, context.TargetMethod, context.Target, e);
                 throw;
             }
 
-
-            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && !excluded)
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
                 logger.Exit(logLevel, context.TargetMethod, logInstanceOnExit ? context.Target : null,
                     hasReturnValue ? context.ReturnValue : null);
         }

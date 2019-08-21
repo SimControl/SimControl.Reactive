@@ -94,14 +94,14 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 throw new Win32Exception();
         }
 
-        private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
+        private static void UnhandledExceptionEventHandler(object _, UnhandledExceptionEventArgs e)
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);
 
             Exit(ExitCode.UnhandledExceptionEvent); // otherwise the CLR would terminate with an application error
         }
 
-        private static void UnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
+        private static void UnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, args.Exception);
 
