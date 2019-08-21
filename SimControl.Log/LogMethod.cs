@@ -64,11 +64,10 @@ namespace SimControl.Log
             Contract.Requires(logger != null);
             Contract.Requires(method != null);
 
-            var resultEnumerable = result as IEnumerable;
 
             logger.Log(logLevel,
                 "} " + method.Name + LogFormat.FormatToString(instance) +
-                (resultEnumerable != null && !(result is string)
+                (result is IEnumerable resultEnumerable && !(result is string)
                      ? LogFormat.FormatIEnumerable(resultEnumerable) : LogFormat.FormatToString(result)));
         }
 

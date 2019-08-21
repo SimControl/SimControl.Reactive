@@ -15,7 +15,7 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for starting a console process.</summary>
-    public class ConsoleProcessTestAdapter : TestAdapter
+    public class ConsoleProcessTestAdapter: TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="ConsoleProcessTestAdapter"/> class.</summary>
         /// <param name="fileName">Name of the file.</param>
@@ -60,8 +60,8 @@ namespace SimControl.TestUtils
                 WorkingDirectory = Path.GetDirectoryName(fileName)
             });
 
-            var stdOutput = standardOutput = new BlockingCollection<string>();
-            var stdError = standardError = new BlockingCollection<string>();
+            BlockingCollection<string> stdOutput = standardOutput = new BlockingCollection<string>();
+            BlockingCollection<string> stdError = standardError = new BlockingCollection<string>();
 
             Process.OutputDataReceived += (sender, args) => stdOutput.Add(args.Data);
             Process.ErrorDataReceived += (sender, args) => stdError.Add(args.Data);

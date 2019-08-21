@@ -25,13 +25,8 @@ namespace SimControl.Templates.CSharp.Tests
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
         [Test]
-        public void ConsoleApp_Program__Main__succeeds()
-        {
-            //Console.OpenStandardInput();
-            //Console.In.Close();
-            Assert.That(ConsoleApp.Program.Main(new[] { "SimControl.Templates.CSharp.ConsoleApp.Program" + ".exe" }),
-                Is.Zero);
-        }
+        public void ConsoleApp_Program__Main__succeeds() => Assert.That(ConsoleApp.Program.Main(new[] {
+            "SimControl.Templates.CSharp.ConsoleApp.Program" + ".exe" }), Is.Zero);
 #endif
 
         //[Test, IntegrationTest]

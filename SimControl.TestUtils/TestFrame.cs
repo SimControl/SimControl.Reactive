@@ -31,7 +31,7 @@ namespace SimControl.TestUtils
 
         static TestFrame()
         {
-            Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out int minimumResolution, out int maximumResolution, out int currentResolution));
+            Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out int minimumResolution, out _, out int _));
             MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
         }
 

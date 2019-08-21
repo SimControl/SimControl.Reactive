@@ -7,8 +7,9 @@ using SimControl.TestUtils;
 
 namespace SimControl.Templates.CSharp.NUnitTestProject
 {
-    [Log, TestFixture]
-    public class Tests1 : TestFrame
+    [Log]
+    [TestFixture]
+    public class Tests1: TestFrame
     {
         #region Test SetUp/TearDown
 

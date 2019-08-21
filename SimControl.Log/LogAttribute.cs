@@ -1,9 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ArxOne.MrAdvice.Advice;
@@ -11,7 +8,7 @@ using NLog;
 
 namespace SimControl.Log
 {
-    /// <summary>Custom enum, as <see cref="NLog.LogLevel"/> can not be used as an attribute parameter.</summary>
+    /// <summary>Custom enum, as <see cref="LogLevel"/> can not be used as an attribute parameter.</summary>
     public enum LogAttributeLevel
     {
         /// <summary>Trace level</summary>
@@ -42,7 +39,7 @@ namespace SimControl.Log
         AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
         AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
         AllowMultiple = true, Inherited = true)]
-    public class LogAttribute : Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
+    public class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
     {
         /// <summary>Log level used for exception log messages.</summary>
         public LogAttributeLevel ExceptionLogLevel = LogAttributeLevel.Error;
@@ -52,11 +49,11 @@ namespace SimControl.Log
 
         private LogLevel exceptionLogLevel;
 
-        private bool excluded;
+        private readonly bool excluded;
         private bool hasReturnValue;
 
-        private bool logInstanceOnEntry = true;
-        private bool logInstanceOnExit = true;
+        private readonly bool logInstanceOnEntry = true;
+        private readonly bool logInstanceOnExit = true;
 
         [NonSerialized]
         private LogLevel logLevel;
@@ -85,7 +82,7 @@ namespace SimControl.Log
             logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
             exceptionLogLevel = NLog.LogLevel.FromOrdinal((int) ExceptionLogLevel);
 
-            var res = context.TargetMethod is MethodInfo ? (MethodInfo) context.TargetMethod : null ;
+            MethodInfo res = context.TargetMethod is MethodInfo ? (MethodInfo) context.TargetMethod : null ;
             hasReturnValue = res != null && res.ReturnType != typeof(void);
 
             if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && !excluded)
@@ -95,7 +92,8 @@ namespace SimControl.Log
                     logInstanceOnEntry ? context.Target : null,
                     context.Arguments);
 
-            try { context.Proceed(); }
+            try
+            { context.Proceed(); }
             catch (Exception e)
             {
                 if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel) && !excluded)
@@ -109,16 +107,10 @@ namespace SimControl.Log
                     hasReturnValue ? context.ReturnValue : null);
         }
 
-        public Task Advise(MethodAsyncAdviceContext context)
-        {
-            return context.ProceedAsync();
-        }
+        public Task Advise(MethodAsyncAdviceContext context) => context.ProceedAsync();
 
-        public void Advise(PropertyAdviceContext context)
-        {
-            context.Proceed();
-        }
+        public void Advise(PropertyAdviceContext context) => context.Proceed();
 
-    private Logger logger;
+        private Logger logger;
     }
 }

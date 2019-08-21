@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace SimControl.Templates.CSharp.WcfServiceLibrary
 {
@@ -24,21 +22,10 @@ namespace SimControl.Templates.CSharp.WcfServiceLibrary
     [DataContract]
     public class CompositeType
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [DataMember]
+        public bool BoolValue { get; set; } = true;
 
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string StringValue { get; set; } = "Hello ";
     }
 }
