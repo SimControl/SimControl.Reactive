@@ -1,15 +1,18 @@
-﻿using System.Reflection;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+
+using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimControl.Templates.CSharp.NUnitTestProjectOld")]
+[assembly: AssemblyTitle("SimControl.Templates.CSharp.OldNUnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SimControl.Templates.CSharp.NUnitTestProjectOld")]
+[assembly: AssemblyProduct("SimControl.Templates.CSharp.OldNUnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,6 +24,8 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("f142684c-92cd-4b03-bbbe-5d2db1c9cd7d")]
+
+[assembly: CLSCompliant(true)]
 
 // Version information for an assembly consists of the following four values:
 //

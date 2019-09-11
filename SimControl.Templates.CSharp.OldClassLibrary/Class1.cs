@@ -2,7 +2,7 @@
 
 using SimControl.Log;
 
-namespace SimControl.Templates.CSharp.ClassLibraryOld
+namespace SimControl.Templates.CSharp.OldClassLibrary
 {
     /// <summary>Summary.</summary>
     [Log]

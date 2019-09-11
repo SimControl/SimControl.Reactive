@@ -13,7 +13,7 @@ using SimControl.Log;
 
 //TODO SynchronizationContext
 
-namespace SimControl.Templates.CSharp.ConsoleAppOld
+namespace SimControl.Templates.CSharp.OldConsoleApp
 {
     /// <summary>Console application main class.</summary>
     [Log]

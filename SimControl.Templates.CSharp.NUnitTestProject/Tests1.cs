@@ -5,7 +5,7 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Templates.CSharp.NUnitTestProject
+namespace SimControl.Templates.CSharp.NUnitTests
 {
     [Log]
     [TestFixture]
@@ -14,7 +14,7 @@ namespace SimControl.Templates.CSharp.NUnitTestProject
         #region Test SetUp/TearDown
 
         [SetUp]
-        public void Setup() => logger.Trace(nameof(Setup));
+        public new void SetUp() => logger.Trace(nameof(SetUp));
 
         [TearDown]
         public new void TearDown() => logger.Trace(nameof(TearDown));
@@ -22,7 +22,7 @@ namespace SimControl.Templates.CSharp.NUnitTestProject
         #endregion
 
         [Test]
-        public void Test1() => Assert.Pass();
+        public void Arrange__Act__Assert() => Assert.Pass();
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

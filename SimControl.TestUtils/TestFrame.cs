@@ -31,7 +31,8 @@ namespace SimControl.TestUtils
 
         static TestFrame()
         {
-            Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out int minimumResolution, out _, out int _));
+            Assert.That(NativeMethods.NtQueryTimerResolution(out int minimumResolution, out _, out int _),
+                Is.EqualTo(0));
             MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
         }
 
@@ -110,7 +111,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(exception != null);
 
-            Assert.AreEqual(contractExceptionName, exception.GetType().FullName);
+            Assert.That(exception.GetType().FullName, Is.EqualTo(contractExceptionName));
         }
 
         /// <summary>Disable timeouts if a debugger is attached.</summary>

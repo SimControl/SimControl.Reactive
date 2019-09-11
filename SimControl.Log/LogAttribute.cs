@@ -39,13 +39,13 @@ namespace SimControl.Log
         AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
         AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
         AllowMultiple = true, Inherited = true)]
-    public class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
+    public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
     {
         /// <summary>Log level used for exception log messages.</summary>
-        public LogAttributeLevel ExceptionLogLevel = LogAttributeLevel.Error;
+        public LogAttributeLevel ExceptionLogLevel { get; set; } = LogAttributeLevel.Error;
 
         /// <summary>Log level used for entry and exit log messages.</summary>
-        public LogAttributeLevel LogLevel = LogAttributeLevel.Info;
+        public LogAttributeLevel LogLevel { get; set; } = LogAttributeLevel.Info;
 
         private LogLevel exceptionLogLevel;
 

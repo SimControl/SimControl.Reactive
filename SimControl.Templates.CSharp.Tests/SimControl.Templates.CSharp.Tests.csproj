@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrAdvice" Version="2.8.5" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.14.0" />
+    <PackageReference Include="MrAdvice" Version="2.8.6" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
   </ItemGroup>
 
@@ -22,10 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibraryOld\SimControl.Templates.CSharp.ClassLibraryOld.csproj" />
     <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj" />
-    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleAppOld\SimControl.Templates.CSharp.ConsoleAppOld.csproj" />
     <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.OldClassLibrary\SimControl.Templates.CSharp.OldClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.OldConsoleApp\SimControl.Templates.CSharp.OldConsoleApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
   </ItemGroup>
 

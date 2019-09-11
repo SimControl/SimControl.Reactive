@@ -1,0 +1,19 @@
+﻿
+// This file is used by Code Analysis to maintain SuppressMessage 
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given 
+// a specific target and scoped to a namespace, type, member, etc.
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.JoinAssertTimeout(System.Threading.Thread,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.KillAssertTimeout(System.Diagnostics.Process,System.Int32)~System.Int32")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.ResultAssertTimeout``1(System.Threading.Tasks.Task{``0},System.Int32)~``0")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.TakeAssertTimeout``1(System.Collections.Concurrent.BlockingCollection{``0},System.Int32)~``0")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.SemaphoreSlim,System.Int32,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.Tasks.Task,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.WaitOneAssertTimeout(System.Threading.WaitHandle,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.AssertIsContractException(System.Exception)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.CatchOneTimeTearDownExceptions(System.Action)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.CatchTearDownExceptions(System.Action)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.InvokePrivateStaticMethod(System.Type,System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.SetPrivateStaticField(System.Type,System.String,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.TestFrame.SetUnhandledException(System.Exception)")]

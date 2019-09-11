@@ -7,8 +7,8 @@
     <ProjectGuid>{F142684C-92CD-4B03-BBBE-5D2DB1C9CD7D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimControl.Templates.CSharp.NUnitTestProjectOld</RootNamespace>
-    <AssemblyName>SimControl.Templates.CSharp.NUnitTestProjectOld</AssemblyName>
+    <RootNamespace>SimControl.Templates.CSharp.OldNUnitTests</RootNamespace>
+    <AssemblyName>SimControl.Templates.CSharp.OldNUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -58,10 +58,10 @@
       <Version>1.0.21</Version>
     </PackageReference>
     <PackageReference Include="MrAdvice">
-      <Version>2.8.5</Version>
+      <Version>2.8.6</Version>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter">
-      <Version>3.14.0</Version>
+      <Version>3.15.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

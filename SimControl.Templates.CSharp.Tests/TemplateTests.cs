@@ -12,10 +12,10 @@ namespace SimControl.Templates.CSharp.Tests
 #if NETFRAMEWORK
         [Test]
         public void ClassLibraryOld_Class1__constructor__succeeds() =>
-            Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
+            Assert.That(new OldClassLibrary.Class1().ToString(), Is.Not.Null);
 
         [Test]
-        public void ConsoleAppOld_Program__Main__succeeds() => Assert.That(ConsoleAppOld.Program.Main(new[] {
+        public void ConsoleAppOld_Program__Main__succeeds() => Assert.That(OldConsoleApp.Program.Main(new[] {
             "SimControl.Templates.CSharp.ConsoleAppOld.Program" + ".exe" }), Is.Zero);
 #endif
 

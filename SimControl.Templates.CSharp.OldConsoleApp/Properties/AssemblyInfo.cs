@@ -1,15 +1,18 @@
-﻿using System.Reflection;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+
+using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimControl.Templates.CSharp.ConsoleAppOld")]
+[assembly: AssemblyTitle("SimControl.Templates.CSharp.OldConsoleApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SimControl.Templates.CSharp.ConsoleAppOld")]
+[assembly: AssemblyProduct("SimControl.Templates.CSharp.OldConsoleApp")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,6 +24,8 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("956e6d60-187e-4528-8480-3d648015229f")]
+
+[assembly: CLSCompliant(true)]
 
 // Version information for an assembly consists of the following four values:
 //
