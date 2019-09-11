@@ -130,7 +130,6 @@
     <Rule Id="CA1804" Action="Warning" />
     <Rule Id="CA1806" Action="Warning" />
     <Rule Id="CA1809" Action="Warning" />
-    <Rule Id="CA1810" Action="Warning" />
     <Rule Id="CA1811" Action="Warning" />
     <Rule Id="CA1812" Action="Warning" />
     <Rule Id="CA1813" Action="Warning" />
@@ -853,6 +852,7 @@
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
     <Rule Id="CA1309" Action="Warning" />
+    <Rule Id="CA1810" Action="None" />
     <Rule Id="CA2201" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="nunit.analyzers" RuleNamespace="nunit.analyzers">

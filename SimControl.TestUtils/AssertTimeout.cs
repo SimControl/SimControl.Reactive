@@ -469,8 +469,8 @@ namespace SimControl.TestUtils
                 throw TimeoutException(timeout);
         }
 
-        private static void IgnoreFaults(this Task task) =>
-            task.ContinueWith(t => { }, TaskContinuationOptions.OnlyOnFaulted);
+        private static void IgnoreFaults(this Task task) =>  task.ContinueWith(t => { },
+            CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 
         private static TimeoutException TimeoutException(int timeout) =>
             new TimeoutException("Test timeout " + timeout.ToString(CultureInfo.InvariantCulture) + " expired");
