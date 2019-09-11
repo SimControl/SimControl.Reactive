@@ -33,8 +33,6 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         /// <returns>Return code.</returns>
         public static int Main(params string[] args)
         {
-            Contract.Requires(args != null);
-
             try
             {
                 RegisterExceptionHandlers();
@@ -48,7 +46,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
                     typeof(Program).Assembly.GetName().Name,
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
-                    DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
+                    Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
                 //string input;
                 //while ((input = Console.ReadLine()) != null)

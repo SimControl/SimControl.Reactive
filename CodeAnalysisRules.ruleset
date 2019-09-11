@@ -689,7 +689,7 @@
     <Rule Id="IDE0003WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0004" Action="Warning" />
     <Rule Id="IDE0004WithoutSuggestion" Action="Warning" />
-    <Rule Id="IDE0005" Action="Warning" />
+    <Rule Id="IDE0005" Action="None" />
     <Rule Id="IDE0007" Action="Warning" />
     <Rule Id="IDE0007WithoutSuggestion" Action="Warning" />
     <Rule Id="IDE0008" Action="Warning" />
@@ -808,6 +808,7 @@
     <Rule Id="CA1502" Action="Warning" />
     <Rule Id="CA1505" Action="Warning" />
     <Rule Id="CA1506" Action="Warning" />
+    <Rule Id="CA1508" Action="Warning" />
     <Rule Id="CA1509" Action="Warning" />
     <Rule Id="CA1708" Action="Warning" />
     <Rule Id="CA1711" Action="Warning" />

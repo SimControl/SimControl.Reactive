@@ -13,7 +13,6 @@ namespace SimControl.TestUtils
         /// <param name="tempFiles">The temporary files.</param>
         public TempFilesTestAdapter(params string[] tempFiles)
         {
-            Contract.Requires(tempFiles != null);
             Contract.Requires(Contract.ForAll(tempFiles, x => !string.IsNullOrEmpty(x)));
 
             this.tempFiles = tempFiles;

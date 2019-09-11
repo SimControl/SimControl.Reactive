@@ -4,6 +4,7 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.WaitAssertTimeout(System.Threading.SemaphoreSlim,System.Int32,System.Int32)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.JoinAssertTimeout(System.Threading.Thread,System.Int32)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.KillAssertTimeout(System.Diagnostics.Process,System.Int32)~System.Int32")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:SimControl.TestUtils.AssertTimeout.ResultAssertTimeout``1(System.Threading.Tasks.Task{``0},System.Int32)~``0")]

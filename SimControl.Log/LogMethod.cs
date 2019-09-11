@@ -29,7 +29,6 @@ namespace SimControl.Log
         {
             Contract.Requires(logger != null);
             Contract.Requires(method != null);
-            Contract.Requires(args != null);
 
             logger.Log(logLevel,
                 "{ " + method.Name + LogFormat.FormatToString(instance) +
@@ -78,7 +77,6 @@ namespace SimControl.Log
         public static void Message(this Logger logger, LogLevel logLevel, params object[] args)
         {
             Contract.Requires(logger != null);
-            Contract.Requires(args != null);
 
             logger.Log(logLevel, ":" + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
@@ -91,8 +89,6 @@ namespace SimControl.Log
         public static void Message(this Logger logger, LogLevel logLevel, MethodBase method, params object[] args)
         {
             Contract.Requires(logger != null);
-            Contract.Requires(method != null);
-            Contract.Requires(args != null);
 
             logger.Log(logLevel, ": " + method.Name + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
