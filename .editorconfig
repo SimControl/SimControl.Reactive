@@ -1,6 +1,4 @@
-# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
-
-# Remove the line below if you want to inherit .editorconfig settings from higher directories
+﻿# Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
 
 #### Core EditorConfig Options ####
@@ -72,13 +70,13 @@ dotnet_style_predefined_type_for_locals_parameters_members = true:warning
 dotnet_style_predefined_type_for_member_access = true:warning
 
 # Parentheses preferences
-dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:warning
-dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:warning
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:silent
+dotnet_style_parentheses_in_other_binary_operators = never_if_unnecessary:silent
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
+dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:silent
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+dotnet_style_require_accessibility_modifiers = always:warning
 
 # Expression-level preferences
 csharp_style_deconstructed_variable_declaration = true:warning
@@ -132,7 +130,7 @@ csharp_style_conditional_delegate_call = true:warning
 
 # Modifier preferences
 csharp_prefer_static_local_function = true:warning
-csharp_preferred_modifier_order = public,protectedprivate,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:warning
+csharp_preferred_modifier_order = public, private, protected, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async:warning
 
 # Code-block preferences
 csharp_prefer_braces = false:warning
