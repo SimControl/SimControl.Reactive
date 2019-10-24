@@ -5,13 +5,18 @@ root = true
 
 # All files
 [*]
+
 charset = utf-8-bom
-end_of_line = crlf
-indent_style = space
-indent_size = 4
-insert_final_newline = false
-tab_width = 4
 trim_trailing_whitespace = true
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
 
 # Visual Studio Solution Files
 [*.sln]
@@ -53,8 +58,6 @@ insert_final_newline = true
 
 #### .NET Coding Conventions ####
 
-[*.{cs,vb}]
-
 # Organize usings
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
@@ -76,7 +79,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:silent
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
 # Expression-level preferences
 csharp_style_deconstructed_variable_declaration = true:warning
@@ -130,7 +133,7 @@ csharp_style_conditional_delegate_call = true:warning
 
 # Modifier preferences
 csharp_prefer_static_local_function = true:warning
-csharp_preferred_modifier_order = public, private, protected, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async:warning
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:warning
 
 # Code-block preferences
 csharp_prefer_braces = false:warning
@@ -149,12 +152,10 @@ csharp_using_directive_placement = outside_namespace:warning
 
 #### C# Formatting Rules ####
 
-[*.cs]
-
 # New line preferences
-csharp_new_line_before_catch = false
+csharp_new_line_before_catch = true
 csharp_new_line_before_else = true
-csharp_new_line_before_finally = false
+csharp_new_line_before_finally = true
 csharp_new_line_before_members_in_anonymous_types = false
 csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_before_open_brace = accessors,control_blocks,methods,properties,types
