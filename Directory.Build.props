@@ -8,15 +8,19 @@
   </PropertyGroup>
   
   <PropertyGroup>
+  <!--
     <CodeAnalysisRuleSet Condition="!'$(IsTestProject)'">..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(IsTestProject)'">..\CodeAnalysisTestRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+  -->
+  </PropertyGroup> 
 
   <ItemGroup>
+  <!--
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    </PackageReference> 
+  -->
   <!--
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
     <PackageReference Include="AsyncFixer" Version="1.1.6">
@@ -57,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsTestProject)'">
+  <!--
     <PackageReference Include="FakeItEasy.Analyzer.CSharp" Version="5.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -65,6 +70,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  -->
   </ItemGroup>
-  
+
 </Project>

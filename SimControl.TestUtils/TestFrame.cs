@@ -127,7 +127,7 @@ namespace SimControl.TestUtils
             Contract.Requires(type != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
 
-            type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+            _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>

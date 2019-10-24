@@ -74,8 +74,8 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         public void CloseMainWindowAssertTimeout(int timeout)
         {
-            Process.CloseMainWindow();
-            WaitForExitAssertTimeout(timeout);
+            _ = Process.CloseMainWindow();
+            _ = WaitForExitAssertTimeout(timeout);
         }
 
         /// <summary>Kills the process instance.</summary>
@@ -113,7 +113,7 @@ namespace SimControl.TestUtils
                 try
                 {
                     Process.Kill();
-                    Process.WaitForExit(TestFrame.DisableDebugTimeout(timeout));
+                    _ = Process.WaitForExit(TestFrame.DisableDebugTimeout(timeout));
                 }
                 catch (Exception e)
                 {
@@ -135,7 +135,7 @@ namespace SimControl.TestUtils
         protected override void Dispose(bool disposing)
         {
             if (disposing && Process != null)
-                WaitForExitAssertTimeout();
+                _ = WaitForExitAssertTimeout();
         }
 
         /// <summary>Gets the process.</summary>
