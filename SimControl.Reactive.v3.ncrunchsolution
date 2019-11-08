@@ -1,6 +1,7 @@
 ﻿<SolutionConfiguration>
   <Settings>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <HotSpotsExclusionList />
     <MetricsExclusionList>
       <Value>SimControl.Samples.CodeContracts\SimControl.Samples.CodeContracts.csproj</Value>
       <Value>SimControl.Samples.CSharp.Wcf.Client\SimControl.Samples.CSharp.Wcf.Client.csproj</Value>
@@ -13,13 +14,13 @@
       <Value>SimControl.Samples.CSharp.Wcf.Service.Tests\SimControl.Samples.CSharp.Wcf.Service.Tests.csproj</Value>
       <Value>SimControl.Samples.CSharp.ConsoleApplication.Tests\SimControl.Samples.CSharp.ConsoleApplication.Tests.csproj</Value>
       <Value>SimControl.Samples.CSharp.ClassLibrary.Tests\SimControl.Samples.CSharp.ClassLibrary.Tests.csproj</Value>
-      <Value>SimControl.Templates.CSharp.NUnitTestProject\SimControl.Templates.CSharp.NUnitTests.csproj:net40</Value>
+      <Value>SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj:netcoreapp3.0</Value>
       <Value>SimControl.Templates.CSharp.NUnitTestProject\SimControl.Templates.CSharp.NUnitTests.csproj:net472</Value>
       <Value>SimControl.Templates.CSharp.NUnitTestProject\SimControl.Templates.CSharp.NUnitTests.csproj:netcoreapp2.2</Value>
       <Value>SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj:netcoreapp2.2</Value>
       <Value>SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj:net472</Value>
       <Value>SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj:net40</Value>
-      <Value>SimControl.Templates.CSharp.OldNUnitTests\SimControl.Templates.CSharp.OldNUnitTests.csproj</Value>
+      <Value>SimControl.Templates.CSharp.Tests\SimControl.Templates.CSharp.Tests.csproj:net48</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
