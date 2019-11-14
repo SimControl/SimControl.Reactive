@@ -8,5 +8,8 @@ namespace SimControl.Templates.CSharp.OldClassLibrary
     [Log]
     public class Class1
     {
+        public Class1()
+        {
+        }
     }
 }

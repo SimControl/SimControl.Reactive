@@ -4,10 +4,11 @@
     <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
+    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.xml</DocumentationFile>
+    <!--<DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.xml</DocumentationFile>-->
   </PropertyGroup>
 
   <ItemGroup>
