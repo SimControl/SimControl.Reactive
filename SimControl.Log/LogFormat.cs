@@ -9,7 +9,6 @@ using System.Text;
 
 // TODO: CR
 
-
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>
