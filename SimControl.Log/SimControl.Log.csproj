@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Log\SimControl.Log.xml</DocumentationFile>
+    <!--<DocumentationFile>C:\Dev\SimControl\SimControl.Reactive\SimControl.Log\SimControl.Log.xml</DocumentationFile>-->
   </PropertyGroup>
 
   <ItemGroup>
