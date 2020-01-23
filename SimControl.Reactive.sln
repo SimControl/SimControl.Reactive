@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		CHANGELOG.md = CHANGELOG.md
-		CodeAnalysisRules.ruleset = CodeAnalysisRules.ruleset
-		CodeAnalysisTestRules.ruleset = CodeAnalysisTestRules.ruleset
-		Directory.Build.props = Directory.Build.props
+		..\CodeAnalysisRules.ruleset = ..\CodeAnalysisRules.ruleset
+		..\CodeAnalysisTestRules.ruleset = ..\CodeAnalysisTestRules.ruleset
+		..\Directory.Build.props = ..\Directory.Build.props
 		KeyPair.snk = KeyPair.snk
 		LICENSE = LICENSE
 		NLog.config = NLog.config
@@ -27,7 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NUnit.runsettings = NUnit.runsettings
 		NUnitCoverage.runsettings = NUnitCoverage.runsettings
 		README.md = README.md
-		SimControl.Reactive.v3.ncrunchsolution = SimControl.Reactive.v3.ncrunchsolution
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject

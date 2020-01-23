@@ -12,7 +12,7 @@
     <AssemblyName>SimControl.Templates.CSharp.OldWcfServiceLibrary</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>False</WcfConfigValidationEnabled>
     <XsdCodeGenEnabled>False</XsdCodeGenEnabled>
     <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
@@ -27,6 +27,7 @@
     <XsdCodeGenGenerateSerializableTypes>True</XsdCodeGenGenerateSerializableTypes>
     <XsdCodeGenGenerateInternalTypes>False</XsdCodeGenGenerateInternalTypes>
     <XsdCodeGenEnableDataBinding>False</XsdCodeGenEnableDataBinding>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -47,6 +49,7 @@
     <DocumentationFile>bin\Release\SimControl.Templates.CSharp.OldWcfServiceLibrary.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <CodeAnalysisRuleSet>..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -68,15 +71,6 @@
     <Compile Include="Service1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl">
-      <Version>1.1.10</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Bcl.Async">
-      <Version>1.0.168</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Bcl.Build">
-      <Version>1.0.21</Version>
-    </PackageReference>
     <PackageReference Include="MrAdvice">
       <Version>2.8.8</Version>
     </PackageReference>
@@ -91,7 +85,6 @@
     <None Include="..\KeyPair.snk">
       <Link>KeyPair.snk</Link>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
