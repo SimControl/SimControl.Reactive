@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(transitions != null);
 
-            base.Add(transitions);
+            _ = base.Add(transitions);
             return this;
         }
 
@@ -112,7 +112,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(transitions != null);
 
-            base.Add(transitions);
+            _ = base.Add(transitions);
             return this;
         }
 

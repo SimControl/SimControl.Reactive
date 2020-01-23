@@ -8,12 +8,12 @@ using SimControl.Log;
 
 namespace SimControl.Reactive.Tests
 {
-    [Log]
+    //TODO [Log]
     public class Lamp2: IDisposable
     {
         public Lamp2()
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("*")
                     .Add(new Transition("Ready", effect: () => logger.Message(LogLevel.Debug, ".* -> .Ready"))),
                 new CompositeState("Ready").Add(

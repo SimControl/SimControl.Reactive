@@ -19,7 +19,6 @@ namespace SimControl.Templates.CSharp.Tests
             "SimControl.Templates.CSharp.ConsoleAppOld.Program" + ".exe" }), Is.Zero);
 #endif
 
-#if NET472 || NETCOREAPP
         [Test]
         public void ClassLibrary_Class1__constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
@@ -27,7 +26,6 @@ namespace SimControl.Templates.CSharp.Tests
         [Test]
         public void ConsoleApp_Program__Main__succeeds() => Assert.That(ConsoleApp.Program.Main(new[] {
             "SimControl.Templates.CSharp.ConsoleApp.Program" + ".exe" }), Is.Zero);
-#endif
 
         //[Test, IntegrationTest]
         //public static void SimControlTemplatesCSharpConsoleApplication_RunApplication_Returns0()

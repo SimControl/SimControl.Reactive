@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Collections.Generic;
@@ -77,7 +77,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-            base.Add(transitions);
+            _ = base.Add(transitions);
             return this;
         }
 
@@ -88,7 +88,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-            base.Add(states);
+            _ = base.Add(states);
             return this;
         }
 
@@ -257,9 +257,9 @@ namespace SimControl.Reactive
             {
                 activeStates.Add(s);
 
-                if (s is CompositeState compositeState)
+                if (s is CompositeState)
                     AppendActiveStates(((CompositeState) s).Active, activeStates);
-                else if (s is OrthogonalState orthogonalState)
+                else if (s is OrthogonalState)
                     foreach (CompositeState child in ((OrthogonalState) s).Children)
                         AppendActiveStates(child, activeStates);
             }
@@ -338,10 +338,10 @@ namespace SimControl.Reactive
         {
             TransitionBase result;
 
-            if (s is CompositeState compositeState&& (result = FindValidCompletionTransition(((CompositeState) s).Active, now)) != null)
+            if (s is CompositeState && (result = FindValidCompletionTransition(((CompositeState) s).Active, now)) != null)
                 return result;
 
-            if (s is OrthogonalState orthogonalState)
+            if (s is OrthogonalState)
                 foreach (CompositeState child in ((OrthogonalState) s).Children)
                     if ((result = FindValidCompletionTransition(child, now)) != null)
                         return result;
@@ -416,9 +416,9 @@ namespace SimControl.Reactive
                 {
                     ca.doActivityStarted = true;
 
-                    var doActivity = ca.DoActivity();
+                    Task doActivity = ca.DoActivity();
 
-                    doActivity.ContinueWith(task => {
+                    _ = doActivity.ContinueWith(task => {
                         ca.doActivityStarted = false;
 
                         if (task.IsFaulted)
@@ -546,7 +546,7 @@ namespace SimControl.Reactive
             if (t.Effect != null)
                 try
                 {
-                    t.Effect.DynamicInvoke(args);
+                    _ = t.Effect.DynamicInvoke(args);
                 }
                 catch (Exception e)
                 {
@@ -563,9 +563,9 @@ namespace SimControl.Reactive
         {
             DateTime result = DateTime.MaxValue;
 
-            if (s is CompositeState compositeState)
+            if (s is CompositeState)
                 result = NextTimeTrigger(((CompositeState) s).Active, now);
-            else if (s is OrthogonalState orthogonalState)
+            else if (s is OrthogonalState)
                 foreach (CompositeState child in ((OrthogonalState) s).Children)
                 {
                     DateTime subresult = NextTimeTrigger(child, now);
@@ -633,7 +633,7 @@ namespace SimControl.Reactive
                 DateTime next = NextTimeTrigger(this, now);
 
                 if (next != now && next != DateTime.MaxValue)
-                    timer.Change((next - now).Milliseconds, Timeout.Infinite);
+                    _ = timer.Change((next - now).Milliseconds, Timeout.Infinite);
 
                 ExecutionState = ExecutionStateValue.Valid;
             }

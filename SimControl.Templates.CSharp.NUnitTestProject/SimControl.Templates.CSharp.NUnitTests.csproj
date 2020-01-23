@@ -4,12 +4,14 @@
     <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
-    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MrAdvice" Version="2.8.8" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
 

@@ -98,7 +98,7 @@ namespace SimControl.Reactive
                     return sb.Append(" ...").Append(close).ToString();
 
                 var c = o as IEnumerable;
-                sb.Append(c != null && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
+                _ = sb.Append(c != null && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
             }
 
             return sb.Append(close).ToString();

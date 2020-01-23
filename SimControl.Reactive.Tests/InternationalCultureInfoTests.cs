@@ -15,17 +15,17 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
-        [Test]
-        public static void LogAttribute_Tests()
-        {
-            try { throw new InvalidOperationException(); }
-            catch (InvalidOperationException e)
-            {
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
+        //[Test]
+        //public static void LogAttribute_Tests()
+        //{
+        //    try { throw new InvalidOperationException(); }
+        //    catch (InvalidOperationException e)
+        //    {
+        //        logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
 
-                Assert.AreEqual("Operation is not valid due to the current state of the object.", e.Message);
-            }
-        }
+        //        Assert.AreEqual("Operation is not valid due to the current state of the object.", e.Message);
+        //    }
+        //}
 
         [Test]
         public static void LogAttribute_Tests2()
