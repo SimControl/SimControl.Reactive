@@ -20,8 +20,6 @@
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
     <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj" />
     <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj" />
-    <ProjectReference Include="..\SimControl.Templates.CSharp.OldClassLibrary\SimControl.Templates.CSharp.OldClassLibrary.csproj" />
-    <ProjectReference Include="..\SimControl.Templates.CSharp.OldConsoleApp\SimControl.Templates.CSharp.OldConsoleApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
   </ItemGroup>
 

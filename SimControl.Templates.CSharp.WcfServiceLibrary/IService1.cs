@@ -3,7 +3,7 @@
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
-namespace SimControl.Templates.CSharp.OldWcfServiceLibrary
+namespace SimControl.Templates.CSharp.WcfServiceLibrary
 {
     [ServiceContract]
     public interface IService1

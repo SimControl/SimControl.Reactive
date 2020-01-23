@@ -4,11 +4,7 @@ using System;
 using NLog;
 using SimControl.Log;
 
-#if OLD_PROJECT_TYPE
-namespace SimControl.Samples.CSharp.ClassLibraryOld
-#else
 namespace SimControl.Samples.CSharp.ClassLibrary
-#endif
 {
     [Log]
     public class LogClass

@@ -297,13 +297,11 @@ namespace SimControl.Reactive
         {
             TransitionBase result;
 
-            var compositeState = s as CompositeState;
-            var orthogonalState = s as OrthogonalState;
-
-            if (compositeState != null &&
+            if (s is CompositeState compositeState &&
                 (result = FindTriggeredTransition(compositeState.Active, trigger, args)) != null)
                 return result;
-            if (orthogonalState != null)
+
+            if (s is OrthogonalState orthogonalState)
                 foreach (CompositeState child in orthogonalState.Children)
                     if ((result = FindTriggeredTransition(child, trigger, args)) != null)
                         return result;
@@ -383,10 +381,7 @@ namespace SimControl.Reactive
             if (s == target || (target != null && target.rootPath[s.rootPath.Length - 1] != s))
                 target = null;
 
-            var c = s as CompositeState;
-            var o = s as OrthogonalState;
-
-            if (c != null)
+            if (s is CompositeState c)
             {
                 c.Active = target == null ? c.initialState : target.rootPath[s.rootPath.Length];
                 if (c.Active == null)
@@ -457,7 +452,7 @@ namespace SimControl.Reactive
 
                 InvokeStateEntry(c.Active, target);
             }
-            if (o != null)
+            if (s is OrthogonalState o)
                 foreach (CompositeState child in o.Children)
                 {
                     entered.Add(child);
@@ -490,10 +485,7 @@ namespace SimControl.Reactive
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private void InvokeStateExit(State s)
         {
-            var c = s as CompositeState;
-            var o = s as OrthogonalState;
-
-            if (c != null)
+            if (s is CompositeState c)
             {
                 InvokeStateExit(c.Active);
 
@@ -519,7 +511,7 @@ namespace SimControl.Reactive
 
                 c.Active = null;
             }
-            if (o != null)
+            if (s is OrthogonalState o)
                 foreach (CompositeState child in o.Children)
                 {
                     InvokeStateExit(child);

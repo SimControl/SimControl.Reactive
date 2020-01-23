@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Diagnostics.Contracts;
@@ -192,12 +192,7 @@ namespace SimControl.Reactive
             Method = method;
         }
 
-        internal override bool Matches(Trigger trigger)
-        {
-            var other = trigger as CallTriggerBase;
-
-            return other != null && Method == other.Method;
-        }
+        internal override bool Matches(Trigger trigger) => trigger is CallTriggerBase other && Method == other.Method;
 
         internal Delegate Method { get; }
     }

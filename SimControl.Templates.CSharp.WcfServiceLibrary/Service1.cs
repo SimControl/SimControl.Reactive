@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using SimControl.Log;
 
-namespace SimControl.Templates.CSharp.OldWcfServiceLibrary
+namespace SimControl.Templates.CSharp.WcfServiceLibrary
 {
     [Log]
     public class Service1: IService1

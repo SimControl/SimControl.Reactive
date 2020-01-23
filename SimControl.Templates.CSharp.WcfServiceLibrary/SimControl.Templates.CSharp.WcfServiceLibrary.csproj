@@ -8,8 +8,8 @@
     <ProjectGuid>{93032712-F581-42D4-910F-670BDB44877F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimControl.Templates.CSharp.OldWcfServiceLibrary</RootNamespace>
-    <AssemblyName>SimControl.Templates.CSharp.OldWcfServiceLibrary</AssemblyName>
+    <RootNamespace>SimControl.Templates.CSharp.WcfServiceLibrary</RootNamespace>
+    <AssemblyName>SimControl.Templates.CSharp.WcfServiceLibrary</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -46,7 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SimControl.Templates.CSharp.OldWcfServiceLibrary.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\SimControl.Templates.CSharp.WcfServiceLibrary.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <CodeAnalysisRuleSet>..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>

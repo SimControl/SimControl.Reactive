@@ -67,14 +67,13 @@ namespace SimControl.Reactive
         {
             Contract.Ensures(Contract.Result<string>() != null);
 
-            var formatable = target as IFormattable;
 
             try
             {
                 return target == null
                            ? " null"
                            : " " +
-                             (formatable == null
+                             (!(target is IFormattable formatable)
                                   ? target.ToString() : formatable.ToString(null, InternationalCultureInfo.Instance));
             }
             catch (Exception e)
@@ -97,8 +96,7 @@ namespace SimControl.Reactive
                 if (i++ >= LogFormatMaxCollectionElements)
                     return sb.Append(" ...").Append(close).ToString();
 
-                var c = o as IEnumerable;
-                _ = sb.Append(c != null && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
+                _ = sb.Append(o is IEnumerable c && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
             }
 
             return sb.Append(close).ToString();

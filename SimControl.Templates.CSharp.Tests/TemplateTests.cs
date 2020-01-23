@@ -9,16 +9,6 @@ namespace SimControl.Templates.CSharp.Tests
     [Log, TestFixture]
     public class TemplateTests: TestFrame
     {
-#if NETFRAMEWORK
-        [Test]
-        public void ClassLibraryOld_Class1__constructor__succeeds() =>
-            Assert.That(new OldClassLibrary.Class1().ToString(), Is.Not.Null);
-
-        [Test]
-        public void ConsoleAppOld_Program__Main__succeeds() => Assert.That(OldConsoleApp.Program.Main(new[] {
-            "SimControl.Templates.CSharp.ConsoleAppOld.Program" + ".exe" }), Is.Zero);
-#endif
-
         [Test]
         public void ClassLibrary_Class1__constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
