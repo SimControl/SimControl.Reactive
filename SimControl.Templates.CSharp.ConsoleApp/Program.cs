@@ -48,13 +48,13 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                //string input;
-                //while ((input = Console.ReadLine()) != null)
-                //{
-                //    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
+                string input;
+                while ((input = Console.ReadLine()) != null)
+                {
+                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
 
-                //    // ...
-                //}
+                    // ...
+                }
 
                 return (int) ExitCode.Success;
             }

@@ -111,4 +111,12 @@ namespace SimControl.Log
 
         private Logger logger;
     }
+
+    //[Serializable]
+    [AttributeUsage(
+        AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
+        AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
+        AllowMultiple = true, Inherited = true)]
+    public sealed class LogExcludeAttribute: Attribute
+    { }
 }

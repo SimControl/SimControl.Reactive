@@ -7,9 +7,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
+
 //using System.Management;
 using System.Reflection;
 using NLog;
+using NUnit.Framework;
 using SimControl.Log;
 
 namespace SimControl.TestUtils
@@ -30,44 +32,45 @@ namespace SimControl.TestUtils
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         [Log]
-        public ConsoleProcessTestAdapter(string fileName, string arguments,
+        public ConsoleProcessTestAdapter(string name, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
         {
-            Contract.Requires(fileName != null);
+            Contract.Requires(string.IsNullOrEmpty(name));
 
-            // kill orphaned processes from previous test runs
-            //using (var managementObjectSearcher = new ManagementObjectSearcher(
-            //    "select CommandLine, ExecutablePath, ProcessId from Win32_Process where Name='" + Path.GetFileName(fileName) + "'"))
-            //using (var managementObjectCollection = managementObjectSearcher.Get())
-            //    foreach (ManagementBaseObject retObject in managementObjectCollection)
-            //    {
-            //        string commandLine = (string) retObject["CommandLine"];
+            standardOutput = new BlockingCollection<string>();
+            standardError = new BlockingCollection<string>();
 
-            //        logger.Warn(MethodBase.GetCurrentMethod().Name, "Running process found", (string) retObject["ExecutablePath"], commandLine);
+            Initialize(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, standardOutput, standardError);
+        }
 
-            //        if (arguments == null || commandLine.Substring(commandLine.Length-arguments.Length)== arguments)
-            //            try
-            //            {
-            //                logger.Warn(MethodBase.GetCurrentMethod().Name, "Killing process", (uint) retObject["ProcessId"], commandLine);
-            //                Process.GetProcessById((int) (uint) retObject["ProcessId"]).Kill();
-            //            }
-            //            catch (Exception e) { logger.Warn(e, MethodBase.GetCurrentMethod().ToString()); }
-            //    }
+        public ConsoleProcessTestAdapter(string path, string name, string arguments,
+            out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
 
-            Process = Process.Start(new ProcessStartInfo {
-                Arguments = arguments, CreateNoWindow = true, FileName = fileName, RedirectStandardInput = true,
-                RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(fileName)
-            });
+        {
+            Contract.Requires(string.IsNullOrEmpty(path));
+            Contract.Requires(string.IsNullOrEmpty(name));
 
-            BlockingCollection<string> stdOutput = standardOutput = new BlockingCollection<string>();
-            BlockingCollection<string> stdError = standardError = new BlockingCollection<string>();
+            standardOutput = new BlockingCollection<string>();
+            standardError = new BlockingCollection<string>();
 
-            Process.OutputDataReceived += (sender, args) => stdOutput.Add(args.Data);
-            Process.ErrorDataReceived += (sender, args) => stdError.Add(args.Data);
+            Initialize(path + "\\" + name, arguments, standardOutput, standardError);
+        }
 
-            Process.BeginOutputReadLine();
-            Process.BeginErrorReadLine();
+        public static void KillProcesses(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+
+            foreach (Process process in processes)
+            {
+                try
+                {
+                    logger.Warn(MethodBase.GetCurrentMethod().Name, "Killing process", (uint) process.Id,
+                        process.StartInfo.FileName, process.StartInfo.Arguments);
+
+                    process.Kill();
+                }
+                catch (Exception e) { logger.Warn(e, MethodBase.GetCurrentMethod().ToString()); }
+            }
         }
 
         /// <summary>Closes the main window while asserting the specified timeout.</summary>
@@ -136,6 +139,23 @@ namespace SimControl.TestUtils
         {
             if (disposing && Process != null)
                 _ = WaitForExitAssertTimeout();
+        }
+
+        [LogExclude]
+        private void Initialize(string fileName, string arguments, BlockingCollection<string> standardOutput,
+            BlockingCollection<string> standardError)
+        {
+            Process = Process.Start(new ProcessStartInfo {
+                Arguments = arguments, CreateNoWindow = true, FileName = fileName, RedirectStandardInput = true,
+                RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false,
+                WorkingDirectory = Path.GetDirectoryName(fileName)
+            });
+
+            Process.OutputDataReceived += (sender, args) => standardOutput.Add(args.Data);
+            Process.ErrorDataReceived += (sender, args) => standardError.Add(args.Data);
+
+            Process.BeginOutputReadLine();
+            Process.BeginErrorReadLine();
         }
 
         /// <summary>Gets the process.</summary>
