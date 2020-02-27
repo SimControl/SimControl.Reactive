@@ -4,6 +4,8 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Templates.CSharp.ConsoleApp;
 using SimControl.TestUtils;
+using NCrunch.Framework;
+using System;
 
 namespace SimControl.Templates.CSharp.Tests
 {
@@ -14,7 +16,7 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibrary_Class1__constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
-        [Test, IntegrationTest]
+        [Test, IntegrationTest, ExclusivelyUses("SimControl.Templates.CSharp.ConsoleApp.exe")]
         public static void ConsoleApp__Process__Returns_0()
         {
             ConsoleProcessTestAdapter.KillProcesses(typeof(Program).FullName);
@@ -27,8 +29,11 @@ namespace SimControl.Templates.CSharp.Tests
         }
 
         [Test]
-        public static void ConsoleApp_Program__Main__succeeds() => Assert.That(Program.Main(new[] {
-            typeof(Program).FullName + ".exe" }), Is.Zero);
+        public static void ConsoleApp_Program__Main__succeeds()
+        {
+            Console.In.Close();
+            Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }), Is.Zero);
+        }
 
         //TODO SimControl.Templates.CSharp.WcfServiceLibrary tests
     }

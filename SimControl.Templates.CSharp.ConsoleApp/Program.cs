@@ -3,7 +3,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -48,9 +47,17 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                string input;
-                while ((input = Console.ReadLine()) != null)
+                while (true)
                 {
+                    string input;
+
+                    try
+                    {
+                        input = Console.ReadLine();
+                        if (input == null) break;
+                    }
+                    catch (ObjectDisposedException) { break; }
+
                     logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
 
                     // ...
