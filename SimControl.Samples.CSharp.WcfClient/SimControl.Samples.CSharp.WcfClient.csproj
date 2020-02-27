@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MrAdvice">
-      <Version>2.8.8</Version>
+      <Version>2.8.10</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public static int Main(params string[] args)
         {
+            command = "";
             /*
                         Contract.Requires(args != null);
                         Contract.Requires(args.Length == 1);
