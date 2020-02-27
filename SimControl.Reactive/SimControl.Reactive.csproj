@@ -4,6 +4,7 @@
     <TargetFramework>net40</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
+    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">

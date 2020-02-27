@@ -6,6 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
