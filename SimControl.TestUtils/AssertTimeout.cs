@@ -79,7 +79,11 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(task != null);
 
+#if NET40
+            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(timeout)).ConfigureAwait(false))
+#else
             if (task == await Task.WhenAny(task, Task.Delay(timeout)).ConfigureAwait(false))
+#endif
                 await task.ConfigureAwait(false);
             else
                 throw TimeoutException(timeout);
@@ -99,7 +103,12 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(task != null);
 
+#if NET40
+            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(timeout)).ConfigureAwait(false))
+#else
             if (task == await Task.WhenAny(task, Task.Delay(timeout)).ConfigureAwait(false))
+
+#endif
                 return await task.ConfigureAwait(false);
 
             throw TimeoutException(timeout);
@@ -224,7 +233,12 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
+#if NET40
+            Task task = TaskEx.Run(action);
+#else
             var task = Task.Run(action);
+#endif
+
             bool timeoutFailed;
 
             try
@@ -260,7 +274,12 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(function != null);
 
+#if NET40
+            Task<T> task = TaskEx.Run(function);
+#else
             var task = Task.Run(function);
+#endif
+
             bool timeoutFailed;
 
             try

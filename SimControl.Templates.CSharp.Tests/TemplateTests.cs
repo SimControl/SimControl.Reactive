@@ -14,10 +14,6 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibrary_Class1__constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
-        [Test]
-        public static void ClassLibraryOld_Class1__constructor__succeeds() =>
-            Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
-
         [Test, IntegrationTest]
         public static void ConsoleApp__Process__Returns_0()
         {
