@@ -5,10 +5,10 @@ using System.Diagnostics.Contracts;
 
 namespace SimControl.TestUtils
 {
-    /// <summary>Test adapter for automatically disposing <see cref="IDisposable"/> objects.</summary>
+    /// <summary>Test adapter for automatically disposing an <see cref="IDisposable"/> object.</summary>
     /// <typeparam name="TDisposable">The type of the disposable.</typeparam>
     /// <seealso cref="TestAdapter"/>
-    public class DisposableTestAdapter<TDisposable> : TestAdapter where TDisposable : class, IDisposable
+    public class DisposableTestAdapter<TDisposable>: TestAdapter where TDisposable : class, IDisposable
     {
         /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
         /// <param name="disposable">The disposable.</param>
@@ -20,13 +20,7 @@ namespace SimControl.TestUtils
         }
 
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && Disposable != null)
-                try
-                { Disposable.Dispose(); }
-                finally { Disposable = null; }
-        }
+        protected override void Dispose(bool disposing) { if (disposing && Disposable != null) Disposable.Dispose(); }
 
         /// <summary>Gets the disposable object.</summary>
         /// <value>The disposable object.</value>

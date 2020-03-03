@@ -7,10 +7,11 @@ using NUnit.Framework;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for automatically deleting temporary files.</summary>
-    public class TempFilesTestAdapter : TestAdapter
+    public class TempFilesTestAdapter: TestAdapter
     {
-        /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="TempFilesTestAdapter"/> class.</summary>
         /// <param name="tempFiles">The temporary files.</param>
+        /// <remarks>The temporary files will be automatically deleted before and after test execution.</remarks>
         public TempFilesTestAdapter(params string[] tempFiles)
         {
             Contract.Requires(Contract.ForAll(tempFiles, x => !string.IsNullOrEmpty(x)));
@@ -25,8 +26,8 @@ namespace SimControl.TestUtils
             foreach (string file in tempFiles)
             {
                 string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + file;
-                if (File.Exists(fullPath))
-                    File.Delete(fullPath);
+
+                if (File.Exists(fullPath)) File.Delete(fullPath);
             }
         }
 

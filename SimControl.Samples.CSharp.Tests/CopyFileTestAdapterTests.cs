@@ -1,24 +1,33 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-/*
+
+using System.IO;
+using NCrunch.Framework;
 using NUnit.Framework;
-using SimControl.LogEx;
+using SimControl.Log;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
 {
     [Log]
     [TestFixture]
-    public class CopyFileTestAdapterTests : TestFrame
+    public class CopyFileTestAdapterTests: TestFrame
     {
-        #region Test
+        [Test, ExclusivelyUses(FileName)]
+        public static void CopyFileTestAdapter__fileCreationAndDeletion__succeeds()
+        {
+            string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
-        [SetUp]
-        public new void SetUp() => RegisterTestAdapter(new CopyFileTestAdapter("NLog.config", "NLog2.config"));
+            if (File.Exists(fullPath)) File.Delete(fullPath);
 
-        #endregion
+            TestAdapter copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
 
-        [Test]
-        public static void CopyFileTestAdapter() { }
+            Assert.That(File.Exists(fullPath));
+
+            copyFileTestAdapter.Dispose();
+
+            Assert.That(!File.Exists(fullPath));
+        }
+
+        public const string FileName = "NLog2.config";
     }
 }
-*/

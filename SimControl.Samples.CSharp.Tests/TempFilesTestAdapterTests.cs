@@ -22,6 +22,23 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
         public static void CopyFileTestAdapter() => File.Copy(
             TestContext.CurrentContext.TestDirectory + "\\" + "NLog.config",
             TestContext.CurrentContext.TestDirectory + "\\" + "tempfile2", true);
+        [Test, ExclusivelyUses(FileName)]
+        public static void CopyFileTestAdapter__fileCreationAndDeletion__succeeds()
+        {
+            string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
+
+            if (File.Exists(fullPath)) File.Delete(fullPath);
+
+            TestAdapter copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
+
+            Assert.That(File.Exists(fullPath));
+
+            copyFileTestAdapter.Dispose();
+
+            Assert.That(!File.Exists(fullPath));
+        }
+
+        public const string FileName = "NLog2.config";
     }
 }
 */
