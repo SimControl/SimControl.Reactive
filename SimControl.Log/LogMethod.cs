@@ -93,24 +93,6 @@ namespace SimControl.Log
             logger.Log(logLevel, ": " + method.Name + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
 
-        ///// <summary>Sets the default thread culture to InternationalCultureInfo.</summary>
-        //public static void SetDefaultThreadCulture()
-        //{
-        //    typeof(CultureInfo).InvokeMember("s_userDefaultCulture", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null, new object[] { InternationalCultureInfo.Instance }, CultureInfo.InvariantCulture);
-        //    typeof(CultureInfo).InvokeMember("s_userDefaultUICulture", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null, new object[] { InternationalCultureInfo.Instance }, CultureInfo.InvariantCulture);
-        //    // CultureInfo.DefaultThreadCurrentCulture = new InternationalCultureInfo(); Requires .Net Framework 4.5
-        //}
-
-        ///// <summary>Sets the default thread culture.</summary>
-        ///// <param name="currentCulture">The current culture.</param>
-        ///// <param name="currentUICulture">The current user interface culture.</param>
-        //public static void SetDefaultThreadCulture(CultureInfo currentCulture, CultureInfo currentUICulture)
-        //{
-        //    typeof(CultureInfo).InvokeMember("s_userDefaultCulture", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null, new object[] { currentCulture }, CultureInfo.InvariantCulture);
-        //    typeof(CultureInfo).InvokeMember("s_userDefaultUICulture", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null, new object[] { currentUICulture }, CultureInfo.InvariantCulture);
-        //    // CultureInfo.DefaultThreadCurrentCulture = new InternationalCultureInfo(); Requires .Net Framework 4.5
-        //}
-
         internal static void LogEntryFromLogAttribute(Logger logger, LogLevel logLevel, MethodBase method,
                                                       object instance, ICollection<object> args) =>
             logger.Log(logLevel, "{ " + method.Name + LogFormat.FormatToString(instance) +

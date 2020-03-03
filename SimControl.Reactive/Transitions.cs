@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 
 // TODO: CR
 
@@ -69,7 +70,7 @@ namespace SimControl.Reactive
             Trigger = trigger;
             Guard = guard;
             Effect = effect;
-            Name = name ?? nameof(Transition) + autoNameTransitions++.ToString(InternationalCultureInfo.Instance);
+            Name = name ?? nameof(Transition) + autoNameTransitions++.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <inheritdoc/>

@@ -9,7 +9,7 @@ namespace SimControl.Templates.CSharp.WcfServiceLibrary
     [Log]
     public class Service1: IService1
     {
-        public string GetData(int value) => value.ToString(CultureInfo.InvariantCulture);
+        public int GetData(int value) => value+1;
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {

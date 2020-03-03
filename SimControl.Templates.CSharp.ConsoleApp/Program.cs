@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 
-// TODO SynchronizationContext
-
 namespace SimControl.Templates.CSharp.ConsoleApp
 {
     /// <summary>Console application main class.</summary>
@@ -36,16 +34,17 @@ namespace SimControl.Templates.CSharp.ConsoleApp
             {
                 RegisterExceptionHandlers();
 
-                if (Thread.CurrentThread.Name == null)
-                    Thread.CurrentThread.Name = nameof(Main);
+                if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
 
-                //InternationalCultureInfo.SetCurrentThreadCulture();
-                //LogMethod.SetDefaultThreadCulture();
+                InternationalCultureInfo.SetCurrentThreadCulture();
+                InternationalCultureInfo.SetDefaultThreadCulture();
 
                 logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
                     typeof(Program).Assembly.GetName().Name,
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
+
+                // TODO add generic SynchronizationContext creation
 
                 while (true)
                 {
@@ -65,9 +64,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                 return (int) ExitCode.Success;
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
-#pragma warning restore CA1031
             {
                 logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, ex);
 
@@ -119,18 +116,12 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         {
             try
             {
-                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                    throw new Win32Exception();
+                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false)) throw new Win32Exception();
 
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
             }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception e)
-#pragma warning restore CA1031
-            {
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
-            }
+            catch (Exception e) { logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e); }
         }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -141,7 +132,6 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-        //[Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,

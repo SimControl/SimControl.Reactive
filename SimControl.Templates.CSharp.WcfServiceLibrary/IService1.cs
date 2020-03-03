@@ -9,7 +9,7 @@ namespace SimControl.Templates.CSharp.WcfServiceLibrary
     public interface IService1
     {
         [OperationContract]
-        string GetData(int value);
+        int GetData(int value);
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Text;
 
 // TODO: CR
@@ -74,7 +75,7 @@ namespace SimControl.Reactive
                            ? " null"
                            : " " +
                              (!(target is IFormattable formatable)
-                                  ? target.ToString() : formatable.ToString(null, InternationalCultureInfo.Instance));
+                                  ? target.ToString() : formatable.ToString(null, CultureInfo.InvariantCulture));
             }
             catch (Exception e)
             {
