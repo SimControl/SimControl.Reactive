@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <PackageReference Include="MrAdvice" Version="2.8.10" />
-    <PackageReference Include="NCrunch.Framework" Version="4.0.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,8 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ConsoleApp\SimControl.Samples.CSharp.ConsoleApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
   </ItemGroup>
 

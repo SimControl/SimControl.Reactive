@@ -6,20 +6,20 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
+namespace SimControl.TestUtils.Tests
 {
     [Log]
     [TestFixture]
     public class CopyFileTestAdapterTests: TestFrame
     {
         [Test, ExclusivelyUses(FileName)]
-        public static void CopyFileTestAdapter__fileCreationAndDeletion__succeeds()
+        public static void CopyFileTestAdapter__CreateAndDispose__FileIsCreatedAndDeleted()
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
             if (File.Exists(fullPath)) File.Delete(fullPath);
 
-            TestAdapter copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
+            var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
 
             Assert.That(File.Exists(fullPath));
 
@@ -28,6 +28,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
             Assert.That(!File.Exists(fullPath));
         }
 
-        public const string FileName = "NLog2.config";
+        public const string FileName = "CopyFileTestAdapterTests.tmp";
     }
 }

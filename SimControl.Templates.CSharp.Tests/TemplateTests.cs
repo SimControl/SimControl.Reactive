@@ -18,7 +18,7 @@ namespace SimControl.Templates.CSharp.Tests
 
 #if !NETCOREAPP3_1 //TODO copy MSBuild.deps.json and MSBuild.runtimeconfig.json
         [Test, IntegrationTest, ExclusivelyUses("SimControl.Templates.CSharp.ConsoleApp.exe")]
-        public static void ConsoleApp__Process__Returns_0()
+        public static void ConsoleApp__StartProcess__Returns_0()
         {
             ConsoleProcessTestAdapter.KillProcesses(typeof(Program).FullName);
 
@@ -31,7 +31,7 @@ namespace SimControl.Templates.CSharp.Tests
 #endif
 
         [Test]
-        public static void ConsoleApp_Program__Main__succeeds()
+        public static void ConsoleApp_Program__Invoke_Main__Returns_0()
         {
             Console.In.Close();
             Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }), Is.Zero);

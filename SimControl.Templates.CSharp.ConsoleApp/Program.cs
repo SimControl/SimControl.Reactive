@@ -127,7 +127,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 
-    internal static class NativeMethods
+    internal static class NativeMethods //TODO netcoreapp3.1 compatibility
     {
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
