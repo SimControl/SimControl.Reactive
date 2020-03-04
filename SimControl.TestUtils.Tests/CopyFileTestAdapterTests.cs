@@ -4,7 +4,6 @@ using System.IO;
 using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 
 namespace SimControl.TestUtils.Tests
 {
@@ -13,17 +12,14 @@ namespace SimControl.TestUtils.Tests
     public class CopyFileTestAdapterTests: TestFrame
     {
         [Test, ExclusivelyUses(FileName)]
-        public static void CopyFileTestAdapter__CreateAndDispose__FileIsCreatedAndDeleted()
+        public static void CopyFileTestAdapter__create_and_Dispose__file_is_created_and_deleted()
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
             if (File.Exists(fullPath)) File.Delete(fullPath);
 
-            var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
-
-            Assert.That(File.Exists(fullPath));
-
-            copyFileTestAdapter.Dispose();
+            using (var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName))
+                Assert.That(File.Exists(fullPath));
 
             Assert.That(!File.Exists(fullPath));
         }

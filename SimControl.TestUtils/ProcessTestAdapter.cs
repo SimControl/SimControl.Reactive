@@ -5,10 +5,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.IO;
-
-//using System.Management;
 using System.Reflection;
 using NLog;
 using NUnit.Framework;
@@ -17,22 +14,18 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for starting a console process.</summary>
-    public class ConsoleProcessTestAdapter: TestAdapter
+    public class ProcessTestAdapter: TestAdapter
     {
-        /// <summary>Initializes a new instance of the <see cref="ConsoleProcessTestAdapter"/> class.</summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="arguments">The arguments.</param>
+        /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
+        /// <param name="name">Process name.</param>
+        /// <param name="arguments">Process arguments.</param>
         /// <param name="standardOutput">The standard output.</param>
         /// <param name="standardError">The standard error.</param>
-        /// <remarks>
-        /// Tries to kill all processes with the same filename and command line arguments before starting a new console
-        /// application.
-        /// </remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         [Log]
-        public ConsoleProcessTestAdapter(string name, string arguments,
+        public ProcessTestAdapter(string name, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
         {
             Contract.Requires(string.IsNullOrEmpty(name));
@@ -40,10 +33,17 @@ namespace SimControl.TestUtils
             standardOutput = new BlockingCollection<string>();
             standardError = new BlockingCollection<string>();
 
-            Initialize(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, standardOutput, standardError);
+            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, standardOutput,
+                standardError);
         }
 
-        public ConsoleProcessTestAdapter(string path, string name, string arguments,
+        /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
+        /// <param name="path">Absolute path to the process file.</param>
+        /// <param name="name">Process name.</param>
+        /// <param name="arguments">Process arguments.</param>
+        /// <param name="standardOutput">The standard output.</param>
+        /// <param name="standardError">The standard error.</param>
+        public ProcessTestAdapter(string path, string name, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
 
         {
@@ -53,32 +53,32 @@ namespace SimControl.TestUtils
             standardOutput = new BlockingCollection<string>();
             standardError = new BlockingCollection<string>();
 
-            Initialize(path + "\\" + name, arguments, standardOutput, standardError);
+            StartProcess(path + "\\" + name + ".exe", arguments, standardOutput, standardError);
         }
 
-        public static void KillProcesses(string name)
+        /// <summary>Kills all processes with the same <paramref name="processName"/>.</summary>
+        /// <param name="processName">Name of the process.</param>
+        public static void KillProcesses(string processName)
         {
-            Process[] processes = Process.GetProcessesByName(name);
-
-            foreach (Process process in processes)
+            foreach (Process process in Process.GetProcessesByName(processName))
             {
-                try
-                {
-                    logger.Warn(MethodBase.GetCurrentMethod().Name, "Killing process", (uint) process.Id,
-                        process.StartInfo.FileName, process.StartInfo.Arguments);
+                process.Kill();
 
-                    process.Kill();
-                }
-                catch (Exception e) { logger.Warn(e, MethodBase.GetCurrentMethod().ToString()); }
+                Assert.That(process.WaitForExit(TestFrame.DefaultTestTimeout),
+                    "Process " + processName + " could not be killed");
             }
         }
 
+        /// <summary>Closes the main window while asserting the default test timeout.</summary>
+        public int CloseMainWindowAssertTimeout() => CloseMainWindowAssertTimeout(TestFrame.DefaultTestTimeout);
+
         /// <summary>Closes the main window while asserting the specified timeout.</summary>
         /// <param name="timeout">The timeout.</param>
-        public void CloseMainWindowAssertTimeout(int timeout)
+        public int CloseMainWindowAssertTimeout(int timeout)
         {
-            _ = Process.CloseMainWindow();
-            _ = WaitForExitAssertTimeout(timeout);
+            Assert.That(Process.CloseMainWindow());
+
+            return WaitForExitAssertTimeout(timeout);
         }
 
         /// <summary>Kills the process instance.</summary>
@@ -88,13 +88,13 @@ namespace SimControl.TestUtils
             Contract.Requires(Process != null);
 
             Process.Kill();
-            Process.WaitForExit();
+            Assert.That(Process.WaitForExit(TestFrame.DefaultTestTimeout), "Timeout expired");
             Process = null;
         }
 
         /// <inheritdoc/>
-        public override string ToString() => LogFormat.FormatObject(typeof(ConsoleProcessTestAdapter), Process == null,
-            Process == null || Process.HasExited);
+        public override string ToString() => LogFormat.FormatObject(typeof(ProcessTestAdapter),
+            Process != null ? Process.Id : -1, Process == null || Process.HasExited);
 
         /// <summary>
         /// Waits for a process to exit while asserting the <see cref="TestFrame.DefaultTestTimeout"/>.
@@ -125,7 +125,7 @@ namespace SimControl.TestUtils
                 Process.Dispose();
                 Process = null;
 
-                throw new TimeoutException("Test timeout " + timeout.ToString(CultureInfo.InvariantCulture) + " expired");
+                Assert.Fail("Timeout expired");
             }
 
             int ret = Process.ExitCode;
@@ -141,8 +141,7 @@ namespace SimControl.TestUtils
                 _ = WaitForExitAssertTimeout();
         }
 
-        [LogExclude]
-        private void Initialize(string fileName, string arguments, BlockingCollection<string> standardOutput,
+        private void StartProcess(string fileName, string arguments, BlockingCollection<string> standardOutput,
             BlockingCollection<string> standardError)
         {
             Process = Process.Start(new ProcessStartInfo {

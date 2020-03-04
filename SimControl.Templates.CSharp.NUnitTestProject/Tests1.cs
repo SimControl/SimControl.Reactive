@@ -14,15 +14,27 @@ namespace SimControl.Templates.CSharp.NUnitTests
         #region Test SetUp/TearDown
 
         [SetUp]
-        public new void SetUp() => logger.Trace(nameof(SetUp));
+        public new void SetUp()
+        {
+            logger.Trace(nameof(SetUp));
+            Assert.That(true);
+        }
 
         [TearDown]
-        public new void TearDown() => logger.Trace(nameof(TearDown));
+        public new void TearDown()
+        {
+            logger.Trace(nameof(TearDown));
+            Assert.That(true);
+        }
 
         #endregion
 
         [Test]
-        public void Arrange__Act__Assert() => Assert.Pass();
+        public void Arrange__act__assert()
+        {
+            logger.Trace(nameof(Arrange__act__assert));
+            Assert.That(true);
+        }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

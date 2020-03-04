@@ -10,7 +10,7 @@ namespace SimControl.TestUtils
     /// <seealso cref="TestAdapter"/>
     public class DisposableTestAdapter<TDisposable>: TestAdapter where TDisposable : class, IDisposable
     {
-        /// <summary>Initializes a new instance of the <see cref="CancellationTokenTimeoutTestAdapter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="DisposableTestAdapter"/> class.</summary>
         /// <param name="disposable">The disposable.</param>
         public DisposableTestAdapter(TDisposable disposable)
         {

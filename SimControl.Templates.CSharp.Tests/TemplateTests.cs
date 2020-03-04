@@ -13,30 +13,34 @@ namespace SimControl.Templates.CSharp.Tests
     public class TemplateTests: TestFrame
     {
         [Test]
-        public static void ClassLibrary_Class1__constructor__succeeds() =>
+        public static void ClassLibrary_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
-#if !NETCOREAPP3_1 //TODO copy MSBuild.deps.json and MSBuild.runtimeconfig.json
-        [Test, IntegrationTest, ExclusivelyUses("SimControl.Templates.CSharp.ConsoleApp.exe")]
-        public static void ConsoleApp__StartProcess__Returns_0()
-        {
-            ConsoleProcessTestAdapter.KillProcesses(typeof(Program).FullName);
+#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
 
-            using (var process = new ConsoleProcessTestAdapter(typeof(Program).Namespace, null, out _, out _))
+        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
+        public static void ConsoleApp__start_process__returns_0()
+        {
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
             {
                 process.Process.StandardInput.Close();
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
         }
+
 #endif
 
         [Test]
-        public static void ConsoleApp_Program__Invoke_Main__Returns_0()
+        public static void ConsoleApp_Program__invoke_Main__returns_0()
         {
             Console.In.Close();
             Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }), Is.Zero);
         }
 
         //TODO SimControl.Templates.CSharp.WcfServiceLibrary tests
+
+        public const string ProcessName = "SimControl.Templates.CSharp.ConsoleApp";
     }
 }

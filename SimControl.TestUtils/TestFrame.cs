@@ -117,7 +117,7 @@ namespace SimControl.TestUtils
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
-        public static int DisableDebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
+        public static int DisableDebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout; //UNDONE move to SimControl.Reactive
 
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
