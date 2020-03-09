@@ -23,7 +23,7 @@ namespace SimControl.Reactive.Tests
             {
                 logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
 
-                Assert.AreEqual("Operation is not valid due to the current state of the object.", e.Message);
+                Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
             }
         }
 

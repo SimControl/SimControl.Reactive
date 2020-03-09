@@ -43,7 +43,7 @@ namespace SimControl.Reactive.Tests
         {
             bool ret = RunAssertTimeout(() => true);
 
-            Assert.IsTrue(ret);
+            Assert.That(ret, Is.True);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace SimControl.Reactive.Tests
         {
             bool ret = TaskEx.Run(() => true).ResultAssertTimeout();
 
-            Assert.IsTrue(ret);
+            Assert.That(ret, Is.True);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace SimControl.Reactive.Tests
             {
                 Task task = TaskEx.Run(() => blockingCollection.Add(true));
 
-                Assert.IsTrue(blockingCollection.TakeAssertTimeout());
+                Assert.That(blockingCollection.TakeAssertTimeout(), Is.True);
 
                 task.WaitAssertTimeout();
             }
@@ -116,7 +116,7 @@ namespace SimControl.Reactive.Tests
         {
             using (var blockingCollection = new BlockingCollection<bool>())
                 Assert.Throws<TimeoutException>(
-                    () => Assert.IsTrue(blockingCollection.TakeAssertTimeout(MinTimerResolution)));
+                    () => Assert.That(blockingCollection.TakeAssertTimeout(MinTimerResolution), Is.True));
         }
 
         [Test]

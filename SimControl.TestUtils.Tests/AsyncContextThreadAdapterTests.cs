@@ -9,6 +9,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
+#if !NET472 //UNDONE ProjectReference/SetTargetFramework 
     [Log]
     [TestFixture]
     public class AsyncContextThreadAdapterTests: TestFrame
@@ -21,10 +22,9 @@ namespace SimControl.TestUtils.Tests
             {
                 var ready = new AutoResetEvent(false);
 
-                Nito.AsyncEx.TaskFactoryExtensions.Run(acta.Factory, () => {
-//                Task task = acta.Factory.Run( .Run(() => {
+                Task task = acta.Factory.Run(() => {
 #if NET40
-                        TaskEx.Delay(-1, cts.Token);
+                    TaskEx.Delay(-1, cts.Token);
 #else
                     Task.Delay(-1, cts.Token);
 #endif
@@ -37,7 +37,7 @@ namespace SimControl.TestUtils.Tests
                 task.WaitAssertTimeout();
             }
         }
-
         public const string FileName = "CopyFileTestAdapterTests.tmp";
     }
+#endif
 }
