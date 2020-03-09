@@ -22,9 +22,31 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
+      <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

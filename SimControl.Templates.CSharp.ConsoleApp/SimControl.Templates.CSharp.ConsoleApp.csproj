@@ -24,8 +24,22 @@
     <PackageReference Include="MrAdvice" Version="2.8.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
