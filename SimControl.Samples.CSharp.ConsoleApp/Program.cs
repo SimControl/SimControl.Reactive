@@ -117,6 +117,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                                     if (s == null)
                                         Environment.Exit(5);
                                     break;
+                                case "AsyncContextThread"
                                 case "WCF":
                                     //TODO WCF service hosting
                                     //private const string testBaseAddress =

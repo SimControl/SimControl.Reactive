@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Nito.AsyncEx;
 using NLog;
 using SimControl.Log;
 
@@ -28,7 +29,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         /// <summary>Console application entry point.</summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Return code.</returns>
-        public static int Main(params string[] args)
+        public static async Task<int> Main(params string[] args)
         {
             try
             {
@@ -44,22 +45,39 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                // TODO add generic SynchronizationContext creation
-
-                while (true)
+                using (var act = new AsyncContextThread())
                 {
-                    string input;
-
-                    try
+                    using (var cts = new CancellationTokenSource())
                     {
-                        input = Console.ReadLine();
-                        if (input == null) break;
+#if NET40
+                        Task task = act.Factory.Run(() => TaskEx.Delay(-1, cts.Token));
+#else
+                        Task task = act.Factory.Run(() => Task.Delay(-1, cts.Token));
+#endif
+
+                        while (true)
+                        {
+                            string input;
+
+                            try
+                            {
+                                input = Console.ReadLine();
+                                if (input == null) break;
+                            }
+                            catch (ObjectDisposedException) { break; }
+
+                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
+
+                            // ...
+                        }
+
+                        cts.Cancel();
+
+                        try { await task; }
+                        catch (TaskCanceledException) { }
+
+                        act.JoinAsync().Wait();
                     }
-                    catch (ObjectDisposedException) { break; }
-
-                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
-
-                    // ...
                 }
 
                 return (int) ExitCode.Success;

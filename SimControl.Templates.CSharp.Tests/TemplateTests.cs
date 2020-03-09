@@ -36,7 +36,7 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ConsoleApp_Program__invoke_Main__returns_0()
         {
             Console.In.Close();
-            Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }), Is.Zero);
+            Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }).ResultAssertTimeout(), Is.Zero);
         }
 
         //TODO SimControl.Templates.CSharp.WcfServiceLibrary tests

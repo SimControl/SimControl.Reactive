@@ -10,7 +10,7 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class Lam2Sample: TestFrame
     {
-        [Test, Example]
+        [Test]
         public static void Lamp2_OnOff()
         {
             using (var lamp2 = new Lamp2())

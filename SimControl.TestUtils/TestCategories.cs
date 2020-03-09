@@ -5,10 +5,6 @@ using NUnit.Framework;
 
 namespace SimControl.TestUtils
 {
-    /// <summary>A sample showing how to use an API.</summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class ExampleAttribute: CategoryAttribute { }
-
     /// <summary>An integration tests tests the integration of several disjoint components.</summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public sealed class IntegrationTestAttribute: CategoryAttribute { }
@@ -24,8 +20,4 @@ namespace SimControl.TestUtils
     /// <summary>A stability test tests the stability of specific operations/components.</summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public sealed class StabilityTestAttribute: CategoryAttribute { }
-
-    /// <summary>Unstable tests, that are not garanteed to run successfully.</summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class UnstableAttribute: CategoryAttribute { }
 }
