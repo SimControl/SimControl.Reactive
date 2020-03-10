@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="439438e1-f9a2-4d2a-99aa-5434b297d4ca" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.WcfServiceLibrary/SampleService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="c9fa7e20-21fe-4df1-a19c-be55a232c9c7" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.WcfServiceLibrary/SampleService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="3bd19b52-f16b-4dce-ab57-ae4b6ae3c3f2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.WcfServiceLibrary/SampleService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="13de9189-749a-4b2b-bf56-2c423270667c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.WcfServiceLibrary/SampleService/mex" />
+    <MetadataFile FileName="SimControl.Samples.CSharp.WcfServiceLibrary.xsd" MetadataType="Schema" ID="efb1148f-8a8b-4c66-95a0-31fdc7e01600" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.WcfServiceLibrary/SampleService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -16,6 +16,12 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibrary_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
+#if NET40
+        [Test]
+        public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>
+            Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
+#endif
+
 #if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]

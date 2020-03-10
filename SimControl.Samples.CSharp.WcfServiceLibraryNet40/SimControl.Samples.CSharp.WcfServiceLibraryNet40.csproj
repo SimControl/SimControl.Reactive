@@ -5,59 +5,47 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{93032712-F581-42D4-910F-670BDB44877F}</ProjectGuid>
+    <ProjectGuid>{67782E59-5FD3-442D-8762-982095B556AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimControl.Templates.CSharp.WcfServiceLibrary</RootNamespace>
-    <AssemblyName>SimControl.Templates.CSharp.WcfServiceLibrary</AssemblyName>
+    <RootNamespace>SimControl.Samples.CSharp.WcfServiceLibraryNet40</RootNamespace>
+    <AssemblyName>SimControl.Samples.CSharp.WcfServiceLibraryNet40</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <XsdCodeGenEnabled>True</XsdCodeGenEnabled>
-    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>False</WcfConfigValidationEnabled>
+    <XsdCodeGenEnabled>False</XsdCodeGenEnabled>
     <XsdCodeGenSerializerMode>XmlSerializer</XsdCodeGenSerializerMode>
     <XsdCodeGenReuseTypesFlag>True</XsdCodeGenReuseTypesFlag>
     <XsdCodeGenReuseTypesMode>All</XsdCodeGenReuseTypesMode>
     <XsdCodeGenReferences />
-    <XsdCodeGenNamespaceMappings>%2a, SimControl.Templates.CSharp.WcfServiceLibrary.ContractTypes</XsdCodeGenNamespaceMappings>
+    <XsdCodeGenNamespaceMappings>%2a, SimControl.Samples.CSharp.WcfServiceLibraryNet40.ContractTypes</XsdCodeGenNamespaceMappings>
     <XsdCodeGenCollectionTypes>System.Array%3bSystem.Collections.Generic.Dictionary`2</XsdCodeGenCollectionTypes>
     <XsdCodeGenExcludedTypes />
     <XsdCodeGenImportXmlTypes>True</XsdCodeGenImportXmlTypes>
     <XsdCodeGenGenerateSerializableTypes>True</XsdCodeGenGenerateSerializableTypes>
     <XsdCodeGenGenerateInternalTypes>False</XsdCodeGenGenerateInternalTypes>
     <XsdCodeGenEnableDataBinding>False</XsdCodeGenEnableDataBinding>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>portable</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SimControl.Templates.CSharp.WcfServiceLibrary.xml</DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
-    <CodeAnalysisRuleSet>..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -71,6 +59,12 @@
     <Compile Include="Service1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async">
+      <Version>1.0.168</Version>
+    </PackageReference>
     <PackageReference Include="MrAdvice">
       <Version>2.8.10</Version>
     </PackageReference>
@@ -80,12 +74,6 @@
       <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
       <Name>SimControl.Log</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\KeyPair.snk">
-      <Link>KeyPair.snk</Link>
-    </None>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

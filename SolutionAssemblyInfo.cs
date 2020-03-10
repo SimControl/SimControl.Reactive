@@ -1,5 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information. See
-// LICENSE.txt in the project root for license information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System.Reflection;
 
@@ -9,7 +8,6 @@ using System.Reflection;
 [assembly: AssemblyProduct("SimControl.Reactive")]
 [assembly: AssemblyCopyright("Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
-
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 #else

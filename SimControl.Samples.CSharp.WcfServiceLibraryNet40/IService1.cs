@@ -3,12 +3,12 @@
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
-namespace SimControl.Samples.CSharp.WcfServiceLibrary
+namespace SimControl.Samples.CSharp.WcfServiceLibraryNet40
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both
     // code and config file together.
     [ServiceContract]
-    public interface ISampleService
+    public interface IService1
     {
         [OperationContract]
         string GetData(int value);
@@ -19,9 +19,7 @@ namespace SimControl.Samples.CSharp.WcfServiceLibrary
         // TODO: Add your service operations here
     }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations. You can add
-    // XSD files into the project. After building the project, you can directly use the data types defined there, with
-    // the namespace "SimControl.Samples.CSharp.WcfServiceLibrary.ContractType".
+    // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
     public class CompositeType
     {

@@ -30,6 +30,7 @@
     <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj">
       <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
     </ProjectReference>
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibraryOld\SimControl.Templates.CSharp.ClassLibraryOld.csproj" />
     <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj">
       <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
     </ProjectReference>

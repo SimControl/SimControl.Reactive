@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A7115E75-9B1F-415C-8607-C3A8ABF01E13}</ProjectGuid>
+    <ProjectGuid>{A3730C9C-C77A-4798-8C61-7DD211A78328}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimControl.Samples.CSharp.WcfClient</RootNamespace>
-    <AssemblyName>SimControl.Samples.CSharp.WcfClient</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>SimControl.Templates.CSharp.ClassLibraryOld</RootNamespace>
+    <AssemblyName>SimControl.Templates.CSharp.ClassLibraryOld</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -39,56 +39,21 @@
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="Connected Services\SampleServiceClient\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.Async">
+      <Version>1.0.168</Version>
+    </PackageReference>
     <PackageReference Include="MrAdvice">
       <Version>2.8.10</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Connected Services\SampleServiceClient\service.wsdl" />
-    <None Include="Connected Services\SampleServiceClient\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\SampleServiceClient\service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\SampleServiceClient\SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SampleServiceClient\SimControl.Samples.CSharp.WcfServiceLibrary.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\SampleServiceClient\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SampleServiceClient\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SampleServiceClient\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SampleServiceClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
       <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
       <Name>SimControl.Log</Name>
+      <SetTargetFramework>TargetFramework=net40</SetTargetFramework>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

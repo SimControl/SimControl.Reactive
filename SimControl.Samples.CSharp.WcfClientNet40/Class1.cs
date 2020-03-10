@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SimControl.Samples.CSharp.WcfClient
+namespace SimControl.Samples.CSharp.WcfClientNet40
 {
     public class Class1
     {
