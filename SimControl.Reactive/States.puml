@@ -1,0 +1,17 @@
+﻿@startuml
+
+State1 :
+
+State1 --> State2A : Call1 [IsTrueA()] / WaitAsycc()
+State1 --> State2B : Call1 [IsTrueB()]
+
+State2A --> State3 : Call2
+State2B --> State3 : Call2
+
+state State2B {
+  Waiting : do / WaitAsync()
+  [*] --> Waiting
+  Waiting --> Ready
+}
+
+@enduml

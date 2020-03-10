@@ -5,10 +5,15 @@ using Nito.AsyncEx;
 
 namespace SimControl.TestUtils
 {
+    /// <summary>Provides a thread context test adapter for asynchronous operations.</summary>
+    /// <seealso cref="TestAdapter"/>
     public class AsyncContextThreadAdapter: TestAdapter
     {
-        public AsyncContextThreadAdapter() => timeout = TestFrame.DefaultTestTimeout;
+        /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
+        public AsyncContextThreadAdapter() : this(TestFrame.DefaultTestTimeout) { }
 
+        /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
+        /// <param name="timeout">The timeout.</param>
         public AsyncContextThreadAdapter(int timeout) => this.timeout = timeout;
 
         /// <inheritdoc/>
@@ -22,6 +27,8 @@ namespace SimControl.TestUtils
             }
         }
 
+        /// <summary>Gets the <see cref="TaskFactory"/>.</summary>
+        /// <value>The task factory.</value>
         public TaskFactory Factory => asyncContextThread.Factory;
 
         private readonly int timeout;

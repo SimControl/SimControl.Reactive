@@ -15,7 +15,7 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
-    public static class AssertTimeout
+    public static class AssertTimeoutExtensions
     {
         /// <summary>
         /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
@@ -52,22 +52,22 @@ namespace SimControl.TestUtils
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <param name="task">The task to act on.</param>
-        public static Task AssertTimeoutAsync(this Task task)
+        public static Task AsyncAssertTimeout(this Task task)
         {
             Contract.Requires(task != null);
 
-            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
+            return task.AsyncAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="task">The task to act on.</param>
         /// <returns></returns>
-        public static Task<T> AssertTimeoutAsync<T>(this Task<T> task)
+        public static Task<T> AsyncAssertTimeout<T>(this Task<T> task)
         {
             Contract.Requires(task != null);
 
-            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
+            return task.AsyncAssertTimeout(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
@@ -75,7 +75,7 @@ namespace SimControl.TestUtils
         /// <param name="task">The task to act on.</param>
         /// <param name="timeout">The timeout.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static async Task AssertTimeoutAsync(this Task task, int timeout)
+        public static async Task AsyncAssertTimeout(this Task task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -89,6 +89,7 @@ namespace SimControl.TestUtils
                 throw TimeoutException(timeout);
         }
 
+
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="task">The task to act on.</param>
@@ -99,7 +100,7 @@ namespace SimControl.TestUtils
         /// </exception>
         /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static async Task<T> AssertTimeoutAsync<T>(this Task<T> task, int timeout)
+        public static async Task<T> AsyncAssertTimeout<T>(this Task<T> task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -134,49 +135,6 @@ namespace SimControl.TestUtils
 
             if (!thread.Join(TestFrame.DisableDebugTimeout(timeout)))
                 throw TimeoutException(timeout);
-        }
-
-        /// <summary>The Process extension method that kills a process while asserting the test timeout.</summary>
-        /// <param name="process">The process to act on.</param>
-        /// <returns>An int.</returns>
-        public static int KillAssertTimeout(this Process process)
-        {
-            Contract.Requires(process != null);
-
-            return process.KillAssertTimeout(TestFrame.DefaultTestTimeout);
-        }
-
-        /// <summary>The Process extension method that kills a process while asserting the test timeout.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <param name="process">The process to act on.</param>
-        /// <param name="timeout">The timeout.</param>
-        /// <returns>An int.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static int KillAssertTimeout(this Process process, int timeout)
-        {
-            Contract.Requires(process != null);
-
-            try
-            {
-                try
-                {
-                    process.Kill();
-                }
-                catch (Exception e)
-                {
-                    logger.Warn(e);
-                }
-
-                if (!process.WaitForExit(TestFrame.DisableDebugTimeout(timeout)))
-                    throw TimeoutException(timeout);
-
-                return process.ExitCode;
-            }
-            finally
-            {
-                process.Dispose();
-            }
         }
 
         /// <summary><see cref="Task{T}.Result"/> wrapper that asserts the test timeout.</summary>
