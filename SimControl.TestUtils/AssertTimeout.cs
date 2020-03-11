@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
@@ -15,59 +14,57 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
-    public static class AssertTimeoutExtensions
+    public static class AssertTimeout
     {
+        public delegate Task AsyncTestDelegate();
+        public delegate Task<T> AsyncTestDelegate<T>();
+
+        // UNDONE AbortOrCloseAssertTimeout
         /// <summary>
         /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
         /// while asserting the test timeout.
         /// </summary>
-        /// <param name="client">The client to act on.</param>
-        //public static void AbortOrCloseAssertTimeout( this ICommunicationObject client ) =>
-        //    client.AbortOrCloseAssertTimeout( TestFrame.DefaultTestTimeout );
-
-        /// <summary>
-        /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
-        /// while asserting the test timeout.
-        /// </summary>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
-        /// <param name="client">The client to act on.</param>
-        /// <param name="timeout">The timeout.</param>
-        //[Log( LogLevel = LogAttributeLevel.Off )]
-        //public static void AbortOrCloseAssertTimeout( this ICommunicationObject client, int timeout )
-        //{
-        //    if( client != null )
-        //        if( client.State == CommunicationState.Opened )
-        //            try
-        //            {
-        //                client.Close( TimeSpan.FromMilliseconds( timeout ) );
-        //            }
-        //            catch( Exception )
-        //            {
-        //                client.Abort();
-        //                throw;
-        //            }
-        //        else if( client.State != CommunicationState.Closed )
-        //            client.Abort();
-        //}
-
-        /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <param name="task">The task to act on.</param>
-        public static Task AsyncAssertTimeout(this Task task)
+        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        public static Task AsyncAssertTimeoutAsync(this Task task)
         {
             Contract.Requires(task != null);
 
-            return task.AsyncAssertTimeout(TestFrame.DefaultTestTimeout);
+            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
+        }
+
+        public static Task AssertTimeoutAsync(AsyncTestDelegate code)
+        {
+            Contract.Requires(code != null);
+
+            return code().AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
+        }
+
+        public static Task AssertTimeoutAsync(AsyncTestDelegate code, int timeout)
+        {
+            Contract.Requires(code != null);
+
+            return code().AssertTimeoutAsync(timeout);
+        }
+
+        public static Task<T> AssertTimeoutAsync<T>(AsyncTestDelegate<T> code)
+        {
+            Contract.Requires(code != null);
+
+            return code().AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="task">The task to act on.</param>
-        /// <returns></returns>
-        public static Task<T> AsyncAssertTimeout<T>(this Task<T> task)
+        /// <returns>The task</returns>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        public static Task<T> AssertTimeoutAsync<T>(this Task<T> task)
         {
             Contract.Requires(task != null);
 
-            return task.AsyncAssertTimeout(TestFrame.DefaultTestTimeout);
+            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
@@ -75,20 +72,25 @@ namespace SimControl.TestUtils
         /// <param name="task">The task to act on.</param>
         /// <param name="timeout">The timeout.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static async Task AsyncAssertTimeout(this Task task, int timeout)
+        public static Task AssertTimeoutAsync(this Task task, int timeout)
         {
             Contract.Requires(task != null);
 
-#if NET40
-            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(timeout)).ConfigureAwait(false))
-#else
-            if (task == await Task.WhenAny(task, Task.Delay(timeout)).ConfigureAwait(false))
-#endif
-                await task.ConfigureAwait(false);
-            else
-                throw TimeoutException(timeout);
-        }
+            try
+            {
+                if (!task.Wait(TestFrame.DisableDebugTimeout(timeout)))
+                {
+                    IgnoreFaults(task);
+                    throw TimeoutException(timeout);
+                }
+            }
+            catch (OperationCanceledException) {
+                throw; }
+            catch (AggregateException e) {
+                throw e.InnerException; }
 
+            return task;
+        }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <typeparam name="T"></typeparam>
@@ -100,14 +102,14 @@ namespace SimControl.TestUtils
         /// </exception>
         /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static async Task<T> AsyncAssertTimeout<T>(this Task<T> task, int timeout)
+        public static async Task<T> AssertTimeoutAsync<T>(this Task<T> task, int timeout)
         {
             Contract.Requires(task != null);
 
 #if NET40
-            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(timeout)).ConfigureAwait(false))
+            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(TestFrame.DisableDebugTimeout(timeout))).ConfigureAwait(false))
 #else
-            if (task == await Task.WhenAny(task, Task.Delay(timeout)).ConfigureAwait(false))
+            if (task == await Task.WhenAny(task, Task.Delay(TestFrame.DisableDebugTimeout(timeout))).ConfigureAwait(false))
 
 #endif
                 return await task.ConfigureAwait(false);
@@ -274,7 +276,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(blockingCollection != null);
 
-            if (!blockingCollection.TryTake(out T result, timeout))
+            if (!blockingCollection.TryTake(out T result, TestFrame.DisableDebugTimeout(timeout)))
                 throw TimeoutException(timeout);
 
             return result;
@@ -427,7 +429,7 @@ namespace SimControl.TestUtils
                 throw TimeoutException(timeout);
         }
 
-        private static void IgnoreFaults(this Task task) =>  task.ContinueWith(t => { },
+        private static void IgnoreFaults(this Task task) => task.ContinueWith(t => { },
             CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 
         private static TimeoutException TimeoutException(int timeout) =>
