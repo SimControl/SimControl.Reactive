@@ -8,7 +8,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    [Log]
+    // UNDONE [Log] 
     [TestFixture]
     public class AssertTimeoutTests: TestFrame
     {
@@ -25,7 +25,8 @@ namespace SimControl.TestUtils.Tests
 #else
                     await Task.Delay(1); token.ThrowIfCancellationRequested(); };
 #endif
-                Assert.ThrowsAsync<OperationCanceledException>(() => f(cts.Token).AsyncAssertTimeoutAsync());
+                Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
+                    () => f(cts.Token).AsyncAssertTimeoutAsync());
             }
         }
 
