@@ -110,5 +110,16 @@ namespace SimControl.TestUtils.Tests
 #else
             Task.Delay(10).WaitAssertTimeout();
 #endif
+
+        [Test]
+        public static void WaitOneAssertTimeout()
+        {
+            using (var ready = new AutoResetEvent(true))
+                ready.WaitOneAssertTimeout();
+        }
+
+        // TODO TakeAssertTimeout tests
+        // TODO TakeUntilAssertTimeout tests
+        // TODO SemaphoreSlim.WaitAssertTimeout tests
     }
 }

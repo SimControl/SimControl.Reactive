@@ -17,22 +17,8 @@ namespace SimControl.TestUtils
     public static class AssertTimeout
     {
         public delegate Task AsyncTestDelegate();
+
         public delegate Task<T> AsyncTestDelegate<T>();
-
-        // UNDONE AbortOrCloseAssertTimeout
-        /// <summary>
-        /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
-        /// while asserting the test timeout.
-        /// </summary>
-        /// <param name="task">The task to act on.</param>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        public static Task AsyncAssertTimeoutAsync(this Task task)
-        {
-            Contract.Requires(task != null);
-
-            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
-        }
 
         public static Task AssertTimeoutAsync(AsyncTestDelegate code)
         {
@@ -84,10 +70,14 @@ namespace SimControl.TestUtils
                     throw TimeoutException(timeout);
                 }
             }
-            catch (OperationCanceledException) {
-                throw; }
-            catch (AggregateException e) {
-                throw e.InnerException; }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (AggregateException e)
+            {
+                throw e.InnerException;
+            }
 
             return task;
         }
@@ -115,6 +105,21 @@ namespace SimControl.TestUtils
                 return await task.ConfigureAwait(false);
 
             throw TimeoutException(timeout);
+        }
+
+        // UNDONE AbortOrCloseAssertTimeout
+        /// <summary>
+        /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
+        /// while asserting the test timeout.
+        /// </summary>
+        /// <param name="task">The task to act on.</param>
+        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        public static Task AsyncAssertTimeoutAsync(this Task task)
+        {
+            Contract.Requires(task != null);
+
+            return task.AssertTimeoutAsync(TestFrame.DefaultTestTimeout);
         }
 
         /// <summary><see cref="Thread.Join()"/> wrapper that asserts the test timeout.</summary>
