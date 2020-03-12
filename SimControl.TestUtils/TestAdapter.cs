@@ -6,6 +6,7 @@ namespace SimControl.TestUtils
 {
     /// <summary>Abstract base class for test adapters.</summary>
     /// <remarks>TestAdapters are (if registered properly) automatically destroyed in the test cleanup methods.</remarks>
+    /// <seealso cref="IDisposable"/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public abstract class TestAdapter: IDisposable
     {
@@ -17,10 +18,8 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
-        /// <param name="disposing">
-        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged
-        /// resources.
-        /// </param>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to
+        /// release only unmanaged resources.</param>
         protected abstract void Dispose(bool disposing);
     }
 }

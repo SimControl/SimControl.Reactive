@@ -9,11 +9,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-//using System.Windows.Threading;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
-//using SimControl.Reactive;
 
 [assembly: NonTestAssembly]
 
@@ -22,6 +20,15 @@ namespace SimControl.TestUtils
     /// <summary>Test frame for writing asynchronous unit tests.</summary>
     public abstract class TestFrame
     {
+        /// <summary>Asynchronous test delegate.</summary>
+        /// <returns>An asynchronous result.</returns>
+        public delegate Task AsyncTestDelegate();
+
+        /// <summary>Asynchronous test delegate.</summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <returns>An asynchronous result that yields a T.</returns>
+        public delegate Task<T> AsyncTestDelegate<T>();
+
         private static class NativeMethods
         {
             [DllImport("ntdll.dll", SetLastError = true)]
@@ -114,10 +121,34 @@ namespace SimControl.TestUtils
             Assert.That(exception.GetType().FullName, Is.EqualTo(contractExceptionName));
         }
 
+        /// <summary>Assert test timeout asynchronous.</summary>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        /// <param name="code">The code.</param>
+        /// <param name="timeout">The timeout.</param>
+        /// <returns>An asynchronous result.</returns>
+        public static Task AssertTimeoutAsync(AsyncTestDelegate code, int timeout = Timeout)
+        {
+            Contract.Requires(code != null);
+
+            return code().AssertTimeoutAsync(timeout);
+        }
+
+        /// <summary>Assert test timeout asynchronous.</summary>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        /// <param name="code">The code.</param>
+        /// <param name="timeout">The timeout.</param>
+        /// <returns>An asynchronous result.</returns>
+        public static Task AssertTimeoutAsync<T>(AsyncTestDelegate<T> code, int timeout = Timeout)
+        {
+            Contract.Requires(code != null);
+
+            return code().AssertTimeoutAsync(timeout);
+        }
+
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
-        public static int DisableDebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout; //UNDONE move to SimControl.Reactive
+        public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout; //UNDONE move to SimControl.Reactive
 
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
@@ -189,10 +220,16 @@ namespace SimControl.TestUtils
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
 
+        public static Task ThreadSwitchDelay() =>
+#if NET40
+            TaskEx.Delay(MinTimerResolution);
+#else
+            Task.Delay(MinTimerResolution);
+#endif
+
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void CatchOneTimeTearDownExceptions(Action action)
         {
             Contract.Requires(action != null);
@@ -295,11 +332,11 @@ namespace SimControl.TestUtils
 
         /// <summary>The default timeout for interactive tests.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 60 seconds.</remarks>
-        public static int DefaultInteractiveTestTimeout { get; } = DisableDebugTimeout(60000);
+        public static int DefaultInteractiveTestTimeout { get; } = 60000;
 
         /// <summary>The test timeout in milliseconds.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
-        public static int DefaultTestTimeout { get; } = DisableDebugTimeout(10000);
+        public const int Timeout = 10000;
 
         /// <summary>The minimum thread switch.</summary>
         public static readonly int MinTimerResolution;

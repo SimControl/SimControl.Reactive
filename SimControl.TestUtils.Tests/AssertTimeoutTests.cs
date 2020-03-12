@@ -4,11 +4,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using SimControl.Log;
+
+// TODO TakeAssertTimeout tests TODO TakeUntilAssertTimeout tests TODO SemaphoreSlim.WaitAssertTimeout tests
 
 namespace SimControl.TestUtils.Tests
 {
-    // UNDONE [Log] 
+    // UNDONE [Log]
     [TestFixture]
     public class AssertTimeoutTests: TestFrame
     {
@@ -19,51 +20,35 @@ namespace SimControl.TestUtils.Tests
             {
                 cts.Cancel();
 
-                async Task f(CancellationToken token) {
-#if NET40
-                    await TaskEx.Delay(1); token.ThrowIfCancellationRequested(); }
-#else
-                    await Task.Delay(1); token.ThrowIfCancellationRequested(); };
-#endif
+                async Task f(CancellationToken token)
+                {
+                    await ThreadSwitchDelay(); token.ThrowIfCancellationRequested();
+                }
+
                 Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
                     () => f(cts.Token).AsyncAssertTimeoutAsync());
             }
         }
 
         [Test]
-        public static void AssertTimeoutAsync__Faulted() =>
-            Assert.ThrowsAsync<InvalidOperationException>(() => AssertTimeout.AssertTimeoutAsync(async () =>
-#if NET40
-                { await TaskEx.Delay(1); throw new InvalidOperationException(); }));
-#else
-                { await Task.Delay(1); throw new InvalidOperationException(); }));
-#endif
+        public static void AssertTimeoutAsync__Faulted() => Assert.ThrowsAsync<InvalidOperationException>(() =>
+            AssertTimeoutAsync(async () => { await ThreadSwitchDelay(); throw new InvalidOperationException(); }));
 
         [Test]
         public static async Task AssertTimeoutAsync__RanToCompletion() =>
-#if NET40
-            await TaskEx.Delay(10).AsyncAssertTimeoutAsync();
-#else
-            await Task.Delay(10).AsyncAssertTimeoutAsync();
-#endif
+            await ThreadSwitchDelay().AsyncAssertTimeoutAsync();
 
         [Test]
         public static void AssertTimeoutAsync__TimeoutException() =>
-            Assert.ThrowsAsync<TimeoutException>(() => AssertTimeout.AssertTimeoutAsync(async () =>
+            Assert.ThrowsAsync<TimeoutException>(() => AssertTimeoutAsync(async () =>
 #if NET40
-                { await TaskEx.Delay(1000); throw new InvalidOperationException(); }, 1));
+                { await TaskEx.Delay(1000); throw new InvalidOperationException(); }, MinTimerResolution));
 #else
-                { await Task.Delay(1000); throw new InvalidOperationException(); }, 1));
+                { await Task.Delay(1000); throw new InvalidOperationException(); }, MinTimerResolution));
 #endif
 
         [Test]
-        public static async Task AssertTimeoutAsync_T() => Assert.That(await ((Func<Task<int>>) (async () =>
-#if NET40
-            { await TaskEx.Delay(10); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
-
-#else
-            { await Task.Delay(10); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
-#endif
+        public static async Task AssertTimeoutAsync_T() => Assert.That(await ((Func<Task<int>>) (async () => { await ThreadSwitchDelay(); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
 
         [Test]
         public static void JoinAssertTimeout()
@@ -77,39 +62,16 @@ namespace SimControl.TestUtils.Tests
 
         [Test]
         public static void ResultAssertTimeoutAsync_T() =>
-#if NET40
-        ((Func<Task<int>>) (async () => { await TaskEx.Delay(10); return 1; }))().ResultAssertTimeout();
-
-#else
-        ((Func<Task<int>>) (async () => { await Task.Delay(10); return 1; }))().ResultAssertTimeout();
-#endif
+            ((Func<Task<int>>) (async () => { await ThreadSwitchDelay(); return 1; }))().ResultAssertTimeout();
 
         [Test]
-        public static void RunAssertTimeout() =>
-#if NET40
-            ((Action) (() => TaskEx.Delay(10))).RunAssertTimeout();
-
-#else
-            ((Action) (() => Task.Delay(10))).RunAssertTimeout();
-#endif
+        public static void RunAssertTimeout() => ((Action) (() => ThreadSwitchDelay().Wait())).RunAssertTimeout();
 
         [Test]
-        public static void RunAssertTimeout_T() =>
-#if NET40
-            Assert.That(((Func<int>) (() => { TaskEx.Delay(10); return 1; })).RunAssertTimeout(), Is.EqualTo(1));
-
-#else
-            Assert.That(((Func<int>) (() => { Task.Delay(10); return 1;})).RunAssertTimeout(), Is.EqualTo(1));
-#endif
+        public static void RunAssertTimeout_T() => Assert.That(((Func<int>) (() => { ThreadSwitchDelay().Wait(); return 1; })).RunAssertTimeout(), Is.EqualTo(1));
 
         [Test]
-        public static void WaitAssertTimeout() =>
-#if NET40
-            TaskEx.Delay(10).WaitAssertTimeout();
-
-#else
-            Task.Delay(10).WaitAssertTimeout();
-#endif
+        public static void WaitAssertTimeout() => ThreadSwitchDelay().WaitAssertTimeout();
 
         [Test]
         public static void WaitOneAssertTimeout()
@@ -117,9 +79,5 @@ namespace SimControl.TestUtils.Tests
             using (var ready = new AutoResetEvent(true))
                 ready.WaitOneAssertTimeout();
         }
-
-        // TODO TakeAssertTimeout tests
-        // TODO TakeUntilAssertTimeout tests
-        // TODO SemaphoreSlim.WaitAssertTimeout tests
     }
 }

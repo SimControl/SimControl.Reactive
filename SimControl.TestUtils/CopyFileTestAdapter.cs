@@ -7,7 +7,8 @@ using NUnit.Framework;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for copying files.</summary>
-    public class CopyFileTestAdapter : TestAdapter
+    /// <seealso cref="TestAdapter"/>
+    public class CopyFileTestAdapter: TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="CopyFileTestAdapter"/> class.</summary>
         /// <param name="source">The source.</param>

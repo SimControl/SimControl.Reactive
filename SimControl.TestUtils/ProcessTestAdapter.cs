@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Reflection;
@@ -14,16 +13,14 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for starting a console process.</summary>
+    /// <seealso cref="TestAdapter"/>
     public class ProcessTestAdapter: TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
         /// <param name="name">Process name.</param>
         /// <param name="arguments">Process arguments.</param>
-        /// <param name="standardOutput">The standard output.</param>
-        /// <param name="standardError">The standard error.</param>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#")]
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
+        /// <param name="standardOutput">[out] The standard output.</param>
+        /// <param name="standardError">[out] The standard error.</param>
         [Log]
         public ProcessTestAdapter(string name, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
@@ -41,8 +38,8 @@ namespace SimControl.TestUtils
         /// <param name="path">Absolute path to the process file.</param>
         /// <param name="name">Process name.</param>
         /// <param name="arguments">Process arguments.</param>
-        /// <param name="standardOutput">The standard output.</param>
-        /// <param name="standardError">The standard error.</param>
+        /// <param name="standardOutput">[out] The standard output.</param>
+        /// <param name="standardError">[out] The standard error.</param>
         public ProcessTestAdapter(string path, string name, string arguments,
             out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
 
@@ -64,16 +61,18 @@ namespace SimControl.TestUtils
             {
                 process.Kill();
 
-                Assert.That(process.WaitForExit(TestFrame.DefaultTestTimeout),
+                Assert.That(process.WaitForExit(TestFrame.Timeout),
                     "Process " + processName + " could not be killed");
             }
         }
 
         /// <summary>Closes the main window while asserting the default test timeout.</summary>
-        public int CloseMainWindowAssertTimeout() => CloseMainWindowAssertTimeout(TestFrame.DefaultTestTimeout);
+        /// <returns><see cref="Process.ExitCode"/></returns>
+        public int CloseMainWindowAssertTimeout() => CloseMainWindowAssertTimeout(TestFrame.Timeout);
 
         /// <summary>Closes the main window while asserting the specified timeout.</summary>
         /// <param name="timeout">The timeout.</param>
+        /// <returns><see cref="Process.ExitCode"/></returns>
         public int CloseMainWindowAssertTimeout(int timeout)
         {
             Assert.That(Process.CloseMainWindow());
@@ -88,7 +87,7 @@ namespace SimControl.TestUtils
             Contract.Requires(Process != null);
 
             Process.Kill();
-            Assert.That(Process.WaitForExit(TestFrame.DefaultTestTimeout), "Timeout expired");
+            Assert.That(Process.WaitForExit(TestFrame.Timeout), "Timeout expired");
             Process = null;
         }
 
@@ -96,16 +95,13 @@ namespace SimControl.TestUtils
         public override string ToString() => LogFormat.FormatObject(typeof(ProcessTestAdapter),
             Process != null ? Process.Id : -1, Process == null || Process.HasExited);
 
-        /// <summary>
-        /// Waits for a process to exit while asserting the <see cref="TestFrame.DefaultTestTimeout"/>.
-        /// </summary>
+        /// <summary>Waits for a process to exit while asserting the <see cref="TestFrame.Timeout"/>.</summary>
         /// <returns>the process exit code.</returns>
-        public int WaitForExitAssertTimeout() => WaitForExitAssertTimeout(TestFrame.DefaultTestTimeout);
+        public int WaitForExitAssertTimeout() => WaitForExitAssertTimeout(TestFrame.Timeout);
 
         /// <summary>Waits for a process to exit while asserting the timeout.</summary>
         /// <param name="timeout">The timeout.</param>
-        /// <returns></returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        /// <returns><see cref="Process.ExitCode"/></returns>
         [Log]
         public int WaitForExitAssertTimeout(int timeout)
         {
@@ -116,7 +112,7 @@ namespace SimControl.TestUtils
                 try
                 {
                     Process.Kill();
-                    _ = Process.WaitForExit(TestFrame.DisableDebugTimeout(timeout));
+                    _ = Process.WaitForExit(TestFrame.DebugTimeout(timeout));
                 }
                 catch (Exception e)
                 {

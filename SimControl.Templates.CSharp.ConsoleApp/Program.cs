@@ -125,7 +125,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         {
             logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, args.Exception);
 
-            //args.SetObserved();  // as we have observed the exception, the process should not terminate abnormally
+            //args.SetObserved(); // as we have observed the exception, the process should not terminate abnormally
 
             Exit(ExitCode.UnobservedTaskException);
         }

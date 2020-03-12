@@ -10,7 +10,7 @@ namespace SimControl.TestUtils
     public class AsyncContextThreadAdapter: TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
-        public AsyncContextThreadAdapter() : this(TestFrame.DefaultTestTimeout) { }
+        public AsyncContextThreadAdapter() : this(TestFrame.Timeout) { }
 
         /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
         /// <param name="timeout">The timeout.</param>
