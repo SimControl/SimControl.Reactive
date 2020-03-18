@@ -7,7 +7,6 @@ namespace SimControl.TestUtils
     /// <summary>Abstract base class for test adapters.</summary>
     /// <remarks>TestAdapters are (if registered properly) automatically destroyed in the test cleanup methods.</remarks>
     /// <seealso cref="IDisposable"/>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public abstract class TestAdapter: IDisposable
     {
         /// <inheritdoc/>

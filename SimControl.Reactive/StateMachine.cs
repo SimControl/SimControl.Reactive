@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -685,6 +686,11 @@ namespace SimControl.Reactive
                 return activeStates;
             }
         }
+
+        /// <summary>Disable timeouts if a debugger is attached.</summary>
+        /// <param name="timeout">The timeout.</param>
+        /// <returns></returns>
+        public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
         /// <summary>Gets the state machines execution state.</summary>
         /// <value>The execution state.</value>

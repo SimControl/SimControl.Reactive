@@ -62,7 +62,6 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Onetime test tear down.</summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Log]
         [OneTimeTearDown]
         public void OneTimeTearDown()
@@ -96,7 +95,6 @@ namespace SimControl.TestUtils
         /// <summary>Tear down test execution.</summary>
         [Log]
         [TearDown]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void TearDown()
         {
             while (testAdapters.TryPop(out TestAdapter tfa))
@@ -148,7 +146,7 @@ namespace SimControl.TestUtils
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
-        public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout; //UNDONE move to SimControl.Reactive
+        public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
