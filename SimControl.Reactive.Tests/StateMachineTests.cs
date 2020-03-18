@@ -14,7 +14,6 @@ using SimControl.Log;
 using SimControl.TestUtils;
 
 // TODO: change method names
-#pragma warning disable CC0021 // Use nameof
 /*
 namespace SimControl.Reactive.Tests
 {
@@ -1182,5 +1181,4 @@ namespace SimControl.Reactive.Tests
     }
 }
 
-#pragma warning restore CC0021 // Use nameof
 */

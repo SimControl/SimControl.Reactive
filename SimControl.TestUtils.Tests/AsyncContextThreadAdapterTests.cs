@@ -1,5 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
+#if !NET472 //UNDONE ProjectReference/SetTargetFramework 
+
 using System.Threading;
 using System.Threading.Tasks;
 using NCrunch.Framework;
@@ -9,7 +11,6 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-#if !NET472 //UNDONE ProjectReference/SetTargetFramework 
     [Log]
     [TestFixture]
     public class AsyncContextThreadAdapterTests: TestFrame
@@ -37,7 +38,9 @@ namespace SimControl.TestUtils.Tests
                 task.WaitAssertTimeout();
             }
         }
+
         public const string FileName = "CopyFileTestAdapterTests.tmp";
     }
-#endif
 }
+
+#endif

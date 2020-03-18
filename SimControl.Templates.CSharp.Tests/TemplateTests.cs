@@ -17,16 +17,17 @@ namespace SimControl.Templates.CSharp.Tests
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
 #if NET40
+
         [Test]
         public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
-#endif
 
-#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
+#endif
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
+#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
             ProcessTestAdapter.KillProcesses(ProcessName);
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
@@ -34,9 +35,8 @@ namespace SimControl.Templates.CSharp.Tests
                 process.Process.StandardInput.Close();
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
-        }
-
 #endif
+        }
 
         [Test]
         public static void ConsoleApp_Program__invoke_Main__returns_0()

@@ -8,9 +8,6 @@ using System.Globalization;
 using System.Reflection;
 using NLog;
 
-
-#pragma warning disable S3242 // Method parameters should be declared with base types
-
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>
@@ -99,5 +96,3 @@ namespace SimControl.Log
                 (args.Count > 0 ? LogFormat.FormatArgsList(args) : ""));
     }
 }
-
-#pragma warning restore S3242

@@ -25,7 +25,7 @@ namespace SimControl.TestUtils.Tests
                     await ThreadSwitchDelay(); token.ThrowIfCancellationRequested();
                 }
 
-                Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
+                _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
                     () => f(cts.Token).AsyncAssertTimeoutAsync());
             }
         }
@@ -43,6 +43,7 @@ namespace SimControl.TestUtils.Tests
             Assert.ThrowsAsync<TimeoutException>(() => AssertTimeoutAsync(async () =>
 #if NET40
                 { await TaskEx.Delay(1000); throw new InvalidOperationException(); }, MinTimerResolution));
+
 #else
                 { await Task.Delay(1000); throw new InvalidOperationException(); }, MinTimerResolution));
 #endif

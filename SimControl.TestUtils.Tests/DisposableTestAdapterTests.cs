@@ -15,7 +15,7 @@ namespace SimControl.TestUtils.Tests
         {
             using (var disposableTestAdapter = new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false)))
             {
-                disposableTestAdapter.Disposable.Set();
+                _ = disposableTestAdapter.Disposable.Set();
                 disposableTestAdapter.Disposable.WaitOneAssertTimeout();
             }
         }

@@ -7,7 +7,6 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using NLog;
 using SimControl.Log;
 
 namespace SimControl.TestUtils

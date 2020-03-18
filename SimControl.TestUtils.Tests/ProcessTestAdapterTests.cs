@@ -1,5 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
+#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
+
 using System.Diagnostics;
 using System.Reflection;
 using NCrunch.Framework;
@@ -10,8 +12,6 @@ using SimControl.TestUtils;
 
 namespace SimControl.Testutils.Tests
 {
-#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
-
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
@@ -93,7 +93,7 @@ namespace SimControl.Testutils.Tests
                 ProcessTestAdapter.KillProcesses(ProcessName);
                 Assert.That(Process.GetProcessesByName(ProcessName).Length == 0);
 
-                process.WaitForExitAssertTimeout();
+                _ = process.WaitForExitAssertTimeout();
             }
         }
 
@@ -103,6 +103,6 @@ namespace SimControl.Testutils.Tests
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
+}
 
 #endif
-}
