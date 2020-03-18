@@ -25,22 +25,14 @@
 //    [Conditional("CONTRACTS_FULL")]
 //    internal sealed class ContractOptionAttribute: Attribute
 //    {
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "category",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "setting",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "toggle",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
 //        public ContractOptionAttribute(string category, string setting, bool toggle) {}
 
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "category",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "setting",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "value",
 //            Justification = "Build-time only attribute")]
-//        [SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
 //        public ContractOptionAttribute(string category, string setting, string value) {}
 //    }
 //}

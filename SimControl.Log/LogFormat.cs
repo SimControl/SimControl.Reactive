@@ -61,7 +61,6 @@ namespace SimControl.Log
         /// <summary>Returns target.toString() with handling possible exceptions and null objects.</summary>
         /// <param name="target">The target.</param>
         /// <returns>target.ToString()</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static string FormatToString(object target)
         {
             Contract.Ensures(Contract.Result<string>() != null);

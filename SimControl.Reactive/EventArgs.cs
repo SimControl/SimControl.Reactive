@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -19,7 +19,6 @@ namespace SimControl.Reactive
         /// <summary>Performs an implicit conversion from <see cref="Reactive.EventArgs&lt;T&gt;"/> to T.</summary>
         /// <param name="eventArgs">The <see cref="Reactive.EventArgs&lt;T&gt;"/> instance containing the event data.</param>
         /// <returns>The result of the conversion.</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates")]
         public static implicit operator T(EventArgs<T> eventArgs)
         {
             Contract.Requires(eventArgs != null);

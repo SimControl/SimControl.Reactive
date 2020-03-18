@@ -55,7 +55,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
         public static void ValidateCodeContract(bool valid) => Contract.Requires(valid);
 
         /// <summary>Validates the settings.</summary>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         public static void ValidateSettings()
         {
             logger.Message(LogLevel.Debug,

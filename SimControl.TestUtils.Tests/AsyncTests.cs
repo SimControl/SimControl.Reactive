@@ -18,7 +18,6 @@
 //    {
 //        #region Test
 
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
 //        [SetUp]
 //        public new void SetUp()
 //        {
@@ -107,7 +106,6 @@
 //            Assert.That(SynchronizationContext.Current, Is.Null);
 //        }
 
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.GC.Collect")]
 //        [Test, Ignore("Unstable")]
 //        public void AsyncTests_UnhandledAsyncExceptions_TaskSchedulerUnobservedTaskException()
 //        {

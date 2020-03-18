@@ -13,7 +13,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
     [TestFixture]
     public class InteractiveTest: TestFrame
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
         [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTest))]
         public static void InteractiveTest_DisplayMessageBoxAndThenContinue() => RunAssertTimeout((Action) (() => MessageBox.Show("InteractiveTest - Press OK")), DefaultInteractiveTestTimeout);
     }

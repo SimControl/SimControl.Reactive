@@ -15,7 +15,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
     }
 
     [ContractClassFor(typeof(IComponent))]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("SonarLint", "S1694:An abstract class should have both abstract and concrete methods", Justification = "<Pending>")]
     internal abstract class PluginInterfaceContract : IComponent
     {
         /// <inheritdoc/>

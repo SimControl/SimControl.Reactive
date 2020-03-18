@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 
@@ -16,7 +16,6 @@ namespace SimControl.Reactive
         /// <param name="guard">The guard.</param>
         /// <param name="effect">The effect.</param>
         /// <param name="name">The name.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("SonarQube", "S3215:\"interface\" instances should not be cast to concrete types", Justification = "<Pending>")]
         public Transition(string target, IGenericTrigger<T1> trigger = null, Constraint<T1> guard = null,
                           Effect<T1> effect = null, string name = null)
             : base(TransitionKind.External, target, (Trigger) trigger, guard, effect, name) => ContractRequiredName(name);

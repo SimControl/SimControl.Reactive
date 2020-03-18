@@ -27,9 +27,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         /// <param name="args">.</param>
         /// <returns>Exit-code for the process - 0 for success, else an error code.</returns>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "CSharpConsoleApplicationAppSetting")]
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public static int Main(params string[] args)
         {
             command = "";
@@ -152,7 +149,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             return 0;
         }
 
-        [SuppressMessage("Usage", "CC0057:Unused parameters", Justification = "<Pending>")]
         private static bool ConsoleCtrlHandler(uint sig)
         {
             Exit(4);
@@ -167,7 +163,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             Environment.Exit(exitCode);
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         private static void ProcessExitEventHandler(object sender, EventArgs e)
         {
             // not alway raised, logger already finalized
@@ -200,7 +195,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             Exit(3);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private static void UnregisterExceptionHandlers()
         {
             try

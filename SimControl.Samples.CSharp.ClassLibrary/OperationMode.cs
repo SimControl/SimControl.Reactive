@@ -15,7 +15,6 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         FaultException,
 
         /// <summary>InvalidOperationException</summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         FaultException_InvalidOperationException,
 
         /// <summary>InvalidOperationException</summary>

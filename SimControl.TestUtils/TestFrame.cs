@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -223,6 +222,7 @@ namespace SimControl.TestUtils
             TaskEx.Delay(MinTimerResolution);
 #else
             Task.Delay(MinTimerResolution);
+
 #endif
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
@@ -240,7 +240,6 @@ namespace SimControl.TestUtils
         /// <summary>Catches any exception fired by a tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void CatchTearDownExceptions(Action action)
         {
             Contract.Requires(action != null);
@@ -276,7 +275,6 @@ namespace SimControl.TestUtils
         /// <param name="testAdapter">The test adapter.</param>
         /// <returns>The test adapter</returns>
         /// <remarks>Registered test adapters are automatically disposed during the test cleanup.</remarks>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public T RegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
             Contract.Requires(testAdapter != null);

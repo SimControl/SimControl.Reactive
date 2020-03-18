@@ -10,7 +10,6 @@ namespace SimControl.Reactive
     /// <summary>Interface for generic trigger with only type parameter.</summary>
     /// <typeparam name="T"></typeparam>
     /// <tparam name="T">Generic type parameter.</tparam>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
     public interface IGenericTrigger<T> { }
 
     /// <summary>Call trigger with no arguments.</summary>

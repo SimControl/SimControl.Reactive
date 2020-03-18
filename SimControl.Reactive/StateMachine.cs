@@ -56,7 +56,6 @@ namespace SimControl.Reactive
         /// <param name="doActivity">The do activity.</param>
         /// <param name="exit">The exit.</param>
         /// <param name="deferrable">The deferrable.</param>
-        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public StateMachine(Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                             Trigger[] deferrable = null) : base(".", entry, doActivity, exit, deferrable)
         {
@@ -101,7 +100,6 @@ namespace SimControl.Reactive
         }
 
         /// <summary>Initializes this instance. Must be called before invoking <see cref="TriggerCallEvent"/></summary>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = nameof(InitialState))]
         public void Initialize()
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
@@ -293,7 +291,6 @@ namespace SimControl.Reactive
             TransitionExecuted?.Invoke(this, new EventArgs<Executed>(new Executed { Exited = exited, Transition =  t, Entered = entered }));
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private TransitionBase FindTriggeredTransition(State s, Trigger trigger, object[] args)
         {
             TransitionBase result;
@@ -332,7 +329,6 @@ namespace SimControl.Reactive
             return null;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private TransitionBase FindValidCompletionTransition(State s, DateTime now)
         {
             TransitionBase result;
@@ -372,11 +368,6 @@ namespace SimControl.Reactive
             return null;
         }
 
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = nameof(InitialState))]
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "doActivity")]
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")] // TODO reduce complexity
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [SuppressMessage("SonarQube", "S1226:Method parameters and caught exceptions should not be reassigned", Justification = "<Pending>")]
         private void InvokeStateEntry(State s, State target)
         {
             if (s == target || (target != null && target.rootPath[s.rootPath.Length - 1] != s))
@@ -483,7 +474,6 @@ namespace SimControl.Reactive
                 }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private void InvokeStateExit(State s)
         {
             if (s is CompositeState c)
@@ -532,8 +522,6 @@ namespace SimControl.Reactive
                 }
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic"),
-         SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private void InvokeTransitionEffect(TransitionBase t, object[] args)
         {
             if (t.Effect != null)

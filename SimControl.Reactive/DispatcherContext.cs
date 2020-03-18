@@ -32,7 +32,6 @@
 //        /// <param name="testFrame">The test frame.</param>
 //        /// <param name="apartmentState">(Optional) state of the apartment.</param>
 //        /// <returns>The new windows dispatcher context.</returns>
-//        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
 //        public static TestDispatcherContext Create(ApartmentState apartmentState = ApartmentState.MTA)
 //        {
 //            var tcs = new TaskCompletionSource<TestDispatcherContext>();
@@ -61,7 +60,6 @@
 //        /// <summary>Post this message.</summary>
 //        /// <param name="action">The action.</param>
 //        /// <returns>A Task.</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public Task Post(Action action)
 //        {
 //            var tcs = new TaskCompletionSource<object>();
@@ -86,7 +84,6 @@
 //        /// <typeparam name="T">Generic type parameter.</typeparam>
 //        /// <param name="func">The function.</param>
 //        /// <returns>A Task&lt;T&gt;</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public Task<T> Post<T>(Func<T> func)
 //        {
 //            var tcs = new TaskCompletionSource<T>();
@@ -109,7 +106,6 @@
 //        /// <summary>Post this message.</summary>
 //        /// <param name="action">The action.</param>
 //        /// <returns>A Task.</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public void PostAssertTimeout(Action action, TimeSpan timeout)
 //        {
 //            var tcs = new TaskCompletionSource<object>();
@@ -139,7 +135,6 @@
 //        /// <typeparam name="T">Generic type parameter.</typeparam>
 //        /// <param name="func">The function.</param>
 //        /// <returns>A Task&lt;T&gt;</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public T PostAssertTimeout<T>(Func<T> func)
 //        {
 //            var tcs = new TaskCompletionSource<T>();
@@ -168,7 +163,6 @@
 //        /// <summary>Send this message.</summary>
 //        /// <param name="action">The action.</param>
 //        /// <returns>A Task.</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public void SendAssertTimeout(Action action)
 //        {
 //            var tcs = new TaskCompletionSource<bool>();
@@ -198,7 +192,6 @@
 //        /// <typeparam name="T">Generic type parameter.</typeparam>
 //        /// <param name="func">The function.</param>
 //        /// <returns>A Task&lt;T&gt;</returns>
-//        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
 //        public T SendAssertTimeout<T>(Func<T> func)
 //        {
 //            var tcs = new TaskCompletionSource<T>();

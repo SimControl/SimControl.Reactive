@@ -66,11 +66,9 @@ namespace SimControl.Samples.CSharp.Wcf.Service.Tests
         // //private void WaitUntilServiceDisposed() //{ // if (!disposed.WaitOne(4000)) // throw new
         // InvalidOperationException("Service not Disposed"); //}
 
-        // //private SampleServiceClient client; //[System.Diagnostics.CodeAnalysis.SuppressMessage("SonarQube",
         // "S2930:\"IDisposables\" should be disposed", Justification = "<Pending>")] //private readonly AutoResetEvent
         // disposed = new AutoResetEvent(false);
 
-        // //[System.Diagnostics.CodeAnalysis.SuppressMessage("SonarQube", "S2930:\"IDisposables\" should be disposed",
         // Justification = "<Pending>")] //private ServiceHost host;
     }
 }

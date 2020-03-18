@@ -40,7 +40,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
             SampleClass.IncrementStaticCounter();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         [Test]
         public static void SampleClassTests_SampleClass_ValidateCodeContractFalse_ThrowsContractException()
         {

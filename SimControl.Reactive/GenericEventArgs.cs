@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
 using System.Diagnostics.Contracts;
@@ -17,7 +17,6 @@ namespace SimControl.Reactive
 
         /// <summary>T casting operator.</summary>
         /// <param name="args">The arguments.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2225:OperatorOverloadsHaveNamedAlternates")]
         public static implicit operator T(GenericEventArgs<T> args)
         {
             Contract.Requires(args != null);

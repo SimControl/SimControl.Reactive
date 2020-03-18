@@ -16,7 +16,6 @@
 //    {
 //        /// <summary>Remove an instance</summary>
 //        /// <param name="instance">The instance.</param>
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "instance")]
 //        public static void DisposeInstance(object instance)
 //        {
 //#if DEBUG
@@ -35,7 +34,6 @@
 
 //        /// <summary>Add a new instance to be monitored.</summary>
 //        /// <param name="instance">The instance.</param>
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "instance")]
 //        public static void NewInstance(object instance)
 //        {
 //#if DEBUG
@@ -63,7 +61,6 @@
 //        }
 
 //        /// <summary>Wait until all instances are disposed.</summary>
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId="timeout")]
 //        public static void WaitAllInstancesDisposed(int timeout)
 //        {
 //#if DEBUG

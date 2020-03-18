@@ -24,7 +24,6 @@ namespace SimControl.Reactive
         /// <param name="doActivity">Do activity.</param>
         /// <param name="exit">Exit action.</param>
         /// <param name="deferrable">Deferrable triggers.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public CompositeState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                               Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
 
@@ -101,7 +100,6 @@ namespace SimControl.Reactive
         /// <param name="doActivity">Do activity.</param>
         /// <param name="exit">Exit action.</param>
         /// <param name="deferrable">Deferrable triggers.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public OrthogonalState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                                Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
 
@@ -142,7 +140,6 @@ namespace SimControl.Reactive
         /// <param name="doActivity">Do activity.</param>
         /// <param name="exit">Exit action.</param>
         /// <param name="deferrable">Deferrable triggers.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "doActivity")]
         public SimpleState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                            Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
     }

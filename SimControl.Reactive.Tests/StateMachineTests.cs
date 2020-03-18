@@ -18,7 +18,6 @@ using SimControl.TestUtils;
 /*
 namespace SimControl.Reactive.Tests
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
     [Log]
     [TestFixture]
     public class StateMachineTests : TestFrame
@@ -1147,8 +1146,6 @@ namespace SimControl.Reactive.Tests
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0026:Possible unassigned object created by 'new'", Justification = "<Pending>")]
         [Test]
         public static void Validate_Code_Contract_Exception()
         {

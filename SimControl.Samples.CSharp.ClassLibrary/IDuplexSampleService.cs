@@ -43,7 +43,6 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
     }
 
     [ContractClassFor(typeof(IDuplexSampleServiceCallback))]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("SonarLint", "S1694:An abstract class should have both abstract and concrete methods", Justification = "<Pending>")]
     internal abstract class DuplexSampleServiceCallbackContract : IDuplexSampleServiceCallback
     {
         /// <inheritdoc/>

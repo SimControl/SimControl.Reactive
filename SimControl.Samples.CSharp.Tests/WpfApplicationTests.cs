@@ -14,7 +14,6 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
     [TestFixture]
     public class WpfApplicationTestsWithInitializeAndCleanup : TestFrame
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         [SetUp]
         public new void SetUp()
         {
