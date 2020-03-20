@@ -12,7 +12,7 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
-    public static class AssertTimeout
+    public static class AssertTimeoutExtensions
     {
         // UNDONE AbortOrCloseAssertTimeout
         /// <summary>
@@ -40,16 +40,23 @@ namespace SimControl.TestUtils
         //            client.Abort();
         //}
 
+        public static Task AssertTimeout(this Task task)
+        {
+            Contract.Requires(task != null);
+
+            return task.AssertTimeout(TestFrame.Timeout);
+        }
+
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
         /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
         /// <typeparam name="T">.</typeparam>
         /// <param name="task">The task to act on.</param>
         /// <returns>The task.</returns>
-        public static Task<T> AssertTimeoutAsync<T>(this Task<T> task)
+        public static Task<T> AssertTimeout<T>(this Task<T> task)
         {
             Contract.Requires(task != null);
 
-            return task.AssertTimeoutAsync(TestFrame.Timeout);
+            return task.AssertTimeout(TestFrame.Timeout);
         }
 
         /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
@@ -58,7 +65,7 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         /// <returns>An asynchronous result.</returns>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static Task AssertTimeoutAsync(this Task task, int timeout)
+        public static Task AssertTimeout(this Task task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -84,7 +91,7 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         /// <returns>An asynchronous result that yields a T.</returns>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static async Task<T> AssertTimeoutAsync<T>(this Task<T> task, int timeout)
+        public static async Task<T> AssertTimeout<T>(this Task<T> task, int timeout)
         {
             Contract.Requires(task != null);
 
@@ -97,18 +104,6 @@ namespace SimControl.TestUtils
 #endif
 
             throw TimeoutException(timeout);
-        }
-
-        /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <param name="task">The task to act on.</param>
-        /// <returns>An asynchronous result.</returns>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static Task AsyncAssertTimeoutAsync(this Task task)
-        {
-            Contract.Requires(task != null);
-
-            return task.AssertTimeoutAsync(TestFrame.Timeout);
         }
 
         /// <summary>A Task extension method that causes the task continuation to ignore faults.</summary>
@@ -157,7 +152,7 @@ namespace SimControl.TestUtils
         /// <param name="action">The action.</param>
         /// <param name="timeout">The timeout.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void RunAssertTimeout(this Action action, int timeout = TestFrame.Timeout)
+        public static Task RunAssertTimeout(this Action action, int timeout = TestFrame.Timeout)
         {
             Contract.Requires(action != null);
 
@@ -176,6 +171,8 @@ namespace SimControl.TestUtils
                 }
             }
             catch (AggregateException e) { throw e.InnerException; }
+
+            return task;
         }
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>

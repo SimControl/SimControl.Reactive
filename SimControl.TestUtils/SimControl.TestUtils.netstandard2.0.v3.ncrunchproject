@@ -1,6 +1,9 @@
 ﻿<ProjectConfiguration>
   <Settings>
     <HiddenComponentWarnings />
+    <IgnoredTests>
+      <AllTestsSelector />
+    </IgnoredTests>
     <NUnit3Enabled>False</NUnit3Enabled>
   </Settings>
 </ProjectConfiguration>

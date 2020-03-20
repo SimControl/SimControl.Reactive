@@ -7,8 +7,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    [Log]
-    [TestFixture, ExclusivelyUses(FileName)]
+    [Log, TestFixture, ExclusivelyUses(FileName)]
     public class TempFilesTestAdapterTests: TestFrame
     {
         [Test]

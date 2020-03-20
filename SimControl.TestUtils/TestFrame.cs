@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -19,37 +18,13 @@ namespace SimControl.TestUtils
     /// <summary>Test frame for writing asynchronous unit tests.</summary>
     public abstract class TestFrame
     {
-        /// <summary>Asynchronous test delegate.</summary>
-        /// <returns>An asynchronous result.</returns>
-        public delegate Task AsyncTestDelegate();
-
-        /// <summary>Asynchronous test delegate.</summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <returns>An asynchronous result that yields a T.</returns>
-        public delegate Task<T> AsyncTestDelegate<T>();
-
-        private static class NativeMethods
-        {
-            [DllImport("ntdll.dll", SetLastError = true)]
-            internal static extern int NtQueryTimerResolution(out int minimumResolution, out int maximumResolution,
-                                                              out int currentResolution);
-        }
-
-        static TestFrame()
-        {
-            Assert.That(NativeMethods.NtQueryTimerResolution(out int minimumResolution, out _, out int _),
-                Is.EqualTo(0));
-            MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
-        }
-
-        #region Additional test attributes
+        #region Test SetUp/TearDown
 
         /// <summary>Onetime test setup.</summary>
-        [Log]
-        [OneTimeSetUp]
+        [Log, OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            //InternationalCultureInfo.SetCurrentThreadCulture();
+            //UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
             //LogMethod.SetDefaultThreadCulture();
 
             unhandledAsyncException = null;
@@ -61,13 +36,11 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Onetime test tear down.</summary>
-        [Log]
-        [OneTimeTearDown]
+        [Log, OneTimeTearDown]
         public void OneTimeTearDown()
         {
             while (oneTimeAdapters.TryPop(out TestAdapter tfa))
-                try
-                { tfa.Dispose(); }
+                try { tfa.Dispose(); }
                 catch (Exception e) { SetUnhandledException(e); }
 
             oneTimeAdapters = null;
@@ -79,8 +52,7 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Setup test execution.</summary>
-        [Log]
-        [SetUp]
+        [Log, SetUp]
         public void SetUp()
         {
             testAdapters = new ConcurrentStack<TestAdapter>();
@@ -92,8 +64,7 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Tear down test execution.</summary>
-        [Log]
-        [TearDown]
+        [Log, TearDown]
         public void TearDown()
         {
             while (testAdapters.TryPop(out TestAdapter tfa))
@@ -111,41 +82,37 @@ namespace SimControl.TestUtils
         /// <summary>Asserts that exception is a <see cref="ContractException"/></summary>
         /// <param name="exception">.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void AssertIsContractException(Exception exception)
+        public static void AssertIsContractException(Exception exception) //TODO
         {
             Contract.Requires(exception != null);
 
             Assert.That(exception.GetType().FullName, Is.EqualTo(contractExceptionName));
         }
 
-        /// <summary>Assert test timeout asynchronous.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <param name="code">The code.</param>
-        /// <param name="timeout">The timeout.</param>
-        /// <returns>An asynchronous result.</returns>
-        public static Task AssertTimeoutAsync(AsyncTestDelegate code, int timeout = Timeout)
+        public static void ContextSwitch() => Thread.Sleep(1);
+
+        public static Task ContextSwitchAsync() //TODO remove?
         {
-            Contract.Requires(code != null);
-
-            return code().AssertTimeoutAsync(timeout);
-        }
-
-        /// <summary>Assert test timeout asynchronous.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <param name="code">The code.</param>
-        /// <param name="timeout">The timeout.</param>
-        /// <returns>An asynchronous result.</returns>
-        public static Task AssertTimeoutAsync<T>(AsyncTestDelegate<T> code, int timeout = Timeout)
-        {
-            Contract.Requires(code != null);
-
-            return code().AssertTimeoutAsync(timeout);
+#if NET40
+            return TaskEx.Delay(1);
+#else
+            return Task.Delay(1);
+#endif
         }
 
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
+
+        public static Task Delay(int millisecondsDelay) //TODO remove when NET40 is no more needed
+        {
+#if NET40
+            return TaskEx.Delay(millisecondsDelay);
+#else
+            return Task.Delay(millisecondsDelay);
+#endif
+        }
 
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
@@ -158,51 +125,13 @@ namespace SimControl.TestUtils
             _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
         }
 
-        /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
-        /// <param name="action">The action.</param>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void RunAssertTimeout(Action action)
+        public static Task Run(Action action) //TODO remove when NET40 is no more needed
         {
-            Contract.Requires(action != null);
-
-            action.RunAssertTimeout();
-        }
-
-        /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <param name="action">The action.</param>
-        /// <param name="timeout">The timeout.</param>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void RunAssertTimeout(Action action, int timeout)
-        {
-            Contract.Requires(action != null);
-
-            action.RunAssertTimeout(timeout);
-        }
-
-        /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="function">The function.</param>
-        /// <returns>A T.</returns>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static T RunAssertTimeout<T>(Func<T> function)
-        {
-            Contract.Requires(function != null);
-
-            return function.RunAssertTimeout();
-        }
-
-        /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="function">The function.</param>
-        /// <param name="timeout">The timeout.</param>
-        /// <returns>A T.</returns>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static T RunAssertTimeout<T>(Func<T> function, int timeout)
-        {
-            Contract.Requires(function != null);
-
-            return function.RunAssertTimeout(timeout);
+#if NET40
+            return TaskEx.Run(action);
+#else
+            return Task.Run(action);
+#endif
         }
 
         /// <summary>Sets private static field.</summary>
@@ -217,14 +146,6 @@ namespace SimControl.TestUtils
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
 
-        public static Task ThreadSwitchDelay() =>
-#if NET40
-            TaskEx.Delay(MinTimerResolution);
-#else
-            Task.Delay(MinTimerResolution);
-
-#endif
-
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
@@ -232,8 +153,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            try
-            { action(); }
+            try { action(); }
             catch (Exception e) { SetUnhandledException(e); }
         }
 
@@ -244,8 +164,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-            try
-            { action(); }
+            try { action(); }
             catch (Exception e) { SetUnhandledException(e); }
         }
 
@@ -295,12 +214,9 @@ namespace SimControl.TestUtils
             {
                 lock (locker)
                     unhandledAsyncException = unhandledAsyncException ?? exception;
-                //UnhandledExceptionEvent?.Invoke(this, new EventArgs<Exception>(exception));
+                UnhandledExceptionEvent?.Invoke(this, new ExceptionEventArgs(exception));
             }
         }
-
-        //[Log]
-        //internal void TestDispatcherContextUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args) => SetUnhandledException(args.Exception);
 
         [Log]
         private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
@@ -324,7 +240,7 @@ namespace SimControl.TestUtils
         }
 
         ///// <summary>Unhandled exception event.</summary>
-        //protected event EventHandler<EventArgs<Exception>> UnhandledExceptionEvent;
+        protected event EventHandler<ExceptionEventArgs> UnhandledExceptionEvent;
 
         /// <summary>The default timeout for interactive tests.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 60 seconds.</remarks>
@@ -333,9 +249,6 @@ namespace SimControl.TestUtils
         /// <summary>The test timeout in milliseconds.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
         public const int Timeout = 10000;
-
-        /// <summary>The minimum thread switch.</summary>
-        public static readonly int MinTimerResolution;
 
         private const string contractExceptionName = "System.Diagnostics.Contracts.__ContractsRuntime+ContractException";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();

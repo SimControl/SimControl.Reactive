@@ -12,7 +12,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
     [Log, TestFixture]
     public class SetUpExceptionTest: TestFrame
     {
-        #region Test
+        #region Test SetUp/TearDown
 
         [OneTimeSetUp]
         public static new void OneTimeSetUp() { }

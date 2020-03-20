@@ -7,8 +7,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    [Log]
-    [TestFixture]
+    [Log, TestFixture]
     public class CopyFileTestAdapterTests: TestFrame
     {
         [Test, ExclusivelyUses(FileName)]

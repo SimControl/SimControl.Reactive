@@ -11,8 +11,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    [Log]
-    [TestFixture]
+    [Log, TestFixture]
     public class AsyncContextThreadAdapterTests: TestFrame
     {
         [Test, ExclusivelyUses(FileName)]

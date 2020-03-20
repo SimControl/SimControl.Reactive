@@ -55,7 +55,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                         Task task = act.Factory.Run(() => Task.Delay(-1, cts.Token));
 #endif
 
-                        while (true)
+                        for (; ; )
                         {
                             string input;
 
