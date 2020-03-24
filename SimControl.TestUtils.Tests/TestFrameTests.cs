@@ -54,11 +54,10 @@ namespace SimControl.TestUtils.Tests
         {
         }
 
-#if !NETCOREAPP //TODO
-
         [Test]
         public void AppDomainUnhandledExceptionHandler__Test()
         {
+#if !NETCOREAPP //TODO
             if (Environment.GetEnvironmentVariable("NCrunch") != "1") //TODO
             {
                 var thread = new Thread(() => throw new ApplicationException());
@@ -69,9 +68,15 @@ namespace SimControl.TestUtils.Tests
                 Assert.That(exceptions.Length, Is.EqualTo(1));
                 Assert.That(exceptions[0], Is.InstanceOf(typeof(ApplicationException)));
             }
+#endif
         }
 
-#endif
+        [Test]
+        public void SetUp_TearDown__Test()
+        {
+            _ = autoResetEvent1.Set();
+            _ = autoResetEvent2.Set();
+        }
 
         [Test]
         public void TaskSchedulerUnobservedTaskExceptionHandler__Test()
@@ -82,13 +87,6 @@ namespace SimControl.TestUtils.Tests
 
             Assert.That(e, Is.Not.Null);
             Assert.That(e, Is.InstanceOf(typeof(ApplicationException)));
-        }
-
-        [Test]
-        public void SetUp_TearDown__Test()
-        {
-            _ = autoResetEvent1.Set();
-            _ = autoResetEvent2.Set();
         }
 
         private AutoResetEvent autoResetEvent1;
