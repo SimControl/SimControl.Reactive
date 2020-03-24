@@ -18,20 +18,10 @@ namespace SimControl.TestUtils.Tests
         public static void CopyFileTestAdapter__create_and_Dispose__file_is_created_and_deleted()
         {
             using (var acta = new AsyncContextThreadAdapter())
-            using (var cts = new CancellationTokenSource())
             {
                 var ready = new AutoResetEvent(false);
 
-                Task task = acta.Factory.Run(() => {
-#if NET40
-                    TaskEx.Delay(-1, cts.Token);
-#else
-                    Task.Delay(-1, cts.Token);
-#endif
-                    ready.Set();
-                });
-
-                cts.Cancel();
+                Task task = acta.Factory.Run(() => { ContextSwitch(); _ = ready.Set(); });
 
                 ready.WaitOneAssertTimeout();
                 task.WaitAssertTimeout();

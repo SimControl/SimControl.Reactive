@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -27,8 +29,6 @@ namespace SimControl.TestUtils
             //UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
             //LogMethod.SetDefaultThreadCulture();
 
-            unhandledAsyncException = null;
-
             AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler;
             TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler;
 
@@ -41,14 +41,14 @@ namespace SimControl.TestUtils
         {
             while (oneTimeAdapters.TryPop(out TestAdapter tfa))
                 try { tfa.Dispose(); }
-                catch (Exception e) { SetUnhandledException(e); }
+                catch (Exception e) { AddUnhandledException(e); }
 
             oneTimeAdapters = null;
 
             AppDomain.CurrentDomain.UnhandledException -= AppDomainUnhandledExceptionHandler;
             TaskScheduler.UnobservedTaskException -= TaskSchedulerUnobservedTaskExceptionHandler;
 
-            ThrowUnhandledException();
+            ThrowPendingExceptions();
         }
 
         /// <summary>Setup test execution.</summary>
@@ -70,11 +70,11 @@ namespace SimControl.TestUtils
             while (testAdapters.TryPop(out TestAdapter tfa))
                 try
                 { tfa.Dispose(); }
-                catch (Exception e) { SetUnhandledException(e); }
+                catch (Exception e) { AddUnhandledException(e); }
 
             testAdapters = null;
 
-            ThrowUnhandledException();
+            ThrowPendingExceptions();
         }
 
         #endregion
@@ -105,13 +105,19 @@ namespace SimControl.TestUtils
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
-        public static Task Delay(int millisecondsDelay) //TODO remove when NET40 is no more needed
+        public static Task Delay(int millisecondsDelay, CancellationToken token = default) //TODO remove when NET40 is no more needed
         {
 #if NET40
             return TaskEx.Delay(millisecondsDelay);
 #else
             return Task.Delay(millisecondsDelay);
 #endif
+        }
+
+        public static void ForceGarbageCollection()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         /// <summary>Invoke a private static method.</summary>
@@ -146,6 +152,21 @@ namespace SimControl.TestUtils
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
 
+        /// <summary>Unhandled exception.</summary>
+        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        /// <param name="exception">.</param>
+        [Log]
+        public void AddUnhandledException(Exception exception)
+        {
+            Contract.Requires(exception != null);
+
+            if (exception.GetType() != typeof(ThreadAbortException))
+            {
+                pendingExceptions.Add(exception);
+                UnhandledExceptionEvent?.Invoke(this, new ExceptionEventArgs(exception));
+            }
+        }
+
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
@@ -154,7 +175,7 @@ namespace SimControl.TestUtils
             Contract.Requires(action != null);
 
             try { action(); }
-            catch (Exception e) { SetUnhandledException(e); }
+            catch (Exception e) { AddUnhandledException(e); }
         }
 
         /// <summary>Catches any exception fired by a tear down action.</summary>
@@ -165,15 +186,19 @@ namespace SimControl.TestUtils
             Contract.Requires(action != null);
 
             try { action(); }
-            catch (Exception e) { SetUnhandledException(e); }
+            catch (Exception e) { AddUnhandledException(e); }
         }
 
         /// <summary>Remove an unhandled exception.</summary>
         [Log]
-        public void ClearUnhandledException()
+        public Exception[] ClearPendingExceptions()
         {
-            lock (locker)
-                unhandledAsyncException = null;
+            var exceptions = new List<Exception>();
+
+            while (pendingExceptions.TryTake(out Exception e))
+                exceptions.Add(e);
+
+            return exceptions.ToArray();
         }
 
         /// <summary>Register a test adapter for this class.</summary>
@@ -202,41 +227,31 @@ namespace SimControl.TestUtils
             return testAdapter;
         }
 
-        /// <summary>Unhandled exception.</summary>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
-        /// <param name="exception">.</param>
         [Log]
-        public void SetUnhandledException(Exception exception)
-        {
-            Contract.Requires(exception != null);
+        private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>
+            AddUnhandledException((Exception) args.ExceptionObject);
 
-            if (exception.GetType() != typeof(ThreadAbortException))
-            {
-                lock (locker)
-                    unhandledAsyncException = unhandledAsyncException ?? exception;
-                UnhandledExceptionEvent?.Invoke(this, new ExceptionEventArgs(exception));
-            }
-        }
-
+        /// <summary>Remove an unhandled exception.</summary>
         [Log]
-        private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) => SetUnhandledException((Exception) args.ExceptionObject);
+        public Exception TakePendingExceptionAssertTimeout(int timeout = Timeout) =>
+            pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;
 
         [Log]
         private void TaskSchedulerUnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
-            SetUnhandledException(args.Exception);
+            AddUnhandledException(args.Exception);
             args.SetObserved(); // as we have observed the exception, the process should not terminate
         }
 
-        private void ThrowUnhandledException()
+        private void ThrowPendingExceptions()
         {
-            lock (locker)
-                if (unhandledAsyncException != null)
-                {
-                    Exception e = unhandledAsyncException;
-                    unhandledAsyncException = null;
-                    throw e;
-                }
+            var exceptions = new List<Exception>();
+
+            while (pendingExceptions.TryTake(out Exception e))
+                exceptions.Add(e);
+
+            if (exceptions.Count > 0)
+                throw new AggregateException(exceptions);
         }
 
         ///// <summary>Unhandled exception event.</summary>
@@ -252,9 +267,8 @@ namespace SimControl.TestUtils
 
         private const string contractExceptionName = "System.Diagnostics.Contracts.__ContractsRuntime+ContractException";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly object locker = new object();
         private ConcurrentStack<TestAdapter> oneTimeAdapters;
         private ConcurrentStack<TestAdapter> testAdapters;
-        private Exception unhandledAsyncException;
+        private BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
     }
 }

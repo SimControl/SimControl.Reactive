@@ -8,9 +8,8 @@ using NCrunch.Framework;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 
-namespace SimControl.Testutils.Tests
+namespace SimControl.TestUtils.Tests
 {
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
@@ -88,10 +87,10 @@ namespace SimControl.Testutils.Tests
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
             {
-                Assert.That(Process.GetProcessesByName(ProcessName).Length > 0);
+                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
                 ProcessTestAdapter.KillProcesses(ProcessName);
-                Assert.That(Process.GetProcessesByName(ProcessName).Length == 0);
+                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
                 _ = process.WaitForExitAssertTimeout();
             }

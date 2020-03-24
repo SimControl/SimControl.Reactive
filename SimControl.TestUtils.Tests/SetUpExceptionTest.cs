@@ -3,9 +3,8 @@
 using System;
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
+namespace SimControl.TestUtils.Tests
 {
     /// <summary>Test whether teardown methods are ivoked regardless of previous errors.</summary>
     /// <remarks>Test output must be checked manually, as test will always fail.</remarks>

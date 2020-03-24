@@ -2,9 +2,8 @@
 
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx.Tests
+namespace SimControl.TestUtils.Tests
 {
     [Log, TestFixture]
     public class SetUpTearDownTests: TestFrame
