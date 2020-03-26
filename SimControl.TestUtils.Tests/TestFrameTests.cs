@@ -20,12 +20,12 @@ namespace SimControl.TestUtils.Tests
         public static new void TearDown() { }
 
         [OneTimeSetUp]
-        public new void OneTimeSetUp() =>
-            autoResetEvent1 = OneTimeRegisterTestAdapter(new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
+        public new void OneTimeSetUp() => autoResetEvent1 = OneTimeRegisterTestAdapter(
+            new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
 
         [SetUp]
-        public new void SetUp() =>
-           autoResetEvent2 = RegisterTestAdapter(new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
+        public new void SetUp() => autoResetEvent2 = RegisterTestAdapter(
+            new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
 
         #endregion
 

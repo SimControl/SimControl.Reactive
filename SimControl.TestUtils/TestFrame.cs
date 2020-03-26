@@ -105,8 +105,9 @@ namespace SimControl.TestUtils
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
-        public static Task Delay(int millisecondsDelay, CancellationToken token = default) //TODO remove when NET40 is no more needed
+        public static Task Delay(int millisecondsDelay, CancellationToken token = default)
         {
+            //TODO remove when NET40 is no more needed
 #if NET40
             return TaskEx.Delay(millisecondsDelay);
 #else

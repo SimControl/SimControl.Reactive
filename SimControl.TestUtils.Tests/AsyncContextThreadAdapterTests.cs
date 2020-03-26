@@ -1,10 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-#if !NET472 //UNDONE ProjectReference/SetTargetFramework 
-
 using System.Threading;
 using System.Threading.Tasks;
-using NCrunch.Framework;
 using Nito.AsyncEx;
 using NUnit.Framework;
 using SimControl.Log;
@@ -14,7 +11,7 @@ namespace SimControl.TestUtils.Tests
     [Log, TestFixture]
     public class AsyncContextThreadAdapterTests: TestFrame
     {
-        [Test, ExclusivelyUses(FileName)]
+        [Test]
         public static void CopyFileTestAdapter__create_and_Dispose__file_is_created_and_deleted()
         {
             using (var acta = new AsyncContextThreadAdapter())
@@ -27,9 +24,5 @@ namespace SimControl.TestUtils.Tests
                 task.WaitAssertTimeout();
             }
         }
-
-        public const string FileName = "CopyFileTestAdapterTests.tmp";
     }
 }
-
-#endif
