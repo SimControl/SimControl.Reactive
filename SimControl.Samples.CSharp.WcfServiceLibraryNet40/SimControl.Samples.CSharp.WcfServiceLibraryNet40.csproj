@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="SimControl.Samples.CSharp.WcfServiceLibraryNet40.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl">

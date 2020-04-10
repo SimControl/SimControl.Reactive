@@ -84,6 +84,7 @@
     <None Include="Connected Services\SampleServiceClient\SimControl.Samples.CSharp.WcfServiceLibrary.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="SimControl.Samples.CSharp.WcfClientNet40.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SampleServiceClient\" />

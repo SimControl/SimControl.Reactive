@@ -86,6 +86,7 @@
       <Link>KeyPair.snk</Link>
     </None>
     <None Include="App.config" />
+    <None Include="SimControl.Templates.CSharp.WcfServiceLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

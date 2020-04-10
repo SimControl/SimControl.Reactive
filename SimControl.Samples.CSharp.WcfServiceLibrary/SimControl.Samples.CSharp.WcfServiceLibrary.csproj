@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="SimControl.Samples.CSharp.WcfServiceLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MrAdvice">
