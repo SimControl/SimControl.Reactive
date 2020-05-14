@@ -25,13 +25,19 @@ namespace SimControl.TestUtils
         [Log, OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            //UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
-            //UNDONE LogMethod.SetDefaultThreadCulture();
+            InternationalCultureInfo.SetCurrentThreadCulture();
+            InternationalCultureInfo.SetDefaultThreadCulture();
 
             AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler;
-            //TODO not raised with NCrunch
+            // TODO not raised with NCrunch
+            // https://docs.microsoft.com/en-us/dotnet/api/system.appdomain.unhandledexception
 
-            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; //TODO not raised
+            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler;
+            //TODO not raised
+            // https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskscheduler.unobservedtaskexception
+            // https://stackoverflow.com/questions/5734121/how-to-detect-unobservedtaskexception-errors-in-nunit-test-suites
+            // https://stackoverflow.com/questions/21266137/test-for-unobserved-exceptions
+            // https://tpodolak.com/blog/2015/08/10/tpl-exception-handling-and-unobservedtaskexception-issue/
 
             oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
         }
@@ -86,13 +92,6 @@ namespace SimControl.TestUtils
 
         #endregion
 
-        public static bool IsContractException(Exception exception)
-        {
-            Contract.Requires(exception != null);
-
-            return exception.GetType().FullName == contractExceptionName;
-        }
-
         /// <summary>Context switch.</summary>
         /// <remarks>Forces the CLI to suspend thread execution.</remarks>
         public static void ContextSwitch() => Thread.Sleep(1);
@@ -132,6 +131,13 @@ namespace SimControl.TestUtils
             _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
         }
 
+        public static bool IsContractException(Exception exception)
+        {
+            Contract.Requires(exception != null);
+
+            return exception.GetType().FullName == contractExceptionName;
+        }
+
         /// <summary>Invoke either <see cref="Task.Run"/> or <see cref="TaskEx.Run".</summary>
         /// <param name="action">The action.</param>
         /// <returns>An asynchronous result.</returns>
@@ -163,8 +169,9 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(exception != null);
 
-            if (exception.GetType() != typeof(ThreadAbortException)) //UNDONE why?
-                pendingExceptions.Add(exception);
+            // TODO if (exception.GetType() != typeof(ThreadAbortException))
+            // https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadabortexception?view=netcore-3.1
+            pendingExceptions.Add(exception);
         }
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
@@ -215,9 +222,11 @@ namespace SimControl.TestUtils
             return testAdapter;
         }
 
-        /// <summary>Remove an unhandled exception.</summary>
+        /// <summary>Try to get the first pending exception.</summary>
+        /// <param name="timeout">(Optional) The timeout.</param>
+        /// <returns>An exception or null if no pending exception occurred within the specified <see cref="timeout"/>.</returns>
         [Log]
-        public Exception TakePendingExceptionAssertTimeout(int timeout = Timeout) => //UNDONE return Task
+        public Exception TakePendingException(int timeout = Timeout) =>
             pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;
 
         [Log]
@@ -250,8 +259,8 @@ namespace SimControl.TestUtils
 
         private const string contractExceptionName = "System.Diagnostics.Contracts.__ContractsRuntime+ContractException";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
         private ConcurrentStack<TestAdapter> oneTimeTestAdapters;
-        private BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
         private ConcurrentStack<TestAdapter> testAdapters;
     }
 }

@@ -38,7 +38,7 @@ namespace SimControl.TestUtils.Tests
         public new void OneTimeTearDown()
         {
             CatchOneTimeTearDownExceptions(() => throw new ApplicationException());
-            Assert.That(TakePendingExceptionAssertTimeout(), Is.InstanceOf(typeof(ApplicationException)));
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
         }
 
         [SetUp]
@@ -49,7 +49,7 @@ namespace SimControl.TestUtils.Tests
         public new void TearDown()
         {
             CatchTearDownExceptions(() => throw new ApplicationException());
-            Assert.That(TakePendingExceptionAssertTimeout(), Is.InstanceOf(typeof(ApplicationException)));
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
         }
 
         #endregion
@@ -104,7 +104,7 @@ namespace SimControl.TestUtils.Tests
 
                 thread.JoinAssertTimeout();
 
-                Assert.That(TakePendingExceptionAssertTimeout(), Is.InstanceOf(typeof(ApplicationException)));
+                Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
             }
 #endif
         }
@@ -121,7 +121,7 @@ namespace SimControl.TestUtils.Tests
         {
             _ = Run(() => AddUnhandledException(new ApplicationException()));
 
-            Assert.That(TakePendingExceptionAssertTimeout(), Is.InstanceOf(typeof(ApplicationException)));
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
         }
 
         [Test, Ignore("Code Contracts")]
@@ -144,7 +144,7 @@ namespace SimControl.TestUtils.Tests
             ContextSwitch();
             ForceGarbageCollection();
 
-            Exception e = TakePendingExceptionAssertTimeout();
+            Exception e = TakePendingException();
 
             Assert.That(e, Is.Not.Null);
             Assert.That(e, Is.InstanceOf(typeof(ApplicationException)));
