@@ -91,8 +91,8 @@ namespace SimControl.Log
 
             foreach (object o in enumerable)
             {
-                if (i++ >= LogFormatMaxCollectionElements)
-                    return sb.Append(" ...").Append(close).ToString();
+                //if (i++ >= LogFormatMaxCollectionElements)
+                //    return sb.Append(" ...").Append(close).ToString();
 
                 _ = sb.Append(o is IEnumerable c && !(o is string) ?
                     FormatIEnumerable(c, " [", " ]") : FormatToString(o));
@@ -102,6 +102,6 @@ namespace SimControl.Log
         }
 
         /// <summary>The log format maximum collection elements.</summary>
-        public static int LogFormatMaxCollectionElements { get; set; } = 10;
+        public static int LogFormatMaxCollectionElements { get; set; } = 100;
     }
 }

@@ -77,7 +77,7 @@ namespace SimControl.Log
 
 
 
-            logger = LogManager.GetLogger(context.TargetName);
+            logger = LogManager.GetLogger(context.TargetType.FullName);
             logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
             exceptionLogLevel = NLog.LogLevel.FromOrdinal((int) ExceptionLogLevel);
 

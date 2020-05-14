@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -27,23 +26,29 @@ namespace SimControl.TestUtils
         public void OneTimeSetUp()
         {
             //UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
-            //LogMethod.SetDefaultThreadCulture();
+            //UNDONE LogMethod.SetDefaultThreadCulture();
 
             AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler;
-            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler;
+            //TODO not raised with NCrunch
 
-            oneTimeAdapters = new ConcurrentStack<TestAdapter>();
+            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; //TODO not raised
+
+            oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
         }
 
         /// <summary>Onetime test tear down.</summary>
         [Log, OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            while (oneTimeAdapters.TryPop(out TestAdapter tfa))
+            while (oneTimeTestAdapters.TryPop(out TestAdapter tfa))
                 try { tfa.Dispose(); }
                 catch (Exception e) { AddUnhandledException(e); }
 
-            oneTimeAdapters = null;
+            oneTimeTestAdapters = null;
+
+            // force any unfinished and unreferenced tasks to terminate
+            ContextSwitch();
+            ForceGarbageCollection();
 
             AppDomain.CurrentDomain.UnhandledException -= AppDomainUnhandledExceptionHandler;
             TaskScheduler.UnobservedTaskException -= TaskSchedulerUnobservedTaskExceptionHandler;
@@ -57,10 +62,9 @@ namespace SimControl.TestUtils
         {
             testAdapters = new ConcurrentStack<TestAdapter>();
 
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(Environment), DateTime.Now,
-                Environment.Version, Environment.Is64BitProcess ? "x64" : "x86",
-                TestContext.CurrentContext.Test.FullName, TestContext.CurrentContext.TestDirectory,
-                TestContext.CurrentContext.WorkDirectory);
+            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), TestContext.CurrentContext.Test.FullName,
+                nameof(Environment), Environment.Version, Environment.Is64BitProcess ? "x64" : "x86",
+                TestContext.CurrentContext.TestDirectory, TestContext.CurrentContext.WorkDirectory);
         }
 
         /// <summary>Tear down test execution.</summary>
@@ -68,53 +72,49 @@ namespace SimControl.TestUtils
         public void TearDown()
         {
             while (testAdapters.TryPop(out TestAdapter tfa))
-                try
-                { tfa.Dispose(); }
+                try { tfa.Dispose(); }
                 catch (Exception e) { AddUnhandledException(e); }
 
             testAdapters = null;
+
+            // force any unfinished and unreferenced tasks to terminate
+            ContextSwitch();
+            ForceGarbageCollection();
 
             ThrowPendingExceptions();
         }
 
         #endregion
 
-        /// <summary>Asserts that exception is a <see cref="ContractException"/></summary>
-        /// <param name="exception">.</param>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static void AssertIsContractException(Exception exception) //TODO
+        public static bool IsContractException(Exception exception)
         {
             Contract.Requires(exception != null);
 
-            Assert.That(exception.GetType().FullName, Is.EqualTo(contractExceptionName));
+            return exception.GetType().FullName == contractExceptionName;
         }
 
+        /// <summary>Context switch.</summary>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
         public static void ContextSwitch() => Thread.Sleep(1);
-
-        public static Task ContextSwitchAsync() //TODO remove?
-        {
-#if NET40
-            return TaskEx.Delay(1);
-#else
-            return Task.Delay(1);
-#endif
-        }
 
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
-        public static Task Delay(int millisecondsDelay, CancellationToken token = default)
-        {
-            //TODO remove when NET40 is no more needed
-#if NET40
-            return TaskEx.Delay(millisecondsDelay);
+        /// <summary>Invoke either <see cref="Task.Delay"/> or <see cref="TaskEx.Delay".<s</summary>
+        /// <param name="millisecondsDelay">The milliseconds delay.</param>
+        /// <param name="token">(Optional) A token that allows processing to be cancelled.</param>
+        /// <returns>An asynchronous result.</returns>
+        public static Task Delay(int millisecondsDelay, CancellationToken token = default) =>
+#if NET40 //TODO remove when NET40 is no more needed
+            TaskEx.Delay(millisecondsDelay);
 #else
-            return Task.Delay(millisecondsDelay);
-#endif
-        }
+            Task.Delay(millisecondsDelay);
 
+#endif
+
+        /// <summary>Force garbage collection.</summary>
         public static void ForceGarbageCollection()
         {
             GC.Collect();
@@ -124,28 +124,30 @@ namespace SimControl.TestUtils
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
         /// <param name="methodName">Name of the method.</param>
-        public static void InvokePrivateStaticMethod(Type type, string methodName) //TODO remove
+        public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args)
         {
             Contract.Requires(type != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
 
-            _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+            _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
         }
 
-        public static Task Run(Action action) //TODO remove when NET40 is no more needed
-        {
+        /// <summary>Invoke either <see cref="Task.Run"/> or <see cref="TaskEx.Run".</summary>
+        /// <param name="action">The action.</param>
+        /// <returns>An asynchronous result.</returns>
+        public static Task Run(Action action) => //TODO remove when NET40 is no more needed
 #if NET40
-            return TaskEx.Run(action);
+            TaskEx.Run(action);
 #else
-            return Task.Run(action);
+            Task.Run(action);
+
 #endif
-        }
 
         /// <summary>Sets private static field.</summary>
         /// <param name="type">The type.</param>
         /// <param name="field">The field.</param>
         /// <param name="value">The value.</param>
-        public static void SetPrivateStaticField(Type type, string field, object value) // TODO remove
+        public static void SetPrivateStaticField(Type type, string field, object value)
         {
             Contract.Requires(type != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(field));
@@ -153,19 +155,16 @@ namespace SimControl.TestUtils
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
 
-        /// <summary>Unhandled exception.</summary>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        /// <summary>Adds an unhandled exception.</summary>
+        /// <exception cref="ContractException">Thrown when a method Contract has been broken.</exception>
         /// <param name="exception">.</param>
         [Log]
         public void AddUnhandledException(Exception exception)
         {
             Contract.Requires(exception != null);
 
-            if (exception.GetType() != typeof(ThreadAbortException))
-            {
+            if (exception.GetType() != typeof(ThreadAbortException)) //UNDONE why?
                 pendingExceptions.Add(exception);
-                UnhandledExceptionEvent?.Invoke(this, new ExceptionEventArgs(exception));
-            }
         }
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
@@ -190,18 +189,6 @@ namespace SimControl.TestUtils
             catch (Exception e) { AddUnhandledException(e); }
         }
 
-        /// <summary>Remove an unhandled exception.</summary>
-        [Log]
-        public Exception[] ClearPendingExceptions()
-        {
-            var exceptions = new List<Exception>();
-
-            while (pendingExceptions.TryTake(out Exception e))
-                exceptions.Add(e);
-
-            return exceptions.ToArray();
-        }
-
         /// <summary>Register a test adapter for this class.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="testAdapter">The test adapter.</param>
@@ -211,7 +198,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(testAdapter != null);
 
-            oneTimeAdapters.Push(testAdapter);
+            oneTimeTestAdapters.Push(testAdapter);
             return testAdapter;
         }
 
@@ -228,14 +215,14 @@ namespace SimControl.TestUtils
             return testAdapter;
         }
 
+        /// <summary>Remove an unhandled exception.</summary>
+        [Log]
+        public Exception TakePendingExceptionAssertTimeout(int timeout = Timeout) => //UNDONE return Task
+            pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;
+
         [Log]
         private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>
             AddUnhandledException((Exception) args.ExceptionObject);
-
-        /// <summary>Remove an unhandled exception.</summary>
-        [Log]
-        public Exception TakePendingExceptionAssertTimeout(int timeout = Timeout) =>
-            pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;
 
         [Log]
         private void TaskSchedulerUnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
@@ -248,19 +235,14 @@ namespace SimControl.TestUtils
         {
             var exceptions = new List<Exception>();
 
-            while (pendingExceptions.TryTake(out Exception e))
-                exceptions.Add(e);
+            while (pendingExceptions.TryTake(out Exception e)) exceptions.Add(e);
 
-            if (exceptions.Count > 0)
-                throw new AggregateException(exceptions);
+            if (exceptions.Count > 0) throw new AggregateException(exceptions);
         }
 
-        ///// <summary>Unhandled exception event.</summary>
-        protected event EventHandler<ExceptionEventArgs> UnhandledExceptionEvent;
-
-        /// <summary>The default timeout for interactive tests.</summary>
+        /// <summary>Test timeout for interactive tests in milliseconds.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 60 seconds.</remarks>
-        public static int DefaultInteractiveTestTimeout { get; } = 60000;
+        public const int InteractiveTimeout = 30000;
 
         /// <summary>The test timeout in milliseconds.</summary>
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
@@ -268,8 +250,8 @@ namespace SimControl.TestUtils
 
         private const string contractExceptionName = "System.Diagnostics.Contracts.__ContractsRuntime+ContractException";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private ConcurrentStack<TestAdapter> oneTimeAdapters;
-        private ConcurrentStack<TestAdapter> testAdapters;
+        private ConcurrentStack<TestAdapter> oneTimeTestAdapters;
         private BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
+        private ConcurrentStack<TestAdapter> testAdapters;
     }
 }
