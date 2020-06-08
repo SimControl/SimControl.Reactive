@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System.Threading.Tasks;
-using Nito.AsyncEx;
 
 namespace SimControl.TestUtils
 {
@@ -19,19 +18,19 @@ namespace SimControl.TestUtils
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && asyncContextThread != null)
-            {
-                asyncContextThread.JoinAsync().WaitAssertTimeout(timeout);
-                asyncContextThread.Dispose();
-                asyncContextThread = null;
-            }
+            //if (disposing && asyncContextThread != null)
+            //{
+            //    asyncContextThread.JoinAsync().WaitAssertTimeout(timeout);
+            //    asyncContextThread.Dispose();
+            //    asyncContextThread = null;
+            //}
         }
 
         /// <summary>Gets the <see cref="TaskFactory"/>.</summary>
         /// <value>The task factory.</value>
-        public TaskFactory Factory => asyncContextThread.Factory;
+        //public TaskFactory Factory => asyncContextThread.Factory;
 
         private readonly int timeout;
-        private AsyncContextThread asyncContextThread = new AsyncContextThread();
+        //private AsyncContextThread asyncContextThread = new AsyncContextThread();
     }
 }

@@ -22,21 +22,21 @@ namespace SimControl.TestUtils.Tests
             {
                 cts.Cancel();
 
-                _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
-                    () => Run(() => { ContextSwitch(); cts.Token.ThrowIfCancellationRequested(); }).AssertTimeout());
+                _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
+                    ContextSwitch(); cts.Token.ThrowIfCancellationRequested(); }).AssertTimeout());
             }
         }
 
         [Test]
         public static void AssertTimeout__Faulted() => Assert.ThrowsAsync<InvalidOperationException>(() =>
-            Run(() => { ContextSwitch(); throw new InvalidOperationException(); }).AssertTimeout());
+            Task.Run(() => { ContextSwitch(); throw new InvalidOperationException(); }).AssertTimeout());
 
         [Test]
-        public static void AssertTimeout__RanToCompletion() => Run(() => ContextSwitch()).AssertTimeout();
+        public static void AssertTimeout__RanToCompletion() => Task.Run(() => ContextSwitch()).AssertTimeout();
 
         [Test]
         public static void AssertTimeout__TimeoutException() => Assert.ThrowsAsync<TimeoutException>(() =>
-            Run(() => Thread.Sleep(1000)).AssertTimeout(1));
+            Task.Run(() => Thread.Sleep(1000)).AssertTimeout(1));
 
         /*
             [Test]

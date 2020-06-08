@@ -12,10 +12,9 @@
     <AssemblyName>SimControl.Templates.CSharp.WcfServiceLibrary</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <XsdCodeGenEnabled>True</XsdCodeGenEnabled>
-    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
     <XsdCodeGenSerializerMode>XmlSerializer</XsdCodeGenSerializerMode>
     <XsdCodeGenReuseTypesFlag>True</XsdCodeGenReuseTypesFlag>
     <XsdCodeGenReuseTypesMode>All</XsdCodeGenReuseTypesMode>
@@ -48,7 +47,6 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\SimControl.Templates.CSharp.WcfServiceLibrary.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
-    <CodeAnalysisRuleSet>..\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
@@ -76,17 +74,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
-      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
-      <Name>SimControl.Log</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\KeyPair.snk">
       <Link>KeyPair.snk</Link>
     </None>
     <None Include="App.config" />
     <None Include="SimControl.Templates.CSharp.WcfServiceLibrary.v3.ncrunchproject" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
+      <Name>SimControl.Log</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

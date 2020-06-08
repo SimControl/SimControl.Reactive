@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Nito.AsyncEx;
 using NLog;
 using SimControl.Log;
 
@@ -45,15 +44,11 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                using (var act = new AsyncContextThread())
+                //UNDONE using (var act = new AsyncContextThread())
                 {
                     using (var cts = new CancellationTokenSource())
                     {
-#if NET40
-                        Task task = act.Factory.Run(() => TaskEx.Delay(-1, cts.Token));
-#else
-                        Task task = act.Factory.Run(() => Task.Delay(-1, cts.Token));
-#endif
+                        //UNDONE Task task = act.Factory.Run(() => Task.Delay(-1, cts.Token));
 
                         for (; ; )
                         {
@@ -73,10 +68,10 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                         cts.Cancel();
 
-                        try { await task; }
-                        catch (TaskCanceledException) { }
+                        //UNDONE try { await task; }
+                        //UNDONE catch (TaskCanceledException) { }
 
-                        act.JoinAsync().Wait();
+                        //UNDONE act.JoinAsync().Wait();
                     }
                 }
 

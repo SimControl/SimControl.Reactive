@@ -16,7 +16,7 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibrary_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
-#if NET40
+#if NET452
 
         [Test]
         public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>

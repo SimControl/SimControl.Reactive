@@ -101,18 +101,6 @@ namespace SimControl.TestUtils
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
 
-        /// <summary>Invoke either <see cref="Task.Delay"/> or <see cref="TaskEx.Delay".<s</summary>
-        /// <param name="millisecondsDelay">The milliseconds delay.</param>
-        /// <param name="token">(Optional) A token that allows processing to be cancelled.</param>
-        /// <returns>An asynchronous result.</returns>
-        public static Task Delay(int millisecondsDelay, CancellationToken token = default) =>
-#if NET40 //TODO remove when NET40 is no more needed
-            TaskEx.Delay(millisecondsDelay);
-#else
-            Task.Delay(millisecondsDelay);
-
-#endif
-
         /// <summary>Force garbage collection.</summary>
         public static void ForceGarbageCollection()
         {
@@ -137,17 +125,6 @@ namespace SimControl.TestUtils
 
             return exception.GetType().FullName == contractExceptionName;
         }
-
-        /// <summary>Invoke either <see cref="Task.Run"/> or <see cref="TaskEx.Run".</summary>
-        /// <param name="action">The action.</param>
-        /// <returns>An asynchronous result.</returns>
-        public static Task Run(Action action) => //TODO remove when NET40 is no more needed
-#if NET40
-            TaskEx.Run(action);
-#else
-            Task.Run(action);
-
-#endif
 
         /// <summary>Sets private static field.</summary>
         /// <param name="type">The type.</param>

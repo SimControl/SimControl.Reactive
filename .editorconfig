@@ -33,6 +33,7 @@ indent_size = 2
 # Code Files
 [*.{cs,cpp.cxx.h,vb}]
 insert_final_newline = true
+file_header_template = Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 # JSON Files
 [*.{json,json5}]

@@ -58,10 +58,10 @@ namespace SimControl.TestUtils.Tests
         public static void ContextSwitch__Succeeds() => ContextSwitch();
 
         [Test]
-        public static Task DebugTimeout__Succeeds() => Delay(DebugTimeout(1));
+        public static Task DebugTimeout__Succeeds() => Task.Delay(DebugTimeout(1));
 
         [Test]
-        public static Task Delay__Succeeds() => Delay(1);
+        public static Task Delay__Succeeds() => Task.Delay(1);
 
         [Test]
         public static void ForceGarbageCollection__Succeeds() => ForceGarbageCollection();
@@ -80,7 +80,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static Task Run__Succeeds() => Run(() => ContextSwitch());
+        public static Task Run__Succeeds() => Task.Run(() => ContextSwitch());
 
         [Test]
         public static void SetPrivateStaticField__()
@@ -119,7 +119,7 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void TakePendingExceptionAssertTimeout__Succeds()
         {
-            _ = Run(() => AddUnhandledException(new ApplicationException()));
+            _ = Task.Run(() => AddUnhandledException(new ApplicationException()));
 
             Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
         }
@@ -151,7 +151,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         private void ThrowContractException(bool throwIfTrue) => Contract.Requires(!throwIfTrue);
-        private void ThrowUnhandledExceptionInAsyncTask() => Run(() => throw new ApplicationException());
+        private void ThrowUnhandledExceptionInAsyncTask() => Task.Run(() => throw new ApplicationException());
 
         private AutoResetEvent autoResetEvent;
         private AutoResetEvent oneTimeAutoResetEvent;

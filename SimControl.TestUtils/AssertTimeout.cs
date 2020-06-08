@@ -95,13 +95,8 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(task != null);
 
-#if NET40
-            if (task == await TaskEx.WhenAny(task, TaskEx.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
-                return await task.ConfigureAwait(false);
-#else
             if (task == await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
                 return await task.ConfigureAwait(false);
-#endif
 
             throw TimeoutException(timeout);
         }
@@ -156,11 +151,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(action != null);
 
-#if NET40
-            Task task = TaskEx.Run(action);
-#else
             var task = Task.Run(action);
-#endif
 
             try
             {
@@ -185,11 +176,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(function != null);
 
-#if NET40
-            Task<T> task = TaskEx.Run(function);
-#else
             var task = Task.Run(function);
-#endif
 
             try
             {

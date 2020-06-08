@@ -2,6 +2,7 @@
 
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
@@ -74,8 +75,8 @@ namespace SimControl.Reactive.Tests
         {
             using (var lamp = new Lamp())
             {
-                Run(lamp.On).AssertTimeout().Wait();
-                Run(lamp.Off).AssertTimeout().Wait();
+                Task.Run(lamp.On).AssertTimeout().Wait();
+                Task.Run(lamp.Off).AssertTimeout().Wait();
 
                 Assert.That(lamp.IsActive(".LampOff"));
                 Assert.That(lamp.Counter, Is.EqualTo(1));
