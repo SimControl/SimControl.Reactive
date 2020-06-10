@@ -9,10 +9,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary
     [Log]
     public class LogClass
     {
-        public void VoidMethod()
-        {
-            logger.Trace("VoidMethod");
-        }
+        public void VoidMethod() => logger.Trace("VoidMethod");
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

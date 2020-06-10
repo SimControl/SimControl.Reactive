@@ -8,10 +8,7 @@ namespace SimControl.Samples.CSharp.WcfServiceLibrary
     // and config file together.
     public class SampleService: ISampleService
     {
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
+        public string GetData(int value) => string.Format("You entered: {0}", value);
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {

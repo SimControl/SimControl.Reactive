@@ -26,20 +26,9 @@ namespace SimControl.Samples.CSharp.WcfServiceLibrary
     public class CompositeType
     {
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        public bool BoolValue { get; set; } = true;
 
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
-
-        private bool boolValue = true;
-        private string stringValue = "Hello ";
+        public string StringValue { get; set; } = "Hello ";
     }
 }

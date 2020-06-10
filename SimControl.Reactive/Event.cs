@@ -1,4 +1,4 @@
-// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 // TODO: CR
 
@@ -8,13 +8,13 @@ namespace SimControl.Reactive
     {
         internal StateMachineEvent(Trigger trigger, object[] args = null)
         {
-            Trigger = trigger;
-            Args = args;
+            this.trigger = trigger;
+            this.args = args;
         }
 
-        internal readonly object[] Args;
+        internal readonly object[] args;
 
-        internal readonly Trigger Trigger;
+        internal readonly Trigger trigger;
 
         //public override string ToString() { return Log.Object(typeof(ActionEvent), Effect.Target, Effect.Target.GetType().FullName + "." + Effect.Method.Name, DueDate.ToString() + "." + DueDate.Millisecond); }
 

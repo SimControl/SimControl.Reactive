@@ -596,9 +596,9 @@ namespace SimControl.Reactive
                         StateMachineEvent ev = queuedEvents[0];
                         queuedEvents.RemoveAt(0);
 
-                        if ((t = FindTriggeredTransition(this, ev.Trigger, ev.Args)) != null)
-                            ExecuteTransition(t, ev.Args);
-                        else if (ev.Trigger is ExceptionTrigger exceptionTrigger)
+                        if ((t = FindTriggeredTransition(this, ev.trigger, ev.args)) != null)
+                            ExecuteTransition(t, ev.args);
+                        else if (ev.trigger is ExceptionTrigger exceptionTrigger)
                             throw exceptionTrigger.exception;
                     }
 
