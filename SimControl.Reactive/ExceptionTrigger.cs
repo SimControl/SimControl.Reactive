@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 namespace SimControl.Reactive
 {
     /// <summary>Exception trigger.</summary>
-    public class ExceptionTrigger : Trigger
+    public class ExceptionTrigger: Trigger
     {
         /// <summary>Constructor.</summary>
         /// <param name="exception">The exception.</param>
@@ -40,7 +40,7 @@ namespace SimControl.Reactive
     /// <summary>Exception trigger.</summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="Trigger"/>
-    public sealed class ExceptionTrigger<T> : ExceptionTrigger, IGenericTrigger<T> where T : Exception
+    public sealed class ExceptionTrigger<T>: ExceptionTrigger, IGenericTrigger<T> where T : Exception
     {
         /// <summary>Default constructor.</summary>
         public ExceptionTrigger() : base(typeof(T)) { }

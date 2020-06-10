@@ -81,7 +81,7 @@ namespace SimControl.Log
             logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
             exceptionLogLevel = NLog.LogLevel.FromOrdinal((int) ExceptionLogLevel);
 
-            MethodInfo res = context.TargetMethod is MethodInfo ? (MethodInfo) context.TargetMethod : null ;
+            MethodInfo res = context.TargetMethod is MethodInfo info ? info : null ;
             hasReturnValue = res != null && res.ReturnType != typeof(void);
 
             if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))

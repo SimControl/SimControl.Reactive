@@ -226,7 +226,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-//        [Log(AttributeExclude = true)]
+        //        [Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,

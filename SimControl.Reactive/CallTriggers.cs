@@ -13,7 +13,7 @@ namespace SimControl.Reactive
     public interface IGenericTrigger<T> { }
 
     /// <summary>Call trigger with no arguments.</summary>
-    public sealed class CallTrigger : CallTriggerBase
+    public sealed class CallTrigger: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -22,7 +22,7 @@ namespace SimControl.Reactive
 
     /// <summary>Call trigger with 0 arguments.</summary>
     /// <typeparam name="T1"></typeparam>
-    public sealed class CallTrigger<T1> : CallTriggerBase, IGenericTrigger<T1>
+    public sealed class CallTrigger<T1>: CallTriggerBase, IGenericTrigger<T1>
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -48,7 +48,7 @@ namespace SimControl.Reactive
     /// <summary>Call trigger with two arguments.</summary>
     /// <typeparam name="T1"></typeparam>
     /// <typeparam name="T2"></typeparam>
-    public sealed class CallTrigger<T1, T2> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2>: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -59,7 +59,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T1"></typeparam>
     /// <typeparam name="T2"></typeparam>
     /// <typeparam name="T3"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3>: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -71,7 +71,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T2"></typeparam>
     /// <typeparam name="T3"></typeparam>
     /// <typeparam name="T4"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4>: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -84,7 +84,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T3"></typeparam>
     /// <typeparam name="T4"></typeparam>
     /// <typeparam name="T5"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5>: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -98,7 +98,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T4"></typeparam>
     /// <typeparam name="T5"></typeparam>
     /// <typeparam name="T6"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6>: CallTriggerBase
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
@@ -113,7 +113,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T5"></typeparam>
     /// <typeparam name="T6"></typeparam>
     /// <typeparam name="T7"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7>: CallTriggerBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7&gt;"/> class.
@@ -131,7 +131,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T6"></typeparam>
     /// <typeparam name="T7"></typeparam>
     /// <typeparam name="T8"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8>: CallTriggerBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8&gt;"/> class.
@@ -150,7 +150,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T7"></typeparam>
     /// <typeparam name="T8"></typeparam>
     /// <typeparam name="T9"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8, T9> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8, T9>: CallTriggerBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9&gt;"/> class.
@@ -170,7 +170,7 @@ namespace SimControl.Reactive
     /// <typeparam name="T8"></typeparam>
     /// <typeparam name="T9"></typeparam>
     /// <typeparam name="T10"></typeparam>
-    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> : CallTriggerBase
+    public sealed class CallTrigger<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>: CallTriggerBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10&gt;"/> class.
@@ -180,7 +180,7 @@ namespace SimControl.Reactive
     }
 
     /// <summary>Call triggers base class</summary>
-    public class CallTriggerBase : Trigger
+    public class CallTriggerBase: Trigger
     {
         /// <summary>Initializes a new instance of the <see cref="CallTriggerBase"/> class.</summary>
         /// <param name="method">Call trigger delegate.</param>

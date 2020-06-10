@@ -21,7 +21,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="DeepHistoryState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public DeepHistoryState(string name): base(name)
+        public DeepHistoryState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Deep history state not implemented yet"); // TODO implement
@@ -34,7 +34,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="EntryPointState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public EntryPointState(string name): base(name)
+        public EntryPointState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Entry pint state not implemented yet"); // TODO implement
@@ -47,7 +47,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="ExitPointState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public ExitPointState(string name): base(name)
+        public ExitPointState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Exit point state not implemented yet"); // TODO implement
@@ -60,7 +60,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="FinalState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public FinalState(string name): base(name)
+        public FinalState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Final state not implemented yet"); // TODO implement
@@ -73,7 +73,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="ForkState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public ForkState(string name): base(name)
+        public ForkState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Fork state not implemented yet"); // TODO implement
@@ -85,7 +85,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="InitialState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public InitialState(string name): base(name) {}
+        public InitialState(string name) : base(name) { }
     }
 
     /// <summary>UML state machine "join" pseudo state.</summary>
@@ -94,7 +94,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="JoinState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public JoinState(string name): base(name)
+        public JoinState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Join state not implemented yet"); // TODO implement
@@ -107,7 +107,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="JunctionState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public JunctionState(string name): base(name)
+        public JunctionState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Junction state not implemented yet"); // TODO implement
@@ -128,7 +128,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="ShallowHistoryState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public ShallowHistoryState(string name): base(name)
+        public ShallowHistoryState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Shallow history state not implemented yet"); // TODO implement
@@ -142,7 +142,7 @@ namespace SimControl.Reactive
         /// <summary>Initializes a new instance of the <see cref="SubmachineState"/> class.</summary>
         /// <param name="name">The name.</param>
         /// <param name="sm">The sm.</param>
-        public SubmachineState(string name, StateMachine sm): base(name + sm.Name)
+        public SubmachineState(string name, StateMachine sm) : base(name + sm.Name)
         {
             Contract.Requires(!string.IsNullOrEmpty(name));
             Contract.Requires(sm != null);
@@ -157,7 +157,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="TerminateState"/> class.</summary>
         /// <param name="name">The name.</param>
-        public TerminateState(string name): base(name)
+        public TerminateState(string name) : base(name)
         {
             ContractRequiredName(name);
             throw new NotImplementedException("Terminate state not implemented yet"); // TODO implement

@@ -15,7 +15,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
     }
 
     [ContractClassFor(typeof(IComponent))]
-    internal abstract class PluginInterfaceContract : IComponent
+    internal abstract class PluginInterfaceContract: IComponent
     {
         /// <inheritdoc/>
         public string ElementName()

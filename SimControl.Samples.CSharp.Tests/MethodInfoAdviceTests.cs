@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+
+using System;
 using ArxOne.MrAdvice.Advice;
 using ArxOne.MrAdvice.Annotation;
 using NUnit.Framework;
@@ -33,7 +35,7 @@ namespace SimControl.Samples.CSharp.Test
         public const int Priority = 2;
     }
 
-    class ClassA
+    internal class ClassA
     {
         static ClassA() { }
 
@@ -43,7 +45,7 @@ namespace SimControl.Samples.CSharp.Test
         public static void Method() { }
     }
 
-    class ClassB
+    internal class ClassB
     {
         static ClassB() { }
 

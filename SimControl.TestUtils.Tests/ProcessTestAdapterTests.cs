@@ -68,14 +68,14 @@ namespace SimControl.TestUtils.Tests
         public static void Start_ConsoleApp_process__Kill__ConsoleApp_process_killed()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
-            Assert.That(Process.GetProcessesByName(ProcessName).Length == 0);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
             {
                 Assert.That(Process.GetProcessesByName(ProcessName).Length > 0);
 
                 process.Kill();
-                Assert.That(Process.GetProcessesByName(ProcessName).Length == 0);
+                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
             }
         }
 
@@ -83,7 +83,7 @@ namespace SimControl.TestUtils.Tests
         public static void Start_ConsoleApp_process__KillProcess__ConsoleApp_process_killed()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
-            Assert.That(Process.GetProcessesByName(ProcessName).Length == 0);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
             {

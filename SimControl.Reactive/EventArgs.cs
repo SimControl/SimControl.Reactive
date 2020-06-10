@@ -16,8 +16,8 @@ namespace SimControl.Reactive
         /// <param name="arg">The arg.</param>
         public EventArgs(T arg) => this.arg = arg;
 
-        /// <summary>Performs an implicit conversion from <see cref="Reactive.EventArgs&lt;T&gt;"/> to T.</summary>
-        /// <param name="eventArgs">The <see cref="Reactive.EventArgs&lt;T&gt;"/> instance containing the event data.</param>
+        /// <summary>Performs an implicit conversion from <see cref="EventArgs&lt;T&gt;"/> to T.</summary>
+        /// <param name="eventArgs">The <see cref="EventArgs&lt;T&gt;"/> instance containing the event data.</param>
         /// <returns>The result of the conversion.</returns>
         public static implicit operator T(EventArgs<T> eventArgs)
         {

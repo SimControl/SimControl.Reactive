@@ -27,10 +27,6 @@ namespace SimControl.Reactive
         public CompositeState(string name, Effect entry = null, Func<Task> doActivity = null, Effect exit = null,
                               Trigger[] deferrable = null) : base(name, entry, doActivity, exit, deferrable) => ContractRequiredName(name);
 
-        /// <summary>Gets or sets the active.</summary>
-        /// <value>The active.</value>
-        public State Active { get; internal set; }
-
         /// <summary>Adds the specified outgoing transitions.</summary>
         /// <param name="transitions">Transitions originating from this state.</param>
         /// <returns>This state instance</returns>
@@ -53,6 +49,10 @@ namespace SimControl.Reactive
             return this;
         }
 
+        /// <summary>Gets or sets the active.</summary>
+        /// <value>The active.</value>
+        public State Active { get; internal set; }
+
         internal IEnumerable<State> Children => children.Values;
 
         internal State initialState;
@@ -70,7 +70,7 @@ namespace SimControl.Reactive
         /// <param name="exit">The exit.</param>
         /// <param name="deferrableTriggers">The deferrable triggers.</param>
         internal ConcreteState(string name, Effect entry, Func<Task> doActivity, Effect exit,
-                               Trigger[] deferrableTriggers): base(name)
+                               Trigger[] deferrableTriggers) : base(name)
         {
             ContractRequiredName(name);
 
@@ -91,7 +91,7 @@ namespace SimControl.Reactive
     }
 
     /// <summary>UML state machine "region" state.</summary>
-    public sealed class OrthogonalState : ConcreteState
+    public sealed class OrthogonalState: ConcreteState
 
     {
         /// <summary>Initializes a new instance of the <see cref="OrthogonalState"/> class.</summary>
@@ -183,12 +183,10 @@ namespace SimControl.Reactive
 
         internal ICollection<TransitionBase> Transitions => transitions.Values;
 
+        internal bool doActivityStarted;
         internal State[] rootPath;
 
         private readonly Dictionary<string, TransitionBase> transitions = new Dictionary<string, TransitionBase>();
-
-        internal bool doActivityStarted;
-
         //TODO internal TransitionBase[]            completionTransitions;
         //TODO internal TransitionBase[]            timeTriggerTransitions;
         //TODO internal Dictionary<CallTriggerBase, TransitionBase[]> callTriggerTransitions = new Dictionary<CallTriggerBase, TransitionBase[]>();

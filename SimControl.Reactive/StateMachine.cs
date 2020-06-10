@@ -49,7 +49,7 @@ namespace SimControl.Reactive
     /// For a detailed description of UML state machines see "OMG Unified Modeling Language TM (OMG UML), Superstructure
     /// 2.3.pdf".
     /// </remarks>
-    public class StateMachine : CompositeState, IDisposable /*ActiveObjectCollection,*/
+    public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,*/
     {
         /// <summary>Initializes a new instance of the <see cref="StateMachine"/> class.</summary>
         /// <param name="entry">The entry.</param>
@@ -256,10 +256,10 @@ namespace SimControl.Reactive
             {
                 activeStates.Add(s);
 
-                if (s is CompositeState)
-                    AppendActiveStates(((CompositeState) s).Active, activeStates);
-                else if (s is OrthogonalState)
-                    foreach (CompositeState child in ((OrthogonalState) s).Children)
+                if (s is CompositeState state)
+                    AppendActiveStates(state.Active, activeStates);
+                else if (s is OrthogonalState state1)
+                    foreach (CompositeState child in state1.Children)
                         AppendActiveStates(child, activeStates);
             }
         }
@@ -333,17 +333,17 @@ namespace SimControl.Reactive
         {
             TransitionBase result;
 
-            if (s is CompositeState && (result = FindValidCompletionTransition(((CompositeState) s).Active, now)) != null)
+            if (s is CompositeState state && (result = FindValidCompletionTransition(state.Active, now)) != null)
                 return result;
 
-            if (s is OrthogonalState)
-                foreach (CompositeState child in ((OrthogonalState) s).Children)
+            if (s is OrthogonalState state1)
+                foreach (CompositeState child in state1.Children)
                     if ((result = FindValidCompletionTransition(child, now)) != null)
                         return result;
 
             if (!s.doActivityStarted)
                 foreach (TransitionBase t in s.Transitions)
-                    if (t.Trigger == null || (t.Trigger is TimeTrigger && ((TimeTrigger) t.Trigger).Due <= now))
+                    if (t.Trigger == null || t.Trigger is TimeTrigger trigger && trigger.Due <= now)
                     {
                         if (t.Guard == null)
                             return t;
@@ -370,7 +370,7 @@ namespace SimControl.Reactive
 
         private void InvokeStateEntry(State s, State target)
         {
-            if (s == target || (target != null && target.rootPath[s.rootPath.Length - 1] != s))
+            if (s == target || target != null && target.rootPath[s.rootPath.Length - 1] != s)
                 target = null;
 
             if (s is CompositeState c)
@@ -544,10 +544,10 @@ namespace SimControl.Reactive
         {
             DateTime result = DateTime.MaxValue;
 
-            if (s is CompositeState)
-                result = NextTimeTrigger(((CompositeState) s).Active, now);
-            else if (s is OrthogonalState)
-                foreach (CompositeState child in ((OrthogonalState) s).Children)
+            if (s is CompositeState state)
+                result = NextTimeTrigger(state.Active, now);
+            else if (s is OrthogonalState orthogonalState)
+                foreach (CompositeState child in orthogonalState.Children)
                 {
                     DateTime subresult = NextTimeTrigger(child, now);
                     if (subresult < result)

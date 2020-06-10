@@ -43,7 +43,7 @@ namespace SimControl.Reactive
         /// <param name="effect">Transition effect action.</param>
         /// <param name="name">Transition name.</param>
         public Transition(string target, Trigger trigger = null, Constraint guard = null, Effect effect = null,
-                          string name = null): base(TransitionKind.External, target, trigger, guard, effect, name)
+                          string name = null) : base(TransitionKind.External, target, trigger, guard, effect, name)
         {
             ContractRequiredName(name);
             Contract.Requires(!string.IsNullOrWhiteSpace(target));

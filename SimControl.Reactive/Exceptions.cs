@@ -10,15 +10,15 @@ namespace SimControl.Reactive
     public class StateMachineException: Exception
     {
         /// <summary>Initializes a new instance of the <see cref="StateMachineException"/> class.</summary>
-        public StateMachineException() {}
+        public StateMachineException() { }
 
         /// <summary>Initializes a new instance of the <see cref="StateMachineException"/> class.</summary>
         /// <param name="message">The message.</param>
-        public StateMachineException(string message): base(message) {}
+        public StateMachineException(string message) : base(message) { }
 
         /// <summary>Initializes a new instance of the <see cref="StateMachineException"/> class.</summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">The inner exception.</param>
-        public StateMachineException(string message, Exception innerException): base(message, innerException) {}
+        public StateMachineException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

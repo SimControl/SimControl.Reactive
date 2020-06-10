@@ -87,7 +87,7 @@ namespace SimControl.Log
 
             var sb = new StringBuilder(open);
 
-            int i;
+            //int i;
 
             foreach (object o in enumerable)
             {
