@@ -9,8 +9,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-// TODO: CR
-
 namespace SimControl.Reactive
 {
     /// <summary>StateMachine execution states.</summary>

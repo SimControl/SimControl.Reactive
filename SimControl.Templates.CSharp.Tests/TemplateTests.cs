@@ -27,7 +27,7 @@ namespace SimControl.Templates.CSharp.Tests
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
-#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
+#if !NETCOREAPP3_1 // UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
             ProcessTestAdapter.KillProcesses(ProcessName);
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
@@ -45,7 +45,7 @@ namespace SimControl.Templates.CSharp.Tests
             Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }).ResultAssertTimeout(), Is.Zero);
         }
 
-        //TODO SimControl.Templates.CSharp.WcfServiceLibrary tests
+        // TODO SimControl.Templates.CSharp.WcfServiceLibrary tests
 
         public const string ProcessName = "SimControl.Templates.CSharp.ConsoleApp";
     }

@@ -9,6 +9,6 @@ namespace SimControl.Templates.CSharp.ClassLibrary
     public class Class1
     {
         /// <summary>Default constructor.</summary>
-        public Class1() { } //TODO remove constructor - NCrunch build error
+        public Class1() { } // TODO remove constructor - NCrunch build error
     }
 }

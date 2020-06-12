@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
-// TODO: CR
-
 namespace SimControl.Reactive
 {
     /*

@@ -78,7 +78,6 @@
       <Link>KeyPair.snk</Link>
     </None>
     <None Include="App.config" />
-    <None Include="SimControl.Templates.CSharp.WcfServiceLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">

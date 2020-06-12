@@ -82,14 +82,18 @@ namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISampleService/GetData", ReplyAction="http://tempuri.org/ISampleService/GetDataResponse")]
         string GetData(int value);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISampleService/GetData", ReplyAction="http://tempuri.org/ISampleService/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISampleService/GetData", ReplyAction="http://tempuri.org/ISampleService/GetDataResponse")]
+        System.IAsyncResult BeginGetData(int value, System.AsyncCallback callback, object asyncState);
+        
+        string EndGetData(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISampleService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ISampleService/GetDataUsingDataContractResponse")]
         SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType GetDataUsingDataContract(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISampleService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ISampleService/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType> GetDataUsingDataContractAsync(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISampleService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ISampleService/GetDataUsingDataContractResponse")]
+        System.IAsyncResult BeginGetDataUsingDataContract(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite, System.AsyncCallback callback, object asyncState);
+        
+        SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType EndGetDataUsingDataContract(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -98,7 +102,57 @@ namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDataUsingDataContractCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDataUsingDataContractCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SampleServiceClient : System.ServiceModel.ClientBase<SimControl.Samples.CSharp.WcfClient.SampleServiceClient.ISampleService>, SimControl.Samples.CSharp.WcfClient.SampleServiceClient.ISampleService {
+        
+        private BeginOperationDelegate onBeginGetDataDelegate;
+        
+        private EndOperationDelegate onEndGetDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDataCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDataUsingDataContractDelegate;
+        
+        private EndOperationDelegate onEndGetDataUsingDataContractDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDataUsingDataContractCompletedDelegate;
         
         public SampleServiceClient() {
         }
@@ -119,20 +173,108 @@ namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient {
                 base(binding, remoteAddress) {
         }
         
+        public event System.EventHandler<GetDataCompletedEventArgs> GetDataCompleted;
+        
+        public event System.EventHandler<GetDataUsingDataContractCompletedEventArgs> GetDataUsingDataContractCompleted;
+        
         public string GetData(int value) {
             return base.Channel.GetData(value);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetData(int value, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetData(value, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndGetData(System.IAsyncResult result) {
+            return base.Channel.EndGetData(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int value = ((int)(inValues[0]));
+            return this.BeginGetData(value, callback, asyncState);
+        }
+        
+        private object[] OnEndGetData(System.IAsyncResult result) {
+            string retVal = this.EndGetData(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDataCompleted(object state) {
+            if ((this.GetDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDataCompleted(this, new GetDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDataAsync(int value) {
+            this.GetDataAsync(value, null);
+        }
+        
+        public void GetDataAsync(int value, object userState) {
+            if ((this.onBeginGetDataDelegate == null)) {
+                this.onBeginGetDataDelegate = new BeginOperationDelegate(this.OnBeginGetData);
+            }
+            if ((this.onEndGetDataDelegate == null)) {
+                this.onEndGetDataDelegate = new EndOperationDelegate(this.OnEndGetData);
+            }
+            if ((this.onGetDataCompletedDelegate == null)) {
+                this.onGetDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDataDelegate, new object[] {
+                        value}, this.onEndGetDataDelegate, this.onGetDataCompletedDelegate, userState);
         }
         
         public SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType GetDataUsingDataContract(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType> GetDataUsingDataContractAsync(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDataUsingDataContract(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDataUsingDataContract(composite, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType EndGetDataUsingDataContract(System.IAsyncResult result) {
+            return base.Channel.EndGetDataUsingDataContract(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDataUsingDataContract(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite = ((SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType)(inValues[0]));
+            return this.BeginGetDataUsingDataContract(composite, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDataUsingDataContract(System.IAsyncResult result) {
+            SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType retVal = this.EndGetDataUsingDataContract(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDataUsingDataContractCompleted(object state) {
+            if ((this.GetDataUsingDataContractCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDataUsingDataContractCompleted(this, new GetDataUsingDataContractCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDataUsingDataContractAsync(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite) {
+            this.GetDataUsingDataContractAsync(composite, null);
+        }
+        
+        public void GetDataUsingDataContractAsync(SimControl.Samples.CSharp.WcfClient.SampleServiceClient.CompositeType composite, object userState) {
+            if ((this.onBeginGetDataUsingDataContractDelegate == null)) {
+                this.onBeginGetDataUsingDataContractDelegate = new BeginOperationDelegate(this.OnBeginGetDataUsingDataContract);
+            }
+            if ((this.onEndGetDataUsingDataContractDelegate == null)) {
+                this.onEndGetDataUsingDataContractDelegate = new EndOperationDelegate(this.OnEndGetDataUsingDataContract);
+            }
+            if ((this.onGetDataUsingDataContractCompletedDelegate == null)) {
+                this.onGetDataUsingDataContractCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDataUsingDataContractCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDataUsingDataContractDelegate, new object[] {
+                        composite}, this.onEndGetDataUsingDataContractDelegate, this.onGetDataUsingDataContractCompletedDelegate, userState);
         }
     }
 }

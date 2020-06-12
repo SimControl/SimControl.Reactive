@@ -96,8 +96,8 @@ namespace SimControl.TestUtils.Tests
         [Test, Isolated]
         public void AppDomainUnhandledExceptionHandler__Test()
         {
-#if !NETCOREAPP //TODO test runner terminates
-            if (Environment.GetEnvironmentVariable("NCrunch") != "1") //TODO UnhandledException not raised with NCrunch
+#if !NETCOREAPP // UNDONE test runner terminates
+            if (Environment.GetEnvironmentVariable("NCrunch") != "1") // UNDONE UnhandledException not raised with NCrunch
             {
                 var thread = new Thread(() => throw new ApplicationException());
                 thread.Start();
@@ -125,7 +125,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test, Ignore("Code Contracts")]
-        public void AssertIsContractException__Succeeds() //UNDONE Code Contracts
+        public void AssertIsContractException__Succeeds() // TODO Code Contracts
         {
             Exception contractException = null;
 
@@ -136,7 +136,7 @@ namespace SimControl.TestUtils.Tests
             Assert.That(IsContractException(contractException));
         }
 
-        [Test, Isolated, Ignore("UnobservedTaskException not raised")] //TODO UnobservedTaskException not raised
+        [Test, Isolated, Ignore("UnobservedTaskException not raised")] // UNDONE UnobservedTaskException not raised
         public void TaskSchedulerUnobservedTaskExceptionHandler__Test()
         {
             ThrowUnhandledExceptionInAsyncTask();

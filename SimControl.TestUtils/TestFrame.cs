@@ -28,16 +28,8 @@ namespace SimControl.TestUtils
             InternationalCultureInfo.SetCurrentThreadCulture();
             InternationalCultureInfo.SetDefaultThreadCulture();
 
-            AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler;
-            // TODO not raised with NCrunch
-            // https://docs.microsoft.com/en-us/dotnet/api/system.appdomain.unhandledexception
-
-            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler;
-            //TODO not raised
-            // https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskscheduler.unobservedtaskexception
-            // https://stackoverflow.com/questions/5734121/how-to-detect-unobservedtaskexception-errors-in-nunit-test-suites
-            // https://stackoverflow.com/questions/21266137/test-for-unobserved-exceptions
-            // https://tpodolak.com/blog/2015/08/10/tpl-exception-handling-and-unobservedtaskexception-issue/
+            AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler; // UNDONE not raised with NCrunch
+            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; // UNDONE not raised
 
             oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
         }
@@ -146,8 +138,7 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(exception != null);
 
-            // TODO if (exception.GetType() != typeof(ThreadAbortException))
-            // https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadabortexception?view=netcore-3.1
+            // UNDONE if (exception.GetType() != typeof(ThreadAbortException))
             pendingExceptions.Add(exception);
         }
 

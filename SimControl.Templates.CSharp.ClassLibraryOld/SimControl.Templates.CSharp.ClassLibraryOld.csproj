@@ -55,7 +55,6 @@
     <None Include="..\KeyPair.snk">
       <Link>KeyPair.snk</Link>
     </None>
-    <None Include="SimControl.Templates.CSharp.ClassLibraryOld.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">

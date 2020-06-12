@@ -48,7 +48,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 {
                     using (var cts = new CancellationTokenSource())
                     {
-                        //UNDONE Task task = act.Factory.Run(() => Task.Delay(-1, cts.Token));
+                        var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)); // replace by async operation
 
                         for (; ; )
                         {
@@ -68,8 +68,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                         cts.Cancel();
 
-                        //UNDONE try { await task; }
-                        //UNDONE catch (TaskCanceledException) { }
+                        try { await task; }
+                        catch (TaskCanceledException) { }
 
                         //UNDONE act.JoinAsync().Wait();
                     }

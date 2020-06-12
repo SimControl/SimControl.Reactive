@@ -1,14 +1,9 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimControl.Log;
 
-namespace SimControl.Samples.CSharp.WcfClient
+namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient
 {
-    public class Class1
-    {
-    }
+    [Log]
+    public partial class SampleServiceClient { }
 }

@@ -27,7 +27,7 @@ namespace SimControl.Reactive.Tests
             }
         }
 
-        [Test]
+        // TODO [Test]
         public static void LogAttribute_Tests2()
         {
             var cultureInfo = new CultureInfo( "de-AT", false );
@@ -43,7 +43,7 @@ namespace SimControl.Reactive.Tests
             }
 
             InternationalCultureInfo.SetCurrentThreadCulture();
-            //LogMethod.SetDefaultThreadCulture();
+            // TODO LogMethod.SetDefaultThreadCulture();
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)

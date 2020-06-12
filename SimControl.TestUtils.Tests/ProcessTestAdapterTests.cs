@@ -96,7 +96,7 @@ namespace SimControl.TestUtils.Tests
             }
         }
 
-        //TODO CloseMainWindowAssertTimeout tests
+        // UNDONE CloseMainWindowAssertTimeout tests
 
         public const string ProcessName = "SimControl.Templates.CSharp.ConsoleApp"; // UNDONE reference SimControl.Templates.CSharp.ConsoleApp
 

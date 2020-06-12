@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Reflection;
 using NLog;
 
@@ -59,7 +58,6 @@ namespace SimControl.Log
         {
             Contract.Requires(logger != null);
             Contract.Requires(method != null);
-
 
             logger.Log(logLevel,
                 "} " + method.Name + LogFormat.FormatToString(instance) +

@@ -6,8 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-// TODO TakeUntilAssertTimeout tests
-// TODO SemaphoreSlim.WaitAssertTimeout tests
+// UNDONE TakeUntilAssertTimeout tests
+// UNDONE SemaphoreSlim.WaitAssertTimeout tests
 
 namespace SimControl.TestUtils.Tests
 {

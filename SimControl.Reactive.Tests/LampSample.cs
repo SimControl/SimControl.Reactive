@@ -70,7 +70,7 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class LampSample: TestFrame
     {
-        [Test]
+        //[Test]
         public static void Lamp_OnOffTriggered_CounterIs1()
         {
             using (var lamp = new Lamp())

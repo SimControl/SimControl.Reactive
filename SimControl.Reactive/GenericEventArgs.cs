@@ -3,8 +3,6 @@
 using System;
 using System.Diagnostics.Contracts;
 
-// TODO: CR
-
 namespace SimControl.Reactive
 {
     /// <summary>Generic event arguments.</summary>

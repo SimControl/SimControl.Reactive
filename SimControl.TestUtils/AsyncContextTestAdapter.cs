@@ -1,7 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System.Threading.Tasks;
-
 namespace SimControl.TestUtils
 {
     /// <summary>Provides a thread context test adapter for asynchronous operations.</summary>
@@ -9,11 +7,11 @@ namespace SimControl.TestUtils
     public class AsyncContextThreadAdapter: TestAdapter
     {
         /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
-        public AsyncContextThreadAdapter() : this(TestFrame.Timeout) { }
+        //public AsyncContextThreadAdapter() : this(TestFrame.Timeout) { }
 
         /// <summary>Initializes a new instance of the <see cref="AsyncContextThreadAdapter"/> class.</summary>
         /// <param name="timeout">The timeout.</param>
-        public AsyncContextThreadAdapter(int timeout) => this.timeout = timeout;
+        //public AsyncContextThreadAdapter(int timeout) => this.timeout = timeout;
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
@@ -30,7 +28,6 @@ namespace SimControl.TestUtils
         /// <value>The task factory.</value>
         //public TaskFactory Factory => asyncContextThread.Factory;
 
-        private readonly int timeout;
         //private AsyncContextThread asyncContextThread = new AsyncContextThread();
     }
 }

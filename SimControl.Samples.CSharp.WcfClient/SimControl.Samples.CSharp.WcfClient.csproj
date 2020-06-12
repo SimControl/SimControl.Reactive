@@ -41,6 +41,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionAssemblyInfo.cs">
@@ -80,7 +83,6 @@
     <None Include="Connected Services\SampleServiceClient\SimControl.Samples.CSharp.WcfServiceLibrary.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SimControl.Samples.CSharp.WcfClient.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SampleServiceClient\" />
@@ -101,6 +103,10 @@
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
       <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
       <Name>SimControl.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj">
+      <Project>{41df8617-31c5-4f9c-aafb-f9276656380c}</Project>
+      <Name>SimControl.Samples.CSharp.ClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

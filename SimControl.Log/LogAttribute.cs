@@ -41,24 +41,6 @@ namespace SimControl.Log
         AllowMultiple = true, Inherited = true)]
     public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
     {
-        /// <summary>Log level used for exception log messages.</summary>
-        public LogAttributeLevel ExceptionLogLevel { get; set; } = LogAttributeLevel.Error;
-
-        /// <summary>Log level used for entry and exit log messages.</summary>
-        public LogAttributeLevel LogLevel { get; set; } = LogAttributeLevel.Info;
-
-        private LogLevel exceptionLogLevel;
-
-        private bool hasReturnValue;
-
-        private readonly bool logInstanceOnEntry = true;
-        private readonly bool logInstanceOnExit = true;
-
-        [NonSerialized]
-        private LogLevel logLevel;
-
-        //private MethodBase method;
-
         public void Advise(MethodAdviceContext context)
         {
             //this.method = method;
@@ -73,9 +55,6 @@ namespace SimControl.Log
             //logInstanceOnExit &= method.Name != "Dispose" ||
             //                     !method.DeclaringType.GetInterfaces().Contains(typeof(IDisposable)) ||
             //                     method.GetParameters().Length != 0;
-
-
-
 
             logger = LogManager.GetLogger(context.TargetType.FullName);
             logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
@@ -105,11 +84,26 @@ namespace SimControl.Log
                     hasReturnValue ? context.ReturnValue : null);
         }
 
+        //private MethodBase method;
         public Task Advise(MethodAsyncAdviceContext context) => context.ProceedAsync();
 
         public void Advise(PropertyAdviceContext context) => context.Proceed();
 
+        /// <summary>Log level used for exception log messages.</summary>
+        public LogAttributeLevel ExceptionLogLevel { get; set; } = LogAttributeLevel.Error;
+
+        /// <summary>Log level used for entry and exit log messages.</summary>
+        public LogAttributeLevel LogLevel { get; set; } = LogAttributeLevel.Info;
+
+        private readonly bool logInstanceOnEntry = true;
+        private readonly bool logInstanceOnExit = true;
+        private LogLevel exceptionLogLevel;
+
+        private bool hasReturnValue;
         private Logger logger;
+
+        [NonSerialized]
+        private LogLevel logLevel;
     }
 
     //[Serializable]

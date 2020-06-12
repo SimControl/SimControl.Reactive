@@ -4,8 +4,6 @@ using System;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 
-// TODO: CR
-
 namespace SimControl.Reactive
 {
     /// <summary>Internal transition.</summary>

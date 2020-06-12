@@ -6,8 +6,6 @@
 //using System.Threading;
 //using System.Threading.Tasks;
 
-//// TODO: CR
-
 //namespace SimControl.Reactive
 //{
 //    /// <summary>Monitors the number of disposable object that have been created and disposed. Can be uesed to assure that

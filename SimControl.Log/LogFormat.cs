@@ -2,12 +2,9 @@
 
 using System;
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
-
-// TODO: CR
 
 namespace SimControl.Log
 {
@@ -64,7 +61,6 @@ namespace SimControl.Log
         public static string FormatToString(object target)
         {
             Contract.Ensures(Contract.Result<string>() != null);
-
 
             try
             {

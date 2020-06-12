@@ -6,7 +6,7 @@ using SimControl.Log;
 
 namespace SimControl.Reactive.Tests
 {
-    //TODO [Log]
+    // TODO [Log]
     public class Lamp2: IDisposable
     {
         public Lamp2()

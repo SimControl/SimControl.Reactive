@@ -74,12 +74,21 @@
       <Link>KeyPair.snk</Link>
     </None>
     <None Include="App.config" />
-    <None Include="SimControl.Samples.CSharp.WcfServiceLibrary.v3.ncrunchproject" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MrAdvice">
       <Version>2.8.10</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
+      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
+      <Name>SimControl.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj">
+      <Project>{41df8617-31c5-4f9c-aafb-f9276656380c}</Project>
+      <Name>SimControl.Samples.CSharp.ClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
