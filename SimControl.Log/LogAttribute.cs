@@ -8,7 +8,7 @@ using NLog;
 
 namespace SimControl.Log
 {
-    /// <summary>Custom enum, as <see cref="LogLevel"/> can not be used as an attribute parameter.</summary>
+    /// <summary>Custom enum, as <see cref="NLog.LogLevel"/> can not be used as an attribute parameter.</summary>
     public enum LogAttributeLevel
     {
         /// <summary>Trace level</summary>
@@ -41,6 +41,7 @@ namespace SimControl.Log
         AllowMultiple = true, Inherited = true)]
     public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
     {
+        /// <inheritdoc/>
         public void Advise(MethodAdviceContext context)
         {
             //this.method = method;
@@ -84,9 +85,10 @@ namespace SimControl.Log
                     hasReturnValue ? context.ReturnValue : null);
         }
 
-        //private MethodBase method;
+        /// <inheritdoc/>
         public Task Advise(MethodAsyncAdviceContext context) => context.ProceedAsync();
 
+        /// <inheritdoc/>
         public void Advise(PropertyAdviceContext context) => context.Proceed();
 
         /// <summary>Log level used for exception log messages.</summary>
@@ -107,10 +109,10 @@ namespace SimControl.Log
     }
 
     //[Serializable]
-    [AttributeUsage(
-        AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
-        AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
-        AllowMultiple = true, Inherited = true)]
-    public sealed class LogExcludeAttribute: Attribute
-    { }
+
+    /// <summary>Attribute for log exclude. This class cannot be inherited.</summary>
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct |
+        AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event |
+        AttributeTargets.Interface, AllowMultiple = true, Inherited = true)]
+    public sealed class LogExcludeAttribute: Attribute { }
 }

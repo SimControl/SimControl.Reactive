@@ -10,7 +10,8 @@ namespace SimControl.Samples.CSharp.Test
     [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
     public class Advice1Attribute: Attribute, IMethodInfoAdvice
     {
-        public void Advise(MethodInfoAdviceContext context)
+        /// <inheritdoc/>
+        public void Advise(MethodInfoAdviceContext _)
         {
             if (MethodInfoAdviceTests.Expected != Priority)
                 throw new InvalidOperationException();
@@ -24,7 +25,8 @@ namespace SimControl.Samples.CSharp.Test
     [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
     public class Advice2Attribute: Attribute, IMethodInfoAdvice
     {
-        public void Advise(MethodInfoAdviceContext context)
+        /// <inheritdoc/>
+        public void Advise(MethodInfoAdviceContext _)
         {
             if (MethodInfoAdviceTests.Expected != Priority)
                 throw new InvalidOperationException();

@@ -4,12 +4,13 @@ using System;
 
 namespace SimControl.Samples.CSharp.WcfServiceLibrary
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code
-    // and config file together.
+    /// <summary>A service for accessing samples information.</summary>
     public class SampleService: ISampleService
     {
+        /// <inheritdoc/>
         public string GetData(int value) => string.Format("You entered: {0}", value);
 
+        /// <inheritdoc/>
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if (composite == null)

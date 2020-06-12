@@ -22,6 +22,7 @@ namespace SimControl.Templates.CSharp.WcfServiceLibrary
         CompositeType GetDataUsingDataContract(CompositeType composite);
     }
 
+    /// <summary>A composite type.</summary>
     [DataContract]
     public class CompositeType
     {

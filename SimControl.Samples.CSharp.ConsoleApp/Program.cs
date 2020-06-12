@@ -25,9 +25,8 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
     {
         /// <summary>Console application entry point.</summary>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
-        /// <param name="args">.</param>
         /// <returns>Exit-code for the process - 0 for success, else an error code.</returns>
-        public static int Main(params string[] args)
+        public static int Main(params string[] _/*args*/)
         {
             command = "";
             /*
