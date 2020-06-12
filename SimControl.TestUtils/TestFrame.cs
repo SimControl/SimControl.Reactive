@@ -135,7 +135,6 @@ namespace SimControl.TestUtils
         }
 
         /// <summary>Adds an unhandled exception.</summary>
-        /// <exception cref="ContractException">Thrown when a method Contract has been broken.</exception>
         /// <param name="exception">.</param>
         [Log]
         public void AddUnhandledException(Exception exception)
@@ -196,7 +195,7 @@ namespace SimControl.TestUtils
 
         /// <summary>Try to get the first pending exception.</summary>
         /// <param name="timeout">(Optional) The timeout.</param>
-        /// <returns>An exception or null if no pending exception occurred within the specified <see cref="timeout"/>.</returns>
+        /// <returns>An exception or null if no pending exception occurred within the specified <paramref name="timeout"/>.</returns>
         [Log]
         public Exception TakePendingException(int timeout = Timeout) =>
             pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;

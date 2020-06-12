@@ -15,13 +15,13 @@ namespace SimControl.TestUtils
     public static class AssertTimeoutExtensions
     {
         // UNDONE AbortOrCloseAssertTimeout
-        /// <summary>
-        /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
-        /// while asserting the test timeout.
-        /// </summary>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
-        /// <param name="client">The client to act on.</param>
-        /// <param name="timeout">The timeout.</param>
+        ///// <summary>
+        ///// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
+        ///// while asserting the test timeout.
+        ///// </summary>
+        ///// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
+        ///// <param name="client">The client to act on.</param>
+        ///// <param name="timeout">The timeout.</param>
         //[Log( LogLevel = LogAttributeLevel.Off )]
         //public static void AbortOrCloseAssertTimeout(this ICommunicationObject client, int timeout = TestFrame.Timeout)
         //{
@@ -40,6 +40,9 @@ namespace SimControl.TestUtils
         //            client.Abort();
         //}
 
+        /// <summary><see cref="Task"/> wrapper that asserts the test timeout.</summary>
+        /// <param name="task">The task to act on.</param>
+        /// <returns>An asynchronous result.</returns>
         public static Task AssertTimeout(this Task task)
         {
             Contract.Requires(task != null);
@@ -209,7 +212,7 @@ namespace SimControl.TestUtils
             return result;
         }
 
-        /// <summary>Take an item from the blockingCollection until either <see cref="func"/> becomes true or the
+        /// <summary>Take an item from the blockingCollection until either <paramref name="func"/> becomes true or the
         /// timeout expires.</summary>
         /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
         /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -264,13 +267,12 @@ namespace SimControl.TestUtils
             catch (AggregateException e) { throw e.InnerException; }
         }
 
-        /// <summary>Waits until the <see cref="SemaphoreSlim"/> instance has been released <see cref="count"/>
+        /// <summary>Waits until the <see cref="SemaphoreSlim"/> instance has been released <paramref name="count"/>
         /// times, while asserting the test timeout.</summary>
         /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// expired.</exception>
         /// <param name="semaphore">The semaphore.</param>
         /// <param name="count">The count.</param>
-        /// <param name="timeout">The timeout.</param>
+        /// <param name="timeout">(Optional) The timeout.</param>
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitAssertTimeout(this SemaphoreSlim semaphore, int count, int timeout = TestFrame.Timeout)
         {
