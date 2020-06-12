@@ -103,6 +103,7 @@ namespace SimControl.TestUtils
         /// <summary>Invoke a private static method.</summary>
         /// <param name="type">The type.</param>
         /// <param name="methodName">Name of the method.</param>
+        /// <param name="args">A variable-length parameters list containing arguments.</param>
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args)
         {
             Contract.Requires(type != null);
@@ -111,6 +112,9 @@ namespace SimControl.TestUtils
             _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
         }
 
+        /// <summary>Query if 'exception' is contract exception.</summary>
+        /// <param name="exception">.</param>
+        /// <returns>True if contract exception, false if not.</returns>
         public static bool IsContractException(Exception exception)
         {
             Contract.Requires(exception != null);
