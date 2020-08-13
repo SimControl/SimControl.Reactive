@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "SimControl.Templates.CSharp.Tests": {
-      "commandName": "Project",
-      "nativeDebugging": false
-    }
-  }
-}

@@ -14,11 +14,7 @@ namespace SimControl.Templates.CSharp.WcfServiceLibrary
         public int GetData(int value) => value+1;
 
         /// <inheritdoc/>
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null) throw new ArgumentNullException(nameof(composite));
-
-            return composite;
-        }
+        public CompositeType GetDataUsingDataContract(CompositeType composite) =>
+            composite ??throw new ArgumentNullException(nameof(composite));
     }
 }

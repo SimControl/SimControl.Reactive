@@ -25,8 +25,8 @@ namespace SimControl.TestUtils
         [Log, OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            InternationalCultureInfo.SetCurrentThreadCulture();
-            InternationalCultureInfo.SetDefaultThreadCulture();
+            // UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
+            // UNDONE InternationalCultureInfo.SetDefaultThreadCulture();
 
             AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler; // UNDONE not raised with NCrunch
             TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; // UNDONE not raised

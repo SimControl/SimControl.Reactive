@@ -36,8 +36,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                 if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
 
-                InternationalCultureInfo.SetCurrentThreadCulture();
-                InternationalCultureInfo.SetDefaultThreadCulture();
+                // UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
+                // UNDONE InternationalCultureInfo.SetDefaultThreadCulture();
 
                 logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
                     typeof(Program).Assembly.GetName().Name,

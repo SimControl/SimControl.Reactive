@@ -8,7 +8,7 @@ using NLog;
 
 namespace SimControl.Log
 {
-    /// <summary>Custom enum, as <see cref="NLog.LogLevel"/> can not be used as an attribute parameter.</summary>
+    /// <summary>Custom enum, as NLog.LogLevel can not be used as an attribute parameter.</summary>
     public enum LogAttributeLevel
     {
         /// <summary>Trace level</summary>

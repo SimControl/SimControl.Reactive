@@ -42,8 +42,8 @@ namespace SimControl.Reactive.Tests
                 Assert.That(e.Message, Is.EqualTo("Der Vorgang ist aufgrund des aktuellen Zustands des Objekts ungültig."));
             }
 
-            InternationalCultureInfo.SetCurrentThreadCulture();
-            // TODO LogMethod.SetDefaultThreadCulture();
+            // UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
+            // UNDONE LogMethod.SetDefaultThreadCulture();
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)

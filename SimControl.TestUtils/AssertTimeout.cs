@@ -98,10 +98,8 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(task != null);
 
-            if (task == await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
-                return await task.ConfigureAwait(false);
-
-            throw TimeoutException(timeout);
+            return task == await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false) ?
+                await task.ConfigureAwait(false) : throw TimeoutException(timeout);
         }
 
         /// <summary>A Task extension method that causes the task continuation to ignore faults.</summary>
@@ -206,10 +204,8 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(blockingCollection != null);
 
-            if (!blockingCollection.TryTake(out T result, TestFrame.DebugTimeout(timeout)))
-                throw TimeoutException(timeout);
-
-            return result;
+            return !blockingCollection.TryTake(out T result, TestFrame.DebugTimeout(timeout)) ?
+                throw TimeoutException(timeout) : result;
         }
 
         /// <summary>Take an item from the blockingCollection until either <paramref name="func"/> becomes true or the
