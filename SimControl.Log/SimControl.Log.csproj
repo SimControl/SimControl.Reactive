@@ -11,8 +11,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MrAdvice" Version="2.8.10" />
-    <PackageReference Include="NLog" Version="4.7.2" />
+    <PackageReference Include="MrAdvice" Version="2.8.11" />
+    <PackageReference Include="NLog" Version="4.7.4" />
   </ItemGroup>
 
 </Project>
