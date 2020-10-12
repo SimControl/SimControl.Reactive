@@ -17,8 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		CHANGELOG.md = CHANGELOG.md
-		..\CodeAnalysisRules.ruleset = ..\CodeAnalysisRules.ruleset
-		..\CodeAnalysisTestRules.ruleset = ..\CodeAnalysisTestRules.ruleset
+		CodeAnalysisDictionary.xml = CodeAnalysisDictionary.xml
 		Directory.Build.props = Directory.Build.props
 		KeyPair.snk = KeyPair.snk
 		LICENSE = LICENSE
@@ -69,7 +68,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Verify", "Verify", "{D5A85B
 		App.config = App.config
 		App.Debug.config = App.Debug.config
 		App.Release.config = App.Release.config
-		CodeAnalysisDictionary.xml = CodeAnalysisDictionary.xml
 		Templates.Build.ps1 = Templates.Build.ps1
 		Templates.Install.ps1 = Templates.Install.ps1
 	EndProjectSection
@@ -101,6 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParentDirectory", "ParentDirectory", "{6EDDC610-3BF9-41C4-AB9A-56F31A49ED8D}"
 	ProjectSection(SolutionItems) = preProject
+		..\CodeAnalysisRules.ruleset = ..\CodeAnalysisRules.ruleset
+		..\CodeAnalysisTestRules.ruleset = ..\CodeAnalysisTestRules.ruleset
 		..\Directory.Build.props = ..\Directory.Build.props
 	EndProjectSection
 EndProject
