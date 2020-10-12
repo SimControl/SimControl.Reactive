@@ -19,13 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CHANGELOG.md = CHANGELOG.md
 		..\CodeAnalysisRules.ruleset = ..\CodeAnalysisRules.ruleset
 		..\CodeAnalysisTestRules.ruleset = ..\CodeAnalysisTestRules.ruleset
-		..\Directory.Build.props = ..\Directory.Build.props
+		Directory.Build.props = Directory.Build.props
 		KeyPair.snk = KeyPair.snk
 		LICENSE = LICENSE
 		NLog.config = NLog.config
-		NuGetIcon.png = NuGetIcon.png
 		NUnit.runsettings = NUnit.runsettings
 		NUnitCoverage.runsettings = NUnitCoverage.runsettings
+		PackageIcon.png = PackageIcon.png
 		README.md = README.md
 		SimControl.Reactive.v3.ncrunchsolution = SimControl.Reactive.v3.ncrunchsolution
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
@@ -98,6 +98,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Testutils.Tests", "SimControl.TestUtils.Tests\SimControl.Testutils.Tests.csproj", "{2DB82EC5-D893-4F2F-A840-40E4BB53A64C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp.ClassLibraryOld", "SimControl.Templates.CSharp.ClassLibraryOld\SimControl.Templates.CSharp.ClassLibraryOld.csproj", "{A3730C9C-C77A-4798-8C61-7DD211A78328}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParentDirectory", "ParentDirectory", "{6EDDC610-3BF9-41C4-AB9A-56F31A49ED8D}"
+	ProjectSection(SolutionItems) = preProject
+		..\Directory.Build.props = ..\Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -478,6 +483,7 @@ Global
 		{240CC628-F955-4563-AB5E-DC1B188D05A0} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{2DB82EC5-D893-4F2F-A840-40E4BB53A64C} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{A3730C9C-C77A-4798-8C61-7DD211A78328} = {79384A33-5F3F-4B83-9B7E-9FC91709C362}
+		{6EDDC610-3BF9-41C4-AB9A-56F31A49ED8D} = {3E580E85-7BEF-4114-B8C5-E0486B5282C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {556C49E4-57A4-4C18-8709-B3EB6E30B2AB}

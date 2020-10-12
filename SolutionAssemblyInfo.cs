@@ -15,4 +15,4 @@ using System.Reflection;
 #endif
 
 // Product version information
-[assembly: AssemblyInformationalVersion("0.7.0")]
+[assembly: AssemblyInformationalVersion("0.8.0-prerelease.0.alpha")]
