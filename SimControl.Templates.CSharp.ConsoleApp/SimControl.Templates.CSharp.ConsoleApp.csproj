@@ -15,6 +15,12 @@
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\NLog.Console.config" Link="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <!-- Include MSBuild.deps.json and MSBuild.runtimeconfig.json in ContentWithTargetPath so they will be copied to the output folder of projects
        that reference this one. --><!--
   <Target Name="AddRuntimeDependenciesToContent" Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp'" BeforeTargets="GetCopyToOutputDirectoryItems">
