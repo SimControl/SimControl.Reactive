@@ -5,11 +5,12 @@
 
   <PropertyGroup>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Authors />
+    <Authors>Wilhelm Medetz</Authors>
     <Company>SimControl e.U. - Wilhelm Medetz</Company>
     <Product>SimControl.Reactive</Product>
     <Copyright>Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.</Copyright>
-    <PackageIcon>..\PackageIcon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <!--<PackageIcon>PackageIcon.png</PackageIcon>-->
     <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Version>0.8.0-prerelease.0.alpha</Version>
