@@ -27,6 +27,6 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void Increment() => Assert.That(++count, Is.EqualTo(3));
 
-        private int count = 0;
+        private int count;
     }
 }
