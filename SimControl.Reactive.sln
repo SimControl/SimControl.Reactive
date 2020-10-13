@@ -99,8 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParentDirectory", "ParentDirectory", "{6EDDC610-3BF9-41C4-AB9A-56F31A49ED8D}"
 	ProjectSection(SolutionItems) = preProject
-		..\CodeAnalysisRules.ruleset = ..\CodeAnalysisRules.ruleset
-		..\CodeAnalysisTestRules.ruleset = ..\CodeAnalysisTestRules.ruleset
+		..\CodeAnalysis.ruleset = ..\CodeAnalysis.ruleset
+		..\CodeAnalysis.Tests.ruleset = ..\CodeAnalysis.Tests.ruleset
 		..\Directory.Build.props = ..\Directory.Build.props
 	EndProjectSection
 EndProject
