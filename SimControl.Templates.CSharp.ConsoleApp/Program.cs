@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 
+// TODO CR
+
 namespace SimControl.Templates.CSharp.ConsoleApp
 {
     /// <summary>Console application main class.</summary>
