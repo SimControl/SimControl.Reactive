@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrAdvice" Version="2.8.11" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
   </ItemGroup>
 

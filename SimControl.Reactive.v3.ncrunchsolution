@@ -28,14 +28,14 @@
     <EngineMode>
       <Name>Run all standard tests automatically</Name>
       <Settings>
-        <TestsToExecuteAutomatically>(DoesNotHaveCategory 'DeviceTest' AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
+        <TestsToExecuteAutomatically>(DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
       </Settings>
     </EngineMode>
     <EngineMode>
       <Name>Run impacted standard tests automatically, others manually</Name>
       <Settings>
         <AlignOutOfDateStatusWithImpactStatus>True</AlignOutOfDateStatusWithImpactStatus>
-        <TestsToExecuteAutomatically>(IsImpacted AND DoesNotHaveCategory 'DeviceTest' AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
+        <TestsToExecuteAutomatically>(IsImpacted AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
       </Settings>
     </EngineMode>
   </EngineModes>
