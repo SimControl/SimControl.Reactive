@@ -68,6 +68,11 @@ namespace SimControl.Log
                      ? LogFormat.FormatIEnumerable(resultEnumerable) : LogFormat.FormatToString(result)));
         }
 
+        /// <summary>Gets current method name.</summary>
+        /// <param name="name">(Optional) The name.</param>
+        /// <returns>The current method name.</returns>
+        public static string GetCurrentMethodName([CallerMemberName] string name = null) => name;
+
         /// <summary>Format an arbitrary log message.</summary>
         /// <param name="logger">The logger.</param>
         /// <param name="logLevel">The log level.</param>
@@ -97,8 +102,6 @@ namespace SimControl.Log
 
             logger.Log(logLevel, ": " + methodName + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
-
-        public static string GetCurrentMethodName([CallerMemberName] string name = null) => name;
 
         internal static void LogEntryFromLogAttribute(Logger logger, LogLevel logLevel, MethodBase method,
                                                       object instance, ICollection<object> args) =>
