@@ -3,16 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
+
 //using SimControl.Reactive;
 //using SimControl.Samples.CSharp.ClassLibraryEx;
 //using SimControl.Samples.CSharp.ConsoleApplication.Properties;
@@ -180,14 +176,14 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
 
         private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
         {
-            logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, (Exception) e.ExceptionObject);
 
             Exit(command == "ThrowExceptionOnThread" ? 6 : 2);
         }
 
         private static void UnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
         {
-            logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, args.Exception);
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, args.Exception);
 
             //args.SetObserved();  // as we have observed the exception, the process should not terminate abnormally
 
@@ -206,7 +202,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             }
             catch (Exception e)
             {
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
+                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
             }
         }
 

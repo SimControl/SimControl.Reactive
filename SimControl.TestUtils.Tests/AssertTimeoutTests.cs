@@ -23,8 +23,7 @@ namespace SimControl.TestUtils.Tests
                 cts.Cancel();
 
                 _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
-                    ContextSwitch(); cts.Token.ThrowIfCancellationRequested();
-                }).AssertTimeout());
+                    ContextSwitch();cts.Token.ThrowIfCancellationRequested(); }).AssertTimeout());
             }
         }
 

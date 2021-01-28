@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using NLog;
 
 namespace SimControl.Log
@@ -37,14 +38,14 @@ namespace SimControl.Log
         /// <param name="method">The method.</param>
         /// <param name="instance">The instance.</param>
         /// <param name="logException">The exception.</param>
-        public static void Exception(this Logger logger, LogLevel logLevel, MethodBase method, object instance,
+        public static void Exception(this Logger logger, LogLevel logLevel, string methodName, object instance,
                                      Exception logException)
         {
             Contract.Requires(logger != null);
-            Contract.Requires(method != null);
+            Contract.Requires(methodName != null);
             Contract.Requires(logException != null);
 
-            logger.Log(logLevel, logException, "! " + method.Name + LogFormat.FormatToString(instance));
+            logger.Log(logLevel, logException, "! " + methodName + LogFormat.FormatToString(instance));
         }
 
         /// <summary>Format a log message for a method exit with a method result.</summary>
@@ -87,6 +88,15 @@ namespace SimControl.Log
 
             logger.Log(logLevel, ": " + method.Name + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
+
+        public static void Message(this Logger logger, LogLevel logLevel, string methodName, params object[] args)
+        {
+            Contract.Requires(logger != null);
+
+            logger.Log(logLevel, ": " + methodName + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
+        }
+
+        public static string GetCurrentMethodName([CallerMemberName] string name = null) => name;
 
         internal static void LogEntryFromLogAttribute(Logger logger, LogLevel logLevel, MethodBase method,
                                                       object instance, ICollection<object> args) =>

@@ -11,7 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\NLog.Console.config" Link="NLog.config">
+    <None Include="..\NLog.File.config" Link="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

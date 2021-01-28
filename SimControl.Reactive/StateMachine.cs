@@ -286,7 +286,7 @@ namespace SimControl.Reactive
                 RaiseStateChanged();
             }
 
-            TransitionExecuted?.Invoke(this, new EventArgs<Executed>(new Executed { Exited = exited, Transition =  t, Entered = entered }));
+            TransitionExecuted?.Invoke(this, new EventArgs<Executed>(new Executed { Exited = exited, Transition = t, Entered = entered }));
         }
 
         private TransitionBase FindTriggeredTransition(State s, Trigger trigger, object[] args)

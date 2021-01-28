@@ -76,7 +76,7 @@ namespace SimControl.Log
             catch (Exception e)
             {
                 if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel))
-                    logger.Exception(exceptionLogLevel, context.TargetMethod, context.Target, e);
+                    logger.Exception(exceptionLogLevel, context.TargetMethod.Name, context.Target, e);
                 throw;
             }
 

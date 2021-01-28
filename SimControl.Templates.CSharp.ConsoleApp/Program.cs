@@ -3,14 +3,11 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
-
-// TODO CR
 
 namespace SimControl.Templates.CSharp.ConsoleApp
 {
@@ -32,16 +29,18 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         /// <returns>Return code.</returns>
         public static async Task<int> Main(params string[] args)
         {
+            ExitCode exitCode = ExitCode.Success;
+
             try
             {
                 RegisterExceptionHandlers();
 
                 if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
 
-                // UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
-                // UNDONE InternationalCultureInfo.SetDefaultThreadCulture();
+                //InternationalCultureInfo.SetCurrentThreadCulture();
+                //InternationalCultureInfo.SetDefaultThreadCulture();
 
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
+                logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "MainAssembly",
                     typeof(Program).Assembly.GetName().Name,
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
@@ -63,7 +62,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                             }
                             catch (ObjectDisposedException) { break; }
 
-                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), input);
+                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), input);
 
                             // ...
                         }
@@ -76,16 +75,19 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                         //UNDONE act.JoinAsync().Wait();
                     }
                 }
-
-                return (int) ExitCode.Success;
             }
             catch (Exception ex)
             {
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, ex);
+                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, ex);
 
-                return (int) ExitCode.UnhandledException;
+                exitCode = ExitCode.UnhandledException;
             }
-            finally { UnregisterExceptionHandlers(); }
+
+            UnregisterExceptionHandlers();
+
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
+
+            return (int) exitCode;
         }
 
         private static bool ConsoleCtrlHandler(uint sig)
@@ -98,6 +100,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         private static void Exit(ExitCode exitCode)
         {
             UnregisterExceptionHandlers();
+
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
             Environment.Exit((int) exitCode);
         }
@@ -113,14 +117,14 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
         private static void UnhandledExceptionEventHandler(object _, UnhandledExceptionEventArgs e)
         {
-            logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, (Exception) e.ExceptionObject);
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, (Exception) e.ExceptionObject);
 
             Exit(ExitCode.UnhandledExceptionEvent); // otherwise the CLR would terminate with an application error
         }
 
         private static void UnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
-            logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, args.Exception);
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, args.Exception);
 
             //args.SetObserved(); // as we have observed the exception, the process should not terminate abnormally
 
@@ -136,7 +140,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
             }
-            catch (Exception e) { logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e); }
+            catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e); }
         }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();

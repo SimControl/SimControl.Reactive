@@ -3,7 +3,7 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
           Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))" />
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Wilhelm Medetz</Authors>
     <Company>SimControl e.U. - Wilhelm Medetz</Company>
@@ -13,7 +13,13 @@
     <!--<PackageIcon>PackageIcon.png</PackageIcon>-->
     <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.8.0-prerelease.0.alpha</Version>
+    <!--
+      <Version>0.0.0-prerelease.0.alpha</Version>   used for development integration tests
+      <Version>0.0.0-prerelease.0.beta</Version>    used for integration tests with dedicated developers
+      <Version>0.0.0-prerelease.0.rc</Version>      used for release tests
+      <Version>0.0.0</Version>                      release version
+    -->  
+    <Version>0.8.0</Version>
   </PropertyGroup>
 
 </Project>

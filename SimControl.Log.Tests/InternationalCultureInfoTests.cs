@@ -30,7 +30,7 @@ namespace SimControl.Reactive.Tests
         // TODO [Test]
         public static void LogAttribute_Tests2()
         {
-            var cultureInfo = new CultureInfo( "de-AT", false );
+            var cultureInfo = new CultureInfo("de-AT", false);
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
 

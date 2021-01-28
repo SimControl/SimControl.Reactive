@@ -20,8 +20,8 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
