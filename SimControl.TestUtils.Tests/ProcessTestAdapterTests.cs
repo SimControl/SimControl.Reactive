@@ -55,12 +55,12 @@ namespace SimControl.TestUtils.Tests
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
             {
-                logger.Info(MethodBase.GetCurrentMethod().ToString(), process.ToString());
+                logger.Info("ProcessRunning", LogMethod.GetCurrentMethodName(), process.ToString());
 
                 process.Process.StandardInput.Close();
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
 
-                logger.Info(MethodBase.GetCurrentMethod().ToString(), process.ToString());
+                logger.Info("ProcessExited", LogMethod.GetCurrentMethodName(), process.ToString());
             }
         }
 

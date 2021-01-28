@@ -37,8 +37,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                 if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
 
-                //InternationalCultureInfo.SetCurrentThreadCulture();
-                //InternationalCultureInfo.SetDefaultThreadCulture();
+                InternationalCultureInfo.SetCurrentThreadCulture();
+                InternationalCultureInfo.SetDefaultThreadCulture();
 
                 logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "MainAssembly",
                     typeof(Program).Assembly.GetName().Name,
@@ -154,6 +154,6 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
-                                                                [MarshalAs(UnmanagedType.Bool)] bool add);
+            [MarshalAs(UnmanagedType.Bool)] bool add);
     }
 }

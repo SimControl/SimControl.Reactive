@@ -2,9 +2,6 @@
 
 using System;
 using System.Globalization;
-using System.Reflection;
-using System.Threading;
-using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
@@ -15,45 +12,32 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
+#if !NETCOREAPP3_1 // UNDONE
+
         [Test]
-        public static void LogAttribute_Tests()
-        {
-            try { throw new InvalidOperationException(); }
-            catch (InvalidOperationException e)
-            {
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
-
-                Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
-            }
-        }
-
-        // TODO [Test]
         public static void LogAttribute_Tests2()
         {
-            var cultureInfo = new CultureInfo("de-AT", false);
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            var germanCultureInfo = new CultureInfo("de-AT", false);
+
+            InternationalCultureInfo.SetCurrentThreadCulture(germanCultureInfo, germanCultureInfo);
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)
             {
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
-
-                Assert.That(e.Message, Is.EqualTo("Der Vorgang ist aufgrund des aktuellen Zustands des Objekts ungültig."));
+                Assert.That(e.Message, Is.EqualTo(
+                    "Der Vorgang ist aufgrund des aktuellen Zustands des Objekts ungültig."));
             }
 
-            // UNDONE InternationalCultureInfo.SetCurrentThreadCulture();
-            // UNDONE LogMethod.SetDefaultThreadCulture();
+            InternationalCultureInfo.SetCurrentThreadCulture();
+            InternationalCultureInfo.SetDefaultThreadCulture();
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)
             {
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), e);
-
                 Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
             }
         }
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+#endif
     }
 }

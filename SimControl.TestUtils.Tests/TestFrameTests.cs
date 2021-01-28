@@ -21,8 +21,10 @@ namespace SimControl.TestUtils.Tests
         }
 
         public static int GetField() => field;
-        private static void SetField(int p) => field = p;
+
         private static void ResetField() => field = 0;
+
+        private static void SetField(int p) => field = p;
 
         private static int field;
     }
@@ -60,6 +62,14 @@ namespace SimControl.TestUtils.Tests
         public static void ContextSwitch__Succeeds() => ContextSwitch();
 
         [Test]
+        public static void CurrentThreadCulture_IsSetTo_InternationalCultureInfo__Test()
+        {
+            try { throw new InvalidOperationException(); }
+            catch (InvalidOperationException e)
+            { Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object.")); }
+        }
+
+        [Test]
         public static Task DebugTimeout__Succeeds() => Task.Delay(DebugTimeout(1));
 
         [Test]
@@ -92,7 +102,6 @@ namespace SimControl.TestUtils.Tests
 
             SetPrivateStaticField(typeof(TestClass), "field", 1);
             Assert.That(TestClass.GetField, Is.EqualTo(1));
-
         }
 
         [Test, Isolated]
@@ -111,6 +120,18 @@ namespace SimControl.TestUtils.Tests
 #endif
         }
 
+        [Test, Ignore("Code Contracts")]
+        public void AssertIsContractException__Succeeds() // TODO Code Contracts
+        {
+            Exception contractException = null;
+
+            try { ThrowContractException(true); }
+            catch (Exception e) { contractException = e; }
+
+            Assert.That(contractException, Is.Not.Null);
+            Assert.That(IsContractException(contractException));
+        }
+
         [Test]
         public void SetUp_TearDown__Test()
         {
@@ -124,18 +145,6 @@ namespace SimControl.TestUtils.Tests
             _ = Task.Run(() => AddUnhandledException(new ApplicationException()));
 
             Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
-        }
-
-        [Test, Ignore("Code Contracts")]
-        public void AssertIsContractException__Succeeds() // TODO Code Contracts
-        {
-            Exception contractException = null;
-
-            try { ThrowContractException(true); }
-            catch (Exception e) { contractException = e; }
-
-            Assert.That(contractException, Is.Not.Null);
-            Assert.That(IsContractException(contractException));
         }
 
         [Test, Isolated, Ignore("UnobservedTaskException not raised")] // UNDONE UnobservedTaskException not raised
@@ -153,6 +162,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         private void ThrowContractException(bool throwIfTrue) => Contract.Requires(!throwIfTrue);
+
         private void ThrowUnhandledExceptionInAsyncTask() => Task.Run(() => throw new ApplicationException());
 
         private AutoResetEvent autoResetEvent;
