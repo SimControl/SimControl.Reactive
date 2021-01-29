@@ -8,8 +8,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using NLog;
 
-//TODO CR
-
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>
