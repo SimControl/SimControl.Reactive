@@ -1,9 +1,6 @@
 ﻿<Project>
   
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
-          Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))" />
-
-  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+  <PropertyGroup>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Wilhelm Medetz</Authors>
     <Company>SimControl e.U. - Wilhelm Medetz</Company>
@@ -20,18 +17,6 @@
       <Version>0.0.0</Version>                      release version
     -->  
     <Version>0.8.0</Version>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
-    <DefineConstants>TRACE;SDK2</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' != 'true'">
-    <DefineConstants>TRACE;NonSDK</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <NoWarn>4711</NoWarn>
   </PropertyGroup>
 
 </Project>

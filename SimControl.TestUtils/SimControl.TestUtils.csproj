@@ -5,11 +5,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="NCrunch.Framework" Version="4.5.0" />
     <PackageReference Include="NUnit" Version="3.13.0" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.0.0" />
   </ItemGroup>
   
   <ItemGroup>
