@@ -62,7 +62,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                             }
                             catch (ObjectDisposedException) { break; }
 
-                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), input);
+                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
 
                             // ...
                         }
