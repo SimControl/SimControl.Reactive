@@ -8,7 +8,5 @@ namespace SimControl.Templates.CSharp.ClassLibrary
     [Log]
     public class Class1
     {
-        /// <summary>Default constructor.</summary>
-        public Class1() { } // TODO remove constructor - NCrunch build error
     }
 }
