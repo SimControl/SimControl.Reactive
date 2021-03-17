@@ -1,7 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-#if !NETCOREAPP3_1 //UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
-
 using System.Diagnostics;
 using System.Reflection;
 using NCrunch.Framework;
@@ -11,6 +9,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
+#if !NET5_0
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
@@ -102,6 +101,5 @@ namespace SimControl.TestUtils.Tests
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
-}
-
 #endif
+}

@@ -107,7 +107,6 @@ namespace SimControl.TestUtils.Tests
         [Test, Isolated]
         public void AppDomainUnhandledExceptionHandler__Test()
         {
-#if !NETCOREAPP // UNDONE test runner terminates
             if (Environment.GetEnvironmentVariable("NCrunch") != "1") // UNDONE UnhandledException not raised with NCrunch
             {
                 var thread = new Thread(() => throw new ApplicationException());
@@ -117,7 +116,6 @@ namespace SimControl.TestUtils.Tests
 
                 Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
             }
-#endif
         }
 
         [Test, Ignore("Code Contracts")]

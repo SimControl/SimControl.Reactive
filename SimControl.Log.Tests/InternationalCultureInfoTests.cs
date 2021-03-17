@@ -12,7 +12,7 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
-#if !NETCOREAPP3_1 // UNDONE
+#if !NET5_0 // UNDONE
 
         [Test]
         public static void LogAttribute_Tests2()

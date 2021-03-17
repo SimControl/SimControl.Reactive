@@ -18,18 +18,14 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibrary_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
-#if NET452
-
         [Test]
         public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
 
-#endif
-
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
-#if !NETCOREAPP3_1 // UNDONE copy MSBuild.deps.json and MSBuild.runtimeconfig.json
+#if !NET5_0 //TODO
             ProcessTestAdapter.KillProcesses(ProcessName);
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
