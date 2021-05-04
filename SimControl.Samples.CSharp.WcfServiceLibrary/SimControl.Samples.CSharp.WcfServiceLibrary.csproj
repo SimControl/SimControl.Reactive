@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MrAdvice">
-      <Version>2.8.12</Version>
+      <Version>2.9.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
