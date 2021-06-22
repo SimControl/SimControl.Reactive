@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Reflection;
+using System.Threading.Channels;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
@@ -23,15 +24,17 @@ namespace SimControl.TestUtils
         /// <param name="standardError">[out] The standard error.</param>
         [Log]
         public ProcessTestAdapter(string name, string arguments,
-            out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
+            out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
         {
             Contract.Requires(string.IsNullOrEmpty(name));
 
-            standardOutput = new BlockingCollection<string>();
-            standardError = new BlockingCollection<string>();
+            Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
+            Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
 
-            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, standardOutput,
-                standardError);
+            standardOutput = output.Reader;
+            standardError = error.Reader;
+
+            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
         }
 
         /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
@@ -41,16 +44,19 @@ namespace SimControl.TestUtils
         /// <param name="standardOutput">[out] The standard output.</param>
         /// <param name="standardError">[out] The standard error.</param>
         public ProcessTestAdapter(string path, string name, string arguments,
-            out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError)
+            out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
 
         {
             Contract.Requires(string.IsNullOrEmpty(path));
             Contract.Requires(string.IsNullOrEmpty(name));
 
-            standardOutput = new BlockingCollection<string>();
-            standardError = new BlockingCollection<string>();
+            Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
+            Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
 
-            StartProcess(path + "\\" + name + ".exe", arguments, standardOutput, standardError);
+            standardOutput = output.Reader;
+            standardError = error.Reader;
+
+            StartProcess(path + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
         }
 
         /// <summary>Kills all processes with the same <paramref name="processName"/>.</summary>
@@ -137,8 +143,8 @@ namespace SimControl.TestUtils
                 _ = WaitForExitAssertTimeout();
         }
 
-        private void StartProcess(string fileName, string arguments, BlockingCollection<string> standardOutput,
-            BlockingCollection<string> standardError)
+        private void StartProcess(string fileName, string arguments, ChannelWriter<string> standardOutput,
+            ChannelWriter<string> standardError)
         {
             Process = Process.Start(new ProcessStartInfo {
                 Arguments = arguments, CreateNoWindow = true, FileName = fileName, RedirectStandardInput = true,
@@ -146,8 +152,8 @@ namespace SimControl.TestUtils
                 WorkingDirectory = Path.GetDirectoryName(fileName)
             });
 
-            Process.OutputDataReceived += (sender, args) => standardOutput.Add(args.Data);
-            Process.ErrorDataReceived += (sender, args) => standardError.Add(args.Data);
+            Process.OutputDataReceived += (sender, args) => standardOutput.TryWrite(args.Data);
+            Process.ErrorDataReceived += (sender, args) => standardError.TryWrite(args.Data);
 
             Process.BeginOutputReadLine();
             Process.BeginErrorReadLine();

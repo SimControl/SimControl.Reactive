@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using SimControl.Log;
 
@@ -235,6 +236,41 @@ namespace SimControl.TestUtils
                     try
                     {
                         T item = asyncCollection.Take(timeoutCancel.Token);
+
+                        result.Add(item);
+
+                        if (func(item))
+                            return result;
+                    }
+                    catch (OperationCanceledException) { throw TimeoutException(timeout); }
+            }
+        }
+
+        /// <summary>Take an item from the blockingCollection until either <paramref name="func"/> becomes true or the
+        /// timeout expires.</summary>
+        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="asyncCollection">The asyncCollection to act on.</param>
+        /// <param name="func">The function.</param>
+        /// <param name="timeout">(Optional) The timeout.</param>
+        /// <returns>An containing all items taken.</returns>
+        [Log(LogLevel = LogAttributeLevel.Off)]
+        public static IEnumerable<T> TakeUntilAssertTimeout<T>(
+            this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
+        {
+            Contract.Requires(asyncCollection != null);
+            Contract.Requires(func != null);
+
+            var result = new List<T>();
+
+            using (var timeoutCancel = new CancellationTokenSource())
+            {
+                timeoutCancel.CancelAfter(TestFrame.DebugTimeout(timeout));
+
+                for (; ; )
+                    try
+                    {
+                        T item = asyncCollection.ReadAsync(timeoutCancel.Token).Result;
 
                         result.Add(item);
 

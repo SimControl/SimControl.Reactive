@@ -1,7 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System.Diagnostics;
-using System.Reflection;
+using System.Threading.Channels;
 using NCrunch.Framework;
 using NLog;
 using NUnit.Framework;
@@ -18,20 +18,15 @@ namespace SimControl.TestUtils.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
+            ChannelReader<string> standardOutput;
+
+            using (var process = new ProcessTestAdapter(ProcessName, null, out standardOutput, out _))
             {
+                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
                 process.Process.StandardInput.Close();
+                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
-        }
-
-        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
-        public static void ConsoleApp__start_process_by_process_name__succeeds()
-        {
-            ProcessTestAdapter.KillProcesses(ProcessName);
-
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
-                process.Process.StandardInput.Close();
         }
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
@@ -97,7 +92,7 @@ namespace SimControl.TestUtils.Tests
 
         // UNDONE CloseMainWindowAssertTimeout tests
 
-        public const string ProcessName = "SimControl.Templates.CSharp.ConsoleApp"; // UNDONE reference SimControl.Samples.CSharp.ConsoleApp
+        public const string ProcessName = "SimControl.Samples.CSharp.ConsoleApp";
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

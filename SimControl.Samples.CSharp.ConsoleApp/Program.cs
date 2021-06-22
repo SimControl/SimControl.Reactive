@@ -3,8 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
@@ -19,10 +21,71 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
     [Log]
     public static class Program
     {
+        private enum ExitCode
+        {
+            Success = 0,
+            UnhandledException = 1,
+            UnhandledExceptionEvent = 2,
+            UnobservedTaskException = 3,
+            ConsoleCtrl = 4,
+        }
+
+        public static async Task<int> Main(params string[] args)
+        {
+            ExitCode exitCode = ExitCode.Success;
+
+            try
+            {
+                RegisterExceptionHandlers();
+
+                if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
+
+                InternationalCultureInfo.SetCurrentThreadCulture();
+                InternationalCultureInfo.SetDefaultThreadCulture();
+
+                logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "MainAssembly",
+                    typeof(Program).Assembly.GetName().Name,
+                    FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
+                    Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
+
+                {
+                    for (; ; )
+                    {
+                        string input;
+
+                        try
+                        {
+                            input = Console.ReadLine();
+                            if (input == null) break;
+                        }
+                        catch (ObjectDisposedException) { break; }
+
+                        logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
+
+                        // ...
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, ex);
+
+                exitCode = ExitCode.UnhandledException;
+            }
+
+            UnregisterExceptionHandlers();
+
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
+
+            return (int) exitCode;
+        }
+
+
+
         /// <summary>Console application entry point.</summary>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         /// <returns>Exit-code for the process - 0 for success, else an error code.</returns>
-        public static int Main(params string[] _/*args*/)
+        public static int OldMain(params string[] _/*args*/)
         {
             command = "";
             /*

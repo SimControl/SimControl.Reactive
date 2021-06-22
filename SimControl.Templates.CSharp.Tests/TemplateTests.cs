@@ -1,6 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
+using System.Threading.Channels;
 using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
@@ -25,15 +26,19 @@ namespace SimControl.Templates.CSharp.Tests
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
-#if !NET5_0 //TODO
+//#if !NET5_0 //TODO
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
+
+            using (var process = new ProcessTestAdapter(ProcessName, null,
+                out ChannelReader<string> standardOutput, out _))
             {
+                //_ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
                 process.Process.StandardInput.Close();
+                //_ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
-#endif
+//#endif
         }
 
         [Test]
