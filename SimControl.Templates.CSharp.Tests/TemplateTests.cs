@@ -26,26 +26,17 @@ namespace SimControl.Templates.CSharp.Tests
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
-//#if !NET5_0 //TODO
             ProcessTestAdapter.KillProcesses(ProcessName);
 
 
             using (var process = new ProcessTestAdapter(ProcessName, null,
                 out ChannelReader<string> standardOutput, out _))
             {
-                //_ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
+                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"));
                 process.Process.StandardInput.Close();
-                //_ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
+                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
-//#endif
-        }
-
-        [Test]
-        public static void ConsoleApp_Program__invoke_Main__returns_0()
-        {
-            Console.In.Close();
-            Assert.That(Program.Main(new[] { typeof(Program).FullName + ".exe" }).ResultAssertTimeout(), Is.Zero);
         }
 
         // TODO SimControl.Templates.CSharp.WcfServiceLibrary tests

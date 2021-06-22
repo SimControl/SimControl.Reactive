@@ -50,14 +50,17 @@ namespace SimControl.TestUtils
             Contract.Requires(string.IsNullOrEmpty(path));
             Contract.Requires(string.IsNullOrEmpty(name));
 
-            Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
-            Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
+            //Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
+            //Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
 
             standardOutput = output.Reader;
             standardError = error.Reader;
 
             StartProcess(path + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
         }
+
+        Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
+        Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
         /// <summary>Kills all processes with the same <paramref name="processName"/>.</summary>
         /// <param name="processName">Name of the process.</param>

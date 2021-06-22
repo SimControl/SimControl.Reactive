@@ -28,7 +28,7 @@ namespace SimControl.Log
             Contract.Requires(method != null);
 
             logger.Log(logLevel,
-                "{ " + method.Name + LogFormat.FormatToString(instance) +
+                "< " + method.Name + LogFormat.FormatToString(instance) +
                 (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
 
@@ -61,7 +61,7 @@ namespace SimControl.Log
             Contract.Requires(method != null);
 
             logger.Log(logLevel,
-                "} " + method.Name + LogFormat.FormatToString(instance) +
+                "> " + method.Name + LogFormat.FormatToString(instance) +
                 (result is IEnumerable resultEnumerable && !(result is string)
                      ? LogFormat.FormatIEnumerable(resultEnumerable) : LogFormat.FormatToString(result)));
         }
@@ -103,7 +103,7 @@ namespace SimControl.Log
 
         internal static void LogEntryFromLogAttribute(Logger logger, LogLevel logLevel, MethodBase method,
                                                       object instance, ICollection<object> args) =>
-            logger.Log(logLevel, "{ " + method.Name + LogFormat.FormatToString(instance) +
+            logger.Log(logLevel, "< " + method.Name + LogFormat.FormatToString(instance) +
                 (args.Count > 0 ? LogFormat.FormatArgsList(args) : ""));
     }
 }

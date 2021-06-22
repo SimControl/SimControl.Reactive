@@ -48,24 +48,24 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 //UNDONE using (var act = new AsyncContextThread())
                 {
                     //using (var cts = new CancellationTokenSource())
-                    //{
+                    {
                     //    var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)); // replace by async operation
 
-                        //for (; ; )
-                        //{
-                        //    string input;
+                        for (; ; )
+                        {
+                            string input;
 
-                        //    try
-                        //    {
-                        //        input = Console.ReadLine();
-                        //        if (input == null) break;
-                        //    }
-                        //    catch (ObjectDisposedException) { break; }
+                            try
+                            {
+                                input = Console.ReadLine();
+                                if (input == null) break;
+                            }
+                            catch (ObjectDisposedException) { break; }
 
-                        //    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
+                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
 
-                        //    // ...
-                        //}
+                            // ...
+                        }
 
                         //cts.Cancel();
 
@@ -73,7 +73,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                         //catch (TaskCanceledException) { }
 
                         //UNDONE act.JoinAsync().Wait();
-                    //}
+                    }
                 }
             }
             catch (Exception ex)
