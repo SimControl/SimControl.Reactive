@@ -67,7 +67,7 @@ namespace SimControl.Log
             if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
                 LogMethod.LogEntryFromLogAttribute(logger,
                     logLevel,
-                    context.TargetMethod,
+                    context.TargetMethod.Name,
                     logInstanceOnEntry ? context.Target : null,
                     context.Arguments);
 
@@ -81,7 +81,7 @@ namespace SimControl.Log
             }
 
             if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
-                logger.Exit(logLevel, context.TargetMethod, logInstanceOnExit ? context.Target : null,
+                logger.Exit(logLevel, context.TargetMethod.Name, logInstanceOnExit ? context.Target : null,
                     hasReturnValue ? context.ReturnValue : null);
         }
 
@@ -91,11 +91,16 @@ namespace SimControl.Log
         /// <inheritdoc/>
         public void Advise(PropertyAdviceContext context) => context.Proceed();
 
+        internal static MethodLogInfo LogMethodInfo(MethodBase methodBase) => methodLogInfos.ContainsKey(methodBase) ? methodLogInfos[methodBase] : methodLogInfos[methodBase] = new MethodLogInfo();
+
         /// <summary>Log level used for exception log messages.</summary>
         public LogAttributeLevel ExceptionLogLevel { get; set; } = LogAttributeLevel.Error;
 
         /// <summary>Log level used for entry and exit log messages.</summary>
         public LogAttributeLevel LogLevel { get; set; } = LogAttributeLevel.Info;
+
+        private static readonly System.Collections.Generic.Dictionary<MethodBase, MethodLogInfo> methodLogInfos =
+            new System.Collections.Generic.Dictionary<MethodBase, MethodLogInfo>();
 
         private readonly bool logInstanceOnEntry = true;
         private readonly bool logInstanceOnExit = true;
@@ -107,12 +112,4 @@ namespace SimControl.Log
         [NonSerialized]
         private LogLevel logLevel;
     }
-
-    //[Serializable]
-
-    /// <summary>Attribute for log exclude. This class cannot be inherited.</summary>
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct |
-        AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event |
-        AttributeTargets.Interface, AllowMultiple = true, Inherited = true)]
-    public sealed class LogExcludeAttribute: Attribute { }
 }

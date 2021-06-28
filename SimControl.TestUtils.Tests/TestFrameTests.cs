@@ -8,7 +8,7 @@ using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
 
-// TODO CR
+// UNDONE TestFrameTests CR
 
 namespace SimControl.TestUtils.Tests
 {

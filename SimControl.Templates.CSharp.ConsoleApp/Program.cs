@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,11 +46,11 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                //UNDONE using (var act = new AsyncContextThread())
+                //UNDONE SynchronizationContext using (var act = new AsyncContextThread())
                 {
-                    //using (var cts = new CancellationTokenSource())
+                    using (var cts = new CancellationTokenSource())
                     {
-                    //    var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)); // replace by async operation
+                        var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)); // replace by async operation
 
                         for (; ; )
                         {
@@ -67,12 +68,10 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                             // ...
                         }
 
-                        //cts.Cancel();
+                        cts.Cancel();
 
-                        //try { await task; }
-                        //catch (TaskCanceledException) { }
-
-                        //UNDONE act.JoinAsync().Wait();
+                        try { await task; }
+                        catch (TaskCanceledException) { }
                     }
                 }
             }
@@ -146,8 +145,11 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 
-    internal static class NativeMethods //UNDONE netcoreapp3.1 compatibility
+    internal static class NativeMethods 
     {
+        //UNDONE test net5.0 compatibility
+        //UNDONE test x64 compatibility
+
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 

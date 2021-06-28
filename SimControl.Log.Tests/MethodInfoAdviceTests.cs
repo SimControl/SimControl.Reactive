@@ -5,7 +5,9 @@ using ArxOne.MrAdvice.Advice;
 using ArxOne.MrAdvice.Annotation;
 using NUnit.Framework;
 
-namespace SimControl.Samples.CSharp.Test
+// TODO
+
+namespace SimControl.Log.Tests
 {
     [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
     public class Advice1Attribute: Attribute, IMethodInfoAdvice

@@ -4,5 +4,16 @@
     <HiddenComponentWarnings>
       <Value>CopyReferencedAssembliesToWorkspaceIsOn</Value>
     </HiddenComponentWarnings>
+    <IgnoredTests>
+      <NamedTestSelector>
+        <TestName>SimControl.TestUtils.Tests.ProcessTestAdapterTests.ConsoleApp__start_process_by_process_name__returns_0</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.TestUtils.Tests.ProcessTestAdapterTests.ConsoleApp__start_process_with_path__returns_0</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.TestUtils.Tests.ProcessTestAdapterTests.ConsoleApp_start_process__ToString__is_correct</TestName>
+      </NamedTestSelector>
+    </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

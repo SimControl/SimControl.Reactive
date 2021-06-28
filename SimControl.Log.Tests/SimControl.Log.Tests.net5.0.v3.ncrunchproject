@@ -1,0 +1,15 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <IgnoredTests>
+      <NamedTestSelector>
+        <TestName>SimControl.Reactive.Tests.InternationalCultureInfoTests.LogAttribute_Tests2</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Log.Tests.LogTests.LogAttribute_Tests</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Log.Tests.InternationalCultureInfoTests.LogAttribute_Tests2</TestName>
+      </NamedTestSelector>
+    </IgnoredTests>
+  </Settings>
+</ProjectConfiguration>

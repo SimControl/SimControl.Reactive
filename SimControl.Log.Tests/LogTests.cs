@@ -9,9 +9,11 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Reactive.Tests
+// UNDONE LogTests CR
+// UNDONE LogTests fix tests
+
+namespace SimControl.Log.Tests
 {
-    /*
     [Log]
     [TestFixture]
     public class LogTests: TestFrame
@@ -41,37 +43,37 @@ namespace SimControl.Reactive.Tests
 
         [Test]
         public static void LogFormat_LongArray_MaxCollectionElementsAreFormatted() => logger.Message(LogLevel.Info,
-                MethodBase.GetCurrentMethod(),
+                LogMethod.GetCurrentMethodName(),
                 "Message",
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
 
         [Test]
         public void LogFormat_Tests()
         {
-            logger.Entry(LogLevel.Debug, MethodBase.GetCurrentMethod(), this);
-            logger.Entry(LogLevel.Debug, MethodBase.GetCurrentMethod(), this, 1);
-            logger.Entry(LogLevel.Debug, MethodBase.GetCurrentMethod(), this, 1, 2, 3);
-            logger.Entry(LogLevel.Debug, MethodBase.GetCurrentMethod(), this, new object[] { 1, 2, 3 });
+            logger.Entry(LogLevel.Debug, LogMethod.GetCurrentMethodName(), this);
+            logger.Entry(LogLevel.Debug, LogMethod.GetCurrentMethodName(), this, 1);
+            logger.Entry(LogLevel.Debug, LogMethod.GetCurrentMethodName(), this, 1, 2, 3);
+            logger.Entry(LogLevel.Debug, LogMethod.GetCurrentMethodName(), this, new object[] { 1, 2, 3 });
 
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod());
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Message1");
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Message2", 123);
-            logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "Message3", 1, 2, 3);
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName());
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Message1");
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Message2", 123);
+            logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "Message3", 1, 2, 3);
 
-            logger.Exception(LogLevel.Trace, MethodBase.GetCurrentMethod(), this, new InvalidOperationException());
+            logger.Exception(LogLevel.Trace, LogMethod.GetCurrentMethodName(), this, new InvalidOperationException());
 
-            logger.Exit(LogLevel.Debug, MethodBase.GetCurrentMethod(), this, 123);
+            logger.Exit(LogLevel.Debug, LogMethod.GetCurrentMethodName(), this, 123);
         }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 
     [Log(LogLevel = LogAttributeLevel.Trace)]
-    [Log(AttributeExclude = true, AttributePriority = 1, AttributeTargetMembers = ".cctor*")]
     public class TestClass: IDisposable
     {
         ~TestClass() => Dispose(false);
 
+        [LogExcludeAttribute]
         public static string StaticFoo(int par1, string par2) => par1.ToString(CultureInfo.InvariantCulture) + par2;
 
         /// <inheritdoc/>
@@ -85,7 +87,7 @@ namespace SimControl.Reactive.Tests
         public string Foo(int par1, string par2) =>
             par1.ToString(CultureInfo.InvariantCulture) + par2 + member2.ToString(CultureInfo.CurrentCulture);
 
-        [Log(AttributeExclude = true, AttributePriority = 2)]
+        [LogExcludeAttribute]
         public string Foo2(int par1, string par2) =>
             par1.ToString(CultureInfo.InvariantCulture) + par2 + member2.ToString(CultureInfo.CurrentCulture);
 
@@ -109,5 +111,4 @@ namespace SimControl.Reactive.Tests
         private readonly DateTime member5 = DateTime.Now;
         private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
     }
-    */
 }

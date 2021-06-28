@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -10,6 +9,8 @@ using System.Threading.Channels;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
+
+// UNDONE ProcessTestAdapter switch to Channel
 
 namespace SimControl.TestUtils
 {
@@ -28,13 +29,11 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(string.IsNullOrEmpty(name));
 
-            Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
-            Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
-
             standardOutput = output.Reader;
             standardError = error.Reader;
 
-            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
+            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments,
+                output.Writer, error.Writer);
         }
 
         /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
@@ -50,17 +49,11 @@ namespace SimControl.TestUtils
             Contract.Requires(string.IsNullOrEmpty(path));
             Contract.Requires(string.IsNullOrEmpty(name));
 
-            //Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
-            //Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true }); ;
-
             standardOutput = output.Reader;
             standardError = error.Reader;
 
             StartProcess(path + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
         }
-
-        Channel<string> output = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
-        Channel<string> error = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
         /// <summary>Kills all processes with the same <paramref name="processName"/>.</summary>
         /// <param name="processName">Name of the process.</param>
@@ -167,5 +160,11 @@ namespace SimControl.TestUtils
         public Process Process { get; private set; }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        private Channel<string> error = Channel.CreateUnbounded<string>(
+            new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
+
+        private Channel<string> output = Channel.CreateUnbounded<string>(
+            new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
     }
 }

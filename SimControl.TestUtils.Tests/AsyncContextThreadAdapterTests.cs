@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE
+// UNDONE AsyncContextThreadAdapter test
 
 namespace SimControl.TestUtils.Tests
 {

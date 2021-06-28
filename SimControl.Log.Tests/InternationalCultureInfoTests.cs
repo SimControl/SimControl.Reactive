@@ -3,17 +3,14 @@
 using System;
 using System.Globalization;
 using NUnit.Framework;
-using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Reactive.Tests
+namespace SimControl.Log.Tests
 {
     [Log]
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
-#if !NET5_0 // UNDONE
-
         [Test]
         public static void LogAttribute_Tests2()
         {
@@ -37,7 +34,5 @@ namespace SimControl.Reactive.Tests
                 Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
             }
         }
-
-#endif
     }
 }

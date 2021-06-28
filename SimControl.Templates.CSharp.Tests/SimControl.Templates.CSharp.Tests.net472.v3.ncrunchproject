@@ -4,5 +4,19 @@
     <HiddenComponentWarnings>
       <Value>CopyReferencedAssembliesToWorkspaceIsOn</Value>
     </HiddenComponentWarnings>
+    <IgnoredTests>
+      <NamedTestSelector>
+        <TestName>SimControl.Templates.CSharp.Tests.TemplateTests.ConsoleApp__start_process__returns_0</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Templates.CSharp.Tests.TemplateTests.ConsoleApp2__start_process__returns_0</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Templates.CSharp.Tests.TemplateTests.ConsoleApp4__start_process__returns_0</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>SimControl.Templates.CSharp.Tests.TemplateTests.ConsoleApp3__start_process__returns_0</TestName>
+      </NamedTestSelector>
+    </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

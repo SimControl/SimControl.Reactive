@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
+
+// UNDONE base console application structure
+// TODO settings operations
 
 //using SimControl.Reactive;
 //using SimControl.Samples.CSharp.ClassLibraryEx;
@@ -103,14 +107,14 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                             InternationalCultureInfo.SetCurrentThreadCulture();
                             LogMethod.SetDefaultThreadCulture();
 
-                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "MainAssembly",
+                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "MainAssembly",
                                 typeof(Program).Assembly.GetName().Name,
                                 FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                                 DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
 
                             command = args[0];
 
-                            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), command);
+                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), command);
 
                             AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
                             Console.CancelKeyPress += ProcessExitEventHandler;
@@ -120,16 +124,16 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                             switch (command)
                             {
                                 case "ChangeUserSettings":
-                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ChangeUserSettings");
+                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ChangeUserSettings");
                                     Settings.Default.CSharpConsoleApplication_UserSetting =
                                         "CSharpConsoleApplication_UserSetting_Changed";
                                     SampleClass.ChangeUserSettings("CSharpClassLibrary_UserSetting_Changed");
                                     Settings.Default.Save();
                                     break;
                                 case "Normal":
-                                    logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
+                                    logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(),
                                         "CSharpConsoleApplication_AppSetting", Settings.Default.CSharpConsoleApplication_AppSetting);
-                                    logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(),
+                                    logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(),
                                         "CSharpConsoleApplication_UserSetting",
                                         Settings.Default.CSharpConsoleApplication_UserSetting);
                                     SampleClass.LogSettings();
@@ -141,7 +145,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                                     ThrowException();
                                     break;
                                 case "ThrowExceptionOnThread":
-                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "ThrowExceptionOnThread");
+                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ThrowExceptionOnThread");
                                     var thread = new Thread(ThrowException);
                                     thread.Start();
                                     Console.ReadLine();
@@ -160,14 +164,14 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                                     SampleClass.ValidateSettings();
                                     break;
                                 case nameof(VerifyJitOptimization):
-                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), nameof(VerifyJitOptimization));
+                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), nameof(VerifyJitOptimization));
                                     Console.WriteLine("Press 'Return' to continue");
                                     Console.ReadLine();
                                     VerifyJitOptimization.Run();
                                     ClassLibraryEx.VerifyJitOptimization.Run();
                                     break;
                                 case "Wait":
-                                    logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "Waiting");
+                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Waiting");
                                     string s = Console.ReadLine();
                                     if (s == null)
                                         Environment.Exit(5);
@@ -178,7 +182,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                                     //private const string testBaseAddress =
                                     //    "http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.Wcf.Service/SampleServicePerSession/";
 
-                                    //logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), "WCF");
+                                    //logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "WCF");
 
                                     //var host = new ServiceHost(typeof(SampleServicePerSessionInstance),//, new Uri(TestBaseAddress));
                                     //host.Open();
@@ -198,7 +202,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             }
             catch (Exception e)
             {
-                logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null, e);
+                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
 
                 return command == nameof(ThrowException) ? 7 : 1;
             }

@@ -10,14 +10,13 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using SimControl.Log;
 
-// UNDONE
+// UNDONE AssertTimeout extension methods
 
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
     public static class AssertTimeoutExtensions
     {
-        // UNDONE AbortOrCloseAssertTimeout
         ///// <summary>
         ///// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
         ///// while asserting the test timeout.
@@ -129,23 +128,23 @@ namespace SimControl.TestUtils
         /// <param name="task">The task to act on.</param>
         /// <param name="timeout">The timeout.</param>
         /// <returns>A T.</returns>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static T ResultAssertTimeout<T>(this Task<T> task, int timeout = TestFrame.Timeout)
-        {
-            Contract.Requires(task != null);
+        //[Log(LogLevel = LogAttributeLevel.Off)]
+        //public static T ResultAssertTimeout<T>(this Task<T> task, int timeout = TestFrame.Timeout)
+        //{
+        //    Contract.Requires(task != null);
 
-            try
-            {
-                if (!task.Wait(TestFrame.DebugTimeout(timeout)))
-                {
-                    IgnoreFaults(task);
-                    throw TimeoutException(timeout);
-                }
-            }
-            catch (AggregateException e) { throw e.InnerException; }
+        //    try
+        //    {
+        //        if (!task.Wait(TestFrame.DebugTimeout(timeout)))
+        //        {
+        //            IgnoreFaults(task);
+        //            throw TimeoutException(timeout);
+        //        }
+        //    }
+        //    catch (AggregateException e) { throw e.InnerException; }
 
-            return task.Result;
-        }
+        //    return task.Result;
+        //}
 
         /// <summary>Executes the given action on the thread pool while asserting the test timeout.</summary>
         /// <param name="action">The action.</param>
@@ -221,64 +220,54 @@ namespace SimControl.TestUtils
         /// <returns>An containing all items taken.</returns>
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static IEnumerable<T> TakeUntilAssertTimeout<T>(
-            this BlockingCollection<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
-        {
-            Contract.Requires(asyncCollection != null);
-            Contract.Requires(func != null);
-
-            var result = new List<T>();
-
-            using (var timeoutCancel = new CancellationTokenSource())
-            {
-                timeoutCancel.CancelAfter(TestFrame.DebugTimeout(timeout));
-
-                for (; ; )
-                    try
-                    {
-                        T item = asyncCollection.Take(timeoutCancel.Token);
-
-                        result.Add(item);
-
-                        if (func(item))
-                            return result;
-                    }
-                    catch (OperationCanceledException) { throw TimeoutException(timeout); }
-            }
-        }
-
-        /// <summary>Take an item from the blockingCollection until either <paramref name="func"/> becomes true or the
-        /// timeout expires.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="asyncCollection">The asyncCollection to act on.</param>
-        /// <param name="func">The function.</param>
-        /// <param name="timeout">(Optional) The timeout.</param>
-        /// <returns>An containing all items taken.</returns>
-        [Log(LogLevel = LogAttributeLevel.Off)]
-        public static IEnumerable<T> TakeUntilAssertTimeout<T>(
             this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(asyncCollection != null);
-            Contract.Requires(func != null);
+            //Contract.Requires(asyncCollection != null);
+            //Contract.Requires(func != null);
 
-            var result = new List<T>();
+            //System.Collections.Generic.List<T> result = new System.Collections.Generic.List<T>();
+            //var result = new System.Collections.Generic.List<T>();
+            //var result = new List<T>();
 
-            using (var timeoutCancel = new CancellationTokenSource())
-            {
-                timeoutCancel.CancelAfter(TestFrame.DebugTimeout(timeout));
+            var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
+            for (; ; )
+                try
+                {
+                    T item = asyncCollection.ReadAsync(timeoutCancel.Token).AsTask().Result;
 
-                for (; ; )
-                    try
-                    {
-                        T item = asyncCollection.ReadAsync(timeoutCancel.Token).Result;
+                    //result.Add(item);
 
-                        result.Add(item);
+                    if (func(item))
+                        return null;
+                        //return result;
+                }
+                catch (OperationCanceledException) { throw TimeoutException(timeout); }
+        }
 
-                        if (func(item))
-                            return result;
-                    }
-                    catch (OperationCanceledException) { throw TimeoutException(timeout); }
-            }
+        [Log(LogLevel = LogAttributeLevel.Off)]
+        public static async Task<IEnumerable<T>> TakeUntilAssertTimeoutAsync<T>(
+            this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
+        {
+            //Contract.Requires(asyncCollection != null);
+            //Contract.Requires(func != null);
+
+            //System.Collections.Generic.List<T> result = new System.Collections.Generic.List<T>();
+            //var result = new System.Collections.Generic.List<T>();
+            //var result = new List<T>();
+
+            var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
+            for (; ; )
+                try
+                {
+                    T item = await asyncCollection.ReadAsync(timeoutCancel.Token);
+
+                    //result.Add(item);
+
+                    if (func(item))
+                        return null;
+                    //return result;
+                }
+                catch (OperationCanceledException) { throw TimeoutException(timeout); }
         }
 
         /// <summary><see cref="Task.Wait()"/> wrapper that asserts the test timeout.</summary>
@@ -312,14 +301,12 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(semaphore != null);
 
-            using (var timeoutCancel = new CancellationTokenSource())
+            var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
+            try
             {
-                timeoutCancel.CancelAfter(TestFrame.DebugTimeout(timeout));
-
-                try
-                { while (count-- > 0) semaphore.Wait(timeoutCancel.Token); }
-                catch (OperationCanceledException) { throw TimeoutException(timeout); }
+                while (count-- > 0) semaphore.Wait(timeoutCancel.Token);
             }
+            catch (OperationCanceledException) { throw TimeoutException(timeout); }
         }
 
         /// <summary><see cref="WaitHandle.WaitOne()"/> wrapper that asserts the test timeout.</summary>

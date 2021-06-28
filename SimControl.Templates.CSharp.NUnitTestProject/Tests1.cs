@@ -27,7 +27,7 @@ namespace SimControl.Templates.CSharp.NUnitTests
         [Test]
         public void Arrange__act__assert()
         {
-            LogManager.GetCurrentClassLogger().Trace(LogMethod.GetCurrentMethodName());
+            LogManager.GetCurrentClassLogger().Trace("Some Test");
             Assert.That(true);
         }
     }

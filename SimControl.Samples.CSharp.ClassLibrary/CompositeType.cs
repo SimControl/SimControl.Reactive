@@ -1,7 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-/*
+
 using System.Runtime.Serialization;
-using SimControl.Reactive;
+using SimControl.Log;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 {
@@ -29,4 +29,3 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         public string StringValue { get; set; } = "";
     }
 }
-*/

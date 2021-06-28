@@ -7,9 +7,10 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
+// UNDONE ProcessTestAdapterTests
+
 namespace SimControl.TestUtils.Tests
 {
-#if !NET5_0
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
@@ -96,5 +97,4 @@ namespace SimControl.TestUtils.Tests
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
-#endif
 }

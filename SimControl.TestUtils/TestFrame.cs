@@ -12,7 +12,9 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
-// TODO CR
+// UNDONE TestFrame CR
+// UNDONE throw AssertTimeoutException instead of TimeoutException
+// UNDONE switch TestFrame to Channel
 
 namespace SimControl.TestUtils
 {
@@ -28,8 +30,8 @@ namespace SimControl.TestUtils
             InternationalCultureInfo.SetCurrentThreadCulture();
             InternationalCultureInfo.SetDefaultThreadCulture();
 
-            AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler; // UNDONE not raised with NCrunch
-            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; // UNDONE not raised
+            AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler; // UNDONE AppDomain.CurrentDomain.UnhandledException not raised with NCrunch
+            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; // UNDONE TaskScheduler.UnobservedTaskException not raised
 
             oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
         }
@@ -141,7 +143,6 @@ namespace SimControl.TestUtils
         {
             Contract.Requires(exception != null);
 
-            // UNDONE if (exception.GetType() != typeof(ThreadAbortException))
             pendingExceptions.Add(exception);
         }
 
