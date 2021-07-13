@@ -28,6 +28,7 @@
     <EngineMode>
       <Name>Run all standard tests automatically</Name>
       <Settings>
+        <EngineModeColor>a255, r0, g255, b0</EngineModeColor>
         <TestsToExecuteAutomatically>(DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
       </Settings>
     </EngineMode>
@@ -35,6 +36,7 @@
       <Name>Run impacted standard tests automatically, others manually</Name>
       <Settings>
         <AlignOutOfDateStatusWithImpactStatus>True</AlignOutOfDateStatusWithImpactStatus>
+        <EngineModeColor>a255, r255, g255, b0</EngineModeColor>
         <TestsToExecuteAutomatically>(IsImpacted AND DoesNotHaveCategory 'InteractiveTest' AND DoesNotHaveCategory 'PerformanceTest' AND DoesNotHaveCategory 'StabilityTest' AND DoesNotHaveCategory 'Unstable')</TestsToExecuteAutomatically>
       </Settings>
     </EngineMode>
