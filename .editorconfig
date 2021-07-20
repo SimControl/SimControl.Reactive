@@ -27,7 +27,7 @@ indent_style = tab
 indent_size = 2
 
 # Various XML Configuration Files
-[*.{xml,config,props,targets,nuspec,resx,ruleset,vsixmanifest,vsct}]
+[*.{xml,config,props,targets,nuspec,resx,ruleset,vsixmanifest,vsct,nlog}]
 indent_size = 2
 
 # Code Files

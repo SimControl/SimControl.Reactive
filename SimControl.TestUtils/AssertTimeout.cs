@@ -210,24 +210,11 @@ namespace SimControl.TestUtils
                 throw TimeoutException(timeout) : result;
         }
 
-        /// <summary>Take an item from the blockingCollection until either <paramref name="func"/> becomes true or the
-        /// timeout expires.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="asyncCollection">The asyncCollection to act on.</param>
-        /// <param name="func">The function.</param>
-        /// <param name="timeout">(Optional) The timeout.</param>
-        /// <returns>An containing all items taken.</returns>
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static IEnumerable<T> TakeUntilAssertTimeout<T>(
             this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
         {
-            //Contract.Requires(asyncCollection != null);
-            //Contract.Requires(func != null);
-
-            //System.Collections.Generic.List<T> result = new System.Collections.Generic.List<T>();
-            //var result = new System.Collections.Generic.List<T>();
-            //var result = new List<T>();
+            var result = new List<T>();
 
             var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
             for (; ; )
@@ -235,11 +222,10 @@ namespace SimControl.TestUtils
                 {
                     T item = asyncCollection.ReadAsync(timeoutCancel.Token).AsTask().Result;
 
-                    //result.Add(item);
+                    result.Add(item);
 
                     if (func(item))
-                        return null;
-                        //return result;
+                        return result;
                 }
                 catch (OperationCanceledException) { throw TimeoutException(timeout); }
         }
@@ -248,13 +234,6 @@ namespace SimControl.TestUtils
         public static async Task<IEnumerable<T>> TakeUntilAssertTimeoutAsync<T>(
             this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
         {
-            //Contract.Requires(asyncCollection != null);
-            //Contract.Requires(func != null);
-
-            //System.Collections.Generic.List<T> result = new System.Collections.Generic.List<T>();
-            //var result = new System.Collections.Generic.List<T>();
-            //var result = new List<T>();
-
             var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
             for (; ; )
                 try
