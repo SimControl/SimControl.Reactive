@@ -12,7 +12,7 @@ using SimControl.TestUtils;
 
 namespace SimControl.Templates.CSharp.Tests
 {
-    [Log, TestFixture] // UNDONE remove Isolated
+    [Log, TestFixture]
     public class TemplateTests: TestFrame
     {
         [Test]

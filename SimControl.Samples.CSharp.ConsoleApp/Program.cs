@@ -235,8 +235,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
             TaskScheduler.UnobservedTaskException += UnobservedTaskExceptionHandler;
 
-            if (!NativeMethods.ExternSetConsoleCtrlHandler(ConsoleCtrlHandler, true))
-                throw new Win32Exception();
+            if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
+                logger.Error(LogMethod.GetCurrentMethodName(), "Unregister ExternSetConsoleCtrlHandler",
+                    Marshal.GetLastWin32Error());
         }
 
         private static void ThrowException() => throw new InvalidOperationException();

@@ -25,7 +25,7 @@ namespace SimControl.Templates.CSharp.NUnitTests
         #endregion
 
         [Test]
-        public void Arrange__act__assert()
+        public void Arrange__Act__Assert()
         {
             LogManager.GetCurrentClassLogger().Trace("Some Test");
             Assert.That(true);

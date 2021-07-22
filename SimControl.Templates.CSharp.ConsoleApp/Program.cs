@@ -3,11 +3,11 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
+using NLog.Fluent;
 using SimControl.Log;
 
 namespace SimControl.Templates.CSharp.ConsoleApp
@@ -50,7 +50,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 {
                     using (var cts = new CancellationTokenSource())
                     {
-                        var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)); // replace by async operation
+                        var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
 
                         for (; ; )
                         {
@@ -134,7 +134,9 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         {
             try
             {
-                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false)) throw new Win32Exception();
+                if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
+                    logger.Error(LogMethod.GetCurrentMethodName(), "Unregister ExternSetConsoleCtrlHandler",
+                        Marshal.GetLastWin32Error());
 
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
