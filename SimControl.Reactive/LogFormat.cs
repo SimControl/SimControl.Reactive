@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text;
@@ -94,7 +93,7 @@ namespace SimControl.Reactive
                 if (i++ >= LogFormatMaxCollectionElements)
                     return sb.Append(" ...").Append(close).ToString();
 
-                _ = sb.Append(o is IEnumerable c && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
+                sb.Append(o is IEnumerable c && !(o is string) ? FormatIEnumerable(c, " [", " ]") : FormatToString(o));
             }
 
             return sb.Append(close).ToString();

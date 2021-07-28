@@ -90,7 +90,7 @@ namespace SimControl.Log
                 //if (i++ >= LogFormatMaxCollectionElements)
                 //    return sb.Append(" ...").Append(close).ToString();
 
-                _ = sb.Append(o is IEnumerable c && !(o is string) ?
+                sb.Append(o is IEnumerable c && !(o is string) ?
                     FormatIEnumerable(c, " [", " ]") : FormatToString(o));
             }
 

@@ -2,11 +2,9 @@
 
 using System;
 using System.Globalization;
-using System.Reflection;
 using System.Threading;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
 using SimControl.TestUtils;
 
 // UNDONE LogTests CR

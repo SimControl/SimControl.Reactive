@@ -11,7 +11,7 @@ namespace SimControl.Reactive.Tests
     {
         public Lamp2()
         {
-            _ = sm.Add(
+            sm.Add(
                 new InitialState("*")
                     .Add(new Transition("Ready", effect: () => logger.Message(LogLevel.Debug, ".* -> .Ready"))),
                 new CompositeState("Ready").Add(

@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
@@ -75,7 +74,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-            _ = base.Add(transitions);
+            base.Add(transitions);
             return this;
         }
 
@@ -86,7 +85,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-            _ = base.Add(states);
+            base.Add(states);
             return this;
         }
 
@@ -403,7 +402,7 @@ namespace SimControl.Reactive
 
                     Task doActivity = ca.DoActivity();
 
-                    _ = doActivity.ContinueWith(task => {
+                    doActivity.ContinueWith(task => {
                         ca.doActivityStarted = false;
 
                         if (task.IsFaulted)
@@ -525,7 +524,7 @@ namespace SimControl.Reactive
             if (t.Effect != null)
                 try
                 {
-                    _ = t.Effect.DynamicInvoke(args);
+                    t.Effect.DynamicInvoke(args);
                 }
                 catch (Exception e)
                 {
@@ -612,7 +611,7 @@ namespace SimControl.Reactive
                 DateTime next = NextTimeTrigger(this, now);
 
                 if (next != now && next != DateTime.MaxValue)
-                    _ = timer.Change((next - now).Milliseconds, Timeout.Infinite);
+                    timer.Change((next - now).Milliseconds, Timeout.Infinite);
 
                 ExecutionState = ExecutionStateValue.Valid;
             }

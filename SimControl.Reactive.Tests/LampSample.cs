@@ -14,7 +14,7 @@ namespace SimControl.Reactive.Tests
     {
         public Lamp()
         {
-            _ = sm.Add(
+            sm.Add(
                 new InitialState("*").Add(new Transition("LampOff")),
                 new SimpleState("LampOff",
                     entry: () => logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOff.Entry", Counter),

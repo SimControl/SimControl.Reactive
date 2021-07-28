@@ -133,14 +133,14 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void SetUp_TearDown__Test()
         {
-            _ = oneTimeAutoResetEvent.Set();
-            _ = autoResetEvent.Set();
+            oneTimeAutoResetEvent.Set();
+            autoResetEvent.Set();
         }
 
         [Test]
         public void TakePendingExceptionAssertTimeout__Succeds()
         {
-            _ = Task.Run(() => AddUnhandledException(new ApplicationException()));
+            Task.Run(() => AddUnhandledException(new ApplicationException()));
 
             Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
         }

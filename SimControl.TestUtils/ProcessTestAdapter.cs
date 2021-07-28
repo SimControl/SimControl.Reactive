@@ -114,7 +114,7 @@ namespace SimControl.TestUtils
                 try
                 {
                     Process.Kill();
-                    _ = Process.WaitForExit(TestFrame.DebugTimeout(timeout));
+                    Process.WaitForExit(TestFrame.DebugTimeout(timeout));
                 }
                 catch (Exception e)
                 {
@@ -136,7 +136,7 @@ namespace SimControl.TestUtils
         protected override void Dispose(bool disposing)
         {
             if (disposing && Process != null)
-                _ = WaitForExitAssertTimeout();
+                WaitForExitAssertTimeout();
         }
 
         private void StartProcess(string fileName, string arguments, ChannelWriter<string> standardOutput,

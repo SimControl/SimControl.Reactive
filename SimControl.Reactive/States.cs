@@ -32,7 +32,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(transitions != null);
 
-            _ = base.Add(transitions);
+            base.Add(transitions);
             return this;
         }
 
@@ -108,7 +108,7 @@ namespace SimControl.Reactive
         {
             Contract.Requires(transitions != null);
 
-            _ = base.Add(transitions);
+            base.Add(transitions);
             return this;
         }
 

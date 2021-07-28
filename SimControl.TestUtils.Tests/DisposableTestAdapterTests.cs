@@ -13,7 +13,7 @@ namespace SimControl.TestUtils.Tests
         public void DisposableTestAdapter__CreateAndDispose__succeeds()
         {
             using (var disposableTestAdapter = new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false)))
-                _ = disposableTestAdapter.Disposable.Set();
+                disposableTestAdapter.Disposable.Set();
         }
     }
 }

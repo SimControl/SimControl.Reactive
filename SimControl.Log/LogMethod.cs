@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using NLog;
 

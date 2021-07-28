@@ -1,8 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using NCrunch.Framework;
@@ -24,16 +21,21 @@ namespace SimControl.Templates.CSharp.Tests
             Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName), Isolated]
-        public static async Task ConsoleApp__start_process__returns_0()
+        public static async Task ConsoleApp__start_process__returns_0__Async()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
             using (var process = new ProcessTestAdapter(ProcessName, null,
                 out ChannelReader<string> standardOutput, out _))
             {
-                _ = await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly")).AssertTimeout();
+                await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
+                    .AssertTimeout().ConfigureAwait(false);
+
                 process.Process.StandardInput.Close();
-                _ = await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit")).AssertTimeout();
+
+                await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit"))
+                    .AssertTimeout().ConfigureAwait(false);
+
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
         }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -23,7 +22,7 @@ namespace SimControl.TestUtils.Tests
             {
                 cts.Cancel();
 
-                _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
+                Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
                     ContextSwitch();cts.Token.ThrowIfCancellationRequested(); }).AssertTimeout());
             }
         }
@@ -47,7 +46,7 @@ namespace SimControl.TestUtils.Tests
                 {
                     cts.Cancel();
 
-                    _ = Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
+                    Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
                         () => Run(async () => {
                             await ContextSwitchDelay(); cts.Token.ThrowIfCancellationRequested();
                         }).AssertTimeoutAsync());
@@ -89,14 +88,14 @@ namespace SimControl.TestUtils.Tests
                 using (var ready = new AutoResetEvent(false))
                 {
     #if NET40
-                    var thread = new Thread(() => { _ = ready.Set(); TaskEx.Delay(-1).Wait(); });
+                    var thread = new Thread(() => { ready.Set(); TaskEx.Delay(-1).Wait(); });
     #else
-                    var thread = new Thread(() => { _ = ready.Set(); Task.Delay(-1).Wait(); });
+                    var thread = new Thread(() => { ready.Set(); Task.Delay(-1).Wait(); });
     #endif
                     thread.Start();
 
                     ready.WaitOneAssertTimeout();
-                    _ = Assert.Throws<TimeoutException>(() => thread.JoinAssertTimeout(ContextSwitch));
+                    Assert.Throws<TimeoutException>(() => thread.JoinAssertTimeout(ContextSwitch));
                 }
             }
 
@@ -129,7 +128,7 @@ namespace SimControl.TestUtils.Tests
             public static void TakeAssertTimeout_BlockingCollection_TimeoutException()
             {
                 using (var blockingCollection = new BlockingCollection<bool>())
-                    _ = Assert.Throws<TimeoutException>(
+                    Assert.Throws<TimeoutException>(
                         () => Assert.That(blockingCollection.TakeAssertTimeout(ContextSwitch), Is.True));
             }
 
@@ -167,7 +166,7 @@ namespace SimControl.TestUtils.Tests
             public static void WaitOneAssertTimeout_WaitHandle_TimeoutException()
             {
                 using (var ready = new AutoResetEvent(false))
-                    _ = Assert.Throws<TimeoutException>(() => ready.WaitOneAssertTimeout(ContextSwitch));
+                    Assert.Throws<TimeoutException>(() => ready.WaitOneAssertTimeout(ContextSwitch));
             }
         }
             [Test]

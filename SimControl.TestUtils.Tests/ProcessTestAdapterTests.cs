@@ -23,9 +23,9 @@ namespace SimControl.TestUtils.Tests
 
             using (var process = new ProcessTestAdapter(ProcessName, null, out standardOutput, out _))
             {
-                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
+                standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
                 process.Process.StandardInput.Close();
-                _ = standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
+                standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
                 Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
             }
         }
@@ -87,7 +87,7 @@ namespace SimControl.TestUtils.Tests
                 ProcessTestAdapter.KillProcesses(ProcessName);
                 Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-                _ = process.WaitForExitAssertTimeout();
+                process.WaitForExitAssertTimeout();
             }
         }
 

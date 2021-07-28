@@ -7,8 +7,9 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
-using NLog.Fluent;
 using SimControl.Log;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace SimControl.Templates.CSharp.ConsoleApp
 {
@@ -28,6 +29,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         /// <summary>Console application entry point.</summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Return code.</returns>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public static async Task<int> Main(params string[] args)
         {
             ExitCode exitCode = ExitCode.Success;
@@ -36,7 +38,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
             {
                 RegisterExceptionHandlers();
 
-                if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
+                Thread.CurrentThread.Name =Thread.CurrentThread.Name ??nameof(Main);
 
                 InternationalCultureInfo.SetCurrentThreadCulture();
                 InternationalCultureInfo.SetDefaultThreadCulture();
@@ -50,7 +52,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 {
                     using (var cts = new CancellationTokenSource())
                     {
-                        var task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
+                        ConfiguredTaskAwaitable task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
 
                         for (; ; )
                         {
@@ -59,7 +61,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                             try
                             {
                                 input = Console.ReadLine();
-                                if (input == null) break;
+                                if (input is null) break;
                             }
                             catch (ObjectDisposedException) { break; }
 
@@ -130,6 +132,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
             Exit(ExitCode.UnobservedTaskException);
         }
 
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private static void UnregisterExceptionHandlers()
         {
             try
@@ -147,7 +150,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 
-    internal static class NativeMethods 
+    internal static class NativeMethods
     {
         //UNDONE test net5.0 compatibility
         //UNDONE test x64 compatibility
@@ -155,7 +158,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-        [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
+        [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true),
+        DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
             [MarshalAs(UnmanagedType.Bool)] bool add);

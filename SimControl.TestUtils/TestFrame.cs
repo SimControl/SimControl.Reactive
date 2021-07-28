@@ -111,7 +111,7 @@ namespace SimControl.TestUtils
             Contract.Requires(type != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
 
-            _ = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
+            type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
         }
 
         /// <summary>Query if 'exception' is contract exception.</summary>

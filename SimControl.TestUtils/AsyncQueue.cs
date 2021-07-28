@@ -26,7 +26,7 @@ namespace SimControl.TestUtils
 
                 //if (queue.TryDequeue(out T item))
                 //    return item;
-                _ = queue.TryDequeue(out T item);
+                queue.TryDequeue(out T item);
                 return item;
             }
         }
@@ -45,7 +45,7 @@ namespace SimControl.TestUtils
         public void Enqueue(T item)
         {
             queue.Enqueue(item);
-            _ = sem.Release();
+            sem.Release();
         }
 
         protected virtual void Dispose(bool disposing)

@@ -1,8 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System.Threading;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SimControl.Log;
 
 // UNDONE AsyncContextThreadAdapter test
@@ -19,7 +15,7 @@ namespace SimControl.TestUtils.Tests
             //{
             //    var ready = new AutoResetEvent(false);
 
-            //    Task task = acta.Factory.Run(() => { ContextSwitch(); _ = ready.Set(); });
+            //    Task task = acta.Factory.Run(() => { ContextSwitch(); ready.Set(); });
 
             //    ready.WaitOneAssertTimeout();
             //    task.WaitAssertTimeout();
