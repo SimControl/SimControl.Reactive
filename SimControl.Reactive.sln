@@ -97,6 +97,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Templates.CSharp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Templates.CSharp.NUnit.Tests", "SimControl.Templates.CSharp.NUnit.Tests\SimControl.Templates.CSharp.NUnit.Tests.csproj", "{EE9D6A1D-2EC9-4AB6-82F9-D490708B02E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Parent Directory", "_Parent Directory", "{E754CCBA-D0E9-40F1-904E-8A7BFBCE9B8F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\.editorconfig = ..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\.editorconfig
+		..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props = ..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

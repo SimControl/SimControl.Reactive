@@ -1,5 +1,8 @@
 ﻿<Project>
-  
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
+          Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))" />
+
   <PropertyGroup>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Wilhelm Medetz</Authors>
@@ -19,21 +22,12 @@
     <Version>0.8.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzers>true</RunAnalyzers>
+  <PropertyGroup Condition="'$(EnforceCodeStyleInBuild)' != 'false'">
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableNETAnalyzers)' != 'false'">
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <IsTestProject>$(MSBuildProjectName.EndsWith('.Test'))</IsTestProject>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(IsTestProject)'">
-    <PackageReference Include="NUnit.Analyzers" Version="3.1.0" />
-  </ItemGroup>
 
 </Project>

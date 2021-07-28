@@ -28,7 +28,8 @@ namespace SimControl.Templates.CSharp.NUnitTests
         public void Arrange__Act__Assert()
         {
             LogManager.GetCurrentClassLogger().Trace("Some Test");
-            Assert.That(true);
+
+            Assert.That(true, Is.True);
         }
     }
 }
