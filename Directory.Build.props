@@ -4,15 +4,15 @@
           Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))" />
 
   <PropertyGroup>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Wilhelm Medetz</Authors>
     <Company>SimControl e.U. - Wilhelm Medetz</Company>
     <Product>SimControl.Reactive</Product>
     <Copyright>Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--<PackageIcon>PackageIcon.png</PackageIcon>-->
-    <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
     <!--
       <Version>0.0.0-prerelease.0.alpha</Version>   used for development integration tests
       <Version>0.0.0-prerelease.0.beta</Version>    used for integration tests with dedicated developers
