@@ -4,6 +4,7 @@
     <TargetFrameworks>net472;net5.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>SimControl</Authors>
     <Description>C# framework for UML 2 state machines</Description>
     <PackageProjectUrl>https://github.com/SimControl/SimControl.Reactive</PackageProjectUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
