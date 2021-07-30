@@ -824,7 +824,7 @@
 //                    Assert.IsFalse(sm.IsActive(".SimpleState1"));
 
 //                    Assert.AreEqual(5, count);
-//                    logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "ElapsedMilliseconds",
+//                    logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "ElapsedMilliseconds",
 //                        sw.ElapsedMilliseconds);
 
 //                    Assert.IsTrue(delay <= sw.ElapsedMilliseconds && sw.ElapsedMilliseconds < delay*10);

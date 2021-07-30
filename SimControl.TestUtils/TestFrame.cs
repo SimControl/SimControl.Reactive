@@ -62,7 +62,7 @@ namespace SimControl.TestUtils
         {
             testAdapters = new ConcurrentStack<TestAdapter>();
 
-            logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod(), TestContext.CurrentContext.Test.FullName,
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), TestContext.CurrentContext.Test.FullName,
                 nameof(Environment), Environment.Version, Environment.Is64BitProcess ? "x64" : "x86",
                 TestContext.CurrentContext.TestDirectory, TestContext.CurrentContext.WorkDirectory);
         }

@@ -28,10 +28,10 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
             for (int i = 0; i < 3; i++)
                 count += a*i;
 
-            logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "Count", count);
+            logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "Count", count);
 
             try { MethodA(); }
-            catch (InvalidOperationException e) { logger.Exception(LogLevel.Debug, MethodBase.GetCurrentMethod(), null, e); }
+            catch (InvalidOperationException e) { logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e); }
         }
 
         private static void BadMethod() => throw new InvalidOperationException("generic bad thing");

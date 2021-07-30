@@ -92,7 +92,7 @@
 //                    await TaskEx.Delay(MinTimerResolution).ConfigureAwait(false);
 //                    ready.Set();
 //                    throw new InvalidOperationException();
-//                }).ContinueWith(t => logger.Exception(LogLevel.Error, MethodBase.GetCurrentMethod(), null,
+//                }).ContinueWith(t => logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null,
 //                    t.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
 
 //                ready.WaitOneAssertTimeout();

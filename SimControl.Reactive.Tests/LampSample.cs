@@ -17,19 +17,19 @@ namespace SimControl.Reactive.Tests
             sm.Add(
                 new InitialState("*").Add(new Transition("LampOff")),
                 new SimpleState("LampOff",
-                    entry: () => logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOff.Entry", Counter),
-                    exit: () => logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOff.Exit", Counter))
+                    entry: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff.Entry", Counter),
+                    exit: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff.Exit", Counter))
                     .Add(new Transition("LampOn", new CallTrigger(On), effect: () => {
-                        logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOff-LampOn.Effect", Counter);
+                        logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff-LampOn.Effect", Counter);
                         Counter++;
                     })),
                 new SimpleState("LampOn",
-                    entry: () => logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOn.Entry", Counter),
-                    exit: () => logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOff.Exit", Counter))
+                    entry: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOn.Entry", Counter),
+                    exit: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff.Exit", Counter))
                     .Add(new Transition("LampOff", new CallTrigger(Off),
                         effect:
                             () =>
-                            logger.Message(LogLevel.Debug, MethodBase.GetCurrentMethod(), "LampOn-LampOff.Effect",
+                            logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOn-LampOff.Effect",
                                 Counter))));
 
             sm.Initialize();

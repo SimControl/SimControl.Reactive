@@ -10,8 +10,6 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE ProcessTestAdapter switch to Channel
-
 namespace SimControl.TestUtils
 {
     /// <summary>Test adapter for starting a console process.</summary>
@@ -118,7 +116,7 @@ namespace SimControl.TestUtils
                 }
                 catch (Exception e)
                 {
-                    logger.Warn(e, MethodBase.GetCurrentMethod().ToString());
+                    logger.Warn(e, LogMethod.GetCurrentMethodName()); ;
                 }
                 Process.Dispose();
                 Process = null;

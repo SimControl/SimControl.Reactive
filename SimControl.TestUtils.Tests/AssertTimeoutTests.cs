@@ -183,7 +183,7 @@ namespace SimControl.TestUtils.Tests
 
             [Test]
             public static void RunAssertTimeout_Action() => RunAssertTimeout(() =>
-                logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod()));
+                logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName()));
 
             [Test]
             public static void RunAssertTimeout_Action_TimeoutException() => Assert.Throws<TimeoutException>(() =>
@@ -211,7 +211,7 @@ namespace SimControl.TestUtils.Tests
 
             [Test]
             public static void WaitAssertTimeout_Task() =>
-                TaskEx.Run(() => logger.Message(LogLevel.Info, MethodBase.GetCurrentMethod())).Wait();
+                TaskEx.Run(() => logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName())).Wait();
 
             [Test]
             public static void WaitAssertTimeout_Task_ExceptionIsCaught() =>
