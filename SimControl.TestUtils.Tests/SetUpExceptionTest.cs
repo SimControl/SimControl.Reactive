@@ -6,7 +6,7 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    /// <summary>Test whether teardown methods are ivoked regardless of previous errors.</summary>
+    /// <summary>Test whether teardown methods are invoked regardless of previous errors.</summary>
     /// <remarks>Test output must be checked manually, as test will always fail.</remarks>
     [Log, TestFixture]
     public class SetUpExceptionTest: TestFrame
@@ -14,20 +14,40 @@ namespace SimControl.TestUtils.Tests
         #region Test SetUp/TearDown
 
         [OneTimeSetUp]
-        public static new void OneTimeSetUp() { }
+        public static new void OneTimeSetUp()
+        {
+            state = "OneTimeSetUp";
+            throw new InvalidOperationException(state);
+        }
 
-        [OneTimeTearDown] // should be invoked regardless of exception during SetUp()
-        public static new void OneTimeTearDown() { }
+        [OneTimeTearDown] // should be invoked regardless of exception during OneTimeSetUp(), SetUp() or TearDown()
+        public static new void OneTimeTearDown()
+        {
+            state = "OneTimeTearDown";
+            throw new InvalidOperationException(state);
+        }
 
         [SetUp]
-        public static new void SetUp() => throw new InvalidOperationException();
+        public static new void SetUp()
+        {
+            state = "SetUp";
+            throw new InvalidOperationException(state);
+        }
 
-        [TearDown] // should be invoked regardless of exception during SetUp()
-        public static new void TearDown() => throw new InvalidOperationException();
+        [TearDown] // should be invoked regardless of exception during OneTimeSetUp(), SetUp()
+        public static new void TearDown()
+        {
+            state = "TearDown";
+            throw new InvalidOperationException(state);
+        }
 
         #endregion
 
         [Test, Ignore("Will always fail by design, check output manually")]
-        public static void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() { }
+        public static void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() => Assert.Fail();
+
+        public override string ToString() => LogFormat.FormatObject(typeof(SetUpExceptionTest), state);
+
+        private static string state = "Initialized";
     }
 }

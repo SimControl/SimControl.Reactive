@@ -19,14 +19,12 @@ namespace SimControl.TestUtils.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out ChannelReader<string> standardOutput,
-                out _))
-            {
-                standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
-                process.Process.StandardInput.Close();
-                standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
-                Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-            }
+            using var process = new ProcessTestAdapter(ProcessName, "", out ChannelReader<string> standardOutput,
+                out _);
+            standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
+            process.Process.StandardInput.Close();
+            standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
+            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
@@ -34,12 +32,10 @@ namespace SimControl.TestUtils.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(TestContext.CurrentContext.TestDirectory, ProcessName,
-                null, out _, out _))
-            {
-                process.Process.StandardInput.Close();
-                Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-            }
+            using var process = new ProcessTestAdapter(TestContext.CurrentContext.TestDirectory, ProcessName, "", out _,
+                out _);
+            process.Process.StandardInput.Close();
+            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
@@ -47,15 +43,13 @@ namespace SimControl.TestUtils.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
-            {
-                logger.Info("ProcessRunning", LogMethod.GetCurrentMethodName(), process.ToString());
+            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            logger.Info("ProcessRunning", LogMethod.GetCurrentMethodName(), process.ToString());
 
-                process.Process.StandardInput.Close();
-                Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
+            process.Process.StandardInput.Close();
+            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
 
-                logger.Info("ProcessExited", LogMethod.GetCurrentMethodName(), process.ToString());
-            }
+            logger.Info("ProcessExited", LogMethod.GetCurrentMethodName(), process.ToString());
         }
 
         [Test, IntegrationTest]
@@ -64,13 +58,11 @@ namespace SimControl.TestUtils.Tests
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
-            {
-                Assert.That(Process.GetProcessesByName(ProcessName).Length > 0);
+            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.GreaterThan(0));
 
-                process.Kill();
-                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
-            }
+            process.Kill();
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
         }
 
         [Test, IntegrationTest]
@@ -79,15 +71,13 @@ namespace SimControl.TestUtils.Tests
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using (var process = new ProcessTestAdapter(ProcessName, null, out _, out _))
-            {
-                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
+            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
-                ProcessTestAdapter.KillProcesses(ProcessName);
-                Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
+            ProcessTestAdapter.KillProcesses(ProcessName);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-                process.WaitForExitAssertTimeout();
-            }
+            process.WaitForExitAssertTimeout();
         }
 
         // UNDONE CloseMainWindowAssertTimeout tests

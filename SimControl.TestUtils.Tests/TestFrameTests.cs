@@ -11,23 +11,6 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    public static class TestClass
-    {
-        static TestClass()
-        {
-            ResetField();
-            SetField(0);
-        }
-
-        public static int GetField() => field;
-
-        private static void ResetField() => field = 0;
-
-        private static void SetField(int p) => field = p;
-
-        private static int field;
-    }
-
     [Log, TestFixture]
     public class TestFrameTests: TestFrame
     {
@@ -40,8 +23,8 @@ namespace SimControl.TestUtils.Tests
         [OneTimeTearDown]
         public new void OneTimeTearDown()
         {
-            CatchOneTimeTearDownExceptions(() => throw new ApplicationException());
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
+            CatchOneTimeTearDownExceptions(() => throw new InvalidOperationException());
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         [SetUp]
@@ -51,8 +34,8 @@ namespace SimControl.TestUtils.Tests
         [TearDown]
         public new void TearDown()
         {
-            CatchTearDownExceptions(() => throw new ApplicationException());
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
+            CatchTearDownExceptions(() => throw new InvalidOperationException());
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         #endregion
@@ -69,51 +52,28 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static Task DebugTimeout__Succeeds() => Task.Delay(DebugTimeout(1));
+        public static void DebugTimeout__Succeeds() => Task.Delay(DebugTimeout(1)).Wait();
 
         [Test]
-        public static Task Delay__Succeeds() => Task.Delay(1);
+        public static void Delay__Succeeds() => Task.Delay(1).Wait();
 
         [Test]
         public static void ForceGarbageCollection__Succeeds() => ForceGarbageCollection();
 
         [Test]
-        public static void InvokePrivateStaticMethod__()
-        {
-            InvokePrivateStaticMethod(typeof(TestClass), "ResetField");
-            Assert.That(TestClass.GetField, Is.EqualTo(0));
-
-            InvokePrivateStaticMethod(typeof(TestClass), "SetField", 1);
-            Assert.That(TestClass.GetField, Is.EqualTo(1));
-
-            InvokePrivateStaticMethod(typeof(TestClass), "ResetField");
-            Assert.That(TestClass.GetField, Is.EqualTo(0));
-        }
-
-        [Test]
-        public static Task Run__Succeeds() => Task.Run(() => ContextSwitch());
-
-        [Test]
-        public static void SetPrivateStaticField__()
-        {
-            InvokePrivateStaticMethod(typeof(TestClass), "ResetField");
-            Assert.That(TestClass.GetField, Is.EqualTo(0));
-
-            SetPrivateStaticField(typeof(TestClass), "field", 1);
-            Assert.That(TestClass.GetField, Is.EqualTo(1));
-        }
+        public static void Run__Succeeds() => Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
 
         [Test, Isolated]
         public void AppDomainUnhandledExceptionHandler__Test()
         {
             if (Environment.GetEnvironmentVariable("NCrunch") != "1") // UNDONE UnhandledException not raised with NCrunch
             {
-                var thread = new Thread(() => throw new ApplicationException());
+                var thread = new Thread(() => throw new InvalidOperationException());
                 thread.Start();
 
                 thread.JoinAssertTimeout();
 
-                Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
+                Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
             }
         }
 
@@ -127,9 +87,9 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void TakePendingExceptionAssertTimeout__Succeds()
         {
-            Task.Run(() => AddUnhandledException(new ApplicationException()));
+            Task.Run(() => AddUnhandledException(new InvalidOperationException())).AssertTimeoutAsync().Wait();
 
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(ApplicationException)));
+            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         [Test, Isolated, Ignore("UnobservedTaskException not raised")] // UNDONE UnobservedTaskException not raised
@@ -143,12 +103,11 @@ namespace SimControl.TestUtils.Tests
             Exception e = TakePendingException();
 
             Assert.That(e, Is.Not.Null);
-            Assert.That(e, Is.InstanceOf(typeof(ApplicationException)));
+            Assert.That(e, Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
-        private static void ThrowContractException(bool throwIfTrue) { } // Contract.Requires(!throwIfTrue);
-
-        private void ThrowUnhandledExceptionInAsyncTask() => Task.Run(() => throw new ApplicationException());
+        private static void ThrowUnhandledExceptionInAsyncTask() =>
+            Task.Run(() => throw new InvalidOperationException());
 
         private AutoResetEvent autoResetEvent;
         private AutoResetEvent oneTimeAutoResetEvent;

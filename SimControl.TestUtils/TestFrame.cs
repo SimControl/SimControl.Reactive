@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,9 +12,8 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE TestFrame CR
-// UNDONE throw AssertTimeoutException instead of TimeoutException
-// UNDONE switch TestFrame to Channel
+// UNDONE TestFrame CR UNDONE throw AssertTimeoutException instead of TimeoutException UNDONE switch TestFrame to
+// Channel
 
 namespace SimControl.TestUtils
 {
@@ -72,6 +70,7 @@ namespace SimControl.TestUtils
 
         /// <summary>Tear down test execution.</summary>
         [Log, TearDown]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void TearDown()
         {
             while (testAdapters.TryPop(out TestAdapter tfa))
@@ -109,22 +108,18 @@ namespace SimControl.TestUtils
         /// <param name="type">The type.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="args">A variable-length parameters list containing arguments.</param>
-        public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args)
-        {
-            // Contract.Requires(type != null);
-            // Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
-
+        public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args) =>
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
-        }
 
         /// <summary>Sets private static field.</summary>
         /// <param name="type">The type.</param>
         /// <param name="field">The field.</param>
         /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentException"></exception>
+        [Obsolete("Refactor static singletons")] // TODO delete
         public static void SetPrivateStaticField(Type type, string field, object value)
         {
-            // Contract.Requires(type != null);
-            // Contract.Requires(!string.IsNullOrWhiteSpace(field));
+            if (field.Length == 0) throw new ArgumentException("Field name must not be empty", nameof(field));
 
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
@@ -132,13 +127,7 @@ namespace SimControl.TestUtils
         /// <summary>Adds an unhandled exception.</summary>
         /// <param name="exception">.</param>
         [Log]
-        public void AddUnhandledException(Exception exception)
-        {
-            // Contract.Requires(exception != null);
-
-            pendingExceptions.Add(exception);
-        }
-
+        public void AddUnhandledException(Exception exception) => pendingExceptions.Add(exception);
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
@@ -146,8 +135,6 @@ namespace SimControl.TestUtils
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void CatchOneTimeTearDownExceptions(Action action)
         {
-            // Contract.Requires(action != null);
-
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
         }
@@ -155,10 +142,9 @@ namespace SimControl.TestUtils
         /// <summary>Catches any exception fired by a tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void CatchTearDownExceptions(Action action)
         {
-            // Contract.Requires(action != null);
-
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
         }
@@ -170,8 +156,6 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the class cleanup.</remarks>
         public T OneTimeRegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            // Contract.Requires(testAdapter != null);
-
             oneTimeTestAdapters.Push(testAdapter);
             return testAdapter;
         }
@@ -183,15 +167,15 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the test cleanup.</remarks>
         public T RegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            // Contract.Requires(testAdapter != null);
-
             testAdapters.Push(testAdapter);
             return testAdapter;
         }
 
         /// <summary>Try to get the first pending exception.</summary>
         /// <param name="timeout">(Optional) The timeout.</param>
-        /// <returns>An exception or null if no pending exception occurred within the specified <paramref name="timeout"/>.</returns>
+        /// <returns>
+        /// An exception or null if no pending exception occurred within the specified <paramref name="timeout"/>.
+        /// </returns>
         [Log]
         public Exception TakePendingException(int timeout = Timeout) =>
             pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;

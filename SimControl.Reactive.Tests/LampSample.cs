@@ -74,8 +74,8 @@ namespace SimControl.Reactive.Tests
         {
             using (var lamp = new Lamp())
             {
-                Task.Run(lamp.On).AssertTimeout().Wait();
-                Task.Run(lamp.Off).AssertTimeout().Wait();
+                Task.Run(lamp.On).AssertTimeoutAsync().Wait();
+                Task.Run(lamp.Off).AssertTimeoutAsync().Wait();
 
                 Assert.That(lamp.IsActive(".LampOff"));
                 Assert.That(lamp.Counter, Is.EqualTo(1));

@@ -11,15 +11,15 @@ namespace SimControl.TestUtils.Tests
         #region Test SetUpTearDown
 
         [OneTimeSetUp]
-        public new void OneTimeSetUp() => count = 1;
+        public new void OneTimeSetUp() => Assert.That(++count, Is.EqualTo(1));
 
-        [OneTimeTearDown] // should be invoked regardless of exception during SetUp()
+        [OneTimeTearDown]
         public new void OneTimeTearDown() => Assert.That(++count, Is.EqualTo(5));
 
         [SetUp]
         public new void SetUp() => Assert.That(++count, Is.EqualTo(2));
 
-        [TearDown] // should be invoked regardless of exception during SetUp()
+        [TearDown]
         public new void TearDown() => Assert.That(++count, Is.EqualTo(4));
 
         #endregion

@@ -29,12 +29,12 @@ namespace SimControl.Templates.CSharp.Tests
                 out _);
 
             await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
-                .AssertTimeout().ConfigureAwait(false);
+                .AssertTimeoutAsync().ConfigureAwait(false);
 
             if (process.Process != null) process.Process.StandardInput.Close();
 
             await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit"))
-                .AssertTimeout().ConfigureAwait(false);
+                .AssertTimeoutAsync().ConfigureAwait(false);
 
             Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }

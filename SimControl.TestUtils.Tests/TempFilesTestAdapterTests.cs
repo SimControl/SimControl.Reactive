@@ -17,13 +17,11 @@ namespace SimControl.TestUtils.Tests
 
             if (File.Exists(fullPath)) File.Delete(fullPath);
 
-            using (var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName))
-            {
-                Assert.That(File.Exists(fullPath));
+            using var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName);
+            Assert.That(File.Exists(fullPath));
 
-                using (var tempFileTestAdapter = new TempFilesTestAdapter(FileName, "tempfile2"))
-                    Assert.That(!File.Exists(fullPath));
-            }
+            using var tempFileTestAdapter = new TempFilesTestAdapter(FileName, "tempfile2");
+            Assert.That(!File.Exists(fullPath));
         }
 
         [Test]

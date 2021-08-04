@@ -12,8 +12,9 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void DisposableTestAdapter__CreateAndDispose__succeeds()
         {
-            using (var disposableTestAdapter = new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false)))
-                disposableTestAdapter.Disposable.Set();
+            using var disposableTestAdapter = new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0));
+            disposableTestAdapter.Disposable.Release();
+            disposableTestAdapter.Disposable.WaitAsync().AssertTimeoutAsync().Wait();
         }
     }
 }
