@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 
 namespace SimControl.Samples.CSharp.Mef.Contracts
 {
-    /// <summary>MEF sample plugin interface // UNDONE Contract.</summary>
+    /// <summary>MEF sample plugin interface // Contract.</summary>
     [ContractClass(typeof(PluginInterfaceContract))]
     public interface IPlugin
     {
@@ -22,7 +22,7 @@ namespace SimControl.Samples.CSharp.Mef.Contracts
         /// <inheritdoc/>
         public string ResourceName()
         {
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             throw new InvalidOperationException();
         }

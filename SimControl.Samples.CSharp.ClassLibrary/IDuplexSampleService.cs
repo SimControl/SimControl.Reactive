@@ -9,7 +9,7 @@ using System.ServiceModel;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 {
-    /// <summary>Sample dual WCF service // UNDONE Contract.</summary>
+    /// <summary>Sample dual WCF service // Contract.</summary>
     [ServiceContract(CallbackContract = typeof(IDuplexSampleServiceCallback), SessionMode = SessionMode.Required)]
     [DeliveryRequirements(RequireOrderedDelivery = true, QueuedDeliveryRequirements = QueuedDeliveryRequirementsMode.NotAllowed)]
     [ContractClass(typeof(DuplexSampleServiceContract))]
@@ -17,13 +17,13 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
     {
         /// <summary>Passes the data to the callback.</summary>
         /// <param name="compositeType">Type of the composite.</param>
-        /// <returns>The data using data // UNDONE Contract.</returns>
+        /// <returns>The data using data // Contract.</returns>
         [OperationContract(IsInitiating = false)]
         CompositeType InvokeCallback(CompositeType compositeType);
 
         /// <summary>Passes the data to the callback as a one-way call.</summary>
         /// <param name="data">Type of the composite.</param>
-        /// <returns>The data using data // UNDONE Contract.</returns>
+        /// <returns>The data using data // Contract.</returns>
         [OperationContract(IsInitiating = false, IsOneWay = true)]
         void InvokeCallbackOneWay(CompositeType data);
     }
@@ -51,15 +51,15 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         /// <inheritdoc/>
         public CompositeType Callback(CompositeType compositeType)
         {
-            // UNDONE Contract.Requires(compositeType != null);
+            // Contract.Requires(compositeType != null);
 
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<CompositeType>() != null);
+            // Contract.Ensures(// Contract.Result<CompositeType>() != null);
 
             throw new InvalidOperationException();
         }
 
         /// <inheritdoc/>
-        public void OneWayCallback(CompositeType data) { } // UNDONE Contract.Requires(data != null);
+        public void OneWayCallback(CompositeType data) { } // Contract.Requires(data != null);
     }
 
     [ContractClassFor(typeof(IDuplexSampleService))]
@@ -75,9 +75,9 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         /// <inheritdoc/>
         public CompositeType InvokeCallback(CompositeType compositeType)
         {
-            // UNDONE Contract.Requires(compositeType != null);
+            // Contract.Requires(compositeType != null);
 
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<CompositeType>() != null);
+            // Contract.Ensures(// Contract.Result<CompositeType>() != null);
 
             throw new InvalidOperationException();
         }
@@ -85,7 +85,7 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         /// <inheritdoc/>
         public void InvokeCallbackOneWay(CompositeType data)
         {
-            // UNDONE Contract.Requires(data != null);
+            // Contract.Requires(data != null);
 
             throw new InvalidOperationException();
         }

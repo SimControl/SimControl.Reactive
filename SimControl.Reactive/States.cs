@@ -38,7 +38,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public CompositeState Add(params State[] states)
         {
-            // UNDONE Contract.Requires(states != null);
+            // Contract.Requires(states != null);
 
             foreach (State s in states) children[s.Name] = s;
             return this;
@@ -103,7 +103,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public new OrthogonalState Add(params TransitionBase[] transitions)
         {
-            // UNDONE Contract.Requires(transitions != null);
+            // Contract.Requires(transitions != null);
 
             base.Add(transitions);
             return this;
@@ -154,7 +154,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance.</returns>
         public State Add(params TransitionBase[] transitions)
         {
-            // UNDONE Contract.Requires(transitions != null);
+            // Contract.Requires(transitions != null);
 
             foreach (TransitionBase t in transitions) this.transitions[t.Name] = t;
             return this;
@@ -165,7 +165,7 @@ namespace SimControl.Reactive
 
         /// <summary>Code contract for validating state names.</summary>
         /// <param name="name">The name.</param>
-        protected static void ContractRequiredName(string name) { } // UNDONE Contract.Requires(!string.IsNullOrEmpty(name) && !name.Contains(" ") && (name == "." || !name.Contains(".")));
+        protected static void ContractRequiredName(string name) { } // Contract.Requires(!string.IsNullOrEmpty(name) && !name.Contains(" ") && (name == "." || !name.Contains(".")));
 
         /// <summary>Gets the full name of a state.</summary>
         public string FullName { get; internal set; }

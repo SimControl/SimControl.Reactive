@@ -15,7 +15,7 @@ namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.data// UNDONE Contract.org/2004/07/SimControl.Samples.CSharp.WcfServiceLibra" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.data// Contract.org/2004/07/SimControl.Samples.CSharp.WcfServiceLibra" +
         "ry")]
     [System.SerializableAttribute()]
     public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {

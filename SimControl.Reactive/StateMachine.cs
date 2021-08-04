@@ -71,7 +71,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public new StateMachine Add(params TransitionBase[] transitions)
         {
-            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             base.Add(transitions);
             return this;
@@ -82,7 +82,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public new StateMachine Add(params State[] states)
         {
-            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             base.Add(states);
             return this;
@@ -98,7 +98,7 @@ namespace SimControl.Reactive
         /// <summary>Initializes this instance. Must be called before invoking <see cref="TriggerCallEvent"/></summary>
         public void Initialize()
         {
-            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             try
             {
@@ -151,9 +151,9 @@ namespace SimControl.Reactive
         /// <param name="args">Arguments for the trigger trigger.</param>
         public void TriggerCallEvent(CallTriggerBase call, params object[] args)
         {
-            // UNDONE Contract.Requires(call != null);
-            // UNDONE Contract.Requires(args.Length == call.Method.Method.GetParameters().Length);
-            // UNDONE Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
+            // Contract.Requires(call != null);
+            // Contract.Requires(args.Length == call.Method.Method.GetParameters().Length);
+            // Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
 
             queuedEvents.Add(new StateMachineEvent(call, args));
 
@@ -163,7 +163,7 @@ namespace SimControl.Reactive
         /// <summary>Triggers any pending completion events.</summary>
         public void TriggerCompletionEvents()
         {
-            // UNDONE Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
+            // Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
 
             Run();
         }
@@ -642,7 +642,7 @@ namespace SimControl.Reactive
             {
                 //TODO check statMachine execution state
 
-                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
+                // Contract.Ensures(// Contract.Result<ICollection<State>>() != null);
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
@@ -659,7 +659,7 @@ namespace SimControl.Reactive
             {
                 //TODO check statMachine executuon state
 
-                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
+                // Contract.Ensures(// Contract.Result<ICollection<State>>() != null);
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
@@ -684,7 +684,7 @@ namespace SimControl.Reactive
         {
             get
             {
-                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
+                // Contract.Ensures(// Contract.Result<ICollection<State>>() != null);
 
                 return allStates.Values;
             }

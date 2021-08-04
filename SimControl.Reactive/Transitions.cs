@@ -43,7 +43,7 @@ namespace SimControl.Reactive
                           string name = null) : base(TransitionKind.External, target, trigger, guard, effect, name)
         {
             ContractRequiredName(name);
-            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(target));
+            // Contract.Requires(!string.IsNullOrWhiteSpace(target));
         }
     }
 
@@ -76,7 +76,7 @@ namespace SimControl.Reactive
         /// <summary>Code contract for validating transition names.</summary>
         /// <param name="name">The name.</param>
         //[ContractAbbreviator]
-        protected static void ContractRequiredName(string name) { } // UNDONE Contract.Requires(name == null || name.Length > 0);
+        protected static void ContractRequiredName(string name) { } // Contract.Requires(name == null || name.Length > 0);
 
         internal Delegate Effect { get; }
 
@@ -109,9 +109,9 @@ namespace SimControl.Reactive
     {
         internal virtual bool Matches(Trigger trigger)
         {
-            // UNDONE Contract.Requires(trigger != null);
+            // Contract.Requires(trigger != null);
 
-            // UNDONE Contract.Assert(false);
+            // Contract.Assert(false);
 
             return false;
         }

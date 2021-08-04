@@ -16,7 +16,7 @@ namespace SimControl.Reactive
         /// <param name="args">The arguments.</param>
         public static implicit operator T(GenericEventArgs<T> args)
         {
-            // UNDONE Contract.Requires(args != null);
+            // Contract.Requires(args != null);
 
             return args.Value;
         }

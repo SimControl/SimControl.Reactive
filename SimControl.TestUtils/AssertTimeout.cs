@@ -46,7 +46,7 @@ namespace SimControl.TestUtils
         /// <returns>An asynchronous result.</returns>
         public static Task AssertTimeout(this Task task)
         {
-            // UNDONE Contract.Requires(task != null);
+            // Contract.Requires(task != null);
 
             return task.AssertTimeout(TestFrame.Timeout);
         }
@@ -58,7 +58,7 @@ namespace SimControl.TestUtils
         /// <returns>The task.</returns>
         public static Task<T> AssertTimeout<T>(this Task<T> task)
         {
-            // UNDONE Contract.Requires(task != null);
+            // Contract.Requires(task != null);
 
             return task.AssertTimeout(TestFrame.Timeout);
         }
@@ -71,7 +71,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static Task AssertTimeout(this Task task, int timeout)
         {
-            // UNDONE Contract.Requires(task != null);
+            // Contract.Requires(task != null);
 
             try
             {
@@ -97,7 +97,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static async Task<T> AssertTimeout<T>(this Task<T> task, int timeout)
         {
-            // UNDONE Contract.Requires(task != null);
+            // Contract.Requires(task != null);
 
             return task == await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false) ?
                 await task.ConfigureAwait(false) : throw new AssertTimeoutException(timeout);
@@ -115,7 +115,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void JoinAssertTimeout(this Thread thread, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(thread != null);
+            // Contract.Requires(thread != null);
 
             if (!thread.Join(TestFrame.DebugTimeout(timeout)))
                 throw new AssertTimeoutException(timeout);
@@ -130,7 +130,7 @@ namespace SimControl.TestUtils
         //[Log(LogLevel = LogAttributeLevel.Off)]
         //public static T ResultAssertTimeout<T>(this Task<T> task, int timeout = TestFrame.Timeout)
         //{
-        //    // UNDONE Contract.Requires(task != null);
+        //    // Contract.Requires(task != null);
 
         //    try
         //    {
@@ -151,7 +151,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static Task RunAssertTimeout(this Action action, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(action != null);
+            // Contract.Requires(action != null);
 
             Task task = Task.Run(action);
 
@@ -176,7 +176,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static T RunAssertTimeout<T>(this Func<T> function, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(function != null);
+            // Contract.Requires(function != null);
 
             Task<T> task = Task.Run(function);
 
@@ -203,7 +203,7 @@ namespace SimControl.TestUtils
         public static T TakeAssertTimeout<T>(
             this BlockingCollection<T> blockingCollection, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(blockingCollection != null);
+            // Contract.Requires(blockingCollection != null);
 
             return !blockingCollection.TryTake(out T result, TestFrame.DebugTimeout(timeout)) ?
                 throw new AssertTimeoutException(timeout) : result;
@@ -255,7 +255,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitAssertTimeout(this Task task, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(task != null);
+            // Contract.Requires(task != null);
 
             try
             {
@@ -277,7 +277,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitAssertTimeout(this SemaphoreSlim semaphore, int count, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(semaphore != null);
+            // Contract.Requires(semaphore != null);
 
             var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
             try
@@ -294,7 +294,7 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitOneAssertTimeout(this WaitHandle waitHandle, int timeout = TestFrame.Timeout)
         {
-            // UNDONE Contract.Requires(waitHandle != null);
+            // Contract.Requires(waitHandle != null);
 
             if (!waitHandle.WaitOne(TestFrame.DebugTimeout(timeout)))
                 throw new AssertTimeoutException(timeout);

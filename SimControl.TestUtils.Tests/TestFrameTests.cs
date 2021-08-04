@@ -146,7 +146,7 @@ namespace SimControl.TestUtils.Tests
             Assert.That(e, Is.InstanceOf(typeof(ApplicationException)));
         }
 
-        private static void ThrowContractException(bool throwIfTrue) { } // UNDONE Contract.Requires(!throwIfTrue);
+        private static void ThrowContractException(bool throwIfTrue) { } // Contract.Requires(!throwIfTrue);
 
         private void ThrowUnhandledExceptionInAsyncTask() => Task.Run(() => throw new ApplicationException());
 

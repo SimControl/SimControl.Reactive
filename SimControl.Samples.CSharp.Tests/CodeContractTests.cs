@@ -9,8 +9,8 @@ namespace CodeContractTests.Tests
     {
         public static string Method(string s)
         {
-            // UNDONE Contract.Requires(s != null);
-            // UNDONE Contract.Requires(s.Length == 0);
+            // Contract.Requires(s != null);
+            // Contract.Requires(s.Length == 0);
 
             return s + "123";
         }

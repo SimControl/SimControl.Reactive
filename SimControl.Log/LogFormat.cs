@@ -15,7 +15,7 @@ namespace SimControl.Log
         /// <returns></returns>
         public static string FormatArgs(params object[] args)
         {
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             return FormatIEnumerable(args, "(", " )");
         }
@@ -25,8 +25,8 @@ namespace SimControl.Log
         /// <returns></returns>
         public static string FormatArgsList(IEnumerable argsList)
         {
-            // UNDONE Contract.Requires(argsList != null);
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Requires(argsList != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             return FormatIEnumerable(argsList, " (", " )");
         }
@@ -36,8 +36,8 @@ namespace SimControl.Log
         /// <returns></returns>
         public static string FormatIEnumerable(IEnumerable enumerable)
         {
-            // UNDONE Contract.Requires(enumerable != null);
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Requires(enumerable != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             return FormatIEnumerable(enumerable, " [", " ]");
         }
@@ -48,8 +48,8 @@ namespace SimControl.Log
         /// <returns></returns>
         public static string FormatObject(Type type, params object[] args)
         {
-            // UNDONE Contract.Requires(type != null);
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Requires(type != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             return args.Length == 0 ? type.FullName : type.FullName + FormatIEnumerable(args, "{", " }");
         }
@@ -59,7 +59,7 @@ namespace SimControl.Log
         /// <returns>target.ToString()</returns>
         public static string FormatToString(object target)
         {
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             try
             {
@@ -77,8 +77,8 @@ namespace SimControl.Log
 
         private static string FormatIEnumerable(IEnumerable enumerable, string open, string close)
         {
-            // UNDONE Contract.Requires(enumerable != null);
-            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
+            // Contract.Requires(enumerable != null);
+            // Contract.Ensures(// Contract.Result<string>() != null);
 
             var sb = new StringBuilder(open);
 

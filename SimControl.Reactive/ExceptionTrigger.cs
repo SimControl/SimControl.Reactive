@@ -11,7 +11,7 @@ namespace SimControl.Reactive
         /// <param name="exception">The exception.</param>
         public ExceptionTrigger(Exception exception)
         {
-            // UNDONE Contract.Requires(exception != null);
+            // Contract.Requires(exception != null);
 
             exceptionType = exception.InnerException.GetType();
             this.exception = exception;
@@ -21,7 +21,7 @@ namespace SimControl.Reactive
         /// <param name="exceptionType">Type of the exception.</param>
         protected ExceptionTrigger(Type exceptionType)
         {
-            // UNDONE Contract.Requires(exceptionType != null && (exceptionType == typeof(Exception) || exceptionType.IsSubclassOf(typeof(Exception))));
+            // Contract.Requires(exceptionType != null && (exceptionType == typeof(Exception) || exceptionType.IsSubclassOf(typeof(Exception))));
 
             this.exceptionType = exceptionType;
         }

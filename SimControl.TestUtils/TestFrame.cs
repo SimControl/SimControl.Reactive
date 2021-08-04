@@ -111,8 +111,8 @@ namespace SimControl.TestUtils
         /// <param name="args">A variable-length parameters list containing arguments.</param>
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args)
         {
-            // UNDONE Contract.Requires(type != null);
-            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
+            // Contract.Requires(type != null);
+            // Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
 
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
         }
@@ -123,8 +123,8 @@ namespace SimControl.TestUtils
         /// <param name="value">The value.</param>
         public static void SetPrivateStaticField(Type type, string field, object value)
         {
-            // UNDONE Contract.Requires(type != null);
-            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(field));
+            // Contract.Requires(type != null);
+            // Contract.Requires(!string.IsNullOrWhiteSpace(field));
 
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
@@ -134,7 +134,7 @@ namespace SimControl.TestUtils
         [Log]
         public void AddUnhandledException(Exception exception)
         {
-            // UNDONE Contract.Requires(exception != null);
+            // Contract.Requires(exception != null);
 
             pendingExceptions.Add(exception);
         }
@@ -146,7 +146,7 @@ namespace SimControl.TestUtils
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void CatchOneTimeTearDownExceptions(Action action)
         {
-            // UNDONE Contract.Requires(action != null);
+            // Contract.Requires(action != null);
 
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
@@ -157,7 +157,7 @@ namespace SimControl.TestUtils
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
         public void CatchTearDownExceptions(Action action)
         {
-            // UNDONE Contract.Requires(action != null);
+            // Contract.Requires(action != null);
 
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
@@ -170,7 +170,7 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the class cleanup.</remarks>
         public T OneTimeRegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            // UNDONE Contract.Requires(testAdapter != null);
+            // Contract.Requires(testAdapter != null);
 
             oneTimeTestAdapters.Push(testAdapter);
             return testAdapter;
@@ -183,7 +183,7 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the test cleanup.</remarks>
         public T RegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            // UNDONE Contract.Requires(testAdapter != null);
+            // Contract.Requires(testAdapter != null);
 
             testAdapters.Push(testAdapter);
             return testAdapter;

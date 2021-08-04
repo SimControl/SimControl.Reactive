@@ -92,9 +92,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         {
             command = "";
             /*
-                        // UNDONE Contract.Requires(args != null);
-                        // UNDONE Contract.Requires(args.Length == 1);
-                        // UNDONE Contract.Requires(Arguments.Contains(args[0]));
+                        // Contract.Requires(args != null);
+                        // Contract.Requires(args.Length == 1);
+                        // Contract.Requires(Arguments.Contains(args[0]));
 
                         try
                         {

@@ -20,7 +20,7 @@ namespace SimControl.Reactive
         /// <param name="expression">Expression for computing the <see cref="DateTime"/> point in time.</param>
         public DateTimeTrigger(DateTimeExpression expression)
         {
-            // UNDONE Contract.Requires(expression != null);
+            // Contract.Requires(expression != null);
 
             this.expression = expression;
 
@@ -39,7 +39,7 @@ namespace SimControl.Reactive
         /// <param name="expression">Expression for computing the <see cref="TimeSpan"/>.</param>
         public TimeSpanTrigger(TimeSpanExpression expression)
         {
-            // UNDONE Contract.Requires(expression != null);
+            // Contract.Requires(expression != null);
 
             this.expression = expression;
         }

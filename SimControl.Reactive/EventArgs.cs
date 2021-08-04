@@ -17,7 +17,7 @@ namespace SimControl.Reactive
         /// <returns>The result of the conversion.</returns>
         public static implicit operator T(EventArgs<T> eventArgs)
         {
-            // UNDONE Contract.Requires(eventArgs != null);
+            // Contract.Requires(eventArgs != null);
 
             return eventArgs.arg;
         }

@@ -17,7 +17,7 @@
 //        public static void DisposeInstance(object instance)
 //        {
 //#if DEBUG
-//            // UNDONE Contract.Requires(instance != null);
+//            // Contract.Requires(instance != null);
 
 //            lock (instances)
 //            {
@@ -35,7 +35,7 @@
 //        public static void NewInstance(object instance)
 //        {
 //#if DEBUG
-//            // UNDONE Contract.Requires(instance != null);
+//            // Contract.Requires(instance != null);
 
 //            lock (instances)
 //            {

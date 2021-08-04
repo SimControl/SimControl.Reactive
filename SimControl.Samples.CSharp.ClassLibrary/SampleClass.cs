@@ -18,7 +18,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
         /// <param name="newSettings">The new settings.</param>
         public static void ChangeUserSettings(string newSettings)
         {
-            //// UNDONE Contract.Requires(!string.IsNullOrEmpty(newSettings));
+            //// Contract.Requires(!string.IsNullOrEmpty(newSettings));
 
             //Settings.Default.CSharpClassLibrary_UserSetting = newSettings;
         }
@@ -48,7 +48,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
 
         /// <summary>Validate the settings.</summary>
         /// <param name="valid">if set to <c>true</c> [valid].</param>
-        public static void ValidateCodeContract(bool valid) { } //// UNDONE Contract.Requires(valid);
+        public static void ValidateCodeContract(bool valid) { } //// Contract.Requires(valid);
 
         /// <summary>Validates the settings.</summary>
         public static void ValidateSettings()
