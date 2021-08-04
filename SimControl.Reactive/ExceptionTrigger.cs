@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
@@ -12,7 +11,7 @@ namespace SimControl.Reactive
         /// <param name="exception">The exception.</param>
         public ExceptionTrigger(Exception exception)
         {
-            Contract.Requires(exception != null);
+            // UNDONE Contract.Requires(exception != null);
 
             exceptionType = exception.InnerException.GetType();
             this.exception = exception;
@@ -22,8 +21,7 @@ namespace SimControl.Reactive
         /// <param name="exceptionType">Type of the exception.</param>
         protected ExceptionTrigger(Type exceptionType)
         {
-            Contract.Requires(exceptionType != null &&
-                              (exceptionType == typeof(Exception) || exceptionType.IsSubclassOf(typeof(Exception))));
+            // UNDONE Contract.Requires(exceptionType != null && (exceptionType == typeof(Exception) || exceptionType.IsSubclassOf(typeof(Exception))));
 
             this.exceptionType = exceptionType;
         }

@@ -15,8 +15,8 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
         /// <param name="name">The name.</param>
         public Element(Counter counter, string name)
         {
-            Contract.Requires(counter != null);
-            Contract.Requires(name != null);
+            // UNDONE Contract.Requires(counter != null);
+            // UNDONE Contract.Requires(name != null);
 
             count = counter.Increment();
             this.name = name;

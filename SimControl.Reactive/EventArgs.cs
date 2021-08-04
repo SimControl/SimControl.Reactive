@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
@@ -18,7 +17,7 @@ namespace SimControl.Reactive
         /// <returns>The result of the conversion.</returns>
         public static implicit operator T(EventArgs<T> eventArgs)
         {
-            Contract.Requires(eventArgs != null);
+            // UNDONE Contract.Requires(eventArgs != null);
 
             return eventArgs.arg;
         }

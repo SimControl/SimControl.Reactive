@@ -1,6 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System.Diagnostics.Contracts;
 using System.IO;
 using NUnit.Framework;
 
@@ -15,9 +14,6 @@ namespace SimControl.TestUtils
         /// <param name="target">The target.</param>
         public CopyFileTestAdapter(string source, string target)
         {
-            Contract.Requires(!string.IsNullOrEmpty(source));
-            Contract.Requires(!string.IsNullOrEmpty(target));
-
             destination = TestContext.CurrentContext.TestDirectory + "\\" + target;
 
             File.Copy(TestContext.CurrentContext.TestDirectory + "\\" + source, destination, true);

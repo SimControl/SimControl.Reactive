@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.TestUtils
 {
@@ -12,18 +11,13 @@ namespace SimControl.TestUtils
     {
         /// <summary>Initializes a new instance of the <see cref="DisposableTestAdapter{TDisposable}"/> class.</summary>
         /// <param name="disposable">The disposable.</param>
-        public DisposableTestAdapter(TDisposable disposable)
-        {
-            Contract.Requires(disposable != null);
-
-            Disposable = disposable;
-        }
+        public DisposableTestAdapter(TDisposable disposable) => Disposable = disposable;
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing) { if (disposing && Disposable != null) Disposable.Dispose(); }
 
         /// <summary>Gets the disposable object.</summary>
         /// <value>The disposable object.</value>
-        public TDisposable Disposable { get; private set; }
+        public TDisposable Disposable { get; }
     }
 }

@@ -19,9 +19,8 @@ namespace SimControl.TestUtils.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            ChannelReader<string> standardOutput;
-
-            using (var process = new ProcessTestAdapter(ProcessName, null, out standardOutput, out _))
+            using (var process = new ProcessTestAdapter(ProcessName, null, out ChannelReader<string> standardOutput,
+                out _))
             {
                 standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
                 process.Process.StandardInput.Close();

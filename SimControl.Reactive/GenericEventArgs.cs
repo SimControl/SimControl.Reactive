@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
@@ -17,7 +16,7 @@ namespace SimControl.Reactive
         /// <param name="args">The arguments.</param>
         public static implicit operator T(GenericEventArgs<T> args)
         {
-            Contract.Requires(args != null);
+            // UNDONE Contract.Requires(args != null);
 
             return args.Value;
         }

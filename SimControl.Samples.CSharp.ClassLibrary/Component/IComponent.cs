@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 
 namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
 {
-    /// <summary>Autofac sample component interface contract.</summary>
+    /// <summary>Autofac sample component interface // UNDONE Contract.</summary>
     [ContractClass(typeof(PluginInterfaceContract))]
     public interface IComponent
     {
@@ -20,7 +20,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
         /// <inheritdoc/>
         public string ElementName()
         {
-            Contract.Ensures(Contract.Result<string>() != null);
+            // UNDONE Contract.Ensures(// UNDONE Contract.Result<string>() != null);
 
             throw new InvalidOperationException();
         }

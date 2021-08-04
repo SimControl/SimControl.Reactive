@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
@@ -15,7 +14,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 0 arguments.</summary>
@@ -24,7 +23,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1> method) : base(method) { } // UNDONE Contract.Requires(method != null);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1&gt;"/> class for specifying proprty setters.
@@ -37,9 +36,9 @@ namespace SimControl.Reactive
                     target,
                     target.GetType().GetProperty(propertyName).GetSetMethod()))
         {
-            Contract.Requires(target != null);
-            Contract.Requires(target.GetType().GetProperty(propertyName) != null);
-            Contract.Requires(target.GetType().GetProperty(propertyName).GetSetMethod() != null);
+            // UNDONE Contract.Requires(target != null);
+            // UNDONE Contract.Requires(target.GetType().GetProperty(propertyName) != null);
+            // UNDONE Contract.Requires(target.GetType().GetProperty(propertyName).GetSetMethod() != null);
         }
     }
 
@@ -50,7 +49,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with three arguments.</summary>
@@ -61,7 +60,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 4 arguments.</summary>
@@ -73,7 +72,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 5 arguments.</summary>
@@ -86,7 +85,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 6 arguments.</summary>
@@ -100,7 +99,7 @@ namespace SimControl.Reactive
     {
         /// <summary>Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6&gt;"/> class.</summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 7 arguments.</summary>
@@ -117,7 +116,7 @@ namespace SimControl.Reactive
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7&gt;"/> class.
         /// </summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 8 arguments.</summary>
@@ -135,7 +134,7 @@ namespace SimControl.Reactive
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8&gt;"/> class.
         /// </summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 9 arguments.</summary>
@@ -154,7 +153,7 @@ namespace SimControl.Reactive
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9&gt;"/> class.
         /// </summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8, T9> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8, T9> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call trigger with 10 arguments.</summary>
@@ -174,7 +173,7 @@ namespace SimControl.Reactive
         /// Initializes a new instance of the <see cref="CallTrigger&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10&gt;"/> class.
         /// </summary>
         /// <param name="method">The method.</param>
-        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method) : base(method) => Contract.Requires(method != null);
+        public CallTrigger(Effect<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> method) : base(method) { } // UNDONE Contract.Requires(method != null);
     }
 
     /// <summary>Call triggers base class</summary>
@@ -184,7 +183,7 @@ namespace SimControl.Reactive
         /// <param name="method">Call trigger delegate.</param>
         protected CallTriggerBase(Delegate method)
         {
-            Contract.Requires(method != null);
+            // UNDONE Contract.Requires(method != null);
 
             Method = method;
         }

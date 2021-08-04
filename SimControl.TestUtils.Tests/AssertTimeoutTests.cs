@@ -35,7 +35,7 @@ namespace SimControl.TestUtils.Tests
         public static void AssertTimeout__RanToCompletion() => Task.Run(() => ContextSwitch()).AssertTimeout();
 
         [Test]
-        public static void AssertTimeout__TimeoutException() => Assert.ThrowsAsync<TimeoutException>(() =>
+        public static void AssertTimeout__TimeoutException() => Assert.ThrowsAsync<AssertTimeoutException>(() =>
             Task.Run(() => Thread.Sleep(1000)).AssertTimeout(1));
 
         /*

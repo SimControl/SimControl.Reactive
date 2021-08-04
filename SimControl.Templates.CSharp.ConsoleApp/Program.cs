@@ -3,13 +3,13 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 
 namespace SimControl.Templates.CSharp.ConsoleApp
 {
@@ -38,7 +38,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
             {
                 RegisterExceptionHandlers();
 
-                Thread.CurrentThread.Name =Thread.CurrentThread.Name ??nameof(Main);
+                Thread.CurrentThread.Name ??=nameof(Main);
 
                 InternationalCultureInfo.SetCurrentThreadCulture();
                 InternationalCultureInfo.SetDefaultThreadCulture();
@@ -50,31 +50,29 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
                 //UNDONE SynchronizationContext using (var act = new AsyncContextThread())
                 {
-                    using (var cts = new CancellationTokenSource())
+                    using var cts = new CancellationTokenSource();
+                    ConfiguredTaskAwaitable task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
+
+                    for (; ; )
                     {
-                        ConfiguredTaskAwaitable task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
+                        string input;
 
-                        for (; ; )
+                        try
                         {
-                            string input;
-
-                            try
-                            {
-                                input = Console.ReadLine();
-                                if (input is null) break;
-                            }
-                            catch (ObjectDisposedException) { break; }
-
-                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
-
-                            // ...
+                            input = Console.ReadLine();
+                            if (input is null) break;
                         }
+                        catch (ObjectDisposedException) { break; }
 
-                        cts.Cancel();
+                        logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
 
-                        try { await task; }
-                        catch (TaskCanceledException) { }
+                        // ...
                     }
+
+                    cts.Cancel();
+
+                    try { await task; }
+                    catch (TaskCanceledException) { }
                 }
             }
             catch (Exception ex)
@@ -161,7 +159,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true),
         DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
+        internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate? handlerRoutine,
             [MarshalAs(UnmanagedType.Bool)] bool add);
     }
 }

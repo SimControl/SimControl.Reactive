@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SimControl.Reactive
 {
@@ -142,8 +141,8 @@ namespace SimControl.Reactive
         /// <param name="sm">The sm.</param>
         public SubmachineState(string name, StateMachine sm) : base(name + sm.Name)
         {
-            Contract.Requires(!string.IsNullOrEmpty(name));
-            Contract.Requires(sm != null);
+            // UNDONE Contract.Requires(!string.IsNullOrEmpty(name));
+            // UNDONE Contract.Requires(sm != null);
 
             throw new NotImplementedException("Submachine state not implemented yet"); // TODO implement
         }

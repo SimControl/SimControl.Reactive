@@ -14,6 +14,6 @@ namespace SimControl.TestUtils
 
         /// <summary>Gets or sets the exception.</summary>
         /// <value>The exception.</value>
-        public Exception Exception { get; private set; }
+        public Exception Exception { get; }
     }
 }

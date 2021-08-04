@@ -4,7 +4,7 @@
 
 namespace SimControl.Samples.CSharp.Mef.Contracts
 {
-    /// <summary>MEF sample resource interface contract.</summary>
+    /// <summary>MEF sample resource interface // UNDONE Contract.</summary>
     public interface IResource
     {
         /// <inheritdoc/>

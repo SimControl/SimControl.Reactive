@@ -7,6 +7,11 @@
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MrAdvice" Version="2.9.1" />
     <PackageReference Include="NLog" Version="4.7.10" />

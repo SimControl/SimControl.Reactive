@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace SimControl.Log.Tests
 {
     [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
-    public class Advice1Attribute: Attribute, IMethodInfoAdvice
+    public sealed class Advice1Attribute: Attribute, IMethodInfoAdvice
     {
         /// <inheritdoc/>
         public void Advise(MethodInfoAdviceContext _)
@@ -25,7 +25,7 @@ namespace SimControl.Log.Tests
     }
 
     [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
-    public class Advice2Attribute: Attribute, IMethodInfoAdvice
+    public sealed class Advice2Attribute: Attribute, IMethodInfoAdvice
     {
         /// <inheritdoc/>
         public void Advise(MethodInfoAdviceContext _)

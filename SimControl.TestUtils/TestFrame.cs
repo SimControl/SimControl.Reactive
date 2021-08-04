@@ -4,7 +4,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ using SimControl.Log;
 namespace SimControl.TestUtils
 {
     /// <summary>Test frame for writing asynchronous unit tests.</summary>
+    [SuppressMessage("Structure", "NUnit1028:The non-test method is public")]
     public abstract class TestFrame
     {
         #region Test SetUp/TearDown
@@ -38,6 +40,7 @@ namespace SimControl.TestUtils
 
         /// <summary>Onetime test tear down.</summary>
         [Log, OneTimeTearDown]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void OneTimeTearDown()
         {
             while (oneTimeTestAdapters.TryPop(out TestAdapter tfa))
@@ -108,20 +111,10 @@ namespace SimControl.TestUtils
         /// <param name="args">A variable-length parameters list containing arguments.</param>
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args)
         {
-            Contract.Requires(type != null);
-            Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
+            // UNDONE Contract.Requires(type != null);
+            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(methodName));
 
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
-        }
-
-        /// <summary>Query if 'exception' is contract exception.</summary>
-        /// <param name="exception">.</param>
-        /// <returns>True if contract exception, false if not.</returns>
-        public static bool IsContractException(Exception exception)
-        {
-            Contract.Requires(exception != null);
-
-            return exception.GetType().FullName == contractExceptionName;
         }
 
         /// <summary>Sets private static field.</summary>
@@ -130,8 +123,8 @@ namespace SimControl.TestUtils
         /// <param name="value">The value.</param>
         public static void SetPrivateStaticField(Type type, string field, object value)
         {
-            Contract.Requires(type != null);
-            Contract.Requires(!string.IsNullOrWhiteSpace(field));
+            // UNDONE Contract.Requires(type != null);
+            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(field));
 
             type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
         }
@@ -141,17 +134,19 @@ namespace SimControl.TestUtils
         [Log]
         public void AddUnhandledException(Exception exception)
         {
-            Contract.Requires(exception != null);
+            // UNDONE Contract.Requires(exception != null);
 
             pendingExceptions.Add(exception);
         }
 
+
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void CatchOneTimeTearDownExceptions(Action action)
         {
-            Contract.Requires(action != null);
+            // UNDONE Contract.Requires(action != null);
 
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
@@ -162,7 +157,7 @@ namespace SimControl.TestUtils
         /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
         public void CatchTearDownExceptions(Action action)
         {
-            Contract.Requires(action != null);
+            // UNDONE Contract.Requires(action != null);
 
             try { action(); }
             catch (Exception e) { AddUnhandledException(e); }
@@ -175,7 +170,7 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the class cleanup.</remarks>
         public T OneTimeRegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            Contract.Requires(testAdapter != null);
+            // UNDONE Contract.Requires(testAdapter != null);
 
             oneTimeTestAdapters.Push(testAdapter);
             return testAdapter;
@@ -188,7 +183,7 @@ namespace SimControl.TestUtils
         /// <remarks>Registered test adapters are automatically disposed during the test cleanup.</remarks>
         public T RegisterTestAdapter<T>(T testAdapter) where T : TestAdapter
         {
-            Contract.Requires(testAdapter != null);
+            // UNDONE Contract.Requires(testAdapter != null);
 
             testAdapters.Push(testAdapter);
             return testAdapter;
@@ -229,7 +224,6 @@ namespace SimControl.TestUtils
         /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
         public const int Timeout = 10000;
 
-        private const string contractExceptionName = "System.Diagnostics.Contracts.__ContractsRuntime+ContractException";
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
         private ConcurrentStack<TestAdapter> oneTimeTestAdapters;

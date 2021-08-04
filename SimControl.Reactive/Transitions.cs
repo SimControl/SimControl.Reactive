@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 
 namespace SimControl.Reactive
@@ -44,7 +43,7 @@ namespace SimControl.Reactive
                           string name = null) : base(TransitionKind.External, target, trigger, guard, effect, name)
         {
             ContractRequiredName(name);
-            Contract.Requires(!string.IsNullOrWhiteSpace(target));
+            // UNDONE Contract.Requires(!string.IsNullOrWhiteSpace(target));
         }
     }
 
@@ -77,7 +76,7 @@ namespace SimControl.Reactive
         /// <summary>Code contract for validating transition names.</summary>
         /// <param name="name">The name.</param>
         //[ContractAbbreviator]
-        protected static void ContractRequiredName(string name) => Contract.Requires(name == null || name.Length > 0);
+        protected static void ContractRequiredName(string name) { } // UNDONE Contract.Requires(name == null || name.Length > 0);
 
         internal Delegate Effect { get; }
 
@@ -110,9 +109,9 @@ namespace SimControl.Reactive
     {
         internal virtual bool Matches(Trigger trigger)
         {
-            Contract.Requires(trigger != null);
+            // UNDONE Contract.Requires(trigger != null);
 
-            Contract.Assert(false);
+            // UNDONE Contract.Assert(false);
 
             return false;
         }

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System.Diagnostics.Contracts;
 using System.IO;
 using NUnit.Framework;
 
@@ -15,8 +14,6 @@ namespace SimControl.TestUtils
         /// <param name="tempFiles">The temporary files.</param>
         public TempFilesTestAdapter(params string[] tempFiles)
         {
-            Contract.Requires(Contract.ForAll(tempFiles, x => !string.IsNullOrEmpty(x)));
-
             this.tempFiles = tempFiles;
             DeleteTempFiles();
         }

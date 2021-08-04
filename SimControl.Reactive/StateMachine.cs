@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,7 +71,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public new StateMachine Add(params TransitionBase[] transitions)
         {
-            Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             base.Add(transitions);
             return this;
@@ -83,7 +82,7 @@ namespace SimControl.Reactive
         /// <returns>This state instance</returns>
         public new StateMachine Add(params State[] states)
         {
-            Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             base.Add(states);
             return this;
@@ -99,7 +98,7 @@ namespace SimControl.Reactive
         /// <summary>Initializes this instance. Must be called before invoking <see cref="TriggerCallEvent"/></summary>
         public void Initialize()
         {
-            Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
+            // UNDONE Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
             try
             {
@@ -152,10 +151,9 @@ namespace SimControl.Reactive
         /// <param name="args">Arguments for the trigger trigger.</param>
         public void TriggerCallEvent(CallTriggerBase call, params object[] args)
         {
-            Contract.Requires(call != null);
-            Contract.Requires(args.Length == call.Method.Method.GetParameters().Length);
-            Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized &&
-                              ExecutionState != ExecutionStateValue.Failed);
+            // UNDONE Contract.Requires(call != null);
+            // UNDONE Contract.Requires(args.Length == call.Method.Method.GetParameters().Length);
+            // UNDONE Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
 
             queuedEvents.Add(new StateMachineEvent(call, args));
 
@@ -165,8 +163,7 @@ namespace SimControl.Reactive
         /// <summary>Triggers any pending completion events.</summary>
         public void TriggerCompletionEvents()
         {
-            Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized &&
-                              ExecutionState != ExecutionStateValue.Failed);
+            // UNDONE Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
 
             Run();
         }
@@ -645,7 +642,7 @@ namespace SimControl.Reactive
             {
                 //TODO check statMachine execution state
 
-                Contract.Ensures(Contract.Result<ICollection<State>>() != null);
+                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
@@ -662,7 +659,7 @@ namespace SimControl.Reactive
             {
                 //TODO check statMachine executuon state
 
-                Contract.Ensures(Contract.Result<ICollection<State>>() != null);
+                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
 
                 // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
                 // ExecutionStateValue.Running) return new State[] { }; else
@@ -687,7 +684,7 @@ namespace SimControl.Reactive
         {
             get
             {
-                Contract.Ensures(Contract.Result<ICollection<State>>() != null);
+                // UNDONE Contract.Ensures(// UNDONE Contract.Result<ICollection<State>>() != null);
 
                 return allStates.Values;
             }

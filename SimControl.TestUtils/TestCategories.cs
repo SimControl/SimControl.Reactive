@@ -7,8 +7,8 @@ namespace SimControl.TestUtils
 {
     /// <summary>An device tests requires specific hardware components.</summary>
     /// <seealso cref="CategoryAttribute"/>
-    [AttributeUsage( AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false )]
-    public sealed class DeviceTestAttribute : CategoryAttribute { }
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
+    public sealed class DeviceTestAttribute: CategoryAttribute { }
 
     /// <summary>An integration tests the integration of several disjoint components.</summary>
     /// <seealso cref="CategoryAttribute"/>

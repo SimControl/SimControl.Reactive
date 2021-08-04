@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using NLog;
 
@@ -23,8 +22,8 @@ namespace SimControl.Log
         public static void Entry(this Logger logger, LogLevel logLevel, string methodName, object instance = null,
                                  params object[] args)
         {
-            Contract.Requires(logger != null);
-            Contract.Requires(methodName != null);
+            // UNDONE Contract.Requires(logger != null);
+            // UNDONE Contract.Requires(methodName != null);
 
             logger.Log(logLevel,
                 "< " + methodName + LogFormat.FormatToString(instance) +
@@ -40,9 +39,9 @@ namespace SimControl.Log
         public static void Exception(this Logger logger, LogLevel logLevel, string methodName, object instance,
                                      Exception logException)
         {
-            Contract.Requires(logger != null);
-            Contract.Requires(methodName != null);
-            Contract.Requires(logException != null);
+            // UNDONE Contract.Requires(logger != null);
+            // UNDONE Contract.Requires(methodName != null);
+            // UNDONE Contract.Requires(logException != null);
 
             logger.Log(logLevel, logException, "! " + methodName + LogFormat.FormatToString(instance));
         }
@@ -56,8 +55,8 @@ namespace SimControl.Log
         public static void Exit(this Logger logger, LogLevel logLevel, string methodName, object instance = null,
                                 object result = null)
         {
-            Contract.Requires(logger != null);
-            Contract.Requires(methodName != null);
+            // UNDONE Contract.Requires(logger != null);
+            // UNDONE Contract.Requires(methodName != null);
 
             logger.Log(logLevel,
                 "> " + methodName + LogFormat.FormatToString(instance) +
@@ -76,14 +75,14 @@ namespace SimControl.Log
         /// <param name="args">The args.</param>
         public static void Message(this Logger logger, LogLevel logLevel, params object[] args)
         {
-            Contract.Requires(logger != null);
+            // UNDONE Contract.Requires(logger != null);
 
             logger.Log(logLevel, ":" + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }
 
         public static void Message(this Logger logger, LogLevel logLevel, string methodName, params object[] args)
         {
-            Contract.Requires(logger != null);
+            // UNDONE Contract.Requires(logger != null);
 
             logger.Log(logLevel, ": " + methodName + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
         }

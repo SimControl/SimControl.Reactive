@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Channels;
@@ -47,7 +46,7 @@ namespace SimControl.TestUtils
         /// <returns>An asynchronous result.</returns>
         public static Task AssertTimeout(this Task task)
         {
-            Contract.Requires(task != null);
+            // UNDONE Contract.Requires(task != null);
 
             return task.AssertTimeout(TestFrame.Timeout);
         }
@@ -59,7 +58,7 @@ namespace SimControl.TestUtils
         /// <returns>The task.</returns>
         public static Task<T> AssertTimeout<T>(this Task<T> task)
         {
-            Contract.Requires(task != null);
+            // UNDONE Contract.Requires(task != null);
 
             return task.AssertTimeout(TestFrame.Timeout);
         }
@@ -72,14 +71,14 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static Task AssertTimeout(this Task task, int timeout)
         {
-            Contract.Requires(task != null);
+            // UNDONE Contract.Requires(task != null);
 
             try
             {
                 if (!task.Wait(TestFrame.DebugTimeout(timeout)))
                 {
                     IgnoreFaults(task);
-                    throw TimeoutException(timeout);
+                    throw new AssertTimeoutException(timeout);
                 }
             }
             catch (AggregateException e) { throw e.InnerException; }
@@ -98,10 +97,10 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static async Task<T> AssertTimeout<T>(this Task<T> task, int timeout)
         {
-            Contract.Requires(task != null);
+            // UNDONE Contract.Requires(task != null);
 
             return task == await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false) ?
-                await task.ConfigureAwait(false) : throw TimeoutException(timeout);
+                await task.ConfigureAwait(false) : throw new AssertTimeoutException(timeout);
         }
 
         /// <summary>A Task extension method that causes the task continuation to ignore faults.</summary>
@@ -116,10 +115,10 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void JoinAssertTimeout(this Thread thread, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(thread != null);
+            // UNDONE Contract.Requires(thread != null);
 
             if (!thread.Join(TestFrame.DebugTimeout(timeout)))
-                throw TimeoutException(timeout);
+                throw new AssertTimeoutException(timeout);
         }
 
         /// <summary><see cref="Task{T}.Result"/> wrapper that asserts the test timeout.</summary>
@@ -131,14 +130,14 @@ namespace SimControl.TestUtils
         //[Log(LogLevel = LogAttributeLevel.Off)]
         //public static T ResultAssertTimeout<T>(this Task<T> task, int timeout = TestFrame.Timeout)
         //{
-        //    Contract.Requires(task != null);
+        //    // UNDONE Contract.Requires(task != null);
 
         //    try
         //    {
         //        if (!task.Wait(TestFrame.DebugTimeout(timeout)))
         //        {
         //            IgnoreFaults(task);
-        //            throw TimeoutException(timeout);
+        //            throw new AssertTimeoutException(timeout);
         //        }
         //    }
         //    catch (AggregateException e) { throw e.InnerException; }
@@ -152,16 +151,16 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static Task RunAssertTimeout(this Action action, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(action != null);
+            // UNDONE Contract.Requires(action != null);
 
-            var task = Task.Run(action);
+            Task task = Task.Run(action);
 
             try
             {
                 if (!task.Wait(TestFrame.DebugTimeout(timeout)))
                 {
                     IgnoreFaults(task);
-                    throw TimeoutException(timeout);
+                    throw new AssertTimeoutException(timeout);
                 }
             }
             catch (AggregateException e) { throw e.InnerException; }
@@ -177,16 +176,16 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static T RunAssertTimeout<T>(this Func<T> function, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(function != null);
+            // UNDONE Contract.Requires(function != null);
 
-            var task = Task.Run(function);
+            Task<T> task = Task.Run(function);
 
             try
             {
                 if (!task.Wait(TestFrame.DebugTimeout(timeout)))
                 {
                     IgnoreFaults(task);
-                    throw TimeoutException(timeout);
+                    throw new AssertTimeoutException(timeout);
                 }
             }
             catch (AggregateException e) { throw e.InnerException; }
@@ -204,10 +203,10 @@ namespace SimControl.TestUtils
         public static T TakeAssertTimeout<T>(
             this BlockingCollection<T> blockingCollection, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(blockingCollection != null);
+            // UNDONE Contract.Requires(blockingCollection != null);
 
             return !blockingCollection.TryTake(out T result, TestFrame.DebugTimeout(timeout)) ?
-                throw TimeoutException(timeout) : result;
+                throw new AssertTimeoutException(timeout) : result;
         }
 
         [Log(LogLevel = LogAttributeLevel.Off)]
@@ -227,7 +226,7 @@ namespace SimControl.TestUtils
                     if (func(item))
                         return result;
                 }
-                catch (OperationCanceledException) { throw TimeoutException(timeout); }
+                catch (OperationCanceledException) { throw new AssertTimeoutException(timeout); }
         }
 
         [Log(LogLevel = LogAttributeLevel.Off)]
@@ -246,7 +245,7 @@ namespace SimControl.TestUtils
                         return null;
                     //return result;
                 }
-                catch (OperationCanceledException) { throw TimeoutException(timeout); }
+                catch (OperationCanceledException) { throw new AssertTimeoutException(timeout); }
         }
 
         /// <summary><see cref="Task.Wait()"/> wrapper that asserts the test timeout.</summary>
@@ -256,14 +255,14 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitAssertTimeout(this Task task, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(task != null);
+            // UNDONE Contract.Requires(task != null);
 
             try
             {
                 if (!task.Wait(TestFrame.DebugTimeout(timeout)))
                 {
                     IgnoreFaults(task);
-                    throw TimeoutException(timeout);
+                    throw new AssertTimeoutException(timeout);
                 }
             }
             catch (AggregateException e) { throw e.InnerException; }
@@ -278,14 +277,14 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitAssertTimeout(this SemaphoreSlim semaphore, int count, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(semaphore != null);
+            // UNDONE Contract.Requires(semaphore != null);
 
             var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
             try
             {
                 while (count-- > 0) semaphore.Wait(timeoutCancel.Token);
             }
-            catch (OperationCanceledException) { throw TimeoutException(timeout); }
+            catch (OperationCanceledException) { throw new AssertTimeoutException(timeout); }
         }
 
         /// <summary><see cref="WaitHandle.WaitOne()"/> wrapper that asserts the test timeout.</summary>
@@ -295,13 +294,11 @@ namespace SimControl.TestUtils
         [Log(LogLevel = LogAttributeLevel.Off)]
         public static void WaitOneAssertTimeout(this WaitHandle waitHandle, int timeout = TestFrame.Timeout)
         {
-            Contract.Requires(waitHandle != null);
+            // UNDONE Contract.Requires(waitHandle != null);
 
             if (!waitHandle.WaitOne(TestFrame.DebugTimeout(timeout)))
-                throw TimeoutException(timeout);
+                throw new AssertTimeoutException(timeout);
         }
 
-        private static TimeoutException TimeoutException(int timeout) =>
-            new TimeoutException("Test timeout " + timeout.ToString(CultureInfo.InvariantCulture) + " expired");
     }
 }

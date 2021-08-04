@@ -15,9 +15,6 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         FaultException,
 
         /// <summary>InvalidOperationException</summary>
-        FaultException_InvalidOperationException,
-
-        /// <summary>InvalidOperationException</summary>
         InvalidOperationException,
 
         /// <summary>TimeoutException</summary>

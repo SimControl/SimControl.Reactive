@@ -2,7 +2,7 @@
 
 namespace SimControl.Samples.CSharp.ClassLibraryEx.Component
 {
-    /// <summary>MEF sample resource interface contract.</summary>
+    /// <summary>MEF sample resource interface // UNDONE Contract.</summary>
     public interface IElement
     {
         /// <summary>Gets the name of the element.</summary>

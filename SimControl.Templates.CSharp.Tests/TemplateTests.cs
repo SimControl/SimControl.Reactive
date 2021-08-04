@@ -25,19 +25,18 @@ namespace SimControl.Templates.CSharp.Tests
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
-            using (var process = new ProcessTestAdapter(ProcessName, null,
-                out ChannelReader<string> standardOutput, out _))
-            {
-                await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
-                    .AssertTimeout().ConfigureAwait(false);
+            using var process = new ProcessTestAdapter(ProcessName, "", out ChannelReader<string> standardOutput,
+                out _);
 
-                process.Process.StandardInput.Close();
+            await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
+                .AssertTimeout().ConfigureAwait(false);
 
-                await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit"))
-                    .AssertTimeout().ConfigureAwait(false);
+            if (process.Process != null) process.Process.StandardInput.Close();
 
-                Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-            }
+            await standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit"))
+                .AssertTimeout().ConfigureAwait(false);
+
+            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }
 
         // TODO SimControl.Templates.CSharp.WcfServiceLibrary tests

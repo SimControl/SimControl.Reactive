@@ -9,7 +9,7 @@ using System.ServiceModel;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 {
-    /// <summary>Sample WCF service contract.</summary>
+    /// <summary>Sample WCF service // UNDONE Contract.</summary>
     [ServiceContract(SessionMode = SessionMode.Required)]
     [DeliveryRequirements(RequireOrderedDelivery = true, QueuedDeliveryRequirements = QueuedDeliveryRequirementsMode.NotAllowed)]
     [ContractClass(typeof(SampleServiceContract))]
@@ -53,14 +53,14 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
     {
         public CompositeType ComplexOperation(CompositeType data)
         {
-            Contract.Requires(data != null);
+            // UNDONE Contract.Requires(data != null);
 
-            Contract.Ensures(Contract.Result<CompositeType>() != null);
+            // UNDONE Contract.Ensures(// UNDONE Contract.Result<CompositeType>() != null);
 
             return null;
         }
 
-        public void ComplexOperationOneWay(CompositeType data) => Contract.Requires(data != null);
+        public void ComplexOperationOneWay(CompositeType data) { } // UNDONE Contract.Requires(data != null);
 
         /// <inheritdoc/>
         public abstract void Connect();
@@ -75,7 +75,7 @@ namespace SimControl.Samples.CSharp.Wcf.ServiceContract
         {
             get
             {
-                Contract.Ensures(Contract.Result<CompositeType>() != null);
+                // UNDONE Contract.Ensures(// UNDONE Contract.Result<CompositeType>() != null);
 
                 return null;
             }

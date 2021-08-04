@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 using NCrunch.Framework;
@@ -118,18 +117,6 @@ namespace SimControl.TestUtils.Tests
             }
         }
 
-        [Test, Ignore("Code Contracts")]
-        public void AssertIsContractException__Succeeds() // TODO Code Contracts
-        {
-            Exception contractException = null;
-
-            try { ThrowContractException(true); }
-            catch (Exception e) { contractException = e; }
-
-            Assert.That(contractException, Is.Not.Null);
-            Assert.That(IsContractException(contractException));
-        }
-
         [Test]
         public void SetUp_TearDown__Test()
         {
@@ -159,7 +146,7 @@ namespace SimControl.TestUtils.Tests
             Assert.That(e, Is.InstanceOf(typeof(ApplicationException)));
         }
 
-        private void ThrowContractException(bool throwIfTrue) => Contract.Requires(!throwIfTrue);
+        private static void ThrowContractException(bool throwIfTrue) { } // UNDONE Contract.Requires(!throwIfTrue);
 
         private void ThrowUnhandledExceptionInAsyncTask() => Task.Run(() => throw new ApplicationException());
 

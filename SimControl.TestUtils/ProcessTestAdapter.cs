@@ -2,9 +2,8 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Contracts;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Reflection;
 using System.Threading.Channels;
 using NLog;
 using NUnit.Framework;
@@ -25,7 +24,7 @@ namespace SimControl.TestUtils
         public ProcessTestAdapter(string name, string arguments,
             out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
         {
-            Contract.Requires(string.IsNullOrEmpty(name));
+            if (name.Length == 0) throw new ArgumentException("Process name must not be empty", nameof(name));
 
             standardOutput = output.Reader;
             standardError = error.Reader;
@@ -42,10 +41,9 @@ namespace SimControl.TestUtils
         /// <param name="standardError">[out] The standard error.</param>
         public ProcessTestAdapter(string path, string name, string arguments,
             out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
-
         {
-            Contract.Requires(string.IsNullOrEmpty(path));
-            Contract.Requires(string.IsNullOrEmpty(name));
+            if (path.Length == 0) throw new ArgumentException("Process path must not be empty", nameof(path));
+            if (name.Length == 0) throw new ArgumentException("Process name must not be empty", nameof(name));
 
             standardOutput = output.Reader;
             standardError = error.Reader;
@@ -73,18 +71,22 @@ namespace SimControl.TestUtils
         /// <summary>Closes the main window while asserting the specified timeout.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns><see cref="Process.ExitCode"/></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public int CloseMainWindowAssertTimeout(int timeout)
         {
+            if (Process is null) throw new InvalidOperationException("Process has already been terminated");
+
             Assert.That(Process.CloseMainWindow());
 
             return WaitForExitAssertTimeout(timeout);
         }
 
         /// <summary>Kills the process instance.</summary>
+        /// <exception cref="InvalidOperationException"></exception>
         [Log]
         public void Kill()
         {
-            Contract.Requires(Process != null);
+            if (Process is null) throw new InvalidOperationException("Process has already been terminated");
 
             Process.Kill();
             Assert.That(Process.WaitForExit(TestFrame.Timeout), "Timeout expired");
@@ -93,7 +95,7 @@ namespace SimControl.TestUtils
 
         /// <inheritdoc/>
         public override string ToString() => LogFormat.FormatObject(typeof(ProcessTestAdapter),
-            Process != null ? Process.Id : -1, Process == null || Process.HasExited);
+            Process != null ? Process.Id : -1, Process?.HasExited != false);
 
         /// <summary>Waits for a process to exit while asserting the <see cref="TestFrame.Timeout"/>.</summary>
         /// <returns>the process exit code.</returns>
@@ -102,10 +104,12 @@ namespace SimControl.TestUtils
         /// <summary>Waits for a process to exit while asserting the timeout.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns><see cref="Process.ExitCode"/></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         [Log]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public int WaitForExitAssertTimeout(int timeout)
         {
-            Contract.Requires(Process != null);
+            if (Process is null) throw new InvalidOperationException("Process has already been terminated");
 
             if (!Process.WaitForExit(timeout))
             {
@@ -114,19 +118,19 @@ namespace SimControl.TestUtils
                     Process.Kill();
                     Process.WaitForExit(TestFrame.DebugTimeout(timeout));
                 }
-                catch (Exception e)
-                {
-                    logger.Warn(e, LogMethod.GetCurrentMethodName()); ;
-                }
+                catch (Exception e) { logger.Warn(e, LogMethod.GetCurrentMethodName()); }
+
                 Process.Dispose();
                 Process = null;
 
-                Assert.Fail("Timeout expired");
+                throw new AssertTimeoutException(timeout);
             }
 
             int ret = Process.ExitCode;
+
             Process.Dispose();
             Process = null;
+
             return ret;
         }
 
@@ -137,7 +141,7 @@ namespace SimControl.TestUtils
                 WaitForExitAssertTimeout();
         }
 
-        private void StartProcess(string fileName, string arguments, ChannelWriter<string> standardOutput,
+        private void StartProcess(string fileName, string? arguments, ChannelWriter<string> standardOutput,
             ChannelWriter<string> standardError)
         {
             Process = Process.Start(new ProcessStartInfo {
@@ -155,14 +159,14 @@ namespace SimControl.TestUtils
 
         /// <summary>Gets the process.</summary>
         /// <value>The process.</value>
-        public Process Process { get; private set; }
+        public Process? Process { get; private set; }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private Channel<string> error = Channel.CreateUnbounded<string>(
+        private readonly Channel<string> error = Channel.CreateUnbounded<string>(
             new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
-        private Channel<string> output = Channel.CreateUnbounded<string>(
+        private readonly Channel<string> output = Channel.CreateUnbounded<string>(
             new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
     }
 }

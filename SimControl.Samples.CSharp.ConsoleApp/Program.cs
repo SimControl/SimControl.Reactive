@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,9 +92,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         {
             command = "";
             /*
-                        Contract.Requires(args != null);
-                        Contract.Requires(args.Length == 1);
-                        Contract.Requires(Arguments.Contains(args[0]));
+                        // UNDONE Contract.Requires(args != null);
+                        // UNDONE Contract.Requires(args.Length == 1);
+                        // UNDONE Contract.Requires(Arguments.Contains(args[0]));
 
                         try
                         {
@@ -292,6 +291,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         //        [Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.SafeDirectories)]
         internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
                                                                 [MarshalAs(UnmanagedType.Bool)] bool add);
     }

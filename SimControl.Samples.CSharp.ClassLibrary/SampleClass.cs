@@ -1,6 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-using System;
 using NLog;
 using SimControl.Log;
 
@@ -19,7 +18,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
         /// <param name="newSettings">The new settings.</param>
         public static void ChangeUserSettings(string newSettings)
         {
-            //Contract.Requires(!string.IsNullOrEmpty(newSettings));
+            //// UNDONE Contract.Requires(!string.IsNullOrEmpty(newSettings));
 
             //Settings.Default.CSharpClassLibrary_UserSetting = newSettings;
         }
@@ -49,7 +48,7 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
 
         /// <summary>Validate the settings.</summary>
         /// <param name="valid">if set to <c>true</c> [valid].</param>
-        public static void ValidateCodeContract(bool valid) { } //Contract.Requires(valid);
+        public static void ValidateCodeContract(bool valid) { } //// UNDONE Contract.Requires(valid);
 
         /// <summary>Validates the settings.</summary>
         public static void ValidateSettings()
