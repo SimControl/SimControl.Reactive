@@ -7,6 +7,8 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
+// TODO CR
+
 namespace SimControl.Reactive.Tests
 {
     public class Lamp: IDisposable
@@ -69,7 +71,7 @@ namespace SimControl.Reactive.Tests
     [TestFixture]
     public class LampSample: TestFrame
     {
-        //[Test]
+        [Test]
         public static void Lamp_OnOffTriggered_CounterIs1()
         {
             using (var lamp = new Lamp())

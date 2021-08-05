@@ -4,13 +4,15 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
+// TODO CR
+
 namespace SimControl.Reactive.Tests
 {
     [Log]
     [TestFixture]
     public class Lamp2Sample: TestFrame
     {
-        //[Test]
+        [Test]
         public static void Lamp2_OnOff()
         {
             using (var lamp2 = new Lamp2())

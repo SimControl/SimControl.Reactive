@@ -1,5 +1,9 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
+// TODO: change method names
+// TODO CR
+// UNDONE run with AsyncContextThreadAdapter
+
 //using System;
 //using System.Collections.Concurrent;
 //using System.Collections.Generic;
@@ -12,8 +16,6 @@
 //using NUnit.Framework;
 //using SimControl.Log;
 //using SimControl.TestUtils;
-
-//// TODO: change method names
 
 //namespace SimControl.Reactive.Tests
 //{
