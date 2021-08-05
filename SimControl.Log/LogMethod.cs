@@ -19,7 +19,7 @@ namespace SimControl.Log
         /// <param name="method">The method.</param>
         /// <param name="instance">(Optional) The instance.</param>
         /// <param name="args">The args.</param>
-        public static void Entry(this Logger logger, LogLevel logLevel, string methodName, object instance = null,
+        public static void Entry(this Logger logger, LogLevel logLevel, string methodName, object? instance = null,
                                  params object[] args)
         {
             // Contract.Requires(logger != null);
@@ -36,7 +36,7 @@ namespace SimControl.Log
         /// <param name="method">The method.</param>
         /// <param name="instance">The instance.</param>
         /// <param name="logException">The exception.</param>
-        public static void Exception(this Logger logger, LogLevel logLevel, string methodName, object instance,
+        public static void Exception(this Logger logger, LogLevel logLevel, string methodName, object? instance,
                                      Exception logException)
         {
             // Contract.Requires(logger != null);
@@ -52,7 +52,7 @@ namespace SimControl.Log
         /// <param name="method">The method.</param>
         /// <param name="instance">(Optional) The instance.</param>
         /// <param name="result">(Optional) The result.</param>
-        public static void Exit(this Logger logger, LogLevel logLevel, string methodName, object instance = null,
+        public static void Exit(this Logger logger, LogLevel logLevel, string methodName, object? instance = null,
                                 object result = null)
         {
             // Contract.Requires(logger != null);

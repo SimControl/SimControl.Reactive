@@ -150,9 +150,6 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
     internal static class NativeMethods
     {
-        //UNDONE test net5.0 compatibility
-        //UNDONE test x64 compatibility
-
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 

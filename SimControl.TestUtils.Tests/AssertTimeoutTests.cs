@@ -18,21 +18,24 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void AssertTimeout__Canceled()
         {
-            using (var cts = new CancellationTokenSource())
-            {
-                cts.Cancel();
+            using var cts = new CancellationTokenSource();
+            cts.Cancel();
 
-                Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
-                    ContextSwitch();cts.Token.ThrowIfCancellationRequested(); }).AssertTimeoutAsync());
-            }
+            Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
+                ContextSwitch();
+                cts.Token.ThrowIfCancellationRequested();
+            }).AssertTimeoutAsync());
         }
 
         [Test]
         public static void AssertTimeout__Faulted() => Assert.ThrowsAsync<InvalidOperationException>(() =>
-            Task.Run(() => { ContextSwitch(); throw new InvalidOperationException(); }).AssertTimeoutAsync());
+            Task.Run(() => {
+                ContextSwitch();
+                throw new InvalidOperationException();
+            }).AssertTimeoutAsync());
 
         [Test]
-        public static void AssertTimeout__RanToCompletion() => Task.Run(() => ContextSwitch()).AssertTimeoutAsync();
+        public static void AssertTimeout__RanToCompletion() => Task.Run(ContextSwitch).AssertTimeoutAsync();
 
         [Test]
         public static void AssertTimeout__TimeoutException() => Assert.ThrowsAsync<AssertTimeoutException>(() =>
