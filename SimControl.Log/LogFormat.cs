@@ -5,6 +5,8 @@ using System.Collections;
 using System.Globalization;
 using System.Text;
 
+// TODO implement
+
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>

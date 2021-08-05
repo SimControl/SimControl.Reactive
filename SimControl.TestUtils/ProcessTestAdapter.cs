@@ -105,6 +105,7 @@ namespace SimControl.TestUtils
         /// <param name="timeout">The timeout.</param>
         /// <returns><see cref="Process.ExitCode"/></returns>
         /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="AssertTimeoutException"></exception>
         [Log]
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public int WaitForExitAssertTimeout(int timeout)

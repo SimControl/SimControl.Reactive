@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ArxOne.MrAdvice.Advice;
 using NLog;
 
+// TODO implement
+
 namespace SimControl.Log
 {
     /// <summary>Custom enum, as NLog.LogLevel can not be used as an attribute parameter.</summary>
@@ -64,7 +66,7 @@ namespace SimControl.Log
             MethodInfo res = context.TargetMethod is MethodInfo info ? info : null ;
             hasReturnValue = res != null && res.ReturnType != typeof(void);
 
-            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && context.TargetMethod.Name != nameof(ToString))
                 LogMethod.LogEntryFromLogAttribute(logger,
                     logLevel,
                     context.TargetMethod.Name,
@@ -80,7 +82,7 @@ namespace SimControl.Log
                 throw;
             }
 
-            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel))
+            if (logLevel != NLog.LogLevel.Off && logger.IsEnabled(logLevel) && context.TargetMethod.Name != nameof(ToString))
                 logger.Exit(logLevel, context.TargetMethod.Name, logInstanceOnExit ? context.Target : null,
                     hasReturnValue ? context.ReturnValue : null);
         }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.TestUtils;
 
@@ -11,8 +12,10 @@ namespace SimControl.Log.Tests
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
-        [Test]
-        public static void LogAttribute_Tests2()
+#if !NET5_0_OR_GREATER // TODO fix InternationalCultureInfo.SetCurrentThreadCulture for net5.0
+
+        [Test, Isolated]
+        public static void SetCurrentThreadCulture()
         {
             var germanCultureInfo = new CultureInfo("de-AT", false);
 
@@ -26,13 +29,41 @@ namespace SimControl.Log.Tests
             }
 
             InternationalCultureInfo.SetCurrentThreadCulture();
-            InternationalCultureInfo.SetDefaultThreadCulture();
 
             try { throw new InvalidOperationException(); }
             catch (InvalidOperationException e)
             {
                 Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
             }
+        }
+
+#endif
+
+        [Test, Isolated]
+        public static void SetDefaultThreadCulture_german()
+        {
+            var germanCultureInfo = new CultureInfo("de-AT", false);
+
+            InternationalCultureInfo.SetDefaultThreadCulture(germanCultureInfo, germanCultureInfo);
+
+            // TODO start thread and validate thread culture
+        }
+
+        [Test, Isolated]
+        public static void SetDefaultThreadCulture_InternationalCultureInfo()
+        {
+            InternationalCultureInfo.SetDefaultThreadCulture(
+                InternationalCultureInfo.Instance, InternationalCultureInfo.Instance);
+
+            // TODO start thread and validate thread culture
+        }
+
+        [Test, Isolated]
+        public static void SetDefaultThreadCulture_without_args()
+        {
+            InternationalCultureInfo.SetDefaultThreadCulture();
+
+            // TODO start thread and validate thread culture
         }
     }
 }

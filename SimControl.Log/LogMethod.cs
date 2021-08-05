@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using NLog;
 
+// TODO implement
+
 namespace SimControl.Log
 {
     /// <summary>Utility class to format log messages.</summary>

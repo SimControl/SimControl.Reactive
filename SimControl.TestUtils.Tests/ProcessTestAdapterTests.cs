@@ -7,13 +7,13 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE ProcessTestAdapterTests
-
 namespace SimControl.TestUtils.Tests
 {
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
+#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
+
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process_by_process_name__returns_0()
         {
@@ -52,6 +52,8 @@ namespace SimControl.TestUtils.Tests
             logger.Info("ProcessExited", LogMethod.GetCurrentMethodName(), process.ToString());
         }
 
+#endif
+
         [Test, IntegrationTest]
         public static void Start_ConsoleApp_process__Kill__ConsoleApp_process_killed()
         {
@@ -80,7 +82,7 @@ namespace SimControl.TestUtils.Tests
             process.WaitForExitAssertTimeout();
         }
 
-        // UNDONE CloseMainWindowAssertTimeout tests
+        // TODO CloseMainWindowAssertTimeout tests
 
         public const string ProcessName = "SimControl.Samples.CSharp.ConsoleApp";
 

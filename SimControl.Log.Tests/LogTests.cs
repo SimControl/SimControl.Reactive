@@ -7,8 +7,7 @@ using NLog;
 using NUnit.Framework;
 using SimControl.TestUtils;
 
-// UNDONE LogTests CR
-// UNDONE LogTests fix tests
+// TODO implement
 
 namespace SimControl.Log.Tests
 {

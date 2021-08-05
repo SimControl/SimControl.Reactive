@@ -19,6 +19,8 @@ namespace SimControl.Templates.CSharp.Tests
         public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>
             Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
 
+#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
+
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void ConsoleApp__start_process__returns_0()
         {
@@ -37,6 +39,8 @@ namespace SimControl.Templates.CSharp.Tests
 
             Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }
+
+#endif
 
         // TODO SimControl.Templates.CSharp.WcfServiceLibrary tests
 

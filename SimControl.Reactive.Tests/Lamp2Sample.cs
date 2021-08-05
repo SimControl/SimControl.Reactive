@@ -8,7 +8,7 @@ namespace SimControl.Reactive.Tests
 {
     [Log]
     [TestFixture]
-    public class Lam2Sample: TestFrame
+    public class Lamp2Sample: TestFrame
     {
         //[Test]
         public static void Lamp2_OnOff()

@@ -8,7 +8,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using SimControl.Log;
 
-// UNDONE AssertTimeout extension methods
+// UNDONE implement AssertTimeout extension methods
 
 namespace SimControl.TestUtils
 {

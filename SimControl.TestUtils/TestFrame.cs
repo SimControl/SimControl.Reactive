@@ -12,8 +12,9 @@ using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE TestFrame CR UNDONE throw AssertTimeoutException instead of TimeoutException UNDONE switch TestFrame to
-// Channel
+// UNDONE TestFrame CR
+// UNDONE throw AssertTimeoutException instead of TimeoutException
+// UNDONE switch TestFrame to Channel
 
 namespace SimControl.TestUtils
 {

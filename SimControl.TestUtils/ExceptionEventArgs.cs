@@ -5,7 +5,6 @@ using System;
 namespace SimControl.TestUtils
 {
     /// <summary>Additional information for exception events.</summary>
-    /// <seealso cref="T:System.EventArgs"/>
     public class ExceptionEventArgs: EventArgs
     {
         /// <summary>Constructor.</summary>

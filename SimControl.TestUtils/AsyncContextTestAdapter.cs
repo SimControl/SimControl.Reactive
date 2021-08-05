@@ -1,6 +1,6 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-// UNDONE SynchronizationContextTextAdapter
+// UNDONE implement SynchronizationContextTextAdapter
 
 namespace SimControl.TestUtils
 {
