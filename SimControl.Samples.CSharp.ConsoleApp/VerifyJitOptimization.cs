@@ -4,7 +4,7 @@ using System;
 using NLog;
 using SimControl.Log;
 
-// TODO CR
+// TODO implement
 
 namespace SimControl.Samples.CSharp.ConsoleApplication
 {

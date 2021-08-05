@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>net472;net5.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>SimControl</Authors>
     <Description>C# framework for UML 2 state machines</Description>
@@ -14,20 +16,11 @@
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net472'">
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\PackageIcon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-  </ItemGroup>-->
 
 </Project>

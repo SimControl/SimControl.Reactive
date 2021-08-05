@@ -2,14 +2,11 @@
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 {
-    /// <summary>Operation mode enum.</summary>
+    /// <summary>WCF service operation mode enumeration.</summary>
     public enum OperationMode
     {
         /// <summary>Valid</summary>
         Valid,
-
-        /// <summary>CodeContractException</summary>
-        CodeContractException,
 
         /// <summary>FaultException</summary>
         FaultException,

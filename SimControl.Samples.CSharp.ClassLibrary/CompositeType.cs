@@ -5,7 +5,7 @@ using SimControl.Log;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract
 {
-    /// <summary>Sample composite data // Contract.</summary>
+    /// <summary>WCF service sample composite data.</summary>
     [DataContract]
     public class CompositeType
     {

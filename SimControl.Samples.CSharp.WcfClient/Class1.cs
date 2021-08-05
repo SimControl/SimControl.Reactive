@@ -2,7 +2,7 @@
 
 using SimControl.Log;
 
-// TODO CR
+// TODO implement
 
 namespace SimControl.Samples.CSharp.WcfClient.SampleServiceClient
 {

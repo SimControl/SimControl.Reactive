@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 
-// UNDONE base console application structure
-// TODO settings operations
+// UNDONE implement
 
 //using SimControl.Reactive;
 //using SimControl.Samples.CSharp.ClassLibraryEx;

@@ -3,7 +3,7 @@
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
-// TODO CR
+// TODO implement
 
 namespace SimControl.Samples.CSharp.WcfServiceLibrary
 {
