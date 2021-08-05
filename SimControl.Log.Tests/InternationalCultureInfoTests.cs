@@ -12,9 +12,8 @@ namespace SimControl.Log.Tests
     [TestFixture]
     public class InternationalCultureInfoTests: TestFrame
     {
-#if !NET5_0_OR_GREATER // TODO fix InternationalCultureInfo.SetCurrentThreadCulture for net5.0
-
         [Test, Isolated]
+        [Platform(Exclude = "NET-5.0")] // TODO fix InternationalCultureInfo.SetCurrentThreadCulture for net5.0
         public static void SetCurrentThreadCulture()
         {
             var germanCultureInfo = new CultureInfo("de-AT", false);
@@ -36,8 +35,6 @@ namespace SimControl.Log.Tests
                 Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object."));
             }
         }
-
-#endif
 
         [Test, Isolated]
         public static void SetDefaultThreadCulture_german()

@@ -70,7 +70,7 @@ namespace SimControl.TestUtils.Tests
     (Task) AssertTimeout.AssertTimeoutAsync(Run((Action) (async () => await Delay((int) 1000))), (int) ContextSwitch)))));
 
             [Test]
-            public static async Task AssertTimeoutAsync_T() => Assert.That(await ((Func<Task<int>>) (async () => { await ContextSwitchDelay(); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
+            public static AssertTimeoutAsync_T() => Assert.That(await ((Func<Task<int>>) (async () => { await ContextSwitchDelay(); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
 
             [Test]
             public static void JoinAssertTimeout__WaitUntilThreadStarted__ThreadHasJoined()
