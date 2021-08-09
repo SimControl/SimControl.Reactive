@@ -21,9 +21,9 @@ namespace SimControl.TestUtils.Tests
 
             using var process = new ProcessTestAdapter(ProcessName, "", out ChannelReader<string> standardOutput,
                 out _);
-            standardOutput.TakeUntilAssertTimeout(s => s.Contains("MainAssembly"), DebugTimeout(50000));
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
             process.Process.StandardInput.Close();
-            standardOutput.TakeUntilAssertTimeout(s => s.Contains("Exit"), DebugTimeout(50000));
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
             Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
         }
 

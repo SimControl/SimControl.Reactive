@@ -28,12 +28,12 @@ namespace SimControl.Templates.CSharp.Tests
             using var process = new ProcessTestAdapter(ProcessName, "", out ChannelReader<string> standardOutput,
                 out _);
 
-            standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
                 .AssertTimeoutAsync().Wait();
 
             if (process.Process != null) process.Process.StandardInput.Close();
 
-            standardOutput.TakeUntilAssertTimeoutAsync(s => s.Contains("Exit"))
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"))
                 .AssertTimeoutAsync().Wait();
 
             Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));

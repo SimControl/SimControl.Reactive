@@ -1,230 +1,148 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using NUnit.Framework;
-
-// UNDONE TakeUntilAssertTimeout tests
-// UNDONE SemaphoreSlim.WaitAssertTimeout tests
-// UNDONE AssertTimeoutTests
+using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
-    // UNDONE [Log]
-    [TestFixture]
+    [TestFixture, Log]
     public class AssertTimeoutTests: TestFrame
     {
+        [Test]
+        public static void AssertTimeout__AssertTimeoutException()
+        {
+            var sem = new SemaphoreSlim(0);
+
+            Assert.That(() => Task.Run(async () => await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1),
+                Throws.TypeOf<AssertTimeoutException>());
+
+            sem.Release();
+        }
+
         [Test]
         public static void AssertTimeout__Canceled()
         {
             using var cts = new CancellationTokenSource();
             cts.Cancel();
 
-            Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)), () => Task.Run(() => {
+            Assert.That(() => Task.Run(() => {
                 ContextSwitch();
                 cts.Token.ThrowIfCancellationRequested();
-            }).AssertTimeoutAsync());
+            }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
         }
 
         [Test]
-        public static void AssertTimeout__Faulted() => Assert.ThrowsAsync<InvalidOperationException>(() =>
+        public static void AssertTimeout__Faulted() => Assert.That(() =>
             Task.Run(() => {
                 ContextSwitch();
                 throw new InvalidOperationException();
-            }).AssertTimeoutAsync());
+            }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
 
         [Test]
-        public static void AssertTimeout__RanToCompletion() => Task.Run(ContextSwitch).AssertTimeoutAsync();
+        public static void AssertTimeout__RanToCompletion() => Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
 
         [Test]
-        public static void AssertTimeout__TimeoutException() => Assert.ThrowsAsync<AssertTimeoutException>(() =>
-            Task.Run(() => Thread.Sleep(1000)).AssertTimeoutAsync(1));
+        public static void AssertTimeout_T__AssertTimeoutException()
+        {
+            var sem = new SemaphoreSlim(0);
 
-        /*
-            [Test]
-            public static void AssertTimeoutAsync__Canceled()
-            {
-                using (var cts = new CancellationTokenSource())
-                {
-                    cts.Cancel();
-
-                    Assert.ThrowsAsync(Is.InstanceOf(typeof(OperationCanceledException)),
-                        () => Run(async () => {
-                            await ContextSwitchDelay(); cts.Token.ThrowIfCancellationRequested();
-                        }).AssertTimeoutAsync());
-                }
-            }
-
-            [Test]
-            public static void AssertTimeoutAsync__Faulted() => Assert.ThrowsAsync<InvalidOperationException>(() => Run(
-                async () => { await ContextSwitchDelay(); throw new InvalidOperationException(); }).AssertTimeoutAsync());
-
-            [Test]
-            public static Task AssertTimeoutAsync__RanToCompletion() =>
-                Run(async () => await ContextSwitchDelay()).AssertTimeoutAsync();
-
-            [Test]
-            public static void AssertTimeoutAsync__TimeoutException() =>
-                Assert.ThrowsAsync<TimeoutException>((NUnit.Framework.AsyncTestDelegate)(() => AssertTimeoutAsync((AsyncTestDelegate) (() =>
-    (Task) AssertTimeout.AssertTimeoutAsync(Run((Action) (async () => await Delay((int) 1000))), (int) ContextSwitch)))));
-
-            [Test]
-            public static AssertTimeoutAsync_T() => Assert.That(await ((Func<Task<int>>) (async () => { await ContextSwitchDelay(); return 1; }))().AssertTimeoutAsync(), Is.EqualTo(1));
-
-            [Test]
-            public static void JoinAssertTimeout__WaitUntilThreadStarted__ThreadHasJoined()
-            {
-                using (var ready = new AutoResetEvent(false))
-                {
-                    var thread = new Thread(() => ready.Set());
-                    thread.Start();
-
-                    ready.WaitOneAssertTimeout();
-                    thread.JoinAssertTimeout();
-                }
-            }
-
-            [Test]
-            public static void JoinAssertTimeout_Thread_TimeoutException()
-            {
-                using (var ready = new AutoResetEvent(false))
-                {
-    #if NET40
-                    var thread = new Thread(() => { ready.Set(); TaskEx.Delay(-1).Wait(); });
-    #else
-                    var thread = new Thread(() => { ready.Set(); Task.Delay(-1).Wait(); });
-    #endif
-                    thread.Start();
-
-                    ready.WaitOneAssertTimeout();
-                    Assert.Throws<TimeoutException>(() => thread.JoinAssertTimeout(ContextSwitch));
-                }
-            }
-
-            [Test]
-            public static void ResultAssertTimeoutAsync_T() =>
-                ((Func<Task<int>>) (async () => { await ContextSwitchDelay(); return 1; }))().ResultAssertTimeout();
-
-            [Test]
-            public static void ResultAssertTimeoutAsync_T__ThrowException__IsCaught() =>
-                Assert.Throws<InvalidOperationException>(() => ((Func<Task<int>>) (async () => {
-                    await ContextSwitchDelay(); throw new InvalidOperationException(); }))().ResultAssertTimeout());
-
-            [Test]
-            public static void TakeAssertTimeout_BlockingCollection()
-            {
-                using (var blockingCollection = new BlockingCollection<bool>())
-                {
-    #if NET40
-                    Task task = TaskEx.Run(() => blockingCollection.Add(true));
-    #else
-                    Task task = Task.Run(() => blockingCollection.Add(true));
-    #endif
-                    Assert.That(blockingCollection.TakeAssertTimeout(), Is.True);
-
-                    task.WaitAssertTimeout();
-                }
-            }
-
-            [Test]
-            public static void TakeAssertTimeout_BlockingCollection_TimeoutException()
-            {
-                using (var blockingCollection = new BlockingCollection<bool>())
-                    Assert.Throws<TimeoutException>(
-                        () => Assert.That(blockingCollection.TakeAssertTimeout(ContextSwitch), Is.True));
-            }
-
-
-            [Test]
-            public static void WaitAssertTimeout_Task() =>
-                Run(() => ContextSwitchDelay().Wait()).WaitAssertTimeout();
-
-            [Test]
-            public static void WaitAssertTimeout_Task_ExceptionIsCaught() =>
-                Assert.Throws<InvalidOperationException>(() => Run(() => {
-                    ContextSwitchDelay().Wait(); throw new InvalidOperationException(); }).WaitAssertTimeout());
-
-            [Test]
-            public static void WaitAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() =>
-                Run(() => Delay(-1).Wait()).WaitAssertTimeout(ContextSwitch));
-
-            [Test]
-            public static void WaitOneAssertTimeout_AsynchronousSetAutoResetEvent()
-            {
-                using (var ready = new AutoResetEvent(false))
-                {
-    #if NET40
-                    Task task = TaskEx.Run(() => ready.Set());
-    #else
-                    Task task = Task.Run(() => ready.Set());
-    #endif
-
-                    ready.WaitOneAssertTimeout();
-                    task.WaitAssertTimeout();
-                }
-            }
-
-            [Test]
-            public static void WaitOneAssertTimeout_WaitHandle_TimeoutException()
-            {
-                using (var ready = new AutoResetEvent(false))
-                    Assert.Throws<TimeoutException>(() => ready.WaitOneAssertTimeout(ContextSwitch));
-            }
+            Assert.That(() =>
+            Task.Run(async () => {
+                await sem.WaitAsync().ConfigureAwait(false);
+                return 1;
+            }).AssertTimeoutAsync(1), Throws.TypeOf<AssertTimeoutException>());
+            sem.Release();
         }
-            [Test]
-            public static void ResultAssertTimeout_Task_TimeoutException() =>
-                Assert.Throws<TimeoutException>(() => TaskEx.Run(() => {
-                    TaskEx.Delay(int.MaxValue).Wait();
-                    return true;
-                }).ResultAssertTimeout(ContextSwitch));
 
-            [Test]
-            public static void RunAction_ExceptionIsCaught() =>
-                Assert.Throws<InvalidOperationException>(() => RunAssertTimeout(() =>
-                    throw new InvalidOperationException()));
+        [Test]
+        public static void AssertTimeout_T__Canceled()
+        {
+            using var cts = new CancellationTokenSource();
+            cts.Cancel();
 
-            [Test]
-            public static void RunAssertTimeout_Action() => RunAssertTimeout(() =>
-                logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName()));
+            Assert.That(() => Task.Run(() => {
+                ContextSwitch();
+                cts.Token.ThrowIfCancellationRequested();
+                return 1;
+            }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
+        }
 
-            [Test]
-            public static void RunAssertTimeout_Action_TimeoutException() => Assert.Throws<TimeoutException>(() =>
-                RunAssertTimeout(() => TaskEx.Delay(int.MaxValue).Wait(), ContextSwitch));
+        [Test]
+        public static void AssertTimeout_T__Faulted() => Assert.That(() =>
+            Task.Run(() => {
+                ContextSwitch();
+                throw new InvalidOperationException();
+                return 1;
+            }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
 
-            [Test]
-            public static void RunAssertTimeout_Function_TimeoutException()
-            {
-                bool ret;
+        [Test]
+        public static void AssertTimeout_T__RanToCompletion() => Assert.That(Task.Run(() => {
+            ContextSwitch();
+            return 1;
+        }).AssertTimeoutAsync().Result, Is.EqualTo(1));
 
-                Assert.Throws<TimeoutException>(() => ret = RunAssertTimeout(() => {
-                    TaskEx.Delay(int.MaxValue).Wait();
-                    return true;
-                }, ContextSwitch));
-            }
+        [Test]
+        public static void JoinAssertTimeout__AssertTimeoutException()
+        {
+            var sem = new SemaphoreSlim(0);
 
-            [Test]
-            public static void RuntAssertTimeout_Function_ExceptionIsCaught()
-            {
-                bool ret;
-                Assert.Throws<InvalidOperationException>(() => ret = RunAssertTimeout<bool>(
-                    () => throw new InvalidOperationException()));
-            }
+            var thread = new Thread(() => sem.Wait());
+            thread.Start();
 
+            Assert.That(() => thread.JoinAssertTimeout(TestFrame.MinTimerResolution),
+                Throws.TypeOf<AssertTimeoutException>());
 
-            [Test]
-            public static void WaitAssertTimeout_Task() =>
-                TaskEx.Run(() => logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName())).Wait();
+            sem.Release();
+        }
 
-            [Test]
-            public static void WaitAssertTimeout_Task_ExceptionIsCaught() =>
-                Assert.Throws<InvalidOperationException>(() => TaskEx.Run(() =>
-                    throw new InvalidOperationException()).WaitAssertTimeout());
+        [Test]
+        public static void JoinAssertTimeout__WaitUntilThreadStarted__ThreadHasJoined()
+        {
+            var sem = new SemaphoreSlim(0);
 
-            [Test]
-            public static void WaitAssertTimeout_Task_TimeoutException() => Assert.Throws<TimeoutException>(() =>
-                TaskEx.Run(() => TaskEx.Delay(int.MaxValue).Wait()).WaitAssertTimeout(ContextSwitch));
+            var thread = new Thread(() => sem.Release());
+            thread.Start();
 
-    */
+            sem.WaitAsync().AssertTimeoutAsync().Wait();
+            thread.JoinAssertTimeout();
+        }
+
+        [Test]
+        public static void ReadUntilAssertTimeout()
+        {
+            Channel<int> channel = Channel.CreateUnbounded<int>(
+                new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
+
+            ChannelWriter<int> writer = channel.Writer;
+            ChannelReader<int> reader = channel.Reader;
+
+            Assert.That(writer.TryWrite(0));
+            Assert.That(writer.TryWrite(1));
+            Assert.That(writer.TryWrite(2));
+
+            IEnumerable<int>? result = reader.ReadUntilAssertTimeoutAsync(i => i == 1).Result;
+
+            Assert.That(result, Is.EqualTo(new int[] { 0, 1 }));
+        }
+
+        [Test]
+        public static void ReadUntilAssertTimeout__AssertTimeoutException()
+        {
+            Channel<int> channel = Channel.CreateUnbounded<int>(
+                new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
+
+            ChannelWriter<int> writer = channel.Writer;
+            ChannelReader<int> reader = channel.Reader;
+
+            Assert.That(writer.TryWrite(0));
+
+            Assert.That(() => reader.ReadUntilAssertTimeoutAsync(i => i == 1, MinTimerResolution),
+                Throws.TypeOf<AssertTimeoutException>());
+        }
     }
 }

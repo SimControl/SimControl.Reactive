@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -22,6 +23,23 @@ namespace SimControl.TestUtils
     [SuppressMessage("Structure", "NUnit1028:The non-test method is public")]
     public abstract class TestFrame
     {
+        private static class NativeMethods
+        {
+            [DllImport("ntdll.dll", SetLastError = true)]
+            internal static extern int NtQueryTimerResolution(out int minimumResolution, out int maximumResolution,
+                                                              out int currentResolution);
+        }
+
+        static TestFrame()
+        {
+            int minimumResolution;
+            int maximumResolution;
+            int currentResolution;
+
+            Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out minimumResolution, out maximumResolution, out currentResolution));
+            MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
+        }
+
         #region Test SetUp/TearDown
 
         /// <summary>Onetime test setup.</summary>
@@ -213,5 +231,9 @@ namespace SimControl.TestUtils
         private readonly BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
         private ConcurrentStack<TestAdapter> oneTimeTestAdapters;
         private ConcurrentStack<TestAdapter> testAdapters;
+
+        /// <summary>The minimum thread switch.</summary>
+        public static readonly int MinTimerResolution;
     }
 }
+

@@ -71,6 +71,7 @@ namespace SimControl.TestUtils.Tests
                 var thread = new Thread(() => throw new InvalidOperationException());
                 thread.Start();
 
+                //Task.Run(() => thread.Join()).AssertTimeoutAsync();
                 thread.JoinAssertTimeout();
 
                 Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
