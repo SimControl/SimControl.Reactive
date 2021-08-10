@@ -25,8 +25,10 @@ namespace SimControl.Templates.CSharp.NUnitTests
         #endregion
 
         [Test]
-        public void Arrange__Act__Assert()
+        public void MethodName__state_under_test__expected_behavior()
         {
+            // TODO Arrange - Act - Assert
+
             LogManager.GetCurrentClassLogger().Trace("Some Test");
 
             Assert.That(true, Is.True);

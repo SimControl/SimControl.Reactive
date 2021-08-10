@@ -11,7 +11,7 @@ namespace SimControl.TestUtils.Tests
     public class AsyncContextThreadAdapterTests: TestFrame
     {
         [Test]
-        public static void CopyFileTestAdapter__create_and_Dispose__file_is_created_and_deleted()
+        public static void Xxx()
         {
             //using (var acta = new AsyncContextThreadAdapter())
             //{

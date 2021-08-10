@@ -1,9 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Channels;
@@ -42,7 +40,6 @@ namespace SimControl.TestUtils
         //            client.Abort();
         //}
 
-
         public static async Task AssertTimeoutAsync(this Task task, int timeout = TestFrame.Timeout)
         {
             if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))))
@@ -57,7 +54,6 @@ namespace SimControl.TestUtils
 
             await task;
         }
-
 
         public static async Task<T> AssertTimeoutAsync<T>(this Task<T> task, int timeout = TestFrame.Timeout)
         {

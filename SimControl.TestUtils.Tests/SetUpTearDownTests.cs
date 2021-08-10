@@ -5,6 +5,10 @@ using SimControl.Log;
 
 namespace SimControl.TestUtils.Tests
 {
+    /// <summary>
+    /// Verify that <see cref="OneTimeSetUp"/>, <see cref="SetUp"/>, <see cref="TestMethod"/>, <see cref="TearDown"/>
+    /// and <see cref="OneTimeTearDown"/> are invoked in the defined order.
+    /// </summary>
     [Log, TestFixture]
     public class SetUpTearDownTests: TestFrame
     {
@@ -25,7 +29,7 @@ namespace SimControl.TestUtils.Tests
         #endregion
 
         [Test]
-        public void Increment() => Assert.That(++count, Is.EqualTo(3));
+        public void TestMethod() => Assert.That(++count, Is.EqualTo(3));
 
         private int count;
     }

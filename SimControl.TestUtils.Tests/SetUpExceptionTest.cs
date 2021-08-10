@@ -7,7 +7,9 @@ using SimControl.Log;
 namespace SimControl.TestUtils.Tests
 {
     /// <summary>Test whether teardown methods are invoked regardless of previous errors.</summary>
-    /// <remarks>Test output must be checked manually, as test will always fail.</remarks>
+    /// <remarks>
+    /// Test output must be checked manually with log output, as <see cref="TestMethod"/> will always fail.
+    /// </remarks>
     [Log, TestFixture]
     public class SetUpExceptionTest: TestFrame
     {
@@ -44,7 +46,7 @@ namespace SimControl.TestUtils.Tests
         #endregion
 
         [Test, Ignore("Will always fail by design, check output manually")]
-        public static void ClassInitializeException_TestMethodNotInvoked_TestCleanupInvoked() => Assert.Fail();
+        public static void TestMethod() => Assert.Fail();
 
         public override string ToString() => LogFormat.FormatObject(typeof(SetUpExceptionTest), state);
 

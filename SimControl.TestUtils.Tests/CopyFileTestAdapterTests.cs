@@ -11,7 +11,7 @@ namespace SimControl.TestUtils.Tests
     public class CopyFileTestAdapterTests: TestFrame
     {
         [Test, ExclusivelyUses(FileName)]
-        public static void CopyFileTestAdapter__create_and_Dispose__file_is_created_and_deleted()
+        public static void CopyFileTestAdapter__create_and_dispose__file_is_created_and_deleted()
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 

@@ -12,16 +12,16 @@ namespace SimControl.Templates.CSharp.Tests
     public class TemplateTests: TestFrame
     {
         [Test]
-        public static void ClassLibrary_Class1__InvokeConstructor__succeeds() =>
+        public static void ClassLibrary_Class1__invoke_constructor__succeeds() =>
             Assert.That(new ClassLibrary.Class1().ToString(), Is.Not.Null);
 
         [Test]
-        public static void ClassLibraryOld_Class1__InvokeConstructor__succeeds() =>
+        public static void ClassLibraryOld_Class1__invoke_constructor__succeeds() =>
             Assert.That(new ClassLibraryOld.Class1().ToString(), Is.Not.Null);
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         [Platform(Exclude = "NET-5.0")] // TODO ConsoleApp tests for net5.0
-        public static void ConsoleApp__start_process__returns_0()
+        public static void ConsoleApp__start_process__exits_with_0()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
 
