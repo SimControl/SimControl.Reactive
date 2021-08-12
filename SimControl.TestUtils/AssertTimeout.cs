@@ -9,69 +9,84 @@ using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
 
-// UNDONE implement AssertTimeout extension methods
-
 namespace SimControl.TestUtils
 {
     /// <summary>Test extensions for asserting timeouts.</summary>
     public static class AssertTimeoutExtensions
     {
-        /// <summary>
-        /// Wrapper that calls <see cref="ClientBase{TChannel}.Abort()"/> or <see cref="ClientBase{TChannel}.Close()"/>
-        /// while asserting the test timeout.
-        /// </summary>
-        /// <exception cref="Exception">Thrown when an exception error condition occurs.</exception>
-        /// <param name="client">The client to act on.</param>
+        /// <summary>Assert the <see cref="Task"/> finishes within the specified timeout asynchronous.</summary>
+        /// <param name="task">The task.</param>
         /// <param name="timeout">The timeout.</param>
-        //public static void AbortOrCloseAssertTimeout(this ICommunicationObject client, int timeout = TestFrame.Timeout)
-        //{
-        //    if (client != null)
-        //        if (client.State == CommunicationState.Opened)
-        //            try
-        //            {
-        //                client.Close(TimeSpan.FromMilliseconds(timeout));
-        //            }
-        //            catch (Exception)
-        //            {
-        //                client.Abort();
-        //                throw;
-        //            }
-        //        else if (client.State != CommunicationState.Closed)
-        //            client.Abort();
-        //}
-
+        /// <exception cref="AssertTimeoutException"></exception>
         public static async Task AssertTimeoutAsync(this Task task, int timeout = TestFrame.Timeout)
         {
-            if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))))
+            if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014 // Because this call is not awaited,
+                // execution of the current method continues before the call is completed
                 task.ContinueWith(t => logger.Warn(t.Exception.InnerException, LogMethod.GetCurrentMethodName()),
                     CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 #pragma warning restore CS4014
 
                 throw new AssertTimeoutException(timeout);
-            };
+            }
 
-            await task;
+            await task.ConfigureAwait(false);
         }
 
+        /// <summary>Assert the <see cref="Task"/> finishes within the specified timeout asynchronous.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task">The task.</param>
+        /// <param name="timeout">The timeout.</param>
+        /// <returns><br/></returns>
+        /// <exception cref="AssertTimeoutException"></exception>
         public static async Task<T> AssertTimeoutAsync<T>(this Task<T> task, int timeout = TestFrame.Timeout)
         {
-            if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))))
+            if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014 // Because this call is not awaited,
+                // execution of the current method continues before the call is completed
                 task.ContinueWith(t => logger.Warn(t.Exception.InnerException, LogMethod.GetCurrentMethodName()),
                     CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 #pragma warning restore CS4014
 
                 throw new AssertTimeoutException(timeout);
-            };
+            }
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
-        /// <summary><see cref="Thread.Join()"/> wrapper that asserts the test timeout.</summary>
-        /// <exception cref="TimeoutException">Thrown when a Timeout error condition occurs.</exception>
+#if !NET5_0_OR_GREATER
+
+        /// <summary>
+        /// Assert that the <see cref="ICommunicationObject"/> closes within the specified timeout asynchronous.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="timeout">The timeout.</param>
+        /// <exception cref="AssertTimeoutException"></exception>
+        public static async Task CloseAssertTimeoutAsync(this ICommunicationObject client,
+            int timeout = TestFrame.Timeout)
+        {
+            try
+            {
+                await Task.Factory.FromAsync(client.BeginClose, client.EndClose, TimeSpan.FromMilliseconds(timeout),
+                    null).ConfigureAwait(false);
+            }
+            catch (CommunicationObjectFaultedException)
+            {
+                client.Abort();
+                throw;
+            }
+            catch (TimeoutException)
+            {
+                client.Abort();
+                throw new AssertTimeoutException(timeout);
+            }
+        }
+
+#endif
+
+        /// <summary>Assert <see cref="Thread.Join()"/> finishes within the specified timeout asynchronous.</summary>
         /// <param name="thread">The thread to act on.</param>
         /// <param name="timeout">The timeout.</param>
         /// <exception cref="AssertTimeoutException"></exception>
@@ -81,16 +96,23 @@ namespace SimControl.TestUtils
                 throw new AssertTimeoutException(timeout);
         }
 
+        /// <summary>Read items until <see cref="func"/> is true while asserting the specified timeout.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="asyncCollection">The asynchronous collection.</param>
+        /// <param name="func">The function.</param>
+        /// <param name="timeout">The timeout.</param>
+        /// <returns><br/></returns>
+        /// <exception cref="AssertTimeoutException"></exception>
         public static async Task<IEnumerable<T>> ReadUntilAssertTimeoutAsync<T>(
             this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
         {
             var result = new List<T>();
 
-            var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
+            using var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
             for (; ; )
                 try
                 {
-                    T item = await asyncCollection.ReadAsync(timeoutCancel.Token);
+                    T item = await asyncCollection.ReadAsync(timeoutCancel.Token).ConfigureAwait(false);
 
                     result.Add(item);
 

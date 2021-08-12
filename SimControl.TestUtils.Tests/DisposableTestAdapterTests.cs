@@ -10,7 +10,7 @@ namespace SimControl.TestUtils.Tests
     public class DisposableTestAdapterTests: TestFrame
     {
         [Test]
-        public void DisposableTestAdapter__create_and_dispose_with_SemaphoreSlim__succeeds()
+        public void Create_and_dispose_with_SemaphoreSlim__succeeds()
         {
             using var disposableTestAdapter = new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0));
             disposableTestAdapter.Disposable.Release();

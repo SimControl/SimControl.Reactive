@@ -10,8 +10,8 @@ namespace SimControl.TestUtils.Tests
     [Log, TestFixture, ExclusivelyUses(FileName)]
     public class TempFilesTestAdapterTests: TestFrame
     {
-        [Test]
-        public static void Create_temp_file__create_TempFilesTestAdapter__temp_file_is_deleted()
+        [Test] // Create_and_dispose__file_is_copied_and_deleted
+        public static void Conctructor__create_temp_file_create__temp_file_is_deleted()
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
@@ -25,7 +25,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static void Create_temp_file__Dispose_TempFilesTestAdapter__temp_file_is_deleted()
+        public static void Dispose__create_temp_file_create__temp_file_is_deleted()
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 

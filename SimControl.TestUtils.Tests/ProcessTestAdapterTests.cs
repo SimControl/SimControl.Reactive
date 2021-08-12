@@ -12,75 +12,75 @@ namespace SimControl.TestUtils.Tests
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
-#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
-
-        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
-        public static void ConsoleApp__start_process_by_process_name__returns_0()
-        {
-            ProcessTestAdapter.KillProcesses(ProcessName);
-
-            using var process = new ProcessTestAdapter(ProcessName, "", out ChannelReader<string> standardOutput,
-                out _);
-            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
-            process.Process.StandardInput.Close();
-            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
-            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-        }
-
-        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
-        public static void ConsoleApp__start_process_with_path__returns_0()
-        {
-            ProcessTestAdapter.KillProcesses(ProcessName);
-
-            using var process = new ProcessTestAdapter(TestContext.CurrentContext.TestDirectory, ProcessName, "", out _,
-                out _);
-            process.Process.StandardInput.Close();
-            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-        }
-
-        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
-        public static void ConsoleApp_start_process__ToString__is_correct()
-        {
-            ProcessTestAdapter.KillProcesses(ProcessName);
-
-            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
-            logger.Info("ProcessRunning", LogMethod.GetCurrentMethodName(), process.ToString());
-
-            process.Process.StandardInput.Close();
-            Assert.That(process.WaitForExitAssertTimeout(), Is.EqualTo(0));
-
-            logger.Info("ProcessExited", LogMethod.GetCurrentMethodName(), process.ToString());
-        }
-
-#endif
-
         [Test, IntegrationTest]
-        public static void Start_ConsoleApp_process__Kill__ConsoleApp_process_killed()
+        public static void Kill__start_ConsoleApp_process__process_is_killed()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
-            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.GreaterThan(0));
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
-            process.Kill();
+            processTestAdapter.Kill();
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
         }
 
         [Test, IntegrationTest]
-        public static void Start_ConsoleApp_process__KillProcess__ConsoleApp_process_killed()
+        public static void KillProcesses__start_ConsoleApp_process__process_is_killed()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using var process = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            process.WaitForExitAssertTimeout();
+            processTestAdapter.WaitForExitAssertTimeout();
         }
+
+#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
+
+        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
+        public static void Start_ConsoleApp__ToString_is_correct()
+        {
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            logger.Info(LogMethod.GetCurrentMethodName() + " ProcessRunning " + processTestAdapter.ToString());
+
+            processTestAdapter.Process.StandardInput.Close();
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo(0));
+
+            logger.Info(LogMethod.GetCurrentMethodName() + " ProcessExited ", processTestAdapter.ToString()); // UNDONE fix logging
+        }
+
+        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
+        public static void Start_ConsoleApp_by_process_name__returns_0()
+        {
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "",
+                out ChannelReader<string> standardOutput, out _);
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
+            processTestAdapter.Process.StandardInput.Close();
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo(0));
+        }
+
+        [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
+        public static void Start_ConsoleApp_with_path__returns_0()
+        {
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(TestContext.CurrentContext.TestDirectory, ProcessName,
+                "", out _, out _);
+            processTestAdapter.Process.StandardInput.Close();
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo(0));
+        }
+
+#endif
 
         // TODO CloseMainWindowAssertTimeout tests
 

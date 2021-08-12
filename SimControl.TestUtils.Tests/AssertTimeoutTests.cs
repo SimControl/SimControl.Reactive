@@ -13,19 +13,10 @@ namespace SimControl.TestUtils.Tests
     [TestFixture, Log]
     public class AssertTimeoutTests: TestFrame
     {
-        [Test]
-        public static void AssertTimeout__AssertTimeoutException()
-        {
-            var sem = new SemaphoreSlim(0);
-
-            Assert.That(() => Task.Run(async () => await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1),
-                Throws.TypeOf<AssertTimeoutException>());
-
-            sem.Release();
-        }
+        // TODO CloseAssertTimeoutAsync
 
         [Test]
-        public static void AssertTimeout__Canceled()
+        public static void AssertTimeout__task_is_cancled__OperationCanceledException_is_thrown()
         {
             using var cts = new CancellationTokenSource();
             cts.Cancel();
@@ -37,17 +28,42 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static void AssertTimeout__Faulted() => Assert.That(() =>
+        public static void AssertTimeout__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
             Task.Run(() => {
                 ContextSwitch();
                 throw new InvalidOperationException();
             }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
 
         [Test]
-        public static void AssertTimeout__RanToCompletion() => Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
+        public static void AssertTimeout__task_terminates_successful_no_exception_is_thrown() =>
+            Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
 
         [Test]
-        public static void AssertTimeout_T__AssertTimeoutException()
+        public static void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
+        {
+            var sem = new SemaphoreSlim(0);
+
+            Assert.That(() => Task.Run(async () => await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1),
+                Throws.TypeOf<AssertTimeoutException>());
+
+            sem.Release();
+        }
+
+        [Test]
+        public static void AssertTimeoutAsync__task_not_completed_within_timeout__UnobservedTaskException_not_triggerd()
+        {
+            var sem = new SemaphoreSlim(0);
+
+            Assert.That(() => Task.Run(async () => {
+                await sem.WaitAsync().ConfigureAwait(false);
+                throw new InvalidOperationException();
+            }).AssertTimeoutAsync(1), Throws.TypeOf<AssertTimeoutException>());
+
+            sem.Release();
+        }
+
+        [Test]
+        public static void AssertTimeoutAsyncT__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
         {
             var sem = new SemaphoreSlim(0);
 
@@ -60,7 +76,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static void AssertTimeout_T__Canceled()
+        public static void AssertTimeoutT__task_is_cancled__OperationCanceledException_is_thrown()
         {
             using var cts = new CancellationTokenSource();
             cts.Cancel();
@@ -73,7 +89,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static void AssertTimeout_T__Faulted() => Assert.That(() =>
+        public static void AssertTimeoutT__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
             Task.Run(() => {
                 ContextSwitch();
                 throw new InvalidOperationException();
@@ -81,13 +97,14 @@ namespace SimControl.TestUtils.Tests
             }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
 
         [Test]
-        public static void AssertTimeout_T__RanToCompletion() => Assert.That(Task.Run(() => {
-            ContextSwitch();
-            return 1;
-        }).AssertTimeoutAsync().Result, Is.EqualTo(1));
+        public static void AssertTimeoutT__task_terminates_successful_no_exception_is_thrown() =>
+            Assert.That(Task.Run(() => {
+                ContextSwitch();
+                return 1;
+            }).AssertTimeoutAsync().Result, Is.EqualTo(1));
 
         [Test]
-        public static void JoinAssertTimeout__AssertTimeoutException()
+        public static void JoinAssertTimeout__thread_does_not_joined_within_timeout__AssertTimeoutException_is_thrown()
         {
             var sem = new SemaphoreSlim(0);
 
@@ -101,7 +118,7 @@ namespace SimControl.TestUtils.Tests
         }
 
         [Test]
-        public static void JoinAssertTimeout__WaitUntilThreadStarted__ThreadHasJoined()
+        public static void JoinAssertTimeout__thread_joines_within_timeout__successfully()
         {
             var sem = new SemaphoreSlim(0);
 

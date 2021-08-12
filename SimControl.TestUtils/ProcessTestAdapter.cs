@@ -29,7 +29,7 @@ namespace SimControl.TestUtils
             standardOutput = output.Reader;
             standardError = error.Reader;
 
-            StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments,
+            Process = StartProcess(TestContext.CurrentContext.TestDirectory + "\\" + name + ".exe", arguments,
                 output.Writer, error.Writer);
         }
 
@@ -48,7 +48,7 @@ namespace SimControl.TestUtils
             standardOutput = output.Reader;
             standardError = error.Reader;
 
-            StartProcess(path + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
+            Process = StartProcess(path + "\\" + name + ".exe", arguments, output.Writer, error.Writer);
         }
 
         /// <summary>Kills all processes with the same <paramref name="processName"/>.</summary>
@@ -90,7 +90,6 @@ namespace SimControl.TestUtils
 
             Process.Kill();
             Assert.That(Process.WaitForExit(TestFrame.Timeout), "Timeout expired");
-            Process = null;
         }
 
         /// <inheritdoc/>
@@ -110,8 +109,6 @@ namespace SimControl.TestUtils
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public int WaitForExitAssertTimeout(int timeout)
         {
-            if (Process is null) throw new InvalidOperationException("Process has already been terminated");
-
             if (!Process.WaitForExit(timeout))
             {
                 try
@@ -121,46 +118,44 @@ namespace SimControl.TestUtils
                 }
                 catch (Exception e) { logger.Warn(e, LogMethod.GetCurrentMethodName()); }
 
-                Process.Dispose();
-                Process = null;
-
                 throw new AssertTimeoutException(timeout);
             }
 
-            int ret = Process.ExitCode;
-
-            Process.Dispose();
-            Process = null;
-
-            return ret;
+            return Process.ExitCode;
         }
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing && Process != null)
+            {
                 WaitForExitAssertTimeout();
+                Process.Dispose();
+                Process = null;
+            }
         }
 
-        private void StartProcess(string fileName, string? arguments, ChannelWriter<string> standardOutput,
+        private static Process StartProcess(string fileName, string? arguments, ChannelWriter<string> standardOutput,
             ChannelWriter<string> standardError)
         {
-            Process = Process.Start(new ProcessStartInfo {
+            Process process = Process.Start(new ProcessStartInfo {
                 Arguments = arguments, CreateNoWindow = true, FileName = fileName, RedirectStandardInput = true,
                 RedirectStandardError = true, RedirectStandardOutput = true, UseShellExecute = false,
                 WorkingDirectory = Path.GetDirectoryName(fileName)
             });
 
-            Process.OutputDataReceived += (sender, args) => standardOutput.TryWrite(args.Data);
-            Process.ErrorDataReceived += (sender, args) => standardError.TryWrite(args.Data);
+            process.OutputDataReceived += (sender, args) => standardOutput.TryWrite(args.Data);
+            process.ErrorDataReceived += (sender, args) => standardError.TryWrite(args.Data);
 
-            Process.BeginOutputReadLine();
-            Process.BeginErrorReadLine();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+
+            return process;
         }
 
         /// <summary>Gets the process.</summary>
         /// <value>The process.</value>
-        public Process? Process { get; private set; }
+        public Process Process { get; private set; }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
