@@ -96,7 +96,7 @@ namespace SimControl.TestUtils
                 throw new AssertTimeoutException(timeout);
         }
 
-        /// <summary>Read items until <see cref="func"/> is true while asserting the specified timeout.</summary>
+        /// <summary>Read items until <paramref name="func"/> is true while asserting the specified timeout.</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="asyncCollection">The asynchronous collection.</param>
         /// <param name="func">The function.</param>

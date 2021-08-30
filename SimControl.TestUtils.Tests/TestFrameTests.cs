@@ -7,8 +7,6 @@ using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE implement/CR TestFrameTests
-
 namespace SimControl.TestUtils.Tests
 {
     [Log, TestFixture]
@@ -17,25 +15,28 @@ namespace SimControl.TestUtils.Tests
         #region Test SetUpTearDown
 
         [OneTimeSetUp]
-        public new void OneTimeSetUp() => oneTimeAutoResetEvent = OneTimeRegisterTestAdapter(
-            new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
+        public void OneTimeSetUp_OneTimeRegisterTestAdapter__succeeds() =>
+            oneTimeSemaphoreSlim = OneTimeRegisterTestAdapter(
+                new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0))).Disposable;
 
         [OneTimeTearDown]
-        public new void OneTimeTearDown()
+        public void OneTimeTearDown_CatchOneTimeTearDownExceptions__thrown_exception__is_added_to_PendingExceptions()
         {
             CatchOneTimeTearDownExceptions(() => throw new InvalidOperationException());
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(TakePendingExceptionAsync().AssertTimeoutAsync().Result,
+                Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         [SetUp]
-        public new void SetUp() => autoResetEvent = RegisterTestAdapter(
-            new DisposableTestAdapter<AutoResetEvent>(new AutoResetEvent(false))).Disposable;
+        public void SetUp_RegisterTestAdapter__succeeds() => semaphoreSlim = RegisterTestAdapter(
+            new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0))).Disposable;
 
         [TearDown]
-        public new void TearDown()
+        public void TearDown_CatchTearDownExceptions__thrown_Exception__is_added_to_PendingExceptions()
         {
             CatchTearDownExceptions(() => throw new InvalidOperationException());
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(TakePendingExceptionAsync().AssertTimeoutAsync().Result,
+                Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         #endregion
@@ -55,62 +56,60 @@ namespace SimControl.TestUtils.Tests
         public static void DebugTimeout__Succeeds() => Task.Delay(DebugTimeout(1)).Wait();
 
         [Test]
-        public static void Delay__Succeeds() => Task.Delay(1).Wait();
-
-        [Test]
         public static void ForceGarbageCollection__Succeeds() => ForceGarbageCollection();
 
-        [Test]
-        public static void Run__Succeeds() => Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
-
         [Test, Isolated]
-        public void AppDomainUnhandledExceptionHandler__Test()
+        public void AppDomain_UnhandledException__thrown_Exception__is_added_to_PendingExceptions()
         {
-            if (Environment.GetEnvironmentVariable("NCrunch") != "1") // UNDONE UnhandledException not raised with NCrunch
+            if (Environment.GetEnvironmentVariable("NCrunch") != "1")
+            // AppDomain.UnhandledException is handled by NCrunch as an error
             {
                 var thread = new Thread(() => throw new InvalidOperationException());
                 thread.Start();
 
-                //Task.Run(() => thread.Join()).AssertTimeoutAsync();
                 thread.JoinAssertTimeout();
 
-                Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
+                Exception result = TakePendingExceptionAsync().AssertTimeoutAsync().Result;
+                Assert.That(result,
+                    Is.InstanceOf(typeof(InvalidOperationException)));
             }
         }
 
         [Test]
-        public void SetUp_TearDown__Test()
+        public void SetUp_TearDown__succeed()
         {
-            oneTimeAutoResetEvent.Set();
-            autoResetEvent.Set();
+            oneTimeSemaphoreSlim.Release();
+            semaphoreSlim.Release();
         }
 
         [Test]
-        public void TakePendingExceptionAssertTimeout__Succeds()
+        public void TakePendingExceptionAsync__thrown_Exception__is_added_to_PendingExceptions()
         {
             Task.Run(() => AddUnhandledException(new InvalidOperationException())).AssertTimeoutAsync().Wait();
 
-            Assert.That(TakePendingException(), Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(TakePendingExceptionAsync().AssertTimeoutAsync().Result,
+                Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
-        [Test, Isolated, Ignore("UnobservedTaskException not raised")] // UNDONE UnobservedTaskException not raised
-        public void TaskSchedulerUnobservedTaskExceptionHandler__Test()
+        [Test, Isolated]
+        public void TaskScheduler_UnobservedTaskException__thrown_Exception__is_added_to_PendingExceptions()
         {
             ThrowUnhandledExceptionInAsyncTask();
 
             ContextSwitch();
             ForceGarbageCollection();
 
-            Exception e = TakePendingException();
+            Exception e = TakePendingExceptionAsync().AssertTimeoutAsync().Result;
 
             Assert.That(e, Is.Not.Null);
-            Assert.That(e, Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(e, Is.InstanceOf(typeof(AggregateException)));
+            Assert.That(e.InnerException, Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         private static void ThrowUnhandledExceptionInAsyncTask() =>
             Task.Run(() => throw new InvalidOperationException());
 
-        private AutoResetEvent autoResetEvent;
-        private AutoResetEvent oneTimeAutoResetEvent;
+        private SemaphoreSlim oneTimeSemaphoreSlim;
+        private SemaphoreSlim semaphoreSlim;
     }
 }

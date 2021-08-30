@@ -8,14 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
 using SimControl.Log;
-
-// UNDONE TestFrame CR
-// UNDONE throw AssertTimeoutException instead of TimeoutException
-// UNDONE switch TestFrame to Channel
 
 namespace SimControl.TestUtils
 {
@@ -25,18 +22,16 @@ namespace SimControl.TestUtils
     {
         private static class NativeMethods
         {
-            [DllImport("ntdll.dll", SetLastError = true)]
+            [DllImport("ntdll.dll", SetLastError = true), DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
             internal static extern int NtQueryTimerResolution(out int minimumResolution, out int maximumResolution,
                                                               out int currentResolution);
         }
 
+        [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
         static TestFrame()
         {
-            int minimumResolution;
-            int maximumResolution;
-            int currentResolution;
-
-            Assert.AreEqual(0, NativeMethods.NtQueryTimerResolution(out minimumResolution, out maximumResolution, out currentResolution));
+            Assert.That(NativeMethods.NtQueryTimerResolution(out int minimumResolution, out int _, out int _),
+                Is.EqualTo(0));
             MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
         }
 
@@ -46,13 +41,18 @@ namespace SimControl.TestUtils
         [Log, OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            oneTimeTestAdapters.Clear();
+
+            ThrowPendingExceptions();
+
             InternationalCultureInfo.SetCurrentThreadCulture();
             InternationalCultureInfo.SetDefaultThreadCulture();
 
-            AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler; // UNDONE AppDomain.CurrentDomain.UnhandledException not raised with NCrunch
-            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler; // UNDONE TaskScheduler.UnobservedTaskException not raised
+            if (Environment.GetEnvironmentVariable("NCrunch") != "1")
+                // AppDomain.UnhandledException is handled by NCrunch as an error
+                AppDomain.CurrentDomain.UnhandledException += AppDomainUnhandledExceptionHandler;
 
-            oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
+            TaskScheduler.UnobservedTaskException += TaskSchedulerUnobservedTaskExceptionHandler;
         }
 
         /// <summary>Onetime test tear down.</summary>
@@ -60,17 +60,17 @@ namespace SimControl.TestUtils
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void OneTimeTearDown()
         {
-            while (oneTimeTestAdapters.TryPop(out TestAdapter tfa))
-                try { tfa.Dispose(); }
+            while (oneTimeTestAdapters.TryPop(out TestAdapter testAdapter))
+                try { testAdapter.Dispose(); }
                 catch (Exception e) { AddUnhandledException(e); }
 
-            oneTimeTestAdapters = null;
-
             // force any unfinished and unreferenced tasks to terminate
-            ContextSwitch();
             ForceGarbageCollection();
 
-            AppDomain.CurrentDomain.UnhandledException -= AppDomainUnhandledExceptionHandler;
+            if (Environment.GetEnvironmentVariable("NCrunch") != "1")
+                // AppDomain.UnhandledException is handled by NCrunch as an error
+                AppDomain.CurrentDomain.UnhandledException -= AppDomainUnhandledExceptionHandler;
+
             TaskScheduler.UnobservedTaskException -= TaskSchedulerUnobservedTaskExceptionHandler;
 
             ThrowPendingExceptions();
@@ -80,7 +80,7 @@ namespace SimControl.TestUtils
         [Log, SetUp]
         public void SetUp()
         {
-            testAdapters = new ConcurrentStack<TestAdapter>();
+            testAdapters.Clear();
 
             logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), TestContext.CurrentContext.Test.FullName,
                 nameof(Environment), Environment.Version, Environment.Is64BitProcess ? "x64" : "x86",
@@ -92,14 +92,11 @@ namespace SimControl.TestUtils
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public void TearDown()
         {
-            while (testAdapters.TryPop(out TestAdapter tfa))
-                try { tfa.Dispose(); }
+            while (testAdapters.TryPop(out TestAdapter testAdapter))
+                try { testAdapter.Dispose(); }
                 catch (Exception e) { AddUnhandledException(e); }
 
-            testAdapters = null;
-
             // force any unfinished and unreferenced tasks to terminate
-            ContextSwitch();
             ForceGarbageCollection();
 
             ThrowPendingExceptions();
@@ -119,6 +116,7 @@ namespace SimControl.TestUtils
         /// <summary>Force garbage collection.</summary>
         public static void ForceGarbageCollection()
         {
+            ContextSwitch();
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -127,6 +125,7 @@ namespace SimControl.TestUtils
         /// <param name="type">The type.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="args">A variable-length parameters list containing arguments.</param>
+        [Obsolete("Refactor static singletons")] // TODO delete
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args) =>
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
 
@@ -146,7 +145,8 @@ namespace SimControl.TestUtils
         /// <summary>Adds an unhandled exception.</summary>
         /// <param name="exception">.</param>
         [Log]
-        public void AddUnhandledException(Exception exception) => pendingExceptions.Add(exception);
+        public void AddUnhandledException(Exception exception) =>
+            Assert.That(pendingExceptions.Writer.TryWrite(exception));
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
         /// <param name="action">The action.</param>
@@ -190,14 +190,10 @@ namespace SimControl.TestUtils
             return testAdapter;
         }
 
-        /// <summary>Try to get the first pending exception.</summary>
-        /// <param name="timeout">(Optional) The timeout.</param>
-        /// <returns>
-        /// An exception or null if no pending exception occurred within the specified <paramref name="timeout"/>.
-        /// </returns>
+        /// <summary>Get the first pending exception.</summary>
+        /// <returns>An exception./&gt;.</returns>
         [Log]
-        public Exception TakePendingException(int timeout = Timeout) =>
-            pendingExceptions.TryTake(out Exception e, DebugTimeout(timeout)) ? e : null;
+        public Task<Exception> TakePendingExceptionAsync() => pendingExceptions.Reader.ReadAsync().AsTask();
 
         [Log]
         private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>
@@ -214,26 +210,25 @@ namespace SimControl.TestUtils
         {
             var exceptions = new List<Exception>();
 
-            while (pendingExceptions.TryTake(out Exception e)) exceptions.Add(e);
+            while (pendingExceptions.Reader.TryRead(out Exception? e))
+                exceptions.Add(e);
 
-            if (exceptions.Count > 0) throw new AggregateException(exceptions);
+            if (exceptions.Count > 0)
+                throw new AggregateException(exceptions);
         }
 
         /// <summary>Test timeout for interactive tests in milliseconds.</summary>
-        /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 60 seconds.</remarks>
         public const int InteractiveTimeout = 30000;
 
         /// <summary>The test timeout in milliseconds.</summary>
-        /// <remarks>Returns int.MaxValue if a debugger is attached, otherwise 10 seconds.</remarks>
         public const int Timeout = 10000;
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly BlockingCollection<Exception> pendingExceptions = new BlockingCollection<Exception>();
-        private ConcurrentStack<TestAdapter> oneTimeTestAdapters;
-        private ConcurrentStack<TestAdapter> testAdapters;
-
-        /// <summary>The minimum thread switch.</summary>
+        /// <summary>The minimum time in milliseconds for a Windows thread switch.</summary>
         public static readonly int MinTimerResolution;
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly ConcurrentStack<TestAdapter> oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
+        private readonly Channel<Exception> pendingExceptions = Channel.CreateUnbounded<Exception>();
+        private readonly ConcurrentStack<TestAdapter> testAdapters = new ConcurrentStack<TestAdapter>();
     }
 }
-
