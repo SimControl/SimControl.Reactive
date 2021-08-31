@@ -116,7 +116,7 @@ namespace SimControl.TestUtils
                     Process.Kill();
                     Process.WaitForExit(TestFrame.DebugTimeout(timeout));
                 }
-                catch (Exception e) { logger.Warn(e, LogMethod.GetCurrentMethodName()); }
+                catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), this, e); }
 
                 throw new AssertTimeoutException(timeout);
             }

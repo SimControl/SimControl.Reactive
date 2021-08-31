@@ -26,7 +26,7 @@ namespace SimControl.TestUtils.Tests
         {
             await ForceContextSwitchAsync().ConfigureAwait(false);
 
-            logger.Info("Finished");
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Finished");
         }
 
         [Test]

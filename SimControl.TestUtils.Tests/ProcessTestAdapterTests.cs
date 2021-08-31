@@ -48,12 +48,12 @@ namespace SimControl.TestUtils.Tests
             ProcessTestAdapter.KillProcesses(ProcessName);
 
             using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
-            logger.Info(LogMethod.GetCurrentMethodName() + " ProcessRunning " + processTestAdapter.ToString());
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessRunning", processTestAdapter);
 
             processTestAdapter.Process.StandardInput.Close();
             Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo(0));
 
-            logger.Info(LogMethod.GetCurrentMethodName() + " ProcessExited ", processTestAdapter.ToString()); // UNDONE fix logging
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessExited", processTestAdapter);
         }
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]

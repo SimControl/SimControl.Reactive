@@ -168,7 +168,7 @@
 //                        new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(-1)));
 
 //                    sm.StateChanged += (sender, args) => stateChanged.Add(stateChangedCount++);
-//                    sm.Failed += (o, args) => logger.Error(((StateMachineException) args).ToString());
+//                    sm.Failed += (o, args) => logger.Exception(((StateMachineException) args).ToString());
 
 //                    using (var context = new AsyncContextThreadAdapter(this, "TestDispatcherContext", ApartmentState.STA))
 //                    {

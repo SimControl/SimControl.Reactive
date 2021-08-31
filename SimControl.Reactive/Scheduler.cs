@@ -63,14 +63,14 @@ namespace SimControl.Reactive
                     {
                         try
                         {
-                            if (logger.IsTraceEnabled) logger.Trace(Log.LaMessage(this, ev));
+                            if (logger.IsTraceEnabled) logger.Message(Log.LaMessage(this, ev));
 
                             ev.Effect.DynamicInvoke(ev.Args);
                         }
                         catch (Exception e)
                         {
                             lock (staticLocker) ExceptionCount++;
-                            logger.ErrorException(Log.LaException(this), e);
+                            logger.Exception(Log.LaException(this), e);
                         }
                     }
                     else if (ts == TimeSpan.Zero)
@@ -82,7 +82,7 @@ namespace SimControl.Reactive
                     }
                 }
             }
-            catch (Exception e) { logger.ErrorException(Log.LaException(this), e); }
+            catch (Exception e) { logger.Exception(Log.LaException(this), e); }
 
             thread = null;
         }
@@ -111,7 +111,7 @@ namespace SimControl.Reactive
         {
             lock (this)
             {
-                if (logger.IsTraceEnabled) logger.Trace(Log.LaMessage(this, ev));
+                if (logger.IsTraceEnabled) logger.Message(Log.LaMessage(this, ev));
 
                 AssertIsValid();
                 o.AssertIsValid();
@@ -134,7 +134,7 @@ namespace SimControl.Reactive
         {
             lock (this)
             {
-                if (logger.IsTraceEnabled) logger.Trace(Log.LaMessage(this, ev));
+                if (logger.IsTraceEnabled) logger.Message(Log.LaMessage(this, ev));
                 AssertIsValid();
                 return events.Remove(ev);
             }

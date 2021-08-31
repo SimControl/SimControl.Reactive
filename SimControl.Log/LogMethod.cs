@@ -35,7 +35,7 @@ namespace SimControl.Log
         /// <summary>Format a log message for a method for an exception.</summary>
         /// <param name="logger">The logger.</param>
         /// <param name="logLevel">The log level.</param>
-        /// <param name="method">The method.</param>
+        /// <param name="methodName">The method name.</param>
         /// <param name="instance">The instance.</param>
         /// <param name="logException">The exception.</param>
         public static void Exception(this Logger logger, LogLevel logLevel, string methodName, object? instance,
@@ -74,14 +74,8 @@ namespace SimControl.Log
         /// <summary>Format an arbitrary log message.</summary>
         /// <param name="logger">The logger.</param>
         /// <param name="logLevel">The log level.</param>
+        /// <param name="mehtodName">The method name.</param>
         /// <param name="args">The args.</param>
-        public static void Message(this Logger logger, LogLevel logLevel, params object[] args)
-        {
-            // Contract.Requires(logger != null);
-
-            logger.Log(logLevel, ":" + (args.Length > 0 ? LogFormat.FormatArgsList(args) : ""));
-        }
-
         public static void Message(this Logger logger, LogLevel logLevel, string methodName, params object[] args)
         {
             // Contract.Requires(logger != null);

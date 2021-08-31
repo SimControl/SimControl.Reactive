@@ -136,8 +136,8 @@ namespace SimControl.Templates.CSharp.ConsoleApp
             try
             {
                 if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                    logger.Error(LogMethod.GetCurrentMethodName(), "Unregister ExternSetConsoleCtrlHandler",
-                        Marshal.GetLastWin32Error());
+                    logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(),
+                        "Unregister ExternSetConsoleCtrlHandler", Marshal.GetLastWin32Error());
 
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;

@@ -200,10 +200,8 @@ namespace SimControl.TestUtils
 
         /// <summary>Get the first pending exception.</summary>
         /// <returns>An exception./&gt;.</returns>
-        [Log]
         public Task<Exception> TakePendingExceptionAsync() => pendingExceptions.Reader.ReadAsync().AsTask();
 
-        [Log]
         public Exception? TryTakePendingException()
         {
             Exception e = null;

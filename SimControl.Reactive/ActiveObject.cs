@@ -390,7 +390,7 @@ namespace SimControl.Reactive
                     }
                     catch (Exception e)
                     {
-                        logger.ErrorException(Log.LaException(this), e);
+                        logger.Exception(Log.LaException(this), e);
                         throw;
                     }
         }
@@ -419,7 +419,7 @@ namespace SimControl.Reactive
                 AsyncFire asyncFire = (AsyncFire) asyncResult.AsyncState;
                 asyncFire.EndInvoke(asyncResult);
             }
-            catch (Exception e) { logger.ErrorException(Log.LaException(this), e); } // might not be threadsafe
+            catch (Exception e) { logger.Exception(Log.LaException(this), e); } // might not be threadsafe
         }
 
         private static void InvokeDelegate(Delegate del, object[] args)
@@ -470,7 +470,8 @@ namespace SimControl.Reactive
         {
             AssertIsValid();
 
-            logger.Debug(Log.LaMessage(this, newChildren));
+            logger.Message
+            (Log.LaMessage(this, newChildren));
 
             foreach (ActiveObject child in newChildren)
             {

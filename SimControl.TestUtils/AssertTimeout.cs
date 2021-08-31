@@ -24,7 +24,8 @@ namespace SimControl.TestUtils
             {
 #pragma warning disable CS4014 // Because this call is not awaited,
                 // execution of the current method continues before the call is completed
-                task.ContinueWith(t => logger.Warn(t.Exception.InnerException, LogMethod.GetCurrentMethodName()),
+                task.ContinueWith(t =>
+                    logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, t.Exception.InnerException),
                     CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 #pragma warning restore CS4014
 
@@ -46,7 +47,8 @@ namespace SimControl.TestUtils
             {
 #pragma warning disable CS4014 // Because this call is not awaited,
                 // execution of the current method continues before the call is completed
-                task.ContinueWith(t => logger.Warn(t.Exception.InnerException, LogMethod.GetCurrentMethodName()),
+                task.ContinueWith(t =>
+                    logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, t.Exception.InnerException),
                     CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
 #pragma warning restore CS4014
 

@@ -45,7 +45,7 @@
 //                }
 //                catch (Exception e)
 //                {
-//                    logger.Warn(e);
+//                    logger.Message(e);
 //                }
 
 //            base.TestCleanup();
