@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using NCrunch.Framework;
+using NLog;
 using NUnit.Framework;
 using SimControl.Log;
 
@@ -42,7 +43,7 @@ namespace SimControl.TestUtils.Tests
         #endregion
 
         [Test]
-        public static void ContextSwitch__Succeeds() => ContextSwitch();
+        public static void ContextSwitch__Succeeds() => ForceContextSwitch();
 
         [Test]
         public static void CurrentThreadCulture_IsSetTo_InternationalCultureInfo__Test()
@@ -57,6 +58,26 @@ namespace SimControl.TestUtils.Tests
 
         [Test]
         public static void ForceGarbageCollection__Succeeds() => ForceGarbageCollection();
+
+        [Test, Isolated]
+        public void AddUnhandledException__exception_is_received_by_TakePendingException()
+        {
+            Task.Run(() => {
+                try
+                {
+                    throw new InvalidOperationException(
+                  nameof(AddUnhandledException__exception_is_received_by_TakePendingException));
+                }
+                catch (InvalidOperationException e) { AddPendingException(e); }
+            }).AssertTimeoutAsync().Wait();
+
+            Exception e = TakePendingExceptionAsync().AssertTimeoutAsync().Result;
+
+            Assert.That(e, Is.Not.Null);
+            Assert.That(e, Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(e.Message, Is.EqualTo(
+                nameof(AddUnhandledException__exception_is_received_by_TakePendingException)));
+        }
 
         [Test, Isolated]
         public void AppDomain_UnhandledException__thrown_Exception__is_added_to_PendingExceptions()
@@ -85,18 +106,29 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public void TakePendingExceptionAsync__thrown_Exception__is_added_to_PendingExceptions()
         {
-            Task.Run(() => AddUnhandledException(new InvalidOperationException())).AssertTimeoutAsync().Wait();
+            Task.Run(() => AddPendingException(new InvalidOperationException())).AssertTimeoutAsync().Wait();
 
             Assert.That(TakePendingExceptionAsync().AssertTimeoutAsync().Result,
                 Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
         [Test, Isolated]
-        public void TaskScheduler_UnobservedTaskException__thrown_Exception__is_added_to_PendingExceptions()
+        public void UnobservedTaskException__ContinueWith_OnlyOnFaulted__does_not_raise_UnobservedTaskException()
+        {
+            ThrowUnhandledExceptionInAsyncTaskContinueWithOnlyOnFaultedLogException();
+
+            Thread.Sleep(1000);
+            ForceGarbageCollection();
+
+            Assert.That<Exception>(TryTakePendingException(), Is.Null);
+        }
+
+        [Test, Isolated]
+        public void UnobservedTaskException__thrown_Exception__is_added_to_PendingExceptions()
         {
             ThrowUnhandledExceptionInAsyncTask();
 
-            ContextSwitch();
+            Thread.Sleep(1000);
             ForceGarbageCollection();
 
             Exception e = TakePendingExceptionAsync().AssertTimeoutAsync().Result;
@@ -104,12 +136,38 @@ namespace SimControl.TestUtils.Tests
             Assert.That(e, Is.Not.Null);
             Assert.That(e, Is.InstanceOf(typeof(AggregateException)));
             Assert.That(e.InnerException, Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(e.InnerException.Message, Is.EqualTo(nameof(ThrowUnhandledExceptionInAsyncTask)));
+        }
+
+        [Test, Isolated]
+        public void UnobservedTaskException__thrown_Exception__is_added_to_TryTakePendingException()
+        {
+            ThrowUnhandledExceptionInAsyncTask();
+
+            Thread.Sleep(1000);
+            ForceGarbageCollection();
+
+            Exception? e = TryTakePendingException();
+
+            Assert.That(e, Is.Not.Null);
+            Assert.That(e, Is.InstanceOf(typeof(AggregateException)));
+            Assert.That(e.InnerException, Is.InstanceOf(typeof(InvalidOperationException)));
+            Assert.That(e.InnerException.Message, Is.EqualTo(nameof(ThrowUnhandledExceptionInAsyncTask)));
         }
 
         private static void ThrowUnhandledExceptionInAsyncTask() =>
-            Task.Run(() => throw new InvalidOperationException());
+            Task.Run(() => throw new InvalidOperationException(nameof(ThrowUnhandledExceptionInAsyncTask)));
 
+        private static void ThrowUnhandledExceptionInAsyncTaskContinueWithOnlyOnFaultedLogException() =>
+            Task.Run(() => throw new InvalidOperationException(
+                nameof(ThrowUnhandledExceptionInAsyncTaskContinueWithOnlyOnFaultedLogException)))
+                .ContinueWith(t => logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(),
+                    null, t.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private SemaphoreSlim oneTimeSemaphoreSlim;
         private SemaphoreSlim semaphoreSlim;
     }
 }
+
+// add AssertTimeout aborted with timeout does not signal exception

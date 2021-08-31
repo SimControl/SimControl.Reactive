@@ -22,7 +22,7 @@ namespace SimControl.TestUtils.Tests
             cts.Cancel();
 
             Assert.That(() => Task.Run(() => {
-                ContextSwitch();
+                ForceContextSwitch();
                 cts.Token.ThrowIfCancellationRequested();
             }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
         }
@@ -30,13 +30,13 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void AssertTimeout__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
             Task.Run(() => {
-                ContextSwitch();
+                ForceContextSwitch();
                 throw new InvalidOperationException();
             }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
 
         [Test]
         public static void AssertTimeout__task_terminates_successful_no_exception_is_thrown() =>
-            Task.Run(ContextSwitch).AssertTimeoutAsync().Wait();
+            Task.Run(ForceContextSwitch).AssertTimeoutAsync().Wait();
 
         [Test]
         public static void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
@@ -82,7 +82,7 @@ namespace SimControl.TestUtils.Tests
             cts.Cancel();
 
             Assert.That(() => Task.Run(() => {
-                ContextSwitch();
+                ForceContextSwitch();
                 cts.Token.ThrowIfCancellationRequested();
                 return 1;
             }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
@@ -91,7 +91,7 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void AssertTimeoutT__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
             Task.Run(() => {
-                ContextSwitch();
+                ForceContextSwitch();
                 throw new InvalidOperationException();
                 return 1;
             }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
@@ -99,7 +99,7 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void AssertTimeoutT__task_terminates_successful_no_exception_is_thrown() =>
             Assert.That(Task.Run(() => {
-                ContextSwitch();
+                ForceContextSwitch();
                 return 1;
             }).AssertTimeoutAsync().Result, Is.EqualTo(1));
 

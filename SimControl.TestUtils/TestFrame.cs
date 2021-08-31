@@ -62,7 +62,7 @@ namespace SimControl.TestUtils
         {
             while (oneTimeTestAdapters.TryPop(out TestAdapter testAdapter))
                 try { testAdapter.Dispose(); }
-                catch (Exception e) { AddUnhandledException(e); }
+                catch (Exception e) { AddPendingException(e); }
 
             // force any unfinished and unreferenced tasks to terminate
             ForceGarbageCollection();
@@ -94,7 +94,7 @@ namespace SimControl.TestUtils
         {
             while (testAdapters.TryPop(out TestAdapter testAdapter))
                 try { testAdapter.Dispose(); }
-                catch (Exception e) { AddUnhandledException(e); }
+                catch (Exception e) { AddPendingException(e); }
 
             // force any unfinished and unreferenced tasks to terminate
             ForceGarbageCollection();
@@ -106,7 +106,15 @@ namespace SimControl.TestUtils
 
         /// <summary>Context switch.</summary>
         /// <remarks>Forces the CLI to suspend thread execution.</remarks>
-        public static void ContextSwitch() => Thread.Sleep(1);
+        public static void PermitContextSwitch() => Thread.Sleep(1);
+
+        public static Task PermitContextSwitchAsync() => Task.Delay(1);
+
+        /// <summary>Context switch.</summary>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
+        public static void ForceContextSwitch() => Thread.Sleep(MinTimerResolution);
+
+        public static Task ForceContextSwitchAsync() => Task.Delay(MinTimerResolution);
 
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
@@ -116,7 +124,7 @@ namespace SimControl.TestUtils
         /// <summary>Force garbage collection.</summary>
         public static void ForceGarbageCollection()
         {
-            ContextSwitch();
+            ForceContextSwitch();
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -145,7 +153,7 @@ namespace SimControl.TestUtils
         /// <summary>Adds an unhandled exception.</summary>
         /// <param name="exception">.</param>
         [Log]
-        public void AddUnhandledException(Exception exception) =>
+        public void AddPendingException(Exception exception) =>
             Assert.That(pendingExceptions.Writer.TryWrite(exception));
 
         /// <summary>Catches any exception fired by a onetime tear down action.</summary>
@@ -155,7 +163,7 @@ namespace SimControl.TestUtils
         public void CatchOneTimeTearDownExceptions(Action action)
         {
             try { action(); }
-            catch (Exception e) { AddUnhandledException(e); }
+            catch (Exception e) { AddPendingException(e); }
         }
 
         /// <summary>Catches any exception fired by a tear down action.</summary>
@@ -165,7 +173,7 @@ namespace SimControl.TestUtils
         public void CatchTearDownExceptions(Action action)
         {
             try { action(); }
-            catch (Exception e) { AddUnhandledException(e); }
+            catch (Exception e) { AddPendingException(e); }
         }
 
         /// <summary>Register a test adapter for this class.</summary>
@@ -196,13 +204,24 @@ namespace SimControl.TestUtils
         public Task<Exception> TakePendingExceptionAsync() => pendingExceptions.Reader.ReadAsync().AsTask();
 
         [Log]
+        public Exception? TryTakePendingException()
+        {
+            Exception e = null;
+
+            if (pendingExceptions.Reader.TryRead(out e))
+                return e;
+            else
+                return null;
+        }
+
+        [Log]
         private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>
-            AddUnhandledException((Exception) args.ExceptionObject);
+            AddPendingException((Exception) args.ExceptionObject);
 
         [Log]
         private void TaskSchedulerUnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
-            AddUnhandledException(args.Exception);
+            AddPendingException(args.Exception);
             args.SetObserved(); // as we have observed the exception, the process should not terminate
         }
 
