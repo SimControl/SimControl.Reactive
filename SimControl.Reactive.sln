@@ -103,6 +103,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Parent Directory", "_Paren
 		..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props = ..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.WpfApp", "SimControl.Samples.CSharp.WpfApp\SimControl.Samples.CSharp.WpfApp.csproj", "{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -457,6 +459,26 @@ Global
 		{EE9D6A1D-2EC9-4AB6-82F9-D490708B02E0}.Release|x64.Build.0 = Release|Any CPU
 		{EE9D6A1D-2EC9-4AB6-82F9-D490708B02E0}.Release|x86.ActiveCfg = Release|Any CPU
 		{EE9D6A1D-2EC9-4AB6-82F9-D490708B02E0}.Release|x86.Build.0 = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|Win32.Build.0 = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Debug|x86.Build.0 = Debug|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Win32.ActiveCfg = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|Win32.Build.0 = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|x64.Build.0 = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,6 +504,7 @@ Global
 		{2DB82EC5-D893-4F2F-A840-40E4BB53A64C} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{A3730C9C-C77A-4798-8C61-7DD211A78328} = {79384A33-5F3F-4B83-9B7E-9FC91709C362}
 		{EE9D6A1D-2EC9-4AB6-82F9-D490708B02E0} = {79384A33-5F3F-4B83-9B7E-9FC91709C362}
+		{408184EE-31A5-4EF6-9FFB-3E4719FF94D9} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {556C49E4-57A4-4C18-8709-B3EB6E30B2AB}

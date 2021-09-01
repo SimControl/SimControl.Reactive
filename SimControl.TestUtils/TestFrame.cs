@@ -104,22 +104,19 @@ namespace SimControl.TestUtils
 
         #endregion
 
-        /// <summary>Context switch.</summary>
-        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
-        public static void PermitContextSwitch() => Thread.Sleep(1);
-
-        public static Task PermitContextSwitchAsync() => Task.Delay(1);
-
-        /// <summary>Context switch.</summary>
-        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
-        public static void ForceContextSwitch() => Thread.Sleep(MinTimerResolution);
-
-        public static Task ForceContextSwitchAsync() => Task.Delay(MinTimerResolution);
-
         /// <summary>Disable timeouts if a debugger is attached.</summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
         public static int DebugTimeout(int timeout) => Debugger.IsAttached ? int.MaxValue : timeout;
+
+        /// <summary>Force a Windows context switch.</summary>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
+        public static void ForceContextSwitch() => Thread.Sleep(MinTimerResolution);
+
+        /// <summary>Force a Windows context switch asynchronous.</summary>
+        /// <returns><see cref="Task"/></returns>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
+        public static Task ForceContextSwitchAsync() => Task.Delay(MinTimerResolution);
 
         /// <summary>Force garbage collection.</summary>
         public static void ForceGarbageCollection()
@@ -136,6 +133,15 @@ namespace SimControl.TestUtils
         [Obsolete("Refactor static singletons")] // TODO delete
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args) =>
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
+
+        /// <summary>Permit a Windows context switch.</summary>
+        /// <remarks>Enables the CLI to suspend thread execution.</remarks>
+        public static void PermitContextSwitch() => Thread.Sleep(1);
+
+        /// <summary>Permit a Windows context switch asynchronous.</summary>
+        /// <returns><see cref="Task"/></returns>
+        /// <remarks>Enables the CLI to suspend thread execution.</remarks>
+        public static Task PermitContextSwitchAsync() => Task.Delay(1);
 
         /// <summary>Sets private static field.</summary>
         /// <param name="type">The type.</param>
@@ -202,15 +208,10 @@ namespace SimControl.TestUtils
         /// <returns>An exception./&gt;.</returns>
         public Task<Exception> TakePendingExceptionAsync() => pendingExceptions.Reader.ReadAsync().AsTask();
 
-        public Exception? TryTakePendingException()
-        {
-            Exception e = null;
-
-            if (pendingExceptions.Reader.TryRead(out e))
-                return e;
-            else
-                return null;
-        }
+        /// <summary>Tries to take a pending exception.</summary>
+        /// <returns><see langword="null"/> if no pending exception was found.</returns>
+        public Exception? TryTakePendingException() =>
+            pendingExceptions.Reader.TryRead(out Exception? e) ? e : null;
 
         [Log]
         private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>

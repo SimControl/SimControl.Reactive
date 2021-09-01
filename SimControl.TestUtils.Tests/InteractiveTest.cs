@@ -1,7 +1,5 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-#if !NET5_0
-
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NCrunch.Framework;
@@ -21,5 +19,3 @@ namespace SimControl.TestUtils.Tests
                 Is.EqualTo(DialogResult.Yes))).AssertTimeoutAsync(InteractiveTimeout).Wait();
     }
 }
-
-#endif
