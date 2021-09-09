@@ -39,14 +39,16 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void SemaphoreSlim__released_in_task_on_other_thread__is_signaled()
         {
-            var ready = new SemaphoreSlim(0);
+            using var ready = new SemaphoreSlim(0, 1);
 
             Task task = Task.Run(async () => {
                 await PermitContextSwitchAsync().ConfigureAwait(false);
                 ready.Release();
+                await ready.WaitAsync().AssertTimeoutAsync().ConfigureAwait(false);
             });
 
             ready.WaitAsync().AssertTimeoutAsync().Wait();
+            ready.Release();
 
             task.AssertTimeoutAsync().Wait();
         }

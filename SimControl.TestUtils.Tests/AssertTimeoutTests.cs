@@ -102,9 +102,9 @@ namespace SimControl.TestUtils.Tests
             }).AssertTimeoutAsync().Result, Is.EqualTo(1));
 
         [Test]
-        public static void JoinAssertTimeout__thread_does_not_joined_within_timeout__AssertTimeoutException_is_thrown()
+        public static void JoinAssertTimeout__thread_does_not_join_within_timeout__AssertTimeoutException_is_thrown()
         {
-            var sem = new SemaphoreSlim(0);
+            using var sem = new SemaphoreSlim(0, 1);
 
             var thread = new Thread(() => sem.Wait());
             thread.Start();

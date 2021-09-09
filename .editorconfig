@@ -562,4 +562,3 @@ dotnet_diagnostic.IL3000.severity = suggestion
 dotnet_diagnostic.IL3001.severity = suggestion
 
 dotnet_diagnostic.RemoveUnnecessaryImportsFixable.severity = suggestion
-

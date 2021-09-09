@@ -18,7 +18,7 @@ namespace SimControl.TestUtils.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp_OneTimeRegisterTestAdapter__succeeds() =>
             oneTimeSemaphoreSlim = OneTimeRegisterTestAdapter(
-                new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0))).Disposable;
+                new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0, 1))).Disposable;
 
         [OneTimeTearDown]
         public void OneTimeTearDown_CatchOneTimeTearDownExceptions__thrown_exception__is_added_to_PendingExceptions()
@@ -30,7 +30,7 @@ namespace SimControl.TestUtils.Tests
 
         [SetUp]
         public void SetUp_RegisterTestAdapter__succeeds() => semaphoreSlim = RegisterTestAdapter(
-            new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0))).Disposable;
+            new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0, 1))).Disposable;
 
         [TearDown]
         public void TearDown_CatchTearDownExceptions__thrown_Exception__is_added_to_PendingExceptions()
