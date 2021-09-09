@@ -245,8 +245,8 @@ namespace SimControl.TestUtils
         public static readonly int MinTimerResolution;
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly ConcurrentStack<TestAdapter> oneTimeTestAdapters = new ConcurrentStack<TestAdapter>();
+        private readonly ConcurrentStack<TestAdapter> oneTimeTestAdapters = new();
         private readonly Channel<Exception> pendingExceptions = Channel.CreateUnbounded<Exception>();
-        private readonly ConcurrentStack<TestAdapter> testAdapters = new ConcurrentStack<TestAdapter>();
+        private readonly ConcurrentStack<TestAdapter> testAdapters = new();
     }
 }

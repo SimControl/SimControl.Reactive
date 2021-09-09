@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 
 namespace SimControl.TestUtils.Tests
 {

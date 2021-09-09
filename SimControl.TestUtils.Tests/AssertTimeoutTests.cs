@@ -148,7 +148,7 @@ namespace SimControl.TestUtils.Tests
 
             IEnumerable<int>? result = reader.ReadUntilAssertTimeoutAsync(i => i == 1).Result;
 
-            Assert.That(result, Is.EqualTo(new int[] { 0, 1 }));
+            Assert.That(result, Is.EqualTo(new[] { 0, 1 }));
         }
 
         [Test]

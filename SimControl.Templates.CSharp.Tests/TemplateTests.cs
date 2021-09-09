@@ -32,7 +32,7 @@ namespace SimControl.Templates.CSharp.Tests
             standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"))
                 .AssertTimeoutAsync().Wait();
 
-            if (process.Process != null) process.Process.StandardInput.Close();
+            if (process.Process is not null) process.Process.StandardInput.Close();
 
             standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"))
                 .AssertTimeoutAsync().Wait();

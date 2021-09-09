@@ -14,7 +14,11 @@ namespace SimControl.TestUtils
         public DisposableTestAdapter(TDisposable disposable) => Disposable = disposable;
 
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing) { if (disposing && Disposable != null) Disposable.Dispose(); }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && Disposable is not null)
+                Disposable.Dispose();
+        }
 
         /// <summary>Gets the disposable object.</summary>
         /// <value>The disposable object.</value>

@@ -15,11 +15,13 @@ namespace SimControl.Templates.CSharp.NUnitTests
         [SetUp]
         public new void SetUp()
         {
+            // TODO implement
         }
 
         [TearDown]
         public new void TearDown()
         {
+            // TODO implement
         }
 
         #endregion
@@ -31,7 +33,7 @@ namespace SimControl.Templates.CSharp.NUnitTests
 
             LogManager.GetCurrentClassLogger().Trace("Some Test");
 
-            Assert.That(true, Is.True);
+            Assert.Pass();
         }
     }
 }

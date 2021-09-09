@@ -94,7 +94,7 @@ namespace SimControl.TestUtils
 
         /// <inheritdoc/>
         public override string ToString() => LogFormat.FormatObject(typeof(ProcessTestAdapter),
-            Process != null ? Process.Id : -1, Process?.HasExited != false);
+            Process is not null ? Process.Id : -1, Process?.HasExited != false);
 
         /// <summary>Waits for a process to exit while asserting the <see cref="TestFrame.Timeout"/>.</summary>
         /// <returns>the process exit code.</returns>
@@ -127,7 +127,7 @@ namespace SimControl.TestUtils
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && Process != null)
+            if (disposing && Process is not null)
             {
                 WaitForExitAssertTimeout();
                 Process.Dispose();
@@ -144,8 +144,8 @@ namespace SimControl.TestUtils
                 WorkingDirectory = Path.GetDirectoryName(fileName)
             });
 
-            process.OutputDataReceived += (sender, args) => standardOutput.TryWrite(args.Data);
-            process.ErrorDataReceived += (sender, args) => standardError.TryWrite(args.Data);
+            process.OutputDataReceived += (_, args) => standardOutput.TryWrite(args.Data);
+            process.ErrorDataReceived += (_, args) => standardError.TryWrite(args.Data);
 
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();

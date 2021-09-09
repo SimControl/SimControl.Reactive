@@ -1,6 +1,6 @@
 ﻿[*.cs]
 
-dotnet_diagnostic.CA1707.severity = none
-dotnet_diagnostic.CA2000.severity = none
-dotnet_diagnostic.VSTHRD002.severity = none
-dotnet_diagnostic.VSTHRD104.severity = none
+dotnet_diagnostic.CA1707.severity = none # CA1707: Identifiers should not contain underscores
+
+dotnet_diagnostic.VSTHRD002.severity = none # VSTHRD002: Avoid problematic synchronous waits
+dotnet_diagnostic.VSTHRD104.severity = none # VSTHRD104: Offer async methods

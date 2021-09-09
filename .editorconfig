@@ -118,9 +118,9 @@ dotnet_style_allow_statement_immediately_after_block_experimental = true:suggest
 [*.cs]
 
 # var preferences
-csharp_style_var_elsewhere = false:suggestion
-csharp_style_var_for_built_in_types = false:suggestion
-csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = false:none
+csharp_style_var_for_built_in_types = false:none
+csharp_style_var_when_type_is_apparent = true:none
 
 # Expression-bodied members
 csharp_style_expression_bodied_accessors = true:suggestion
@@ -160,7 +160,7 @@ csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
 csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:none
 
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:suggestion
@@ -288,14 +288,14 @@ dotnet_diagnostic.CA1000.severity = suggestion
 dotnet_diagnostic.CA1001.severity = suggestion
 dotnet_diagnostic.CA1002.severity = suggestion
 dotnet_diagnostic.CA1003.severity = suggestion
-dotnet_diagnostic.CA1005.severity = none
+dotnet_diagnostic.CA1005.severity = none # CA1005: Avoid excessive parameters on generic types
 dotnet_diagnostic.CA1008.severity = suggestion
 dotnet_diagnostic.CA1010.severity = suggestion
 dotnet_diagnostic.CA1012.severity = suggestion
 dotnet_diagnostic.CA1014.severity = suggestion
 dotnet_diagnostic.CA1017.severity = suggestion
 dotnet_diagnostic.CA1019.severity = suggestion
-dotnet_diagnostic.CA1021.severity = none
+dotnet_diagnostic.CA1021.severity = silent # CA1021: Avoid out parameters
 dotnet_diagnostic.CA1024.severity = suggestion
 dotnet_diagnostic.CA1027.severity = suggestion
 dotnet_diagnostic.CA1028.severity = suggestion
@@ -317,7 +317,7 @@ dotnet_diagnostic.CA1055.severity = suggestion
 dotnet_diagnostic.CA1056.severity = suggestion
 dotnet_diagnostic.CA1058.severity = suggestion
 dotnet_diagnostic.CA1060.severity = suggestion
-dotnet_diagnostic.CA1062.severity = none # Validate arguments of public methods
+dotnet_diagnostic.CA1062.severity = none # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1063.severity = suggestion
 dotnet_diagnostic.CA1064.severity = suggestion
 dotnet_diagnostic.CA1065.severity = suggestion
@@ -487,7 +487,7 @@ dotnet_diagnostic.CA5403.severity = suggestion
 dotnet_diagnostic.IDE0004.severity = suggestion
 dotnet_diagnostic.IDE0005.severity = suggestion
 dotnet_diagnostic.IDE0005_gen.severity = suggestion
-dotnet_diagnostic.IDE0007.severity = suggestion
+dotnet_diagnostic.IDE0007.severity = none # IDE0007: Use 'var' instead of explicit type
 dotnet_diagnostic.IDE0008.severity = suggestion
 dotnet_diagnostic.IDE0009.severity = suggestion
 dotnet_diagnostic.IDE0010.severity = suggestion
@@ -522,13 +522,13 @@ dotnet_diagnostic.IDE0044.severity = suggestion
 dotnet_diagnostic.IDE0045.severity = suggestion
 dotnet_diagnostic.IDE0046.severity = suggestion
 dotnet_diagnostic.IDE0047.severity = suggestion
-dotnet_diagnostic.IDE0048.severity = suggestion
+dotnet_diagnostic.IDE0048.severity = none # IDE0048: Add parentheses for clarity
 dotnet_diagnostic.IDE0050.severity = suggestion
 dotnet_diagnostic.IDE0054.severity = suggestion
 dotnet_diagnostic.IDE0055.severity = suggestion
 dotnet_diagnostic.IDE0056.severity = suggestion
 dotnet_diagnostic.IDE0057.severity = suggestion
-dotnet_diagnostic.IDE0058.severity = none
+dotnet_diagnostic.IDE0058.severity = none # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0059.severity = suggestion
 dotnet_diagnostic.IDE0060.severity = suggestion
 dotnet_diagnostic.IDE0061.severity = suggestion
@@ -562,3 +562,4 @@ dotnet_diagnostic.IL3000.severity = suggestion
 dotnet_diagnostic.IL3001.severity = suggestion
 
 dotnet_diagnostic.RemoveUnnecessaryImportsFixable.severity = suggestion
+
