@@ -5,7 +5,7 @@ using SimControl.Log;
 
 // UNDONE implement
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx
+namespace SimControl.Samples.CSharp.ClassLibrary
 {
     /// <summary>SampleClass implementation.</summary>
     [Log]

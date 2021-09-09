@@ -41,23 +41,21 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
         {
-            var sem = new SemaphoreSlim(0);
+            using var sem = new SemaphoreSlim(0, 1);
 
             Assert.That(() => Task.Run(async () => await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1),
                 Throws.TypeOf<AssertTimeoutException>());
-
-            sem.Release();
         }
 
         [Test]
         public static void AssertTimeoutAsync__task_not_completed_within_timeout__UnobservedTaskException_not_triggerd()
         {
-            var sem = new SemaphoreSlim(0);
+            using var sem = new SemaphoreSlim(0, 1);
 
             Assert.That(() => Task.Run(async () => {
                 await sem.WaitAsync().ConfigureAwait(false);
-                throw new InvalidOperationException();
-            }).AssertTimeoutAsync(1), Throws.TypeOf<AssertTimeoutException>());
+                //throw new InvalidOperationException();
+            }).AssertTimeoutAsync(1), Throws.InstanceOf<AssertTimeoutException>());
 
             sem.Release();
         }
@@ -120,12 +118,18 @@ namespace SimControl.TestUtils.Tests
         [Test]
         public static void JoinAssertTimeout__thread_joines_within_timeout__successfully()
         {
-            var sem = new SemaphoreSlim(0);
+            var sem = new SemaphoreSlim(0, 1);
 
-            var thread = new Thread(() => sem.Release());
+            var thread = new Thread(async () => {
+                sem.Release();
+                await sem.WaitAsync().AssertTimeoutAsync();
+                ;
+            });
             thread.Start();
 
             sem.WaitAsync().AssertTimeoutAsync().Wait();
+            sem.Release();
+
             thread.JoinAssertTimeout();
         }
 

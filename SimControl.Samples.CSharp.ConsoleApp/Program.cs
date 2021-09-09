@@ -82,8 +82,6 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
             return (int) exitCode;
         }
 
-
-
         /// <summary>Console application entry point.</summary>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         /// <returns>Exit-code for the process - 0 for success, else an error code.</returns>
@@ -91,8 +89,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         {
             command = "";
             /*
-                        // Contract.Requires(args != null);
-                        // Contract.Requires(args.Length == 1);
+                        // Contract.Requires(args != null); Contract.Requires(args.Length == 1);
                         // Contract.Requires(Arguments.Contains(args[0]));
 
                         try
@@ -287,7 +284,7 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-        //        [Log(AttributeExclude = true)]
+        // [Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.SafeDirectories)]

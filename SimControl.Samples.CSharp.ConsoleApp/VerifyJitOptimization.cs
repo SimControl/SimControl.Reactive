@@ -8,14 +8,10 @@ using SimControl.Log;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication
 {
-    /// <summary>
-    /// SampleClass implementation.
-    /// </summary>
+    /// <summary>SampleClass implementation.</summary>
     public static class VerifyJitOptimization
     {
-        /// <summary>
-        /// Run
-        /// </summary>
+        /// <summary>Run</summary>
         public static void Run()
         {
             const int a = 2*2;
