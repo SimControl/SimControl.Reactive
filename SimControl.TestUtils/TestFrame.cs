@@ -134,6 +134,15 @@ namespace SimControl.TestUtils
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args) =>
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
 
+        /// <summary>Force a Windows context switch.</summary>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
+        public static void LongContextSwitch(int times = 3) => Thread.Sleep(MinTimerResolution*times);
+
+        /// <summary>Force a Windows context switch asynchronous.</summary>
+        /// <returns><see cref="Task"/></returns>
+        /// <remarks>Forces the CLI to suspend thread execution.</remarks>
+        public static Task LongContextSwitchAsync(int times = 3) => Task.Delay(MinTimerResolution*times);
+
         /// <summary>Permit a Windows context switch.</summary>
         /// <remarks>Enables the CLI to suspend thread execution.</remarks>
         public static void PermitContextSwitch() => Thread.Sleep(1);

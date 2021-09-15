@@ -13,12 +13,28 @@ namespace SimControl.TestUtils.Tests
     [TestFixture]
     public class AsyncTests: TestFrame
     {
-        [Test]
-        public static async Task AsyncTestMethod__current_SynchronizationContext_is_null__Async()
+        [Test, Apartment(ApartmentState.MTA)]
+        public static async Task AsyncTestMethod__Apartment_MTA__current_SynchronizationContext_is_null__Async()
         {
-            await ForceContextSwitchAsync().ConfigureAwait(false);
+            await Task.CompletedTask.ConfigureAwait(false);
 
             Assert.That(SynchronizationContext.Current, Is.Null);
+        }
+
+        [Test]
+        public static async Task AsyncTestMethod__Apartment_none__current_SynchronizationContext_is_null__Async()
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+
+            Assert.That(SynchronizationContext.Current, Is.Null);
+        }
+
+        [Test, Apartment(ApartmentState.STA)]
+        public static async Task AsyncTestMethod__Apartment_STA__current_SynchronizationContext_is_not_null__Async()
+        {
+            await Task.CompletedTask.ConfigureAwait(false);
+
+            Assert.That(SynchronizationContext.Current, Is.Not.Null);
         }
 
         [Test]
@@ -52,6 +68,18 @@ namespace SimControl.TestUtils.Tests
 
             task.AssertTimeoutAsync().Wait();
         }
+
+        [Test, Apartment(ApartmentState.MTA)]
+        public static void TestMethod__Apartment_MTA__current_SynchronizationContext_is_null() =>
+            Assert.That(SynchronizationContext.Current, Is.Null);
+
+        [Test]
+        public static void TestMethod__Apartment_none__current_SynchronizationContext_is_null() =>
+            Assert.That(SynchronizationContext.Current, Is.Null);
+
+        [Test, Apartment(ApartmentState.STA)]
+        public static void TestMethod__Apartment_STA__current_SynchronizationContext_is_null() =>
+            Assert.That(SynchronizationContext.Current, Is.Null);
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }

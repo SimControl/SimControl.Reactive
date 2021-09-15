@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
 
@@ -15,155 +16,219 @@ namespace SimControl.TestUtils.Tests
     {
         // TODO CloseAssertTimeoutAsync
 
+        [Test, Isolated]
+        public void AssertTimeoutAsync__task_completed_with_exception__UnobservedTaskException_triggered()
+        {
+            using var sem = new SemaphoreSlim(0, 1);
+
+            ThrowUnhandledExceptionInAsyncTask(sem, false);
+
+            sem.Release();
+
+            LongContextSwitch(50);
+            ForceGarbageCollection();
+
+            Exception? e = TryTakePendingException();
+
+            Assert.That(e, Is.Not.Null);
+            Assert.That(e, Is.TypeOf(typeof(AggregateException)));
+            Assert.That(e.InnerException, Is.TypeOf(typeof(InvalidOperationException)));
+            Assert.That(e.InnerException.Message, Is.EqualTo(nameof(ThrowUnhandledExceptionInAsyncTask)));
+        }
+
+        [Test, Isolated]
+        public void AssertTimeoutAsync__task_completed_with_exception__UnobservedTaskException_triggered__T()
+        {
+            using var sem = new SemaphoreSlim(0, 1);
+
+            ThrowUnhandledExceptionInAsyncTask__T(sem, false);
+
+            sem.Release();
+
+            LongContextSwitch(50);
+            ForceGarbageCollection();
+
+            Exception? e = TryTakePendingException();
+
+            Assert.That(e, Is.Not.Null);
+            Assert.That(e, Is.TypeOf(typeof(AggregateException)));
+            Assert.That(e.InnerException, Is.TypeOf(typeof(InvalidOperationException)));
+            Assert.That(e.InnerException.Message, Is.EqualTo(nameof(ThrowUnhandledExceptionInAsyncTask__T)));
+        }
+
         [Test]
-        public static void AssertTimeout__task_is_cancled__OperationCanceledException_is_thrown()
+        public void AssertTimeoutAsync__task_is_cancled__OperationCanceledException_is_thrown()
         {
             using var cts = new CancellationTokenSource();
             cts.Cancel();
 
-            Assert.That(() => Task.Run(() => {
+            Assert.ThrowsAsync<OperationCanceledException>(() => Task.Run(() => {
                 ForceContextSwitch();
                 cts.Token.ThrowIfCancellationRequested();
-            }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
+            }).AssertTimeoutAsync());
         }
 
         [Test]
-        public static void AssertTimeout__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
-            Task.Run(() => {
+        public void AssertTimeoutAsync__task_is_cancled__OperationCanceledException_is_thrown__T()
+        {
+            using var cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            Assert.ThrowsAsync<OperationCanceledException>(() => Task.Run(() => {
                 ForceContextSwitch();
-                throw new InvalidOperationException();
-            }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
-
-        [Test]
-        public static void AssertTimeout__task_terminates_successful_no_exception_is_thrown() =>
-            Task.Run(ForceContextSwitch).AssertTimeoutAsync().Wait();
-
-        [Test]
-        public static void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
-        {
-            using var sem = new SemaphoreSlim(0, 1);
-
-            Assert.That(() => Task.Run(async () => await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1),
-                Throws.TypeOf<AssertTimeoutException>());
+                cts.Token.ThrowIfCancellationRequested();
+                return 1;
+            }).AssertTimeoutAsync());
         }
 
         [Test]
-        public static void AssertTimeoutAsync__task_not_completed_within_timeout__UnobservedTaskException_not_triggerd()
+        public void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
         {
             using var sem = new SemaphoreSlim(0, 1);
 
-            Assert.That(() => Task.Run(async () => {
-                await sem.WaitAsync().ConfigureAwait(false);
-                //throw new InvalidOperationException();
-            }).AssertTimeoutAsync(1), Throws.InstanceOf<AssertTimeoutException>());
+            Assert.ThrowsAsync<AssertTimeoutException>(() => Task.Run(async () =>
+                await sem.WaitAsync().ConfigureAwait(false)).AssertTimeoutAsync(1));
 
             sem.Release();
         }
 
         [Test]
-        public static void AssertTimeoutAsyncT__task_not_completed_within_timeout__AssertTimeoutException_is_thrown()
+        public void AssertTimeoutAsync__task_not_completed_within_timeout__AssertTimeoutException_is_thrown__T()
         {
-            var sem = new SemaphoreSlim(0);
+            using var sem = new SemaphoreSlim(0, 1);
 
-            Assert.That(() =>
-            Task.Run(async () => {
+            Assert.ThrowsAsync<AssertTimeoutException>(() => Task.Run(async () => {
                 await sem.WaitAsync().ConfigureAwait(false);
                 return 1;
-            }).AssertTimeoutAsync(1), Throws.TypeOf<AssertTimeoutException>());
+            }).AssertTimeoutAsync(1));
+
             sem.Release();
         }
 
         [Test]
-        public static void AssertTimeoutT__task_is_cancled__OperationCanceledException_is_thrown()
+        public void AssertTimeoutAsync__task_not_completed_within_timeout__UnobservedTaskException_not_triggered()
         {
-            using var cts = new CancellationTokenSource();
-            cts.Cancel();
+            using var sem = new SemaphoreSlim(0, 1);
 
-            Assert.That(() => Task.Run(() => {
-                ForceContextSwitch();
-                cts.Token.ThrowIfCancellationRequested();
-                return 1;
-            }).AssertTimeoutAsync(), Throws.TypeOf<OperationCanceledException>());
+            ThrowUnhandledExceptionInAsyncTask(sem, true);
+
+            sem.Release();
+
+            LongContextSwitch(10);
         }
 
         [Test]
-        public static void AssertTimeoutT__task_terminates_faulted__exception_is_rethrown() => Assert.That(() =>
-            Task.Run(() => {
-                ForceContextSwitch();
-                throw new InvalidOperationException();
-                return 1;
-            }).AssertTimeoutAsync(), Throws.TypeOf<InvalidOperationException>());
+        public void AssertTimeoutAsync__task_not_completed_within_timeout__UnobservedTaskException_not_triggered__T()
+        {
+            using var sem = new SemaphoreSlim(0, 1);
+
+            ThrowUnhandledExceptionInAsyncTask__T(sem, true);
+
+            sem.Release();
+
+            LongContextSwitch(10);
+        }
 
         [Test]
-        public static void AssertTimeoutT__task_terminates_successful_no_exception_is_thrown() =>
-            Assert.That(Task.Run(() => {
-                ForceContextSwitch();
-                return 1;
-            }).AssertTimeoutAsync().Result, Is.EqualTo(1));
+        public void AssertTimeoutAsync__task_terminates_faulted__exception_is_rethrown() =>
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                Task.Run(() => throw new InvalidOperationException()).AssertTimeoutAsync());
 
         [Test]
-        public static void JoinAssertTimeout__thread_does_not_join_within_timeout__AssertTimeoutException_is_thrown()
+        public void AssertTimeoutAsync__task_terminates_faulted__exception_is_rethrown__T() =>
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                Task.Run(ThrowExceptionInvalidOperationException).AssertTimeoutAsync());
+
+        [Test]
+        public void AssertTimeoutAsync__task_terminates_successful_no_exception_is_thrown() =>
+            Task.Run(PermitContextSwitch).AssertTimeoutAsync().Wait();
+
+        [Test]
+        public void AssertTimeoutAsync__task_terminates_successful_no_exception_is_thrown__T() =>
+            Task.Run(IntMethod).AssertTimeoutAsync().Wait();
+
+        [Test]
+        public void JoinAssertTimeout__thread_does_not_join_within_timeout__AssertTimeoutException_is_thrown()
         {
             using var sem = new SemaphoreSlim(0, 1);
 
             var thread = new Thread(() => sem.Wait());
             thread.Start();
 
-            Assert.That(() => thread.JoinAssertTimeout(TestFrame.MinTimerResolution),
-                Throws.TypeOf<AssertTimeoutException>());
+            Assert.Throws<AssertTimeoutException>(() => thread.JoinAssertTimeout(TestFrame.MinTimerResolution));
 
-            sem.Release();
-        }
-
-        [Test]
-        public static void JoinAssertTimeout__thread_joines_within_timeout__successfully()
-        {
-            var sem = new SemaphoreSlim(0, 1);
-
-            var thread = new Thread(async () => {
-                sem.Release();
-                await sem.WaitAsync().AssertTimeoutAsync();
-                ;
-            });
-            thread.Start();
-
-            sem.WaitAsync().AssertTimeoutAsync().Wait();
             sem.Release();
 
             thread.JoinAssertTimeout();
         }
 
         [Test]
-        public static void ReadUntilAssertTimeout()
+        public void JoinAssertTimeout__thread_joins_within_timeout__successfully()
+        {
+            using var sem = new SemaphoreSlim(0, 1);
+
+            var thread = new Thread(() => sem.Release());
+            thread.Start();
+
+            sem.WaitAsync().AssertTimeoutAsync().Wait();
+
+            thread.JoinAssertTimeout();
+        }
+
+        [Test]
+        public void ReadUntilAssertTimeout()
         {
             Channel<int> channel = Channel.CreateUnbounded<int>(
                 new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
-            ChannelWriter<int> writer = channel.Writer;
-            ChannelReader<int> reader = channel.Reader;
+            Assert.That(channel.Writer.TryWrite(0));
+            Assert.That(channel.Writer.TryWrite(1));
+            Assert.That(channel.Writer.TryWrite(2));
 
-            Assert.That(writer.TryWrite(0));
-            Assert.That(writer.TryWrite(1));
-            Assert.That(writer.TryWrite(2));
-
-            IEnumerable<int>? result = reader.ReadUntilAssertTimeoutAsync(i => i == 1).Result;
+            IEnumerable<int>? result = channel.Reader.ReadUntilAssertTimeoutAsync(i => i == 1).Result;
 
             Assert.That(result, Is.EqualTo(new[] { 0, 1 }));
         }
 
         [Test]
-        public static void ReadUntilAssertTimeout__AssertTimeoutException()
+        public void ReadUntilAssertTimeout__AssertTimeoutException()
         {
             Channel<int> channel = Channel.CreateUnbounded<int>(
                 new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
-            ChannelWriter<int> writer = channel.Writer;
-            ChannelReader<int> reader = channel.Reader;
+            Assert.That(channel.Writer.TryWrite(0));
 
-            Assert.That(writer.TryWrite(0));
+            Assert.ThrowsAsync<AssertTimeoutException>(() =>
+                channel.Reader.ReadUntilAssertTimeoutAsync(i => i == 1, MinTimerResolution));
+        }
 
-            Assert.That(() => reader.ReadUntilAssertTimeoutAsync(i => i == 1, MinTimerResolution),
-                Throws.TypeOf<AssertTimeoutException>());
+        private static int IntMethod() => 1;
+
+        private static int ThrowExceptionInvalidOperationException() => throw new InvalidOperationException();
+
+        private static void ThrowUnhandledExceptionInAsyncTask(SemaphoreSlim sem, bool throwAssertTimeoutException)
+        {
+            Task task = Task.Run(async () => {
+                await sem.WaitAsync().ConfigureAwait(false);
+                throw new InvalidOperationException(nameof(ThrowUnhandledExceptionInAsyncTask));
+            });
+
+            if (throwAssertTimeoutException)
+                Assert.ThrowsAsync<AssertTimeoutException>(() => task.AssertTimeoutAsync(1));
+        }
+
+        private static void ThrowUnhandledExceptionInAsyncTask__T(SemaphoreSlim sem, bool throwAssertTimeoutException)
+        {
+            Task task = Task.Run(() => WaitForSemaphoreThrowExceptionInvalidOperationExceptionAsync(sem));
+
+            if (throwAssertTimeoutException)
+                Assert.ThrowsAsync<AssertTimeoutException>(() => task.AssertTimeoutAsync(1));
+        }
+
+        private static async Task<int> WaitForSemaphoreThrowExceptionInvalidOperationExceptionAsync(SemaphoreSlim sem)
+        {
+            await sem.WaitAsync().ConfigureAwait(false);
+            throw new InvalidOperationException(nameof(ThrowUnhandledExceptionInAsyncTask__T));
         }
     }
 }

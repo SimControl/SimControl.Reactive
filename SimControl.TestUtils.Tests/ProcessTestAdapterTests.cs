@@ -22,6 +22,7 @@ namespace SimControl.TestUtils.Tests
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
             processTestAdapter.Kill();
+            LongContextSwitch();
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
         }
 
@@ -35,6 +36,7 @@ namespace SimControl.TestUtils.Tests
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
             ProcessTestAdapter.KillProcesses(ProcessName);
+            LongContextSwitch();
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
             processTestAdapter.WaitForExitAssertTimeout();

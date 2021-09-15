@@ -112,15 +112,13 @@ namespace SimControl.TestUtils.Tests
                 Is.InstanceOf(typeof(InvalidOperationException)));
         }
 
-        [Test, Isolated]
+        [Test]
         public void UnobservedTaskException__ContinueWith_OnlyOnFaulted__does_not_raise_UnobservedTaskException()
         {
             ThrowUnhandledExceptionInAsyncTaskContinueWithOnlyOnFaultedLogException();
 
-            Thread.Sleep(1000);
+            LongContextSwitch();
             ForceGarbageCollection();
-
-            Assert.That<Exception>(TryTakePendingException(), Is.Null);
         }
 
         [Test, Isolated]
@@ -128,26 +126,10 @@ namespace SimControl.TestUtils.Tests
         {
             ThrowUnhandledExceptionInAsyncTask();
 
-            Thread.Sleep(1000);
+            LongContextSwitch(50);
             ForceGarbageCollection();
 
             Exception e = TakePendingExceptionAsync().AssertTimeoutAsync().Result;
-
-            Assert.That(e, Is.Not.Null);
-            Assert.That(e, Is.InstanceOf(typeof(AggregateException)));
-            Assert.That(e.InnerException, Is.InstanceOf(typeof(InvalidOperationException)));
-            Assert.That(e.InnerException.Message, Is.EqualTo(nameof(ThrowUnhandledExceptionInAsyncTask)));
-        }
-
-        [Test, Isolated]
-        public void UnobservedTaskException__thrown_Exception__is_added_to_TryTakePendingException()
-        {
-            ThrowUnhandledExceptionInAsyncTask();
-
-            Thread.Sleep(1000);
-            ForceGarbageCollection();
-
-            Exception? e = TryTakePendingException();
 
             Assert.That(e, Is.Not.Null);
             Assert.That(e, Is.InstanceOf(typeof(AggregateException)));

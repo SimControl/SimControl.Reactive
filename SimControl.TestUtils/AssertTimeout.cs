@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Channels;
@@ -122,6 +123,64 @@ namespace SimControl.TestUtils
                         return result;
                 }
                 catch (OperationCanceledException) { throw new AssertTimeoutException(timeout); }
+        }
+
+        ///// <summary>Dispatch a message to a synchronization context asynchronous.</summary>
+        ///// <param name="context">The context.</param>
+        ///// <param name="d">The <see cref="SendOrPostCallback"/> delegate to call.</param>
+        ///// <param name="state">The object passed to the delegate.</param>
+        ///// <returns><see cref="Task"/></returns>
+        //[SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        //public static Task SendAsync(this SynchronizationContext context, SendOrPostCallback d, object? state = null)
+        //{
+        //    var tcs = new TaskCompletionSource<bool>();
+
+        // context.Post(delegate { try { d(state); tcs.SetResult(true); } catch (Exception e) { tcs.SetException(e); }
+        // }, null);
+
+        //    return tcs.Task;
+        //}
+
+        /// <summary>Dispatch a message to a synchronization context asynchronous.</summary>
+        /// <param name="context">The context.</param>
+        /// <param name="action"></param>
+        /// <returns><see cref="Task"/></returns>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        public static Task SendAsync(this SynchronizationContext context, Action action)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            context.Post(delegate {
+                try
+                {
+                    action();
+                    tcs.SetResult(true);
+                }
+                catch (Exception e) { tcs.SetException(e); }
+            }, null);
+
+            return tcs.Task;
+        }
+
+        /// <summary>Dispatch a message to a synchronization context asynchronous.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="func"></param>
+        /// <returns><see cref="Task"/></returns>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        public static Task<T> SendAsync<T>(this SynchronizationContext context, Func<T> func)
+        {
+            var tcs = new TaskCompletionSource<T>();
+
+            context.Post(delegate {
+                try
+                {
+                    tcs.SetResult(func());
+                }
+                catch (Exception e) { tcs.SetException(e); }
+            }, null);
+
+            return tcs.Task;
         }
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();

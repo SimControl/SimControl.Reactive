@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+    <TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
     <ProjectReference Include="..\SimControl.Samples.CSharp.ConsoleApp\SimControl.Samples.CSharp.ConsoleApp.csproj" />
     <ProjectReference Include="..\SimControl.Samples.CSharp.WcfClient\SimControl.Samples.CSharp.WcfClient.csproj" />
     <ProjectReference Include="..\SimControl.Samples.CSharp.WcfServiceLibrary\SimControl.Samples.CSharp.WcfServiceLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Samples.CSharp.WpfApp\SimControl.Samples.CSharp.WpfApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
   </ItemGroup>
 
