@@ -3,8 +3,6 @@
 using NLog;
 using SimControl.Log;
 
-// UNDONE implement
-
 namespace SimControl.Samples.CSharp.ClassLibrary
 {
     /// <summary>SampleClass implementation.</summary>

@@ -1,46 +1,33 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using SimControl.Log;
+using SimControl.Samples.CSharp.ClassLibrary;
 
-// UNDONE implement
-
-//using SimControl.Reactive;
-//using SimControl.Samples.CSharp.ClassLibraryEx;
-//using SimControl.Samples.CSharp.ConsoleApplication.Properties;
-
-namespace SimControl.Samples.CSharp.ConsoleApplication
+namespace SimControl.Samples.CSharp.ConsoleApp
 {
     /// <summary>Console application main class.</summary>
     [Log]
     public static class Program
     {
-        private enum ExitCode
-        {
-            Success = 0,
-            UnhandledException = 1,
-            UnhandledExceptionEvent = 2,
-            UnobservedTaskException = 3,
-            ConsoleCtrl = 4,
-        }
-
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public static async Task<int> Main(params string[] args)
         {
             ExitCode exitCode = ExitCode.Success;
 
             try
             {
-                RegisterExceptionHandlers();
+                RegisterEventHandlers();
 
-                if (Thread.CurrentThread.Name == null) Thread.CurrentThread.Name = nameof(Main);
+                Thread.CurrentThread.Name ??=nameof(Main);
 
                 InternationalCultureInfo.SetCurrentThreadCulture();
                 InternationalCultureInfo.SetDefaultThreadCulture();
@@ -50,22 +37,76 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
+                if (args.Length != 1) Exit(ExitCode.InvalidCommandlineArguments);
+
+                command = args[0];
+                logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), command);
+
+                switch (command)
                 {
-                    for (; ; )
+                    case "AsyncContextThread":
                     {
-                        string input;
-
-                        try
-                        {
-                            input = Console.ReadLine();
-                            if (input == null) break;
-                        }
-                        catch (ObjectDisposedException) { break; }
-
-                        logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
-
-                        // ...
+                        //TODO AsyncContextThread
+                        using var cts = new CancellationTokenSource();
+                        ConfiguredTaskAwaitable task = Task.Run(() =>Task.Delay(-1, cts.Token)).ConfigureAwait(false);
+                        cts.Cancel();
+                        try { await task; }
+                        catch (TaskCanceledException) { }
+                        Exit(ExitCode.InvalidCommandlineArguments);
                     }
+                    break;
+                    case "Normal":
+                        var sampleClass = new SampleClass();
+                        sampleClass.DoSomething();
+                        break;
+                    case nameof(ThrowException):
+                        ThrowException();
+                        break;
+                    case "ThrowExceptionOnThread":
+                        var thread = new Thread(ThrowException);
+                        thread.Start();
+                        Console.ReadLine();
+                        break;
+                    case nameof(VerifyJitOptimization):
+                        VerifyJitOptimization.Run();
+                        ClassLibrary.VerifyJitOptimization.Run();
+                        break;
+                    case "Wait":
+                        for (; ; )
+                        {
+                            string? input;
+
+                            try
+                            {
+                                input = Console.ReadLine();
+                                if (input is null)
+                                    Exit(ExitCode.ConsoleInputClosed);
+                                else
+                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput",
+                                        input);
+                            }
+                            catch (ObjectDisposedException) { break; }
+                        }
+                        break;
+                    case "WCF":
+                        //TODO WCF service hosting
+                        Exit(ExitCode.InvalidCommandlineArguments);
+                        //private const string testBaseAddress =
+                        //    "http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.Wcf.Service/SampleServicePerSession/";
+                        //logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "WCF");
+                        //var host = new ServiceHost(typeof(SampleServicePerSessionInstance),//, new Uri(TestBaseAddress));
+                        //host.Open();
+                        //var client = new SampleServiceClient(new InstanceContext(new SampleServiceEapCallback()),
+                        //    typeof(SampleServiceClient).FullName, new EndpointAddress(TestBaseAddress));
+                        //((WSDualHttpBinding) client.Endpoint.Binding).ClientBaseAddress =  new Uri(host.BaseAddresses[0]  + "Callback"); //TestBaseAddress
+                        //client.Connect();
+                        //Console.ReadLine();
+                        //client.Close();
+                        //host.Close();
+                        break;
+                    default:
+                        Exit(ExitCode.InvalidCommandlineArguments);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -75,208 +116,72 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
                 exitCode = ExitCode.UnhandledException;
             }
 
-            UnregisterExceptionHandlers();
+            UnregisterEventHandlers();
 
             logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
             return (int) exitCode;
         }
 
-        /// <summary>Console application entry point.</summary>
-        /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
-        /// <returns>Exit-code for the process - 0 for success, else an error code.</returns>
-        public static int OldMain(params string[] _/*args*/)
-        {
-            command = "";
-            /*
-                        // Contract.Requires(args != null); Contract.Requires(args.Length == 1);
-                        // Contract.Requires(Arguments.Contains(args[0]));
-
-                        try
-                        {
-                            RegisterExceptionHandlers();
-
-                            if (Thread.CurrentThread.Name == null)
-                                Thread.CurrentThread.Name = nameof(Main);
-
-                            InternationalCultureInfo.SetCurrentThreadCulture();
-                            LogMethod.SetDefaultThreadCulture();
-
-                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "MainAssembly",
-                                typeof(Program).Assembly.GetName().Name,
-                                FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
-                                DateTime.Now, Environment.Version, Environment.Is64BitProcess ? "x64" : "x86");
-
-                            command = args[0];
-
-                            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), command);
-
-                            AppDomain.CurrentDomain.ProcessExit += ProcessExitEventHandler;
-                            Console.CancelKeyPress += ProcessExitEventHandler;
-
-                            var sampleClass = new SampleClass();
-
-                            switch (command)
-                            {
-                                case "ChangeUserSettings":
-                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ChangeUserSettings");
-                                    Settings.Default.CSharpConsoleApplication_UserSetting =
-                                        "CSharpConsoleApplication_UserSetting_Changed";
-                                    SampleClass.ChangeUserSettings("CSharpClassLibrary_UserSetting_Changed");
-                                    Settings.Default.Save();
-                                    break;
-                                case "Normal":
-                                    logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(),
-                                        "CSharpConsoleApplication_AppSetting", Settings.Default.CSharpConsoleApplication_AppSetting);
-                                    logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(),
-                                        "CSharpConsoleApplication_UserSetting",
-                                        Settings.Default.CSharpConsoleApplication_UserSetting);
-                                    SampleClass.LogSettings();
-                                    sampleClass.DoSomething();
-                                    SampleClass.ValidateCodeContract(true);
-                                    break;
-
-                                case nameof(ThrowException):
-                                    ThrowException();
-                                    break;
-                                case "ThrowExceptionOnThread":
-                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ThrowExceptionOnThread");
-                                    var thread = new Thread(ThrowException);
-                                    thread.Start();
-                                    Console.ReadLine();
-                                    break;
-                                case "ValidateSettings":
-                                    if (Settings.Default.CSharpConsoleApplication_AppSetting !=
-                                        "CSharpConsoleApplication_AppSetting_Test")
-                                        throw new InvalidOperationException(
-                                            "Invalid Default.CSharpConsoleApplication_AppSetting: " +
-                                            Settings.Default.CSharpConsoleApplication_AppSetting);
-                                    if (Settings.Default.CSharpConsoleApplication_UserSetting !=
-                                        "CSharpConsoleApplication_UserSetting_Test")
-                                        throw new InvalidOperationException(
-                                            "Invalid Default.CSharpConsoleApplication_UserSetting: " +
-                                            Settings.Default.CSharpConsoleApplication_UserSetting);
-                                    SampleClass.ValidateSettings();
-                                    break;
-                                case nameof(VerifyJitOptimization):
-                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), nameof(VerifyJitOptimization));
-                                    Console.WriteLine("Press 'Return' to continue");
-                                    Console.ReadLine();
-                                    VerifyJitOptimization.Run();
-                                    ClassLibraryEx.VerifyJitOptimization.Run();
-                                    break;
-                                case "Wait":
-                                    logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Waiting");
-                                    string s = Console.ReadLine();
-                                    if (s == null)
-                                        Environment.Exit(5);
-                                    break;
-                                case "AsyncContextThread"
-                                case "WCF":
-                                    //TODO WCF service hosting
-                                    //private const string testBaseAddress =
-                                    //    "http://localhost:8733/Design_Time_Addresses/SimControl.Samples.CSharp.Wcf.Service/SampleServicePerSession/";
-
-                                    //logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "WCF");
-
-                                    //var host = new ServiceHost(typeof(SampleServicePerSessionInstance),//, new Uri(TestBaseAddress));
-                                    //host.Open();
-
-                                    //var client = new SampleServiceClient(new InstanceContext(new SampleServiceEapCallback()),
-                                    //    typeof(SampleServiceClient).FullName, new EndpointAddress(TestBaseAddress));
-                                    //((WSDualHttpBinding) client.Endpoint.Binding).ClientBaseAddress =  new Uri(host.BaseAddresses[0]  + "Callback"); //TestBaseAddress
-
-            //client.Connect();
-            //Console.ReadLine();
-            //client.Close();
-            //host.Close();
-            break;
-                }
-
-                return 0;
-            }
-            catch (Exception e)
-            {
-                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
-
-                return command == nameof(ThrowException) ? 7 : 1;
-            }
-            finally { UnregisterExceptionHandlers(); }
-*/
-            return 0;
-        }
-
         private static bool ConsoleCtrlHandler(uint sig)
         {
-            Exit(4);
+            Exit(ExitCode.ConsoleCtrl);
 
             return true;
         }
 
-        private static void Exit(int exitCode)
+        private static void Exit(ExitCode exitCode)
         {
-            UnregisterExceptionHandlers();
+            UnregisterEventHandlers();
 
-            Environment.Exit(exitCode);
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
+
+            Environment.Exit((int) exitCode);
         }
 
-        private static void ProcessExitEventHandler(object sender, EventArgs e)
-        {
-            // not alway raised, logger already finalized
-        }
-
-        private static void RegisterExceptionHandlers()
+        private static void RegisterEventHandlers()
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
             TaskScheduler.UnobservedTaskException += UnobservedTaskExceptionHandler;
 
-            if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(),
-                    "Unregister ExternSetConsoleCtrlHandler", Marshal.GetLastWin32Error());
+            if (!NativeMethods.ExternSetConsoleCtrlHandler(ConsoleCtrlHandler, true))
+                throw new Win32Exception();
         }
 
         private static void ThrowException() => throw new InvalidOperationException();
 
-        private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
+        private static void UnhandledExceptionEventHandler(object _, UnhandledExceptionEventArgs e)
         {
             logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, (Exception) e.ExceptionObject);
 
-            Exit(command == "ThrowExceptionOnThread" ? 6 : 2);
+            Exit(command == "ThrowExceptionOnThread" ?
+                ExitCode.ThrowExceptionOnThread : ExitCode.UnhandledExceptionEvent);
         }
 
-        private static void UnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
+        private static void UnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
         {
             logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, args.Exception);
 
-            //args.SetObserved();  // as we have observed the exception, the process should not terminate abnormally
-
-            Exit(3);
+            Exit(ExitCode.UnobservedTaskException);
         }
 
-        private static void UnregisterExceptionHandlers()
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
+        private static void UnregisterEventHandlers()
         {
             try
             {
                 if (!NativeMethods.ExternSetConsoleCtrlHandler(null, false))
-                    throw new Win32Exception();
+                    logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(),
+                        "Unregister ExternSetConsoleCtrlHandler", Marshal.GetLastWin32Error());
 
                 TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
                 AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
             }
-            catch (Exception e)
-            {
-                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
-            }
+            catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e); }
         }
 
-        /// <summary>Possible command line arguments.</summary>
-        /// <value>The arguments.</value>
-        public static IEnumerable<string> Arguments => new[] { "ChangeUserSettings", "Normal", nameof(ThrowException),
-            "ThrowExceptionOnThread", "ValidateSettings", nameof(VerifyJitOptimization), "Wait", "WCF"
-        }.AsEnumerable();
-
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private static string command;
+        private static string command = "";
     }
 
     internal static class NativeMethods
@@ -284,11 +189,10 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
         // Delegate type to be used as the Handler Routine
         internal delegate bool ConsoleCtrlDelegate(uint ctrlType);
 
-        // [Log(AttributeExclude = true)]
         [DllImport("Kernel32", EntryPoint = "SetConsoleCtrlHandler", SetLastError = true)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.SafeDirectories)]
-        internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine,
-                                                                [MarshalAs(UnmanagedType.Bool)] bool add);
+        internal static extern bool ExternSetConsoleCtrlHandler(ConsoleCtrlDelegate? handlerRoutine,
+            [MarshalAs(UnmanagedType.Bool)] bool add);
     }
 }

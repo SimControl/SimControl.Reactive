@@ -130,7 +130,7 @@ namespace SimControl.TestUtils
         /// <param name="type">The type.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="args">A variable-length parameters list containing arguments.</param>
-        [Obsolete("Refactor static singletons")] // TODO delete
+        [Obsolete("Refactor static singletons")] // TODO remove
         public static void InvokePrivateStaticMethod(Type type, string methodName, params object[] args) =>
             type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
 
@@ -157,7 +157,7 @@ namespace SimControl.TestUtils
         /// <param name="field">The field.</param>
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentException"></exception>
-        [Obsolete("Refactor static singletons")] // TODO delete
+        [Obsolete("Refactor static singletons")] // TODO remove
         public static void SetPrivateStaticField(Type type, string field, object value)
         {
             if (field.Length == 0) throw new ArgumentException("Field name must not be empty", nameof(field));

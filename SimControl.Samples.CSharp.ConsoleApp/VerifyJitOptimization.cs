@@ -4,11 +4,9 @@ using System;
 using NLog;
 using SimControl.Log;
 
-// TODO implement
-
 namespace SimControl.Samples.CSharp.ConsoleApplication
 {
-    /// <summary>SampleClass implementation.</summary>
+    /// <summary>ConsoleApplication VerifyJitOptimization implementation.</summary>
     public static class VerifyJitOptimization
     {
         /// <summary>Run</summary>
@@ -24,7 +22,9 @@ namespace SimControl.Samples.CSharp.ConsoleApplication
 
             try { MethodA(); }
             catch (InvalidOperationException e)
-            { logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e); }
+            {
+                logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e);
+            }
         }
 
         private static void BadMethod() => throw new InvalidOperationException("generic bad thing");

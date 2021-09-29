@@ -36,7 +36,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
             try
             {
-                RegisterExceptionHandlers();
+                RegisterEventHandlers();
 
                 Thread.CurrentThread.Name ??=nameof(Main);
 
@@ -48,7 +48,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                     FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).ProductVersion,
                     Environment.Version, Environment.Is64BitProcess ? "x64" : "x86", args);
 
-                //UNDONE SynchronizationContext using (var act = new AsyncContextThread())
+                //TODO SynchronizationContext using (var act = new AsyncContextThread())
                 {
                     using var cts = new CancellationTokenSource();
                     ConfiguredTaskAwaitable task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
@@ -82,7 +82,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
                 exitCode = ExitCode.UnhandledException;
             }
 
-            UnregisterExceptionHandlers();
+            UnregisterEventHandlers();
 
             logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
@@ -98,14 +98,14 @@ namespace SimControl.Templates.CSharp.ConsoleApp
 
         private static void Exit(ExitCode exitCode)
         {
-            UnregisterExceptionHandlers();
+            UnregisterEventHandlers();
 
             logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
             Environment.Exit((int) exitCode);
         }
 
-        private static void RegisterExceptionHandlers()
+        private static void RegisterEventHandlers()
         {
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionEventHandler;
             TaskScheduler.UnobservedTaskException += UnobservedTaskExceptionHandler;
@@ -131,7 +131,7 @@ namespace SimControl.Templates.CSharp.ConsoleApp
         }
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
-        private static void UnregisterExceptionHandlers()
+        private static void UnregisterEventHandlers()
         {
             try
             {

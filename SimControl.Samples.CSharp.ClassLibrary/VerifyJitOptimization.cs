@@ -1,25 +1,15 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-// TODO implement
-
-/*
-using NLog;
-using SimControl.LogEx;
 using System;
-using System.Reflection;
+using NLog;
+using SimControl.Log;
 
-namespace SimControl.Samples.CSharp.ClassLibraryEx
+namespace SimControl.Samples.CSharp.ClassLibrary
 {
-    /// <summary>
-    /// SampleClass implementation.
-    /// </summary>
+    /// <summary>SampleClass implementation.</summary>
     public static class VerifyJitOptimization
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// Run
-        /// </summary>
+        /// <summary>Run</summary>
         public static void Run()
         {
             const int a = 2*2;
@@ -31,15 +21,20 @@ namespace SimControl.Samples.CSharp.ClassLibraryEx
             logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "Count", count);
 
             try { MethodA(); }
-            catch (InvalidOperationException e) { logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e); }
+            catch (InvalidOperationException e)
+            {
+                logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e);
+            }
         }
 
         private static void BadMethod() => throw new InvalidOperationException("generic bad thing");
+
         private static void MethodA() => MethodB();
 
         private static void MethodB() => MethodC();
 
         private static void MethodC() => BadMethod();
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 }
-*/

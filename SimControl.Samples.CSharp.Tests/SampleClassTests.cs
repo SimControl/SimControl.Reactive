@@ -2,8 +2,8 @@
 
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.TestUtils;
 using SimControl.Samples.CSharp.ConsoleApplication;
+using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 {
@@ -35,9 +35,6 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
             Assert.AreEqual(0, SampleClass.StaticCounter);
             SampleClass.IncrementStaticCounter();
         }
-
-        //[Test]
-        //public static void SampleClassTests_SampleClass_ValidateSettings_NoException() => SampleClass.ValidateSettings();
 
         [Test, Sequential]
         public static void SampleClassTests_SequentialValues([Values(0, 1, 2)] int arg, [Values(0, 1, 4)] int res) =>
