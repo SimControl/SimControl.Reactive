@@ -1,92 +1,94 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
 
-// UNDONE implement
-
-/*
-using System.Collections.Concurrent;
+using System.Threading.Channels;
 using NCrunch.Framework;
+using NLog;
 using NUnit.Framework;
-using SimControl.LogEx;
+using SimControl.Log;
+using SimControl.Samples.CSharp.ClassLibrary;
+using SimControl.Samples.CSharp.ConsoleApp;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication.Tests
 {
     [Log]
-    [TestFixture, ExclusivelyUses("Logging")]
-    public class SampleConsoleApplicationTests : TestFrame
+    [Log, TestFixture, ExclusivelyUses(ProcessName)]
+    public class SampleConsoleApplicationTests: TestFrame
     {
-        #region Additional test attributes
-
-        [SetUp]
-        public new void SetUp() =>
-            filePath = TestContext.CurrentContext.TestDirectory + "\\SimControl.Samples.CSharp.ConsoleApplication.exe";
-
-        #endregion
-
         [Test]
-        public static void ConsoleApplicationMain_Normal() => Assert.AreEqual(0, Program.Main("Normal"));
+        public static void ConsoleApplication__Main_Normal__Succeeds() =>
+            Assert.That(Program.Main("Normal").Result, Is.EqualTo((int) ExitCode.Success));
+
+#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
 
         [Test, IntegrationTest]
         public void ConsoleApplication_Normal()
         {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Normal",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-                Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Normal", out _, out _);
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessRunning", processTestAdapter);
+
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.Success));
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowException()
         {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowException",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-                Assert.AreEqual(7, processAdapter.WaitForExitAssertTimeout());
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "ThrowException", out _, out _);
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessRunning", processTestAdapter);
+
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.UnhandledException));
         }
 
         [Test, IntegrationTest]
         public void ConsoleApplication_ThrowExceptionOnThread()
         {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ThrowExceptionOnThread",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-                Assert.AreEqual(6, processAdapter.WaitForExitAssertTimeout());
-        }
+            ProcessTestAdapter.KillProcesses(ProcessName);
 
-        //[Test, IntegrationTest]
-        //public void ConsoleApplication_ValidateSettings()
-        //{
-        //    using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "ValidateSettings",
-        //        out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-        //        Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
-        //}
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "ThrowExceptionOnThread", out _, out _);
+            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessRunning", processTestAdapter);
 
-        [Test, IntegrationTest]
-        public void ConsoleApplication_Wait_StandardInputClosed() //TODO fails with NUnit TestAdapter
-        {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Wait",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-            {
-                //standardOutput.TakeUntilAssertTimeout(s => s.Contains("Waiting"));
-
-                processAdapter.Process.StandardInput.Close();
-
-                Assert.AreEqual(5, processAdapter.WaitForExitAssertTimeout());
-            }
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(),
+                Is.EqualTo((int) ExitCode.ThrowExceptionOnThread));
         }
 
         [Test, IntegrationTest]
-        public void ConsoleApplication_Wait_StandardInputRead1Line() //TODO fails with NUnit TestAdapter
+        public void ConsoleApplication_Wait_StandardInputClosed()
         {
-            using (var processAdapter = new ConsoleProcessTestAdapter(filePath, "Wait",
-                out BlockingCollection<string> standardOutput, out BlockingCollection<string> standardError))
-            {
-                //standardOutput.TakeUntilAssertTimeout(s => s.Contains("Waiting"));
+            ProcessTestAdapter.KillProcesses(ProcessName);
 
-                processAdapter.Process.StandardInput.WriteLine("abc");
-
-                Assert.AreEqual(0, processAdapter.WaitForExitAssertTimeout());
-            }
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait",
+                out ChannelReader<string> standardOutput, out _);
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
+            processTestAdapter.Process.StandardInput.Close();
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.ConsoleInputClosed));
         }
 
-        private string filePath;
+        [Test, IntegrationTest]
+        public void ConsoleApplication_Wait_StandardInputRead1Line()
+        {
+            ProcessTestAdapter.KillProcesses(ProcessName);
+
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait",
+                out ChannelReader<string> standardOutput, out _);
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
+
+            processTestAdapter.Process.StandardInput.WriteLine("abc");
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("abc"), DebugTimeout(5000)).Wait();
+
+            processTestAdapter.Process.StandardInput.Close();
+
+            standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
+            Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.ConsoleInputClosed));
+        }
+
+#endif
+        public const string ProcessName = "SimControl.Samples.CSharp.ConsoleApp";
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     }
 }
-*/

@@ -13,13 +13,16 @@ namespace SimControl.TestUtils.Tests
     [Log, TestFixture, ExclusivelyUses(ProcessName)]
     public class ProcessTestAdapterTests: TestFrame
     {
+#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
+
         [Test, IntegrationTest]
         public static void Kill__start_ConsoleApp_process__process_is_killed()
         {
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait", out _, out _);
+            LongContextSwitch(50);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
             processTestAdapter.Kill();
@@ -33,7 +36,8 @@ namespace SimControl.TestUtils.Tests
             ProcessTestAdapter.KillProcesses(ProcessName);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "", out _, out _);
+            using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait", out _, out _);
+            LongContextSwitch(50);
             Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
             ProcessTestAdapter.KillProcesses(ProcessName);
@@ -42,8 +46,6 @@ namespace SimControl.TestUtils.Tests
 
             processTestAdapter.WaitForExitAssertTimeout();
         }
-
-#if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
 
         [Test, IntegrationTest, ExclusivelyUses(ProcessName)]
         public static void Start_ConsoleApp__ToString_is_correct()

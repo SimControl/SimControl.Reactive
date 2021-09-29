@@ -6,8 +6,6 @@ using System.Threading.Channels;
 using NUnit.Framework;
 using SimControl.Log;
 
-// UNDONE AsyncContextThreadAdapter test
-
 namespace SimControl.TestUtils.Tests
 {
     public sealed class SingleThreadSynchronizationContext
