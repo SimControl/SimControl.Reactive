@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SimControl.Samples.CSharp.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "Normal"
+    }
+  }
+}
