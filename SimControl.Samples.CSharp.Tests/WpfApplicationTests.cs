@@ -9,6 +9,7 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.Samples.CSharp.WpfApp;
 using SimControl.TestUtils;
+using SimControl.Reactive;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests
 {

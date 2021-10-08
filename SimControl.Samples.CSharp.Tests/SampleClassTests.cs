@@ -2,7 +2,6 @@
 
 using NUnit.Framework;
 using SimControl.Log;
-using SimControl.Samples.CSharp.ConsoleApplication;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests
@@ -17,6 +16,11 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         public static new void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
 
         #endregion
+
+        private class PayRecord
+        {
+            public double Gross;
+        }
 
         [Test]
         public static void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
