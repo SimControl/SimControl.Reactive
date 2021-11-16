@@ -178,7 +178,7 @@ csharp_new_line_before_finally = true
 csharp_new_line_before_members_in_anonymous_types = false
 csharp_new_line_before_members_in_object_initializers = false
 csharp_new_line_between_query_expression_clauses = false
-csharp_new_line_before_open_brace = all
+csharp_new_line_before_open_brace =accessors,control_blocks,methods,properties,types
 
 # Indentation preferences
 csharp_indent_block_contents = true
@@ -233,13 +233,21 @@ dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.field___parameter___local_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.field___parameter___local_should_be_camel_case.symbols = field___parameter___local
-dotnet_naming_rule.field___parameter___local_should_be_camel_case.style = camel_case
+dotnet_naming_rule.public_field_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.public_field_should_be_pascal_case.symbols = public_field
+dotnet_naming_rule.public_field_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.type_parameter_should_be_type_parameter.severity = suggestion
-dotnet_naming_rule.type_parameter_should_be_type_parameter.symbols = type_parameter
-dotnet_naming_rule.type_parameter_should_be_type_parameter.style = type_parameter
+dotnet_naming_rule.private_field_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.private_field_should_be_camel_case.symbols = private_field
+dotnet_naming_rule.private_field_should_be_camel_case.style = camel_case
+
+dotnet_naming_rule.parameter___local_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.parameter___local_should_be_camel_case.symbols = parameter___local
+dotnet_naming_rule.parameter___local_should_be_camel_case.style = camel_case
+
+dotnet_naming_rule.types_should_be_type_parameter.severity = suggestion
+dotnet_naming_rule.types_should_be_type_parameter.symbols = types
+dotnet_naming_rule.types_should_be_type_parameter.style = type_parameter
 
 # Symbol specifications
 
@@ -255,13 +263,17 @@ dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, meth
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.non_field_members.required_modifiers = 
 
-dotnet_naming_symbols.field___parameter___local.applicable_kinds = field, parameter, local
-dotnet_naming_symbols.field___parameter___local.applicable_accessibilities = *
-dotnet_naming_symbols.field___parameter___local.required_modifiers = 
+dotnet_naming_symbols.parameter___local.applicable_kinds = parameter, local
+dotnet_naming_symbols.parameter___local.applicable_accessibilities = *
+dotnet_naming_symbols.parameter___local.required_modifiers = 
 
-dotnet_naming_symbols.type_parameter.applicable_kinds = type_parameter
-dotnet_naming_symbols.type_parameter.applicable_accessibilities = *
-dotnet_naming_symbols.type_parameter.required_modifiers = 
+dotnet_naming_symbols.private_field.applicable_kinds = field
+dotnet_naming_symbols.private_field.applicable_accessibilities = internal, private, local
+dotnet_naming_symbols.private_field.required_modifiers = 
+
+dotnet_naming_symbols.public_field.applicable_kinds = field
+dotnet_naming_symbols.public_field.applicable_accessibilities = public, protected, protected_internal, private_protected
+dotnet_naming_symbols.public_field.required_modifiers = 
 
 # Naming styles
 
@@ -284,7 +296,6 @@ dotnet_naming_style.type_parameter.required_prefix = T
 dotnet_naming_style.type_parameter.required_suffix = 
 dotnet_naming_style.type_parameter.word_separator = 
 dotnet_naming_style.type_parameter.capitalization = pascal_case
-
 #### Code Analysis Rules ####
 
 [*.cs]

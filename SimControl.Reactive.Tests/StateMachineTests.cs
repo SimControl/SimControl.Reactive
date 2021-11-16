@@ -61,7 +61,7 @@ namespace SimControl.Reactive.Tests
             int actual = await stateChanged.Reader.ReadAsync();
             //int actual = await stateChanged.Reader.ReadAsync().AsTask().AssertTimeoutAsync();
             Assert.That(actual, Is.EqualTo(0));
-            Assert.That(await stateChanged .Reader.ReadAsync().AsTask().AssertTimeoutAsync(), Is.EqualTo(1));
+            Assert.That(await stateChanged.Reader.ReadAsync().AsTask().AssertTimeoutAsync(), Is.EqualTo(1));
 
             Assert.IsTrue(sm.IsActive("."));
             Assert.IsTrue(sm.IsActive(".SimpleState2"));
