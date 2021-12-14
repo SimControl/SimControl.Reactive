@@ -55,6 +55,7 @@ insert_final_newline = true
 [*.{cmd,bat,ps1}]
 
 #### .NET Coding Conventions ####
+[*]
 
 # Organize usings
 dotnet_separate_import_directive_groups = false
@@ -111,7 +112,6 @@ dotnet_style_allow_multiple_blank_lines_experimental = false:suggestion
 dotnet_style_allow_statement_immediately_after_block_experimental = true
 
 #### C# Coding Conventions ####
-
 [*.cs]
 
 # var preferences
@@ -170,6 +170,7 @@ csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false:s
 csharp_style_allow_embedded_statements_on_same_line_experimental = true
 
 #### C# Formatting Rules ####
+[*.cs]
 
 # New line preferences
 csharp_new_line_before_catch = true
@@ -218,6 +219,7 @@ csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
 #### Naming styles ####
+[*]
 
 # Naming rules
 
@@ -298,7 +300,6 @@ dotnet_naming_style.type_parameter.word_separator =
 dotnet_naming_style.type_parameter.capitalization = pascal_case
 
 #### Code Analysis Rules ####
-
 [*.cs]
 
 dotnet_diagnostic.CA1000.severity = suggestion

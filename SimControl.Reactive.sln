@@ -99,8 +99,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Templates.CSharp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Parent Directory", "_Parent Directory", "{E754CCBA-D0E9-40F1-904E-8A7BFBCE9B8F}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\.editorconfig = ..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\.editorconfig
-		..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props = ..\..\KEBA-CA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props
+		..\..\KEBA\Keba.Xfs.Templates\ParentDirectory\.editorconfig = ..\..\KEBA\Keba.Xfs.Templates\ParentDirectory\.editorconfig
+		..\..\KEBA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props = ..\..\KEBA\Keba.Xfs.Templates\ParentDirectory\Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Samples.CSharp.WpfApp", "SimControl.Samples.CSharp.WpfApp\SimControl.Samples.CSharp.WpfApp.csproj", "{408184EE-31A5-4EF6-9FFB-3E4719FF94D9}"
