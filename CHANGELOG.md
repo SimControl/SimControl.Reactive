@@ -6,6 +6,7 @@
 
 ### Changed
 - Targetframeworks: `net472`, `net5.0`
+- NuGet package references updates
 
 ### Deprecated
 
