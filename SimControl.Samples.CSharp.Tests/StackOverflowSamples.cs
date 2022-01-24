@@ -27,7 +27,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
     {
         static LongTimeOperation()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(1);
             Resource = (++count).ToString();
         }
 
@@ -69,5 +69,45 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests
         public void Test2() => Assert.That(resource, Is.EqualTo("1"));
 
         private string resource;
+    }
+
+    public class TestManager
+    {
+        public static void SetDevice(string device) => Device = device;
+
+        public static string Device { get; private set; }
+    }
+
+    public abstract class BaseFixture
+    {
+        protected BaseFixture(string device)
+        {
+            TestManager.SetDevice(device);
+
+            this.device = device;
+        }
+
+        [Test]
+        public void ShouldA() => Assert.That(TestManager.Device, Is.EqualTo(device));
+
+        private string device;
+    }
+
+    [TestFixture]
+    public class DesktopTest: BaseFixture
+    {
+        public DesktopTest() : base("desktop") { }
+
+        [Test]
+        public void ShouldAdesktop() => Assert.That(TestManager.Device, Is.EqualTo("desktop"));
+    }
+
+    [TestFixture]
+    public class MobileTest: BaseFixture
+    {
+        public MobileTest(): base("mobile") { }
+
+        [Test]
+        public void ShouldAmobile() => Assert.That(TestManager.Device, Is.EqualTo("mobile"));
     }
 }

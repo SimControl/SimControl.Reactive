@@ -23,7 +23,6 @@
   <!-- Adapter Specific sections -->
   <NUnit>
     <DefaultTimeout>60000</DefaultTimeout>
-    <DomainUsage>Multiple</DomainUsage>
     <NumberOfTestWorkers>1</NumberOfTestWorkers>
     <ShadowCopyFiles>False</ShadowCopyFiles>
     <UseVsKeepEngineRunning>False</UseVsKeepEngineRunning>
