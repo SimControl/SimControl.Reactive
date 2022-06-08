@@ -1,20 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+    <TargetFrameworks>net472;net6.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrAdvice" Version="2.9.5" />
-    <PackageReference Include="NCrunch.Framework" Version="4.7.0.4" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit.Analyzers" Version="3.2.0" />
-    <PackageReference Include="System.Threading.Channels" Version="6.0.0" />
+    <PackageReference Include="MrAdvice" />
+    <PackageReference Include="NCrunch.Framework" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="System.Threading.Channels" />
   </ItemGroup>
   
   <ItemGroup>

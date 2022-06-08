@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		LICENSE = LICENSE
 		NLog.IntegrationTests.config = NLog.IntegrationTests.config
 		NLog.Tests.config = NLog.Tests.config
+		nuget.config = nuget.config
 		NUnit.runsettings = NUnit.runsettings
 		NUnitCoverage.runsettings = NUnitCoverage.runsettings
 		PackageIcon.png = PackageIcon.png
