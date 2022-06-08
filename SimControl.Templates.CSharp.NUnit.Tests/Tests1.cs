@@ -5,35 +5,34 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Templates.CSharp.NUnitTests
+namespace SimControl.Templates.CSharp.NUnitTests;
+
+[Log, TestFixture]
+public class Tests1: TestFrame
 {
-    [Log, TestFixture]
-    public class Tests1: TestFrame
+    #region Test SetUp/TearDown
+
+    [SetUp]
+    public new void SetUp()
     {
-        #region Test SetUp/TearDown
+        // TODO implement
+    }
 
-        [SetUp]
-        public new void SetUp()
-        {
-            // TODO implement
-        }
+    [TearDown]
+    public new void TearDown()
+    {
+        // TODO implement
+    }
 
-        [TearDown]
-        public new void TearDown()
-        {
-            // TODO implement
-        }
+    #endregion
 
-        #endregion
+    [Test]
+    public void MethodName__state_under_test__expected_behavior()
+    {
+        // TODO Arrange - Act - Assert
 
-        [Test]
-        public void MethodName__state_under_test__expected_behavior()
-        {
-            // TODO Arrange - Act - Assert
+        LogManager.GetCurrentClassLogger().Trace("Some Test");
 
-            LogManager.GetCurrentClassLogger().Trace("Some Test");
-
-            Assert.Pass();
-        }
+        Assert.Pass();
     }
 }

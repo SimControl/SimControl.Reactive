@@ -2,9 +2,8 @@
 
 using System;
 
-namespace SimControl.Log
+namespace SimControl.Log;
+
+public class MethodLogInfo
 {
-    public class MethodLogInfo
-    {
-    }
 }

@@ -6,15 +6,14 @@ using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
 
-namespace SimControl.TestUtils.Tests
+namespace SimControl.TestUtils.Tests;
+
+[Log]
+[TestFixture]
+public class InteractiveTest: TestFrame
 {
-    [Log]
-    [TestFixture]
-    public class InteractiveTest: TestFrame
-    {
-        [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTestAttribute))]
-        public static void InteractiveTest__DisplayMessageBox__ContinueAfterClickYes() => Task.Run(() =>
-            Assert.That(MessageBox.Show("Press Yes", TestContext.CurrentContext.Test.FullName, MessageBoxButtons.YesNo),
-                Is.EqualTo(DialogResult.Yes))).AssertTimeoutAsync(InteractiveTimeout).Wait();
-    }
+    [Test, InteractiveTest, ExclusivelyUses(nameof(InteractiveTestAttribute))]
+    public static void InteractiveTest__DisplayMessageBox__ContinueAfterClickYes() => Task.Run(() =>
+        Assert.That(MessageBox.Show("Press Yes", TestContext.CurrentContext.Test.FullName, MessageBoxButtons.YesNo),
+            Is.EqualTo(DialogResult.Yes))).AssertTimeoutAsync(InteractiveTimeout).Wait();
 }

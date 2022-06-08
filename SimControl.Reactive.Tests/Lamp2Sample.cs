@@ -6,23 +6,22 @@ using SimControl.TestUtils;
 
 // TODO CR
 
-namespace SimControl.Reactive.Tests
-{
-    [Log]
-    [TestFixture]
-    public class Lamp2Sample: TestFrame
-    {
-        [Test]
-        public static void Lamp2_OnOff()
-        {
-            using (var lamp2 = new Lamp2())
-            {
-                lamp2.On();
-                lamp2.Off();
-                lamp2.Fault("Error");
+namespace SimControl.Reactive.Tests;
 
-                Assert.That(lamp2.Counter, Is.EqualTo(1));
-            }
+[Log]
+[TestFixture]
+public class Lamp2Sample: TestFrame
+{
+    [Test]
+    public static void Lamp2_OnOff()
+    {
+        using (var lamp2 = new Lamp2())
+        {
+            lamp2.On();
+            lamp2.Off();
+            lamp2.Fault("Error");
+
+            Assert.That(lamp2.Counter, Is.EqualTo(1));
         }
     }
 }

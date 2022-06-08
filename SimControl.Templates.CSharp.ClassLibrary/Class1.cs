@@ -2,11 +2,10 @@
 
 using SimControl.Log;
 
-namespace SimControl.Templates.CSharp.ClassLibrary
+namespace SimControl.Templates.CSharp.ClassLibrary;
+
+/// <summary></summary>
+[Log]
+public class Class1
 {
-    /// <summary></summary>
-    [Log]
-    public class Class1
-    {
-    }
 }

@@ -5,24 +5,23 @@ using NCrunch.Framework;
 using NUnit.Framework;
 using SimControl.Log;
 
-namespace SimControl.TestUtils.Tests
+namespace SimControl.TestUtils.Tests;
+
+[Log, TestFixture]
+public class CopyFileTestAdapterTests: TestFrame
 {
-    [Log, TestFixture]
-    public class CopyFileTestAdapterTests: TestFrame
+    [Test, ExclusivelyUses(FileName)]
+    public static void Create_and_dispose__file_is_copied_and_deleted()
     {
-        [Test, ExclusivelyUses(FileName)]
-        public static void Create_and_dispose__file_is_copied_and_deleted()
-        {
-            string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
+        string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
-            if (File.Exists(fullPath)) File.Delete(fullPath);
+        if (File.Exists(fullPath)) File.Delete(fullPath);
 
-            using (var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName))
-                Assert.That(File.Exists(fullPath));
+        using (var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName))
+            Assert.That(File.Exists(fullPath));
 
-            Assert.That(!File.Exists(fullPath));
-        }
-
-        public const string FileName = "CopyFileTestAdapterTests.tmp";
+        Assert.That(!File.Exists(fullPath));
     }
+
+    public const string FileName = "CopyFileTestAdapterTests.tmp";
 }

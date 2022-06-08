@@ -4,47 +4,46 @@ using NUnit.Framework;
 using SimControl.Log;
 using SimControl.TestUtils;
 
-namespace SimControl.Samples.CSharp.ClassLibrary.Tests
+namespace SimControl.Samples.CSharp.ClassLibrary.Tests;
+
+[Log]
+[TestFixture]
+public class SampleClassTests: TestFrame
 {
-    [Log]
-    [TestFixture]
-    public class SampleClassTests: TestFrame
+    #region Test SetUpTearDown
+
+    [SetUp]
+    public static new void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
+
+    #endregion
+
+    private class PayRecord
     {
-        #region Test SetUpTearDown
-
-        [SetUp]
-        public static new void SetUp() => SetPrivateStaticField(typeof(SampleClass), "staticCounter", 0);
-
-        #endregion
-
-        private class PayRecord
-        {
-            public double Gross;
-        }
-
-        [Test]
-        public static void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
-            new SampleClass().DoSomething();
-
-        [Test]
-        public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize1()
-        {
-            Assert.AreEqual(0, SampleClass.StaticCounter);
-            SampleClass.IncrementStaticCounter();
-        }
-
-        [Test]
-        public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize2()
-        {
-            Assert.AreEqual(0, SampleClass.StaticCounter);
-            SampleClass.IncrementStaticCounter();
-        }
-
-        [Test, Sequential]
-        public static void SampleClassTests_SequentialValues([Values(0, 1, 2)] int arg, [Values(0, 1, 4)] int res) =>
-            Assert.That(arg*arg, Is.EqualTo(res));
-
-        [Test]
-        public static void SampleClassTests_VerifyJitOptimization_Run() => VerifyJitOptimization.Run();
+        public double Gross;
     }
+
+    [Test]
+    public static void SampleClassTests_SampleClass_DoSomething_WriteLogMessagesToLogTargets() =>
+        new SampleClass().DoSomething();
+
+    [Test]
+    public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize1()
+    {
+        Assert.AreEqual(0, SampleClass.StaticCounter);
+        SampleClass.IncrementStaticCounter();
+    }
+
+    [Test]
+    public static void SampleClassTests_SampleClass_StaticCounter_AssertIs0AfterTestInitialize2()
+    {
+        Assert.AreEqual(0, SampleClass.StaticCounter);
+        SampleClass.IncrementStaticCounter();
+    }
+
+    [Test, Sequential]
+    public static void SampleClassTests_SequentialValues([Values(0, 1, 2)] int arg, [Values(0, 1, 4)] int res) =>
+        Assert.That(arg*arg, Is.EqualTo(res));
+
+    [Test]
+    public static void SampleClassTests_VerifyJitOptimization_Run() => VerifyJitOptimization.Run();
 }

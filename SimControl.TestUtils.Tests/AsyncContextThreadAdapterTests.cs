@@ -6,58 +6,57 @@ using System.Threading.Channels;
 using NUnit.Framework;
 using SimControl.Log;
 
-namespace SimControl.TestUtils.Tests
+namespace SimControl.TestUtils.Tests;
+
+public sealed class SingleThreadSynchronizationContext
+        : SynchronizationContext
 {
-    public sealed class SingleThreadSynchronizationContext
-            : SynchronizationContext
+    private readonly Channel<WorkItem> queue = Channel.CreateUnbounded<WorkItem>();
+
+    public override void Post(SendOrPostCallback d, object state)
     {
-        private readonly Channel<WorkItem> queue = Channel.CreateUnbounded<WorkItem>();
-
-        public override void Post(SendOrPostCallback d, object state)
-        {
-            queue.Writer.TryWrite(new WorkItem(d, state));
-        }
-
-        public async void RunAsync(CancellationToken cancellation = default(CancellationToken))
-        {
-            WorkItem workItem;
-
-            for (; ; )
-            {
-                workItem = (await queue.Reader.ReadAsync(cancellation));
-
-                workItem.Action(workItem.State);
-            }
-        }
+        queue.Writer.TryWrite(new WorkItem(d, state));
     }
 
-    public class WorkItem
+    public async void RunAsync(CancellationToken cancellation = default(CancellationToken))
     {
-        public SendOrPostCallback Action { get; set; }
-        public object State { get; set; }
+        WorkItem workItem;
 
-        public WorkItem(SendOrPostCallback action, object state)
+        for (; ; )
         {
-            this.Action = action;
-            this.State = state;
+            workItem = (await queue.Reader.ReadAsync(cancellation));
+
+            workItem.Action(workItem.State);
         }
     }
+}
 
-    [Log, TestFixture]
-    public class AsyncContextThreadAdapterTests: TestFrame
+public class WorkItem
+{
+    public SendOrPostCallback Action { get; set; }
+    public object State { get; set; }
+
+    public WorkItem(SendOrPostCallback action, object state)
     {
-        [Test]
-        public static void Xxx()
-        {
-            //using (var acta = new AsyncContextThreadAdapter())
-            //{
-            //    var ready = new AutoResetEvent(false);
+        this.Action = action;
+        this.State = state;
+    }
+}
 
-            //    Task task = acta.Factory.Run(() => { ContextSwitch(); ready.Set(); });
+[Log, TestFixture]
+public class AsyncContextThreadAdapterTests: TestFrame
+{
+    [Test]
+    public static void Xxx()
+    {
+        //using (var acta = new AsyncContextThreadAdapter())
+        //{
+        //    var ready = new AutoResetEvent(false);
 
-            //    ready.WaitOneAssertTimeout();
-            //    task.WaitAssertTimeout();
-            //}
-        }
+        //    Task task = acta.Factory.Run(() => { ContextSwitch(); ready.Set(); });
+
+        //    ready.WaitOneAssertTimeout();
+        //    task.WaitAssertTimeout();
+        //}
     }
 }

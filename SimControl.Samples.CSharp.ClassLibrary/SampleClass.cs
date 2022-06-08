@@ -3,37 +3,36 @@
 using NLog;
 using SimControl.Log;
 
-namespace SimControl.Samples.CSharp.ClassLibrary
+namespace SimControl.Samples.CSharp.ClassLibrary;
+
+/// <summary>SampleClass implementation.</summary>
+[Log]
+public class SampleClass
 {
-    /// <summary>SampleClass implementation.</summary>
-    [Log]
-    public class SampleClass
+    static SampleClass() => logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(),
+        typeof(SampleClass).AssemblyQualifiedName);
+
+    /// <summary>Increment the static counter</summary>
+    public static void IncrementStaticCounter() => staticCounter++;
+
+    /// <summary>Does something</summary>
+    /// <returns></returns>
+    public bool DoSomething()
     {
-        static SampleClass() => logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(),
-            typeof(SampleClass).AssemblyQualifiedName);
+        logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), nameof(DoSomething));
 
-        /// <summary>Increment the static counter</summary>
-        public static void IncrementStaticCounter() => staticCounter++;
+        counter++;
 
-        /// <summary>Does something</summary>
-        /// <returns></returns>
-        public bool DoSomething()
-        {
-            logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), nameof(DoSomething));
-
-            counter++;
-
-            return true;
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
-
-        /// <summary>Get the static counter</summary>
-        public static int StaticCounter => staticCounter;
-
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private static int staticCounter;
-        private int counter;
+        return true;
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
+
+    /// <summary>Get the static counter</summary>
+    public static int StaticCounter => staticCounter;
+
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+    private static int staticCounter;
+    private int counter;
 }

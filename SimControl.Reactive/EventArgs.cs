@@ -4,26 +4,25 @@ using System;
 
 // TODO CR
 
-namespace SimControl.Reactive
+namespace SimControl.Reactive;
+
+/// <summary>Generic EventArgs.</summary>
+/// <typeparam name="T"></typeparam>
+public class EventArgs<T>: EventArgs
 {
-    /// <summary>Generic EventArgs.</summary>
-    /// <typeparam name="T"></typeparam>
-    public class EventArgs<T>: EventArgs
+    /// <summary>Initializes a new instance of the <see cref="EventArgs&lt;T&gt;"/> class.</summary>
+    /// <param name="arg">The arg.</param>
+    public EventArgs(T arg) => this.arg = arg;
+
+    /// <summary>Performs an implicit conversion from <see cref="EventArgs&lt;T&gt;"/> to T.</summary>
+    /// <param name="eventArgs">The <see cref="EventArgs&lt;T&gt;"/> instance containing the event data.</param>
+    /// <returns>The result of the conversion.</returns>
+    public static implicit operator T(EventArgs<T> eventArgs)
     {
-        /// <summary>Initializes a new instance of the <see cref="EventArgs&lt;T&gt;"/> class.</summary>
-        /// <param name="arg">The arg.</param>
-        public EventArgs(T arg) => this.arg = arg;
+        // Contract.Requires(eventArgs != null);
 
-        /// <summary>Performs an implicit conversion from <see cref="EventArgs&lt;T&gt;"/> to T.</summary>
-        /// <param name="eventArgs">The <see cref="EventArgs&lt;T&gt;"/> instance containing the event data.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator T(EventArgs<T> eventArgs)
-        {
-            // Contract.Requires(eventArgs != null);
-
-            return eventArgs.arg;
-        }
-
-        private readonly T arg;
+        return eventArgs.arg;
     }
+
+    private readonly T arg;
 }
