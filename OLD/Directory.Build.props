@@ -3,12 +3,11 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
           Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))" />
 
-  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-
   <PropertyGroup>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <NoWarn>NU1507</NoWarn>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <Authors>Wilhelm Medetz</Authors>
     <Company>SimControl e.U. - Wilhelm Medetz</Company>
     <Product>SimControl.Reactive</Product>
@@ -35,15 +34,5 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageVersion Include="MrAdvice" Version="2.9.5" />
-    <PackageVersion Include="NCrunch.Framework" Version="4.7.0.4" />
-    <PackageVersion Include="NLog" Version="4.7.13" />
-    <PackageVersion Include="Nullable" Version="1.3.0" />
-    <PackageVersion Include="NUnit" Version="3.13.2" />
-    <PackageVersion Include="NUnit3TestAdapter" Version="4.2.0" />
-    <PackageVersion Include="System.Threading.Channels" Version="6.0.0" />
-  </ItemGroup>
 
 </Project>

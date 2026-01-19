@@ -1,38 +1,16 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿using Microsoft.Extensions.Logging;
 
-using NLog;
-using SimControl.Log;
-
-namespace SimControl.Samples.CSharp.ClassLibrary;
-
-/// <summary>SampleClass implementation.</summary>
-[Log]
-public class SampleClass
+namespace SimControl.Samples.CSharp.ClassLibrary
 {
-    static SampleClass() => logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(),
-        typeof(SampleClass).AssemblyQualifiedName);
-
-    /// <summary>Increment the static counter</summary>
-    public static void IncrementStaticCounter() => staticCounter++;
-
-    /// <summary>Does something</summary>
-    /// <returns></returns>
-    public bool DoSomething()
+    public class SampleClass
     {
-        logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), nameof(DoSomething));
+        public SampleClass(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateLogger<SampleClass>();
 
-        counter++;
+            _logger.LogInformation("SampleClass instantiated");
+        }
 
-        return true;
+        private readonly ILogger _logger;
     }
-
-    /// <inheritdoc/>
-    public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
-
-    /// <summary>Get the static counter</summary>
-    public static int StaticCounter => staticCounter;
-
-    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private static int staticCounter;
-    private int counter;
 }

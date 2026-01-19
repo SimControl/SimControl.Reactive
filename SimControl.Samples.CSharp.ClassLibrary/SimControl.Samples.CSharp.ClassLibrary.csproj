@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net6.0</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
 
 </Project>

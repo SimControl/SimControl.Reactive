@@ -1,0 +1,86 @@
+<Solution>
+  <Folder Name="/SimControl.Samples/">
+    <Project Path="SimControl.Samples.CSharp.ClassLibrary/SimControl.Samples.CSharp.ClassLibrary.csproj" />
+    <Project Path="SimControl.Samples.CSharp.ConsoleApp/SimControl.Samples.CSharp.ConsoleApp.csproj" />
+    <Project Path="SimControl.Samples.CSharp.NUnitTests/SimControl.Samples.CSharp.NUnitTests.csproj" Id="fc971f6b-a676-4cf3-93c0-2a1c9497bed8" />
+    <Project Path="SimControl.Samples.CSharp.Tests/SimControl.Samples.CSharp.Tests.csproj" Id="8938659d-772e-4fe9-8de3-c1dc193be231" />
+  </Folder>
+  <Folder Name="/SimControl.Templates/" />
+  <Folder Name="/SimControl.Templates/_SolutionTemplates/" />
+  <Folder Name="/_Old/" />
+  <Folder Name="/_Old/SimControl.ItemTemplates/" />
+  <Folder Name="/_Old/SimControl.ItemTemplates/SimControl.ItemTemplates.CSharp.Class/">
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.Class/Class.cs" />
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.Class/SimControl.ItemTemplates.CSharp.Class.vstemplate" />
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.Class/TemplateIcon.ico" />
+  </Folder>
+  <Folder Name="/_Old/SimControl.ItemTemplates/SimControl.ItemTemplates.CSharp.TestClass/">
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.TestClass/SimControl.ItemTemplates.CSharp.TestClass.vstemplate" />
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.TestClass/TemplateIcon.ico" />
+    <File Path="OLD/SimControl.ItemTemplates.CSharp.TestClass/TestClass.cs" />
+  </Folder>
+  <Folder Name="/_Old/SimControl.Samples.CSharp/">
+    <Project Path="OLD/SimControl.Samples.CSharp.ClassLibrary/SimControl.Samples.CSharp.ClassLibrary.csproj" />
+    <Project Path="OLD/SimControl.Samples.CSharp.ConsoleApp/SimControl.Samples.CSharp.ConsoleApp.csproj" />
+    <Project Path="OLD/SimControl.Samples.CSharp.Tests/SimControl.Samples.CSharp.Tests.csproj" />
+    <Project Path="OLD/SimControl.Samples.CSharp.WcfClient/SimControl.Samples.CSharp.WcfClient.csproj" Id="a7115e75-9b1f-415c-8607-c3a8abf01e13" />
+    <Project Path="OLD/SimControl.Samples.CSharp.WpfApp/SimControl.Samples.CSharp.WpfApp.csproj" />
+  </Folder>
+  <Folder Name="/_Old/SimControl.Templates.CSharp/">
+    <Project Path="OLD/SimControl.Templates.CSharp.ClassLibrary/SimControl.Templates.CSharp.ClassLibrary.csproj" />
+    <Project Path="OLD/SimControl.Templates.CSharp.ClassLibraryOld/SimControl.Templates.CSharp.ClassLibraryOld.csproj" Id="a3730c9c-c77a-4798-8c61-7dd211a78328" />
+    <Project Path="OLD/SimControl.Templates.CSharp.ConsoleApp/SimControl.Templates.CSharp.ConsoleApp.csproj" />
+    <Project Path="OLD/SimControl.Templates.CSharp.NUnit.Tests/SimControl.Templates.CSharp.NUnit.Tests.csproj" />
+    <Project Path="OLD/SimControl.Templates.CSharp.Tests/SimControl.Templates.CSharp.Tests.csproj" />
+    <Project Path="OLD/SimControl.Templates.CSharp.WcfServiceLibrary/SimControl.Templates.CSharp.WcfServiceLibrary.csproj" Id="93032712-f581-42d4-910f-670bdb44877f" />
+  </Folder>
+  <Folder Name="/_Old/SimControl/">
+    <Project Path="OLD/SimControl.Log.Tests/SimControl.Log.Tests.csproj" />
+    <Project Path="OLD/SimControl.Log/SimControl.Log.csproj" />
+    <Project Path="OLD/SimControl.Reactive.Tests/SimControl.Reactive.Tests.csproj" />
+    <Project Path="OLD/SimControl.Reactive/SimControl.Reactive.csproj" />
+    <Project Path="OLD/SimControl.TestUtils.Tests/SimControl.Testutils.Tests.csproj" />
+    <Project Path="OLD/SimControl.TestUtils/SimControl.TestUtils.csproj" />
+  </Folder>
+  <Folder Name="/_Old/Snippets/">
+    <File Path="OLD/Snippets/dispose.snippet" />
+    <File Path="OLD/Snippets/inheritdoc.snippet" />
+    <File Path="OLD/Snippets/simcontrol.snippet" />
+    <File Path="OLD/Snippets/testmethod.snippet" />
+  </Folder>
+  <Folder Name="/_Old/_Parent Directory/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/_Old/_Solution Items/">
+    <File Path="OLD/.editorconfig" />
+    <File Path="OLD/.gitattributes" />
+    <File Path="OLD/.gitignore" />
+    <File Path="OLD/CHANGELOG.md" />
+    <File Path="OLD/Directory.Build.props" />
+    <File Path="OLD/KeyPair.snk" />
+    <File Path="OLD/NLog.IntegrationTests.config" />
+    <File Path="OLD/NLog.Tests.config" />
+    <File Path="OLD/NUnit.runsettings" />
+    <File Path="OLD/NUnitCoverage.runsettings" />
+    <File Path="OLD/PackageIcon.png" />
+    <File Path="OLD/README.md" />
+    <File Path="OLD/SimControl.Reactive.v3.ncrunchsolution" />
+    <File Path="OLD/SolutionAssemblyInfo.cs" />
+  </Folder>
+  <Folder Name="/_Old/_Solution Items/Verify/">
+    <File Path="OLD/App.config" />
+    <File Path="OLD/App.Debug.config" />
+    <File Path="OLD/App.Release.config" />
+    <File Path="OLD/Templates.Build.ps1" />
+    <File Path="OLD/Templates.Install.ps1" />
+  </Folder>
+  <Folder Name="/_SolutionItems/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>

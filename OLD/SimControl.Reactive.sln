@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11217.181 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimControl.Samples.CSharp", "SimControl.Samples.CSharp", "{8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}"
 EndProject
@@ -22,7 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		LICENSE = LICENSE
 		NLog.IntegrationTests.config = NLog.IntegrationTests.config
 		NLog.Tests.config = NLog.Tests.config
-		nuget.config = nuget.config
 		NUnit.runsettings = NUnit.runsettings
 		NUnitCoverage.runsettings = NUnitCoverage.runsettings
 		PackageIcon.png = PackageIcon.png
@@ -83,12 +82,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Samples.CSharp.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Samples.CSharp.Tests", "SimControl.Samples.CSharp.Tests\SimControl.Samples.CSharp.Tests.csproj", "{96B81AD3-40A4-466A-A713-E1635381C6BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.WcfServiceLibrary", "SimControl.Samples.CSharp.WcfServiceLibrary\SimControl.Samples.CSharp.WcfServiceLibrary.csproj", "{2E1BDBFC-0D59-439C-A735-80D572F36198}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimControl.Samples.CSharp.WcfClient", "SimControl.Samples.CSharp.WcfClient\SimControl.Samples.CSharp.WcfClient.csproj", "{A7115E75-9B1F-415C-8607-C3A8ABF01E13}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2E1BDBFC-0D59-439C-A735-80D572F36198} = {2E1BDBFC-0D59-439C-A735-80D572F36198}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimControl.Log.Tests", "SimControl.Log.Tests\SimControl.Log.Tests.csproj", "{240CC628-F955-4563-AB5E-DC1B188D05A0}"
 EndProject
@@ -340,26 +334,6 @@ Global
 		{96B81AD3-40A4-466A-A713-E1635381C6BB}.Release|x64.Build.0 = Release|Any CPU
 		{96B81AD3-40A4-466A-A713-E1635381C6BB}.Release|x86.ActiveCfg = Release|Any CPU
 		{96B81AD3-40A4-466A-A713-E1635381C6BB}.Release|x86.Build.0 = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|Win32.Build.0 = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|x64.Build.0 = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Debug|x86.Build.0 = Debug|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Win32.ActiveCfg = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|Win32.Build.0 = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|x64.ActiveCfg = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|x64.Build.0 = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|x86.ActiveCfg = Release|Any CPU
-		{2E1BDBFC-0D59-439C-A735-80D572F36198}.Release|x86.Build.0 = Release|Any CPU
 		{A7115E75-9B1F-415C-8607-C3A8ABF01E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7115E75-9B1F-415C-8607-C3A8ABF01E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7115E75-9B1F-415C-8607-C3A8ABF01E13}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -499,7 +473,6 @@ Global
 		{93032712-F581-42D4-910F-670BDB44877F} = {79384A33-5F3F-4B83-9B7E-9FC91709C362}
 		{7C32CC6A-7FDF-47CB-ADAE-35D2F7F59232} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{96B81AD3-40A4-466A-A713-E1635381C6BB} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
-		{2E1BDBFC-0D59-439C-A735-80D572F36198} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{A7115E75-9B1F-415C-8607-C3A8ABF01E13} = {8D3C5AA5-4B6A-4FFB-A18A-3CE27E2563AB}
 		{240CC628-F955-4563-AB5E-DC1B188D05A0} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
 		{2DB82EC5-D893-4F2F-A840-40E4BB53A64C} = {C498F6C2-8A33-4BB8-82C8-9C9CB6757D29}
