@@ -5,8 +5,9 @@
     <Project Path="SimControl.Samples.CSharp.NUnitTests/SimControl.Samples.CSharp.NUnitTests.csproj" Id="fc971f6b-a676-4cf3-93c0-2a1c9497bed8" />
     <Project Path="SimControl.Samples.CSharp.Tests/SimControl.Samples.CSharp.Tests.csproj" Id="8938659d-772e-4fe9-8de3-c1dc193be231" />
   </Folder>
-  <Folder Name="/SimControl.Templates/" />
-  <Folder Name="/SimControl.Templates/_SolutionTemplates/" />
+  <Folder Name="/SimControl.Templates/">
+    <File Path="SimControl.Templates/CHANGELOG.md" />
+  </Folder>
   <Folder Name="/_Old/" />
   <Folder Name="/_Old/SimControl.ItemTemplates/" />
   <Folder Name="/_Old/SimControl.ItemTemplates/SimControl.ItemTemplates.CSharp.Class/">
