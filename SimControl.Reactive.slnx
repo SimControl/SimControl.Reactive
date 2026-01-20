@@ -6,7 +6,11 @@
     <Project Path="SimControl.Samples.CSharp.Tests/SimControl.Samples.CSharp.Tests.csproj" Id="8938659d-772e-4fe9-8de3-c1dc193be231" />
   </Folder>
   <Folder Name="/SimControl.Templates/">
+    <File Path="SimControl.Templates/.gitattributes" />
+    <File Path="SimControl.Templates/.gitignore" />
+    <File Path="SimControl.Templates/.gitkeep" />
     <File Path="SimControl.Templates/CHANGELOG.md" />
+    <File Path="SimControl.Templates/README.md" />
   </Folder>
   <Folder Name="/_Old/" />
   <Folder Name="/_Old/SimControl.ItemTemplates/" />
