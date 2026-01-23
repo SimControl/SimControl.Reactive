@@ -4,6 +4,8 @@
     <Project Path="SimControl.Samples.CSharp.ConsoleApp/SimControl.Samples.CSharp.ConsoleApp.csproj" />
     <Project Path="SimControl.Samples.CSharp.NUnitTests/SimControl.Samples.CSharp.NUnitTests.csproj" Id="fc971f6b-a676-4cf3-93c0-2a1c9497bed8" />
     <Project Path="SimControl.Samples.CSharp.Tests/SimControl.Samples.CSharp.Tests.csproj" Id="8938659d-772e-4fe9-8de3-c1dc193be231" />
+    <Project Path="SimControl.Samples.CSharp.WpfApp/SimControl.Samples.CSharp.WpfApp_net10_0.csproj" Id="d8e8c311-447c-4054-a640-2dd7d85bb539" />
+    <Project Path="SimControl.Samples.CSharp.WpfApp2/SimControl.Samples.CSharp.WpfApp_net480.csproj" Id="5e7d3843-8ea1-4237-9189-752109a02494" />
   </Folder>
   <Folder Name="/SimControl.Templates/">
     <File Path="SimControl.Templates/.gitattributes" />
