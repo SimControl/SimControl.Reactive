@@ -1,6 +1,6 @@
-﻿@startuml
+﻿stateDiagram-v2
 
-State1 :
+State1
 
 State1 --> State2A : Call1 [IsTrueA()] / WaitAsycc()
 State1 --> State2B : Call1 [IsTrueB()]
@@ -13,5 +13,3 @@ state State2B {
   [*] --> Waiting
   Waiting --> Ready
 }
-
-@enduml
