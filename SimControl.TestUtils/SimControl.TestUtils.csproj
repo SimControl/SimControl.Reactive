@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net480;net10.0</TargetFrameworks>
+    <Nullable>disable</Nullable>
+    <NoWarn>8632</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="NUnit" />
+      <PackageReference Include="NUnit.Analyzers" />
+      <PackageReference Include="System.Threading.Channels" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net480'">
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+  </ItemGroup>
+
+</Project>

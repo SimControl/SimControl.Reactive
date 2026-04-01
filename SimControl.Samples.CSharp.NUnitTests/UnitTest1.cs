@@ -1,20 +1,31 @@
-﻿using SimControl.Samples.CSharp.ClassLibrary;
+﻿using NLog;
+using SimControl.Log;
+using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.NUnitTests
 {
-    public class Tests
+    [Log, TestFixture]
+    public class Tests : TestFrame
     {
         [SetUp]
-        public void Setup()
+        public new void SetUp()
         {
+            // TODO implement
+        }
+
+        [TearDown]
+        public new void TearDown()
+        {
+            // TODO implement
         }
 
         [Test]
-        public void Test1()
+        public void MethodName__state_under_test__expected_behavior()
         {
-            Console.WriteLine("Hello from NUnit Test!");
+            // TODO Arrange - Act - Assert
 
-            new SampleClass(new Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory());
+            LogManager.GetCurrentClassLogger().Trace("Some Test");
+            Console.WriteLine("Some Test");
 
             Assert.Pass();
         }

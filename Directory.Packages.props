@@ -1,18 +1,47 @@
 <Project>
   <PropertyGroup>
+    <NuGetAuditMode>all</NuGetAuditMode>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>14.0</LangVersion>
+    <WarningLevel>9999</WarningLevel>
+    <NoWarn>0000</NoWarn>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+<!--<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>-->
+
+    <Authors>Wilhelm Medetz</Authors>
+    <Company>SimControl e.U. - Wilhelm Medetz</Company>
+    <Product>SimControl.Reactive</Product>
+    <Copyright>Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.</Copyright>
+    <!--<PackageIcon>PackageIcon.png</PackageIcon>-->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
+
+    <!--
+      <Version>0.0.0-prerelease.0.alpha</Version>   used for development integration tests
+      <Version>0.0.0-prerelease.0.beta</Version>    used for integration tests with dedicated developers
+      <Version>0.0.0-prerelease.0.rc</Version>      used for release tests
+      <Version>0.0.0</Version>                      release version
+    -->
+    <Version>0.8.0</Version>
   </PropertyGroup>
+  
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
-    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="MrAdvice" Version="2.20.5" />
+    <PackageVersion Include="NLog" Version="6.1.1" />
+    <PackageVersion Include="NUnit" Version="4.5.1" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.7.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageVersion Include="System.Threading.Channels" Version="10.0.5" />
     <PackageVersion Include="TUnit" Version="1.2.3" />
   </ItemGroup>
 </Project>

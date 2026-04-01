@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net480;net10.0</TargetFrameworks>
+    <TargetFrameworks>net480;net10.0-windows</TargetFrameworks>
     <Nullable>disable</Nullable>
     <NoWarn>8632</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrAdvice" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit.Analyzers" />
@@ -16,17 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Reactive.Tests\SimControl.Reactive.Tests.csproj" />
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
     <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Samples.CSharp.ConsoleApp\SimControl.Samples.CSharp.ConsoleApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\NLog.Tests.config" Link="NLog.config">
+    <None Include="..\NLog.IntegrationTests.config" Link="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

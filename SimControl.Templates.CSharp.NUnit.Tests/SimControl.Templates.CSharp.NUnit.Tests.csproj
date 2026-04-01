@@ -10,19 +10,15 @@
   <ItemGroup>
     <PackageReference Include="MrAdvice" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="NUnit" />
-    <PackageReference Include="NUnit.Analyzers" />
-    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="NUnit3TestAdapter">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Reactive.Tests\SimControl.Reactive.Tests.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="NUnit.Framework" />
   </ItemGroup>
 
   <ItemGroup>

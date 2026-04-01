@@ -16,13 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Reactive.Tests\SimControl.Reactive.Tests.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="NUnit.Framework" />
   </ItemGroup>
 
   <ItemGroup>

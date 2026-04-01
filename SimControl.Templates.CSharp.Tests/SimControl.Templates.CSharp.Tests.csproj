@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net480;net10.0-windows</TargetFrameworks>
+    <TargetFrameworks>net480;net10.0</TargetFrameworks>
     <Nullable>disable</Nullable>
     <NoWarn>8632</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,12 +18,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
-    <ProjectReference Include="..\SimControl.Reactive\SimControl.Reactive.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.ConsoleApp\SimControl.Samples.CSharp.ConsoleApp.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.WcfClient\SimControl.Samples.CSharp.WcfClient.csproj" />
-    <ProjectReference Include="..\SimControl.Samples.CSharp.WpfApp\SimControl.Samples.CSharp.WpfApp.csproj" />
     <ProjectReference Include="..\SimControl.TestUtils\SimControl.TestUtils.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ClassLibrary\SimControl.Templates.CSharp.ClassLibrary.csproj" />
+    <ProjectReference Include="..\SimControl.Templates.CSharp.ConsoleApp\SimControl.Templates.CSharp.ConsoleApp.csproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

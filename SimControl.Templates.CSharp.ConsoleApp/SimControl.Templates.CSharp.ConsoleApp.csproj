@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net480;net10.0</TargetFrameworks>
     <Nullable>disable</Nullable>
     <NoWarn>8632</NoWarn>
   </PropertyGroup>
@@ -12,6 +13,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\NLog.IntegrationTests.config" Link="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
