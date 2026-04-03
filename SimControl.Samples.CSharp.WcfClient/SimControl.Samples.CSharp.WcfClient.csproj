@@ -37,7 +37,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
@@ -65,9 +65,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\KeyPair.snk">
-      <Link>KeyPair.snk</Link>
-    </None>
     <None Include="app.config" />
     <None Include="Connected Services\SampleServiceClient\service.wsdl" />
     <None Include="Connected Services\SampleServiceClient\service.xsd">

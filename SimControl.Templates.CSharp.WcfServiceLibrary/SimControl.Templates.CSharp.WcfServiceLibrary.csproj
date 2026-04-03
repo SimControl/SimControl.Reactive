@@ -52,7 +52,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
@@ -71,9 +71,6 @@
     <Compile Include="Service1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\KeyPair.snk">
-      <Link>KeyPair.snk</Link>
-    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>

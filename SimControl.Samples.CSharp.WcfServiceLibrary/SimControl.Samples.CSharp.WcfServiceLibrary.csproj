@@ -50,7 +50,7 @@
     <DocumentationFile>bin\Release\SimControl.Samples.CSharp.WcfServiceLibrary.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\KeyPair.snk</AssemblyOriginatorKeyFile>
@@ -73,9 +73,6 @@
     <Compile Include="WcfServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\KeyPair.snk">
-      <Link>KeyPair.snk</Link>
-    </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
