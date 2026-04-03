@@ -19,6 +19,9 @@
 *.txt       text
 
 # Graphics
+*.ai        binary
+*.bmp       binary
+*.design    binary
 *.png       binary
 *.jpg       binary
 *.jpeg      binary
@@ -29,12 +32,16 @@
 *.svg       text
 *.eps       binary
 
+# Sound
+*.wav       binary
+
 # Scripts
 *.bash      text eol=lf
 *.fish      text eol=lf
 *.ksh       text eol=lf
 *.sh        text eol=lf
 *.zsh       text eol=lf
+
 # These are explicitly windows files and should use crlf
 *.bat       text eol=crlf
 *.cmd       text eol=crlf
@@ -43,6 +50,7 @@
 # Serialisation
 *.json      text
 *.xml       text
+*.xsd       text
 *.yaml      text
 *.yml       text
 
@@ -73,6 +81,7 @@
 # Build outputs
 *.exe       binary
 *.dll       binary
+*.exp       binary
 *.lib       binary
 *.nuget     binary
 *.pdb       binary
@@ -87,6 +96,7 @@
 *.dbproj    text
 *.fsproj    text
 *.lsproj    text
+*.vdproj    text
 *.wixproj   text
 *.modelproj text
 *.sqlproj   text
@@ -101,3 +111,11 @@
 *.cs        text
 *.cshtml    text
 *.csx       text
+*.resx      text
+*.settings  text
+*.xaml      text
+
+# Code files
+*.h         text
+*.c         text
+*.py        text
