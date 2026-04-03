@@ -7,7 +7,7 @@
     <NoWarn>0000</NoWarn>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 <!--<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>-->
