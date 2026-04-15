@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj" />
+    <ProjectReference Include="..\SimControl.Logging\SimControl.Logging.csproj" />
   </ItemGroup>
 
 </Project>

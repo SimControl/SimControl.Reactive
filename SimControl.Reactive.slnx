@@ -40,8 +40,8 @@
     <File Path="SimControl.Templates/Snippets/testmethod.snippet" />
   </Folder>
   <Folder Name="/SimControl/">
-    <Project Path="SimControl.Log.Tests/SimControl.Log.Tests.csproj" />
-    <Project Path="SimControl.Log/SimControl.Log.csproj" />
+    <Project Path="SimControl.Logging.Tests/SimControl.Logging.Tests.csproj" />
+    <Project Path="SimControl.Logging/SimControl.Logging.csproj" />
     <Project Path="SimControl.Reactive.Tests/SimControl.Reactive.Tests.csproj" />
     <Project Path="SimControl.Reactive/SimControl.Reactive.csproj" />
     <Project Path="SimControl.TestUtils.Tests/SimControl.Testutils.Tests.csproj" />

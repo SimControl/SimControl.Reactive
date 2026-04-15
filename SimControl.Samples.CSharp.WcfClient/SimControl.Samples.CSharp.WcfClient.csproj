@@ -96,9 +96,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Log\SimControl.Log.csproj">
-      <Project>{4d78d548-eb9a-4562-9191-89b8256514dc}</Project>
-      <Name>SimControl.Log</Name>
+    <ProjectReference Include="..\SimControl.Logging\SimControl.Logging.csproj">
+      <Project>{1d0258f4-5cba-d6d8-2a94-249a97a51b51}</Project>
+      <Name>SimControl.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimControl.Samples.CSharp.ClassLibrary\SimControl.Samples.CSharp.ClassLibrary.csproj">
       <Project>{41df8617-31c5-4f9c-aafb-f9276656380c}</Project>
