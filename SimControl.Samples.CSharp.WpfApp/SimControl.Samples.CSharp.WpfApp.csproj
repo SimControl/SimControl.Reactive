@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\NLog.IntegrationTests.config" Link="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\SimControl.Logging\SimControl.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimControl.Logging\SimControl.Logging.csproj" />
+    <None Include="..\NLog.IntegrationTests.config" Link="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
