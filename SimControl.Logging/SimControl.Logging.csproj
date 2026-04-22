@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>disable</Nullable>
-    <NoWarn>8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
