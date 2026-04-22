@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+
+    <!--
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    -->
+
+    <Authors>Wilhelm Medetz</Authors>
+    <Company>SimControl e.U. - Wilhelm Medetz</Company>
+    <Product>SimControl.Reactive</Product>
+    <Copyright>Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved.</Copyright>
+    <!--<PackageIcon>PackageIcon.png</PackageIcon>-->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SimControl/SimControl.Reactive</RepositoryUrl>
+    <Version>0.8.0</Version>
+  </PropertyGroup>
+  
+</Project>
