@@ -1,16 +1,13 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log, TestFixture]
-public class TestFrameTests: TestFrame
+public class TestFrameTests : TestFrame
 {
     #region Test SetUpTearDown
 
@@ -47,7 +44,8 @@ public class TestFrameTests: TestFrame
     [Test]
     public static void CurrentThreadCulture_IsSetTo_InternationalCultureInfo__Test()
     {
-        try { throw new InvalidOperationException(); }
+        try
+        { throw new InvalidOperationException(); }
         catch (InvalidOperationException e)
         { Assert.That(e.Message, Is.EqualTo("Operation is not valid due to the current state of the object.")); }
     }
@@ -61,7 +59,8 @@ public class TestFrameTests: TestFrame
     [Test/*, Isolated*/]
     public void AddUnhandledException__exception_is_received_by_TakePendingException()
     {
-        Task.Run(() => {
+        Task.Run(() =>
+        {
             try
             {
                 throw new InvalidOperationException(
@@ -84,7 +83,7 @@ public class TestFrameTests: TestFrame
         if (Environment.GetEnvironmentVariable("NCrunch") != "1")
         // AppDomain.UnhandledException is handled by NCrunch as an error
         {
-            var thread = new Thread(() => throw new InvalidOperationException());
+            Thread thread = new(() => throw new InvalidOperationException());
             thread.Start();
 
             thread.JoinAssertTimeout();
@@ -98,8 +97,8 @@ public class TestFrameTests: TestFrame
     [Test]
     public void SetUp_TearDown__succeed()
     {
-        oneTimeSemaphoreSlim.Release();
-        semaphoreSlim.Release();
+        _ = oneTimeSemaphoreSlim.Release();
+        _ = semaphoreSlim.Release();
     }
 
     [Test]

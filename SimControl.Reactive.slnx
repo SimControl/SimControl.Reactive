@@ -58,7 +58,7 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
     <File Path="KeyPair.snk" />
-    <File Path="LICENSE" />
+    <File Path="LICENSE.md" />
     <File Path="NLog.IntegrationTests.config" />
     <File Path="NLog.Tests.config" />
     <File Path="NUnit.runsettings" />

@@ -1,7 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 using SimControl.TestUtils;
 
 // TODO CR
@@ -10,12 +10,12 @@ namespace SimControl.Reactive.Tests;
 
 [Log]
 [TestFixture]
-public class Lamp2Sample: TestFrame
+public class Lamp2Sample : TestFrame
 {
     [Test]
     public static void Lamp2_OnOff()
     {
-        using (var lamp2 = new Lamp2())
+        using (Lamp2 lamp2 = new())
         {
             lamp2.On();
             lamp2.Off();

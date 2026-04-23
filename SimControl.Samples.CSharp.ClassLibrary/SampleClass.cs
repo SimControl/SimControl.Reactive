@@ -1,7 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 using NLog;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.Samples.CSharp.ClassLibrary;
 
@@ -13,7 +13,7 @@ public class SampleClass
         typeof(SampleClass).AssemblyQualifiedName);
 
     /// <summary>Increment the static counter</summary>
-    public static void IncrementStaticCounter() => staticCounter++;
+    public static void IncrementStaticCounter() => StaticCounter++;
 
     /// <summary>Does something</summary>
     /// <returns></returns>
@@ -27,12 +27,11 @@ public class SampleClass
     }
 
     /// <inheritdoc/>
-    public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), staticCounter, counter);
+    public override string ToString() => LogFormat.FormatObject(typeof(SampleClass), StaticCounter, counter);
 
     /// <summary>Get the static counter</summary>
-    public static int StaticCounter => staticCounter;
+    public static int StaticCounter { get; private set; }
 
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private static int staticCounter;
     private int counter;
 }

@@ -1,20 +1,20 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
+using SimControl.Logging;
 using System;
-using SimControl.Log;
 
 namespace SimControl.Templates.CSharp.WcfServiceLibrary
 {
     /// <summary>.</summary>
     /// <seealso cref="T:SimControl.Templates.CSharp.WcfServiceLibrary.IService1"/>
     [Log]
-    public class Service1: IService1
+    public class Service1 : IService1
     {
         /// <inheritdoc/>
-        public int GetData(int value) => value+1;
+        public int GetData(int value) => value + 1;
 
         /// <inheritdoc/>
         public CompositeType GetDataUsingDataContract(CompositeType composite) =>
-            composite ??throw new ArgumentNullException(nameof(composite));
+            composite ?? throw new ArgumentNullException(nameof(composite));
     }
 }

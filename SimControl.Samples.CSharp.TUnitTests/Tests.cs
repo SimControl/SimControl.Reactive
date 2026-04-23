@@ -1,66 +1,64 @@
-﻿using SimControl.Samples.CSharp.Tests.Data;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-namespace SimControl.Samples.CSharp.Tests
+using SimControl.Samples.CSharp.Tests.Data;
+
+namespace SimControl.Samples.CSharp.Tests;
+
+public class Tests
 {
-    public class Tests
+    [Test]
+    public void Basic() => Console.WriteLine("This is a basic test");
+
+    [Test]
+    [Arguments(1, 2, 3)]
+    [Arguments(2, 3, 5)]
+    public async Task DataDrivenArguments(int a, int b, int c)
     {
-        [Test]
-        public void Basic()
-        {
-            Console.WriteLine("This is a basic test");
-        }
+        Console.WriteLine("This one can accept arguments from an attribute");
 
-        [Test]
-        [Arguments(1, 2, 3)]
-        [Arguments(2, 3, 5)]
-        public async Task DataDrivenArguments(int a, int b, int c)
-        {
-            Console.WriteLine("This one can accept arguments from an attribute");
+        int result = a + b;
 
-            var result = a + b;
+        _ = await Assert.That(result).IsEqualTo(c);
+    }
 
-            await Assert.That(result).IsEqualTo(c);
-        }
+    [Test]
+    [MethodDataSource(nameof(DataSource))]
+    public async Task MethodDataSource(int a, int b, int c)
+    {
+        Console.WriteLine("This one can accept arguments from a method");
 
-        [Test]
-        [MethodDataSource(nameof(DataSource))]
-        public async Task MethodDataSource(int a, int b, int c)
-        {
-            Console.WriteLine("This one can accept arguments from a method");
+        int result = a + b;
 
-            var result = a + b;
+        _ = await Assert.That(result).IsEqualTo(c);
+    }
 
-            await Assert.That(result).IsEqualTo(c);
-        }
+    [Test]
+    [ClassDataSource<DataClass>]
+    [ClassDataSource<DataClass>(Shared = SharedType.PerClass)]
+    [ClassDataSource<DataClass>(Shared = SharedType.PerAssembly)]
+    [ClassDataSource<DataClass>(Shared = SharedType.PerTestSession)]
+    public void ClassDataSource(DataClass dataClass)
+    {
+        Console.WriteLine("This test can accept a class, which can also be pre-initialised before being injected in");
 
-        [Test]
-        [ClassDataSource<DataClass>]
-        [ClassDataSource<DataClass>(Shared = SharedType.PerClass)]
-        [ClassDataSource<DataClass>(Shared = SharedType.PerAssembly)]
-        [ClassDataSource<DataClass>(Shared = SharedType.PerTestSession)]
-        public void ClassDataSource(DataClass dataClass)
-        {
-            Console.WriteLine("This test can accept a class, which can also be pre-initialised before being injected in");
+        Console.WriteLine("These can also be shared among other tests, or new'd up each time, by using the `Shared` property on the attribute");
+    }
 
-            Console.WriteLine("These can also be shared among other tests, or new'd up each time, by using the `Shared` property on the attribute");
-        }
+    [Test]
+    [DataGenerator]
+    public async Task CustomDataGenerator(int a, int b, int c)
+    {
+        Console.WriteLine("You can even define your own custom data generators");
 
-        [Test]
-        [DataGenerator]
-        public async Task CustomDataGenerator(int a, int b, int c)
-        {
-            Console.WriteLine("You can even define your own custom data generators");
+        int result = a + b;
 
-            var result = a + b;
+        _ = await Assert.That(result).IsEqualTo(c);
+    }
 
-            await Assert.That(result).IsEqualTo(c);
-        }
-
-        public static IEnumerable<(int a, int b, int c)> DataSource()
-        {
-            yield return (1, 1, 2);
-            yield return (2, 1, 3);
-            yield return (3, 1, 4);
-        }
+    public static IEnumerable<(int a, int b, int c)> DataSource()
+    {
+        yield return (1, 1, 2);
+        yield return (2, 1, 3);
+        yield return (3, 1, 4);
     }
 }

@@ -1,22 +1,22 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.IO;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log, TestFixture]
-public class CopyFileTestAdapterTests: TestFrame
+public class CopyFileTestAdapterTests : TestFrame
 {
     [Test/*, ExclusivelyUses(FileName)*/]
     public static void Create_and_dispose__file_is_copied_and_deleted()
     {
         string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + FileName;
 
-        if (File.Exists(fullPath)) File.Delete(fullPath);
+        if (File.Exists(fullPath))
+            File.Delete(fullPath);
 
-        using (var copyFileTestAdapter = new CopyFileTestAdapter("NLog.config", FileName))
+        using (CopyFileTestAdapter copyFileTestAdapter = new("NLog.config", FileName))
             Assert.That(File.Exists(fullPath));
 
         Assert.That(!File.Exists(fullPath));

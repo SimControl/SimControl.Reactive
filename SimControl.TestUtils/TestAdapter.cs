@@ -1,6 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 namespace SimControl.TestUtils;
 
@@ -9,7 +7,7 @@ namespace SimControl.TestUtils;
 /// TestAdapters are (if registered properly) automatically destroyed in the test cleanup methods.
 /// </remarks>
 /// <seealso cref="IDisposable"/>
-public abstract class TestAdapter: IDisposable
+public abstract class TestAdapter : IDisposable
 {
     /// <inheritdoc/>
     public void Dispose()

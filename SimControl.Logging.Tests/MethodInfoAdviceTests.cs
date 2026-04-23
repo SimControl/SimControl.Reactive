@@ -1,16 +1,15 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using ArxOne.MrAdvice.Advice;
 using ArxOne.MrAdvice.Annotation;
 using NUnit.Framework;
 
 // TODO implement
 
-namespace SimControl.Log.Tests;
+namespace SimControl.Logging.Tests;
 
 [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
-public sealed class Advice1Attribute: Attribute, IMethodInfoAdvice
+public sealed class Advice1Attribute : Attribute, IMethodInfoAdvice
 {
     /// <inheritdoc/>
     public void Advise(MethodInfoAdviceContext _)
@@ -18,14 +17,14 @@ public sealed class Advice1Attribute: Attribute, IMethodInfoAdvice
         if (MethodInfoAdviceTests.Expected != Priority)
             throw new InvalidOperationException();
 
-        MethodInfoAdviceTests.Expected = Priority-1;
+        MethodInfoAdviceTests.Expected = Priority - 1;
     }
 
     public const int Priority = 1;
 }
 
 [AttributeUsage(AttributeTargets.Method), Priority(Priority)]
-public sealed class Advice2Attribute: Attribute, IMethodInfoAdvice
+public sealed class Advice2Attribute : Attribute, IMethodInfoAdvice
 {
     /// <inheritdoc/>
     public void Advise(MethodInfoAdviceContext _)
@@ -33,7 +32,7 @@ public sealed class Advice2Attribute: Attribute, IMethodInfoAdvice
         if (MethodInfoAdviceTests.Expected != Priority)
             throw new InvalidOperationException();
 
-        MethodInfoAdviceTests.Expected = Priority-1;
+        MethodInfoAdviceTests.Expected = Priority - 1;
     }
 
     public const int Priority = 2;

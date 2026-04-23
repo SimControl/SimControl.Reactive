@@ -1,7 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
@@ -10,7 +10,7 @@ namespace SimControl.TestUtils.Tests;
 /// and <see cref="OneTimeTearDown"/> are invoked in the defined order.
 /// </summary>
 [Log, TestFixture]
-public class SetUpTearDownTests: TestFrame
+public class SetUpTearDownTests : TestFrame
 {
     #region Test SetUpTearDown
 

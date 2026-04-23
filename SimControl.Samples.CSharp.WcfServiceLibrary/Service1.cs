@@ -1,4 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO implement
 
@@ -7,7 +7,7 @@ using System;
 namespace SimControl.Samples.CSharp.WcfServiceLibrary
 {
     /// <summary>A service for accessing samples information.</summary>
-    public class SampleService: ISampleService
+    public class SampleService : ISampleService
     {
         /// <inheritdoc/>
         public string GetData(int value) => string.Format("You entered: {0}", value);

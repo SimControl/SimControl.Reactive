@@ -1,13 +1,12 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using System.Collections;
 using System.Globalization;
 using System.Text;
 
 // TODO implement
 
-namespace SimControl.Log;
+namespace SimControl.Logging;
 
 /// <summary>Utility class to format log messages.</summary>
 public static class LogFormat
@@ -15,46 +14,38 @@ public static class LogFormat
     /// <summary>Formats the args.</summary>
     /// <param name="args">The args.</param>
     /// <returns></returns>
-    public static string FormatArgs(params object[] args)
-    {
+    public static string FormatArgs(params object[] args) =>
         // Contract.Ensures(// Contract.Result<string>() != null);
 
-        return FormatIEnumerable(args, "(", " )");
-    }
+        FormatIEnumerable(args, "(", " )");
 
     /// <summary>Formats the args.</summary>
     /// <param name="argsList">The args.</param>
     /// <returns></returns>
-    public static string FormatArgsList(IEnumerable argsList)
-    {
+    public static string FormatArgsList(IEnumerable argsList) =>
         // Contract.Requires(argsList != null);
         // Contract.Ensures(// Contract.Result<string>() != null);
 
-        return FormatIEnumerable(argsList, " (", " )");
-    }
+        FormatIEnumerable(argsList, " (", " )");
 
     /// <summary>Formats an IEnumerable.</summary>
     /// <param name="enumerable">The enumerable.</param>
     /// <returns></returns>
-    public static string FormatIEnumerable(IEnumerable enumerable)
-    {
+    public static string FormatIEnumerable(IEnumerable enumerable) =>
         // Contract.Requires(enumerable != null);
         // Contract.Ensures(// Contract.Result<string>() != null);
 
-        return FormatIEnumerable(enumerable, " [", " ]");
-    }
+        FormatIEnumerable(enumerable, " [", " ]");
 
     /// <summary>Utility method that can be used for implementing <see cref="object.ToString()"/> in a structured way.</summary>
     /// <param name="type">The type.</param>
     /// <param name="args">The args.</param>
     /// <returns></returns>
-    public static string FormatObject(Type type, params object[] args)
-    {
+    public static string FormatObject(Type type, params object[] args) =>
         // Contract.Requires(type != null);
         // Contract.Ensures(// Contract.Result<string>() != null);
 
-        return args.Length == 0 ? type.FullName : type.FullName + FormatIEnumerable(args, "{", " }");
-    }
+        args.Length == 0 ? type.FullName : type.FullName + FormatIEnumerable(args, "{", " }");
 
     /// <summary>Returns target.toString() with handling possible exceptions and null objects.</summary>
     /// <param name="target">The target.</param>
@@ -68,7 +59,7 @@ public static class LogFormat
             return target == null
                        ? " null"
                        : " " +
-                         (!(target is IFormattable formatable)
+                         (target is not IFormattable formatable
                               ? target.ToString() : formatable.ToString(null, CultureInfo.InvariantCulture /*InternationalCultureInfo.Instance*/));
         }
         catch (Exception e)
@@ -82,7 +73,7 @@ public static class LogFormat
         // Contract.Requires(enumerable != null);
         // Contract.Ensures(// Contract.Result<string>() != null);
 
-        var sb = new StringBuilder(open);
+        StringBuilder sb = new(open);
 
         //int i;
 
@@ -91,7 +82,7 @@ public static class LogFormat
             //if (i++ >= LogFormatMaxCollectionElements)
             //    return sb.Append(" ...").Append(close).ToString();
 
-            sb.Append(o is IEnumerable c && !(o is string) ?
+            _ = sb.Append(o is IEnumerable c and not string ?
                 FormatIEnumerable(c, " [", " ]") : FormatToString(o));
         }
 

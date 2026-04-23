@@ -1,8 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using NLog;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.Samples.CSharp.ConsoleApplication;
 
@@ -16,11 +15,12 @@ public static class VerifyJitOptimization
         int count = 0;
 
         for (int i = 0; i < 3; i++)
-            count += a*i;
+            count += a * i;
 
         logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "Count", count);
 
-        try { MethodA(); }
+        try
+        { MethodA(); }
         catch (InvalidOperationException e)
         {
             logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e);

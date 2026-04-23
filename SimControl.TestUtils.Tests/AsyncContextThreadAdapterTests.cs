@@ -1,10 +1,8 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Channels;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
+using System.Threading.Channels;
 
 namespace SimControl.TestUtils.Tests;
 
@@ -13,18 +11,15 @@ public sealed class SingleThreadSynchronizationContext
 {
     private readonly Channel<WorkItem> queue = Channel.CreateUnbounded<WorkItem>();
 
-    public override void Post(SendOrPostCallback d, object state)
-    {
-        queue.Writer.TryWrite(new WorkItem(d, state));
-    }
+    public override void Post(SendOrPostCallback d, object state) => queue.Writer.TryWrite(new WorkItem(d, state));
 
-    public async void RunAsync(CancellationToken cancellation = default(CancellationToken))
+    public async void RunAsync(CancellationToken cancellation = default)
     {
         WorkItem workItem;
 
         for (; ; )
         {
-            workItem = (await queue.Reader.ReadAsync(cancellation));
+            workItem = await queue.Reader.ReadAsync(cancellation);
 
             workItem.Action(workItem.State);
         }
@@ -38,13 +33,13 @@ public class WorkItem
 
     public WorkItem(SendOrPostCallback action, object state)
     {
-        this.Action = action;
-        this.State = state;
+        Action = action;
+        State = state;
     }
 }
 
 [Log, TestFixture]
-public class AsyncContextThreadAdapterTests: TestFrame
+public class AsyncContextThreadAdapterTests : TestFrame
 {
     [Test]
     public static void Xxx()

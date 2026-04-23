@@ -1,13 +1,12 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.IO;
 using NUnit.Framework;
 
 namespace SimControl.TestUtils;
 
 /// <summary>Test adapter for automatically deleting temporary files.</summary>
 /// <seealso cref="TestAdapter"/>
-public class TempFilesTestAdapter: TestAdapter
+public class TempFilesTestAdapter : TestAdapter
 {
     /// <summary>Initializes a new instance of the <see cref="TempFilesTestAdapter"/> class.</summary>
     /// <remarks>The temporary files will be automatically deleted before and after test execution.</remarks>
@@ -25,7 +24,8 @@ public class TempFilesTestAdapter: TestAdapter
         {
             string fullPath = TestContext.CurrentContext.TestDirectory + "\\" + file;
 
-            if (File.Exists(fullPath)) File.Delete(fullPath);
+            if (File.Exists(fullPath))
+                File.Delete(fullPath);
         }
     }
 

@@ -1,15 +1,11 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
+using NLog;
+using SimControl.Logging;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using NLog;
-using SimControl.Log;
 
 namespace SimControl.Templates.CSharp.ConsoleApp;
 
@@ -29,7 +25,6 @@ public static class Program
     /// <summary>Console application entry point.</summary>
     /// <param name="args">The arguments.</param>
     /// <returns>Return code.</returns>
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public static async Task<int> Main(params string[] args)
     {
         ExitCode exitCode = ExitCode.Success;
@@ -38,7 +33,7 @@ public static class Program
         {
             RegisterEventHandlers();
 
-            Thread.CurrentThread.Name ??=nameof(Main);
+            Thread.CurrentThread.Name ??= nameof(Main);
 
             InternationalCultureInfo.SetCurrentThreadCulture();
             InternationalCultureInfo.SetDefaultThreadCulture();
@@ -50,7 +45,7 @@ public static class Program
 
             //TODO SynchronizationContext using (var act = new AsyncContextThread())
             {
-                using var cts = new CancellationTokenSource();
+                using CancellationTokenSource cts = new();
                 ConfiguredTaskAwaitable task = /*act.Factory*/ Task.Run(() => Task.Delay(-1, cts.Token)).ConfigureAwait(false); // replace by async operation
 
                 for (; ; )
@@ -60,7 +55,8 @@ public static class Program
                     try
                     {
                         input = Console.ReadLine();
-                        if (input is null) break;
+                        if (input is null)
+                            break;
                     }
                     catch (ObjectDisposedException) { break; }
 
@@ -71,7 +67,8 @@ public static class Program
 
                 cts.Cancel();
 
-                try { await task; }
+                try
+                { await task; }
                 catch (TaskCanceledException) { }
             }
         }
@@ -86,7 +83,7 @@ public static class Program
 
         logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
-        return (int) exitCode;
+        return (int)exitCode;
     }
 
     private static bool ConsoleCtrlHandler(uint sig)
@@ -102,7 +99,7 @@ public static class Program
 
         logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "Exit", exitCode);
 
-        Environment.Exit((int) exitCode);
+        Environment.Exit((int)exitCode);
     }
 
     private static void RegisterEventHandlers()
@@ -116,7 +113,7 @@ public static class Program
 
     private static void UnhandledExceptionEventHandler(object _, UnhandledExceptionEventArgs e)
     {
-        logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, (Exception) e.ExceptionObject);
+        logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, (Exception)e.ExceptionObject);
 
         Exit(ExitCode.UnhandledExceptionEvent); // otherwise the CLR would terminate with an application error
     }
@@ -130,7 +127,6 @@ public static class Program
         Exit(ExitCode.UnobservedTaskException);
     }
 
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
     private static void UnregisterEventHandlers()
     {
         try

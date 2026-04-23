@@ -1,7 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
+using SimControl.Logging;
 using System.Runtime.Serialization;
-using SimControl.Log;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract;
 

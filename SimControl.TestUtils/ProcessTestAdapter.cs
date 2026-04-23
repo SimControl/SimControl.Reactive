@@ -1,19 +1,16 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Threading.Channels;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
+using System.Diagnostics;
+using System.Threading.Channels;
 
 namespace SimControl.TestUtils;
 
 /// <summary>Test adapter for starting a console process.</summary>
 /// <seealso cref="TestAdapter"/>
-public class ProcessTestAdapter: TestAdapter
+public class ProcessTestAdapter : TestAdapter
 {
     /// <summary>Initializes a new instance of the <see cref="ProcessTestAdapter"/> class.</summary>
     /// <param name="name">Process name.</param>
@@ -24,7 +21,8 @@ public class ProcessTestAdapter: TestAdapter
     public ProcessTestAdapter(string name, string arguments,
         out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
     {
-        if (name.Length == 0) throw new ArgumentException("Process name must not be empty", nameof(name));
+        if (name.Length == 0)
+            throw new ArgumentException("Process name must not be empty", nameof(name));
 
         standardOutput = output.Reader;
         standardError = error.Reader;
@@ -42,8 +40,10 @@ public class ProcessTestAdapter: TestAdapter
     public ProcessTestAdapter(string path, string name, string arguments,
         out ChannelReader<string> standardOutput, out ChannelReader<string> standardError)
     {
-        if (path.Length == 0) throw new ArgumentException("Process path must not be empty", nameof(path));
-        if (name.Length == 0) throw new ArgumentException("Process name must not be empty", nameof(name));
+        if (path.Length == 0)
+            throw new ArgumentException("Process path must not be empty", nameof(path));
+        if (name.Length == 0)
+            throw new ArgumentException("Process name must not be empty", nameof(name));
 
         standardOutput = output.Reader;
         standardError = error.Reader;
@@ -74,7 +74,8 @@ public class ProcessTestAdapter: TestAdapter
     /// <exception cref="InvalidOperationException"></exception>
     public int CloseMainWindowAssertTimeout(int timeout)
     {
-        if (Process is null) throw new InvalidOperationException("Process has already been terminated");
+        if (Process is null)
+            throw new InvalidOperationException("Process has already been terminated");
 
         Assert.That(Process.CloseMainWindow());
 
@@ -86,7 +87,8 @@ public class ProcessTestAdapter: TestAdapter
     [Log]
     public void Kill()
     {
-        if (Process is null) throw new InvalidOperationException("Process has already been terminated");
+        if (Process is null)
+            throw new InvalidOperationException("Process has already been terminated");
 
         Process.Kill();
         Assert.That(Process.WaitForExit(TestFrame.Timeout), "Timeout expired");
@@ -106,7 +108,6 @@ public class ProcessTestAdapter: TestAdapter
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="AssertTimeoutException"></exception>
     [Log]
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public int WaitForExitAssertTimeout(int timeout)
     {
         if (!Process.WaitForExit(timeout))
@@ -114,7 +115,7 @@ public class ProcessTestAdapter: TestAdapter
             try
             {
                 Process.Kill();
-                Process.WaitForExit(TestFrame.DebugTimeout(timeout));
+                _ = Process.WaitForExit(TestFrame.DebugTimeout(timeout));
             }
             catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), this, e); }
 
@@ -129,7 +130,7 @@ public class ProcessTestAdapter: TestAdapter
     {
         if (disposing && Process is not null)
         {
-            WaitForExitAssertTimeout();
+            _ = WaitForExitAssertTimeout();
             Process.Dispose();
             Process = null;
         }

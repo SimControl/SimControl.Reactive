@@ -1,14 +1,9 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.ServiceModel;
-using System.Threading;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 using NLog;
-using SimControl.Log;
+using SimControl.Logging;
+using System.ServiceModel;
+using System.Threading.Channels;
 
 namespace SimControl.TestUtils;
 
@@ -23,12 +18,10 @@ public static class AssertTimeoutExtensions
     {
         if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
         {
-#pragma warning disable CS4014 // Because this call is not awaited,
             // execution of the current method continues before the call is completed
-            task.ContinueWith(t =>
+            _ = task.ContinueWith(t =>
                 logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, t.Exception.InnerException),
                 CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
-#pragma warning restore CS4014
 
             throw new AssertTimeoutException(timeout);
         }
@@ -46,12 +39,10 @@ public static class AssertTimeoutExtensions
     {
         if (task != await Task.WhenAny(task, Task.Delay(TestFrame.DebugTimeout(timeout))).ConfigureAwait(false))
         {
-#pragma warning disable CS4014 // Because this call is not awaited,
             // execution of the current method continues before the call is completed
-            task.ContinueWith(t =>
+            _ = task.ContinueWith(t =>
                 logger.Message(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, t.Exception.InnerException),
                 CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
-#pragma warning restore CS4014
 
             throw new AssertTimeoutException(timeout);
         }
@@ -109,9 +100,9 @@ public static class AssertTimeoutExtensions
     public static async Task<IEnumerable<T>> ReadUntilAssertTimeoutAsync<T>(
         this ChannelReader<T> asyncCollection, Func<T, bool> func, int timeout = TestFrame.Timeout)
     {
-        var result = new List<T>();
+        List<T> result = [];
 
-        using var timeoutCancel = new CancellationTokenSource(TestFrame.DebugTimeout(timeout));
+        using CancellationTokenSource timeoutCancel = new(TestFrame.DebugTimeout(timeout));
         for (; ; )
             try
             {
@@ -130,12 +121,12 @@ public static class AssertTimeoutExtensions
     /// <param name="context">The context.</param>
     /// <param name="func"></param>
     /// <returns><see cref="Task"/></returns>
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public static Task<T> SendAsync<T>(this SynchronizationContext context, Func<T> func)
     {
-        var tcs = new TaskCompletionSource<T>();
+        TaskCompletionSource<T> tcs = new();
 
-        context.Post(delegate {
+        context.Post(delegate
+        {
             try
             {
                 tcs.SetResult(func());

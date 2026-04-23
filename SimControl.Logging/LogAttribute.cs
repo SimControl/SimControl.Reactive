@@ -1,14 +1,12 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Reflection;
-using System.Threading.Tasks;
 using ArxOne.MrAdvice.Advice;
 using NLog;
+using System.Reflection;
 
 // TODO implement
 
-namespace SimControl.Log;
+namespace SimControl.Logging;
 
 /// <summary>Custom enum, as NLog.LogLevel can not be used as an attribute parameter.</summary>
 public enum LogAttributeLevel
@@ -41,7 +39,7 @@ public enum LogAttributeLevel
     AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor |
     AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Interface,
     AllowMultiple = true, Inherited = true)]
-public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
+public sealed class LogAttribute : Attribute, IMethodAdvice, IMethodAsyncAdvice, IPropertyAdvice
 {
     /// <inheritdoc/>
     public void Advise(MethodAdviceContext context)
@@ -60,8 +58,8 @@ public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, 
         //                     method.GetParameters().Length != 0;
 
         logger = LogManager.GetLogger(context.TargetType.FullName);
-        logLevel = NLog.LogLevel.FromOrdinal((int) LogLevel);
-        exceptionLogLevel = NLog.LogLevel.FromOrdinal((int) ExceptionLogLevel);
+        logLevel = NLog.LogLevel.FromOrdinal((int)LogLevel);
+        exceptionLogLevel = NLog.LogLevel.FromOrdinal((int)ExceptionLogLevel);
 
         MethodInfo res = context.TargetMethod is MethodInfo info ? info : null ;
         hasReturnValue = res != null && res.ReturnType != typeof(void);
@@ -102,7 +100,7 @@ public sealed class LogAttribute: Attribute, IMethodAdvice, IMethodAsyncAdvice, 
     public LogAttributeLevel LogLevel { get; set; } = LogAttributeLevel.Info;
 
     private static readonly System.Collections.Generic.Dictionary<MethodBase, MethodLogInfo> methodLogInfos =
-        new System.Collections.Generic.Dictionary<MethodBase, MethodLogInfo>();
+        [];
 
     private readonly bool logInstanceOnEntry = true;
     private readonly bool logInstanceOnExit = true;

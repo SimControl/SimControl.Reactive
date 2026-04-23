@@ -1,15 +1,13 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
 namespace SimControl.Samples.CSharp.WpfApp;
 
 /// <summary>Interaction logic for MainWindow.xaml</summary>
-public partial class MainWindow: Window
+public partial class MainWindow : Window
 {
     /// <summary>Default constructor.</summary>
     public MainWindow()
@@ -27,7 +25,7 @@ public partial class MainWindow: Window
     {
         Text = message;
 
-        Countdown = timeout/1000;
+        Countdown = timeout / 1000;
         timer.Start();
 
         response = new();
@@ -57,7 +55,7 @@ public partial class MainWindow: Window
         if (--Countdown <= 0)
         {
             Stop();
-            response.TrySetException(new TimeoutException());
+            _ = response.TrySetException(new TimeoutException());
         }
     }
 
@@ -68,10 +66,10 @@ public partial class MainWindow: Window
     /// <value>The countdown.</value>
     public int Countdown
     {
-        get => countdown;
+        get;
         set
         {
-            countdown = value;
+            field = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CountDown"));
         }
     }
@@ -80,16 +78,14 @@ public partial class MainWindow: Window
     /// <value>The text.</value>
     public string Text
     {
-        get => text;
+        get;
         set
         {
-            text = value;
+            field = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
         }
-    }
+    } = "";
 
     private readonly DispatcherTimer timer = new();
-    private int countdown;
     private TaskCompletionSource<bool>? response;
-    private string text = "";
 }

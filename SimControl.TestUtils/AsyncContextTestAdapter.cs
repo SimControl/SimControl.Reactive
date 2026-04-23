@@ -1,14 +1,10 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 namespace SimControl.TestUtils;
 
 /// <summary>Provides a thread context test adapter for asynchronous operations.</summary>
 /// <seealso cref="TestAdapter"/>
-public class AsyncContextTestAdapter: TestAdapter
+public class AsyncContextTestAdapter : TestAdapter
 {
     /// <summary>Initializes a new instance of the <see cref="AsyncContextTestAdapter"/> class.</summary>
     public AsyncContextTestAdapter(string name) : this(TestFrame.Timeout) { }

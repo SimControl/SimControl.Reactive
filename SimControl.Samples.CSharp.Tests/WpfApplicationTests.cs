@@ -1,14 +1,11 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO implement
 
-using System.Threading;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Reactive;
 using SimControl.Samples.CSharp.WpfApp;
 using SimControl.TestUtils;
-using SimControl.Reactive;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests;
 
@@ -41,7 +38,7 @@ namespace SimControl.Samples.CSharp.ClassLibrary.Tests;
 
 //[Log]
 [TestFixture, Apartment(ApartmentState.STA)]
-public class WpfApplicationTestsWithoutInitializeAndCleanup: TestFrame
+public class WpfApplicationTestsWithoutInitializeAndCleanup : TestFrame
 {
     [Test, InteractiveTest/*, ExclusivelyUses(nameof(InteractiveTestAttribute))*/]
     public async Task WpfApplicationTests_DisplayWindow()
@@ -49,7 +46,8 @@ public class WpfApplicationTestsWithoutInitializeAndCleanup: TestFrame
         SynchronizationContext context = SynchronizationContext.Current;
         MainWindow? window = null;
 
-        await context.SendAsync(() => {
+        await context.SendAsync(() =>
+        {
             window = new MainWindow();
             window.Show();
         })/*.AssertTimeoutAsync()*/;
@@ -57,13 +55,13 @@ public class WpfApplicationTestsWithoutInitializeAndCleanup: TestFrame
         Task<bool> buttonPressed = await context.SendAsync(() =>
             window.DisplayTestMessageAsync("Press 'OK'\nJust some more text.", InteractiveTimeout))/*.AssertTimeoutAsync()*/;
         ;
-        await buttonPressed;
+        _ = await buttonPressed;
         //            Assert.That(buttonPressed/*.AssertTimeoutAsync(InteractiveTimeout + Timeout)*/, Is.True);
         ;
         Task<bool> buttonPressed2 = await context.SendAsync(() =>
             window.DisplayTestMessageAsync("Press 'Cancel'", InteractiveTimeout))/*.AssertTimeoutAsync()*/;
 
-        await buttonPressed2;
+        _ = await buttonPressed2;
         //Assert.That(buttonPressed2/*.AssertTimeoutAsync(InteractiveTimeout + Timeout)*/, Is.True);
 
         await context.SendAsync(() => window.Close())/*.AssertTimeoutAsync()*/;

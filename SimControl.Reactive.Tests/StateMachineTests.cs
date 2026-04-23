@@ -1,24 +1,19 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO: change method names TODO CR
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 using SimControl.TestUtils;
+using System.Diagnostics;
+using System.Threading.Channels;
 
 namespace SimControl.Reactive.Tests;
 
 [Log]
 [TestFixture]
-public class StateMachineTests: TestFrame
+public class StateMachineTests : TestFrame
 {
     #region Test
 
@@ -37,11 +32,12 @@ public class StateMachineTests: TestFrame
         Channel<int> stateChanged = CreateChannel();
         int stateChangedCount = 0;
 
-        using var sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1));
-        sm.Add(
+        using StateMachine sm = new(entry: () => Action(-1), exit: () => Action(-1));
+        _ = sm.Add(
             new InitialState("InitialState").Add(new Transition("SimpleState1", name: "Transition1",
                 effect: () => Action(0))),
-            new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () => {
+            new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () =>
+            {
                 await Task.Delay(100).ConfigureAwait(false);
                 Action(2);
             }, exit: () => Action(3)).Add(new Transition("SimpleState2", name: "Transition2",
@@ -73,15 +69,16 @@ public class StateMachineTests: TestFrame
     public void DoActivity_Cancel()
     {
         Channel<int> stateChanged = CreateChannel();
-        using var cancellationTokenSource = new CancellationTokenSource();
+        using CancellationTokenSource cancellationTokenSource = new();
         int stateChangedCount = 0;
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", name: "Transition1",
                     effect: () => Action(0))),
-                new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () => {
+                new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () =>
+                {
                     Action(2);
                     await Task.Delay(100000, cancellationTokenSource.Token).ConfigureAwait(false);
                 }, exit: () => Action(3)).Add(new Transition<OperationCanceledException>("SimpleState2",
@@ -90,7 +87,7 @@ public class StateMachineTests: TestFrame
 
             sm.StateChanged += (sender, args) => Add(stateChanged, stateChangedCount++);
 
-            using var context = new AsyncContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA);
+            using AsyncContextTestAdapter context = new(this, "TestDispatcherContext", ApartmentState.STA);
             context.SendAsync(sm.Initialize).AssertTimeoutAsync().Wait();
 
             Assert.AreEqual(0, TakeAssertTimeout(stateChanged));
@@ -109,15 +106,16 @@ public class StateMachineTests: TestFrame
     {
         //TODO add Action(x)
         int iterations = 3;
-        var history = new List<string>();
+        List<string> history = [];
 
         using (sm = new StateMachine())
         {
-            sm.Add(
+            _ = sm.Add(
                 new CompositeState("Run").Add(
                 new InitialState("Init")
                     .Add(new Transition("Start")),
-                new SimpleState("Start", doActivity: async () => {
+                new SimpleState("Start", doActivity: async () =>
+                {
                     await Task.Delay(50).ConfigureAwait(false);
                     iterations--;
                     if (iterations > 0)
@@ -128,7 +126,7 @@ public class StateMachineTests: TestFrame
                 new SimpleState("M"))
             );
 
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("Init2").Add(new Transition(".Run")),
                 new CompositeState("Idle").Add(
                     new SimpleState("Fail", doActivity: async () => await Task.Delay(50).ConfigureAwait(false))
@@ -137,12 +135,13 @@ public class StateMachineTests: TestFrame
                         .Add(new Transition(".Run", new TimeSpanTrigger(new TimeSpanExpression(() => TimeSpan.FromMilliseconds(50)))))
                 ));
 
-            sm.StateChanged += (sender, args) => {
+            sm.StateChanged += (sender, args) =>
+            {
                 foreach (State s in sm.ActiveStates.Where(l => l.FullName != "."))
                     history.Add(s.FullName);
             };
 
-            using var context = new AsyncContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA);
+            using AsyncContextTestAdapter context = new(this, "TestDispatcherContext", ApartmentState.STA);
             context.SendAsync(sm.Initialize).AssertTimeoutAsync().Wait();
             Task.Delay(1000).Wait();
             Assert.AreEqual(".Run", history[0]);
@@ -165,10 +164,11 @@ public class StateMachineTests: TestFrame
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
         new InitialState("InitialState").Add(new Transition("SimpleState1", name: "Transition1",
             effect: () => Action(0))),
-        new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () => {
+        new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () =>
+        {
             await Task.Delay(100).ConfigureAwait(false);
             Action(2);
             throw new InvalidOperationException();
@@ -178,7 +178,7 @@ public class StateMachineTests: TestFrame
 
             sm.StateChanged += (sender, args) => Add(stateChanged, stateChangedCount++);
 
-            using var context = new AsyncContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA);
+            using AsyncContextTestAdapter context = new(this, "TestDispatcherContext", ApartmentState.STA);
             context.SendAsync(sm.Initialize).AssertTimeoutAsync().Wait();
 
             Assert.AreEqual(0, TakeAssertTimeout(stateChanged));
@@ -198,10 +198,11 @@ public class StateMachineTests: TestFrame
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
         new InitialState("InitialState").Add(new Transition("SimpleState1", name: "Transition1",
             effect: () => Action(0))),
-        new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () => {
+        new SimpleState("SimpleState1", entry: () => Action(1), doActivity: async () =>
+        {
             await Task.Delay(100).ConfigureAwait(false);
             Action(2);
             throw new InvalidOperationException();
@@ -211,7 +212,7 @@ public class StateMachineTests: TestFrame
             sm.StateChanged += (sender, args) => Add(stateChanged, stateChangedCount++);
             sm.Failed += (o, args) => logger.Exception(LogLevel.Trace, LogMethod.GetCurrentMethodName(), null, args);
 
-            using var context = new AsyncContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA);
+            using AsyncContextTestAdapter context = new(this, "TestDispatcherContext", ApartmentState.STA);
             context.SendAsync(sm.Initialize).AssertTimeoutAsync().Wait();
 
             Assert.AreEqual(0, TakeAssertTimeout(stateChanged));
@@ -228,22 +229,25 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(7)).Add(
                     new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(3)).Add(
-                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: i => {
+                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: i =>
+                        {
                             Action(i);
                             throw new InvalidOperationException();
-                        })), new SimpleState("SimpleState2", entry: () => Action(5), exit: () => {
+                        })), new SimpleState("SimpleState2", entry: () => Action(5), exit: () =>
+                        {
                             Action(6);
                             throw new InvalidOperationException();
                         })).Add(new Transition<InvalidOperationException>("SimpleState3",
                             new ExceptionTrigger<InvalidOperationException>(), effect: e => Action(8))),
                 new SimpleState("SimpleState3", entry: () => Action(9), exit: () => Action(10)).Add(
                     new Transition<InvalidOperationException>("SimpleState4",
-                        new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                        new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                        {
                             Action(11);
                             Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                         })), new SimpleState("SimpleState4", entry: () => Action(12), exit: () => Action(-1)));
@@ -270,7 +274,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(4)).Add(
@@ -278,7 +282,8 @@ public class StateMachineTests: TestFrame
                         new Transition<int>("SimpleState1", new CallTrigger<int>(Call),
                             guard: i => throw new InvalidOperationException(), effect: Action)),
                     new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
-                        new Transition<Exception>("SimpleState3", new ExceptionTrigger<Exception>(), effect: e => {
+                        new Transition<Exception>("SimpleState3", new ExceptionTrigger<Exception>(), effect: e =>
+                        {
                             Action(5);
                             Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                         })), new SimpleState("SimpleState3", entry: () => Action(6), exit: () => Action(-1)));
@@ -304,17 +309,19 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(7)).Add(
                     new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(3)).Add(
-                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: i => {
+                        new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: i =>
+                        {
                             Action(i);
                             throw new InvalidOperationException();
                         })), new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(6))).Add(
                             new Transition<InvalidOperationException>("SimpleState3",
-                                new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                                new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                                {
                                     Action(8);
                                     Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                                 })), new SimpleState("SimpleState3", entry: () => Action(9), exit: () => Action(-1)));
@@ -340,17 +347,19 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(7)).Add(
                     new SimpleState("SimpleState1", entry: () => Action(2), exit: () => Action(3)).Add(
                         new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: Action)),
-                    new SimpleState("SimpleState2", entry: () => {
+                    new SimpleState("SimpleState2", entry: () =>
+                    {
                         Action(5);
                         throw new InvalidOperationException();
                     }, exit: () => Action(6))).Add(new Transition<InvalidOperationException>("SimpleState3",
-                        new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                        new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                        {
                             Action(8);
                             Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                         })), new SimpleState("SimpleState3", entry: () => Action(9), exit: () => Action(-1)));
@@ -376,17 +385,19 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(7)).Add(
-                    new SimpleState("SimpleState1", entry: () => Action(2), exit: () => {
+                    new SimpleState("SimpleState1", entry: () => Action(2), exit: () =>
+                    {
                         Action(3);
                         throw new InvalidOperationException();
                     }).Add(new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: Action)),
                     new SimpleState("SimpleState2", entry: () => Action(5), exit: () => Action(6))).Add(
                         new Transition<InvalidOperationException>("SimpleState3",
-                            new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                            new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                            {
                                 Action(8);
                                 Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                             })), new SimpleState("SimpleState3", entry: () => Action(9), exit: () => Action(-1)));
@@ -412,7 +423,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(4)).Add(
@@ -421,7 +432,8 @@ public class StateMachineTests: TestFrame
                             guard: i => throw new InvalidOperationException(), effect: Action)),
                     new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1))).Add(
                         new Transition<InvalidOperationException>("SimpleState3",
-                            new ExceptionTrigger<InvalidOperationException>(), effect: e => {
+                            new ExceptionTrigger<InvalidOperationException>(), effect: e =>
+                            {
                                 Action(5);
                                 Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                             })), new SimpleState("SimpleState3", entry: () => Action(6), exit: () => Action(-1)));
@@ -448,7 +460,7 @@ public class StateMachineTests: TestFrame
         using (sm =
         new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState1",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
@@ -462,7 +474,7 @@ public class StateMachineTests: TestFrame
 
             sm.Initialize();
 
-            Assert.Throws<StateMachineException>(() => Call(-1));
+            _ = Assert.Throws<StateMachineException>(() => Call(-1));
         }
     }
 
@@ -471,11 +483,11 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)));
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -484,12 +496,12 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState",
                     guard: () => throw new InvalidOperationException(), effect: () => Action(0))),
                 new SimpleState("SimpleState", entry: () => Action(1), exit: () => Action(-1)));
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -498,12 +510,12 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                 new SimpleState("SimpleState", entry: () => throw new InvalidOperationException(),
                     exit: () => Action(-1)));
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -512,14 +524,14 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(1),
                     exit: () => throw new InvalidOperationException()).Add(new Transition("SimpleState2",
                         effect: () => Action(-1))),
                 new SimpleState("SimpleState2", entry: () => Action(-1), exit: () => Action(-1)));
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -527,7 +539,7 @@ public class StateMachineTests: TestFrame
     public void StateMachineException_should_be_thrown_if_StateMachine_contains_no_initial_state()
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
     }
 
     [Test]
@@ -535,12 +547,12 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState",
                     effect: () => throw new InvalidOperationException())),
                 new SimpleState("SimpleState", entry: () => Action(-1), exit: () => Action(-1)));
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -549,7 +561,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                 new SimpleState("SimpleState", entry: () => Action(1), exit: () => Action(-1)));
 
@@ -569,7 +581,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(2))),
@@ -593,7 +605,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState.SimpleState",
                     effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
@@ -618,19 +630,19 @@ public class StateMachineTests: TestFrame
         {
             State initialState =
                 new InitialState("InitialState").Add(new Transition("OrthogonalState", effect: () => Action(0)));
-            var orthogonalState = new OrthogonalState("OrthogonalState", entry: () => Action(1), exit: () => Action(-1));
+            OrthogonalState orthogonalState = new("OrthogonalState", entry: () => Action(1), exit: () => Action(-1));
 
-            var compositeState1 = new CompositeState("CompositeState1", entry: () => Action(2), exit: () => Action(-1));
+            CompositeState compositeState1 = new("CompositeState1", entry: () => Action(2), exit: () => Action(-1));
             State initialState1 =
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(4)));
-            var simpleState1 = new SimpleState("SimpleState", entry: () => Action(5), exit: () => Action(-1));
+            SimpleState simpleState1 = new("SimpleState", entry: () => Action(5), exit: () => Action(-1));
 
-            var compositeState2 = new CompositeState("CompositeState2", entry: () => Action(3), exit: () => Action(-1));
+            CompositeState compositeState2 = new("CompositeState2", entry: () => Action(3), exit: () => Action(-1));
             State initialState2 =
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(6)));
-            var simpleState2 = new SimpleState("SimpleState", entry: () => Action(7), exit: () => Action(-1));
+            SimpleState simpleState2 = new("SimpleState", entry: () => Action(7), exit: () => Action(-1));
 
-            sm.Add(initialState,
+            _ = sm.Add(initialState,
                 orthogonalState.Add(compositeState1.Add(initialState1, simpleState1),
                     compositeState2.Add(initialState2, simpleState2)));
 
@@ -649,7 +661,7 @@ public class StateMachineTests: TestFrame
 
             ICollection<State> activeStates = sm.ActiveStates;
 
-            var expectedActiveStates = new State[]
+            State[] expectedActiveStates = new State[]
                                        {
                                        sm, orthogonalState, compositeState1, simpleState1, compositeState2,
                                        simpleState2
@@ -667,7 +679,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("OrthogonalState.CompositeState1.SimpleState",
                     effect: () => Action(0))),
                 new OrthogonalState("OrthogonalState", entry: () => Action(1), exit: () => Action(-1)).Add(
@@ -698,7 +710,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("OrthogonalState.CompositeState2.SimpleState",
                     effect: () => Action(0))),
                 new OrthogonalState("OrthogonalState", entry: () => Action(1), exit: () => Action(-1)).Add(
@@ -729,7 +741,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
                     new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: Action)),
@@ -754,10 +766,11 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
-                    new Transition<int>("SimpleState2", new CallTrigger<int>(Call), name: "T1", effect: i => {
+                    new Transition<int>("SimpleState2", new CallTrigger<int>(Call), name: "T1", effect: i =>
+                    {
                         Action(i);
                         Call(6);
                     })),
@@ -771,7 +784,8 @@ public class StateMachineTests: TestFrame
             TransitionBase t = null;
             IEnumerable<State> entered = null;
 
-            sm.TransitionExecuted += (o, e) => {
+            sm.TransitionExecuted += (o, e) =>
+            {
                 Executed ex = e;
                 exited = ex.Exited;
                 t = ex.Transition;
@@ -800,7 +814,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
                     new Transition<int>("SimpleState2", new CallTrigger<int>(Call), effect: Action)),
@@ -829,26 +843,28 @@ public class StateMachineTests: TestFrame
     {
         const int delay = 50;
 
-        var sw = new Stopwatch();
+        Stopwatch sw = new();
 
-        using var stateChanged = new SemaphoreSlim(0, 2);
+        using SemaphoreSlim stateChanged = new(0, 2);
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
-                new SimpleState("SimpleState1", entry: () => {
+                new SimpleState("SimpleState1", entry: () =>
+                {
                     Action(1);
                     sw.Start();
                 }, exit: () => Action(2)).Add(new Transition("SimpleState2",
                     new TimeSpanTrigger(() => TimeSpan.FromMilliseconds(delay)), effect: () => Action(3))),
-                new SimpleState("SimpleState2", entry: () => {
+                new SimpleState("SimpleState2", entry: () =>
+                {
                     Action(4);
                     sw.Stop();
                 }, exit: () => Action(-1)));
 
             sm.StateChanged += (sender, args) => stateChanged.Release();
 
-            using var context = new AsyncContextTestAdapter(this, "TestDispatcherContext", ApartmentState.STA);
+            using AsyncContextTestAdapter context = new(this, "TestDispatcherContext", ApartmentState.STA);
             context.SendAsync(sm.Initialize).AssertTimeoutAsync().Wait();
 
             stateChanged.WaitAsync().AssertTimeoutAsync().Wait();
@@ -864,7 +880,7 @@ public class StateMachineTests: TestFrame
             logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "ElapsedMilliseconds",
                 sw.ElapsedMilliseconds);
 
-            Assert.IsTrue(delay <= sw.ElapsedMilliseconds && sw.ElapsedMilliseconds < delay*10);
+            Assert.IsTrue(sw.ElapsedMilliseconds is >= delay and < (delay * 10));
         }
     }
 
@@ -875,7 +891,7 @@ public class StateMachineTests: TestFrame
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(2))),
@@ -909,11 +925,11 @@ public class StateMachineTests: TestFrame
     [Test]
     public void TestMethod12()
     {
-        var s_3_6 = new Sequence(3, 6);
+        Sequence s_3_6 = new(3, 6);
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(2))),
@@ -940,7 +956,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(-1)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(2))),
@@ -964,13 +980,13 @@ public class StateMachineTests: TestFrame
     [Test]
     public void TestMethod14()
     {
-        var s_1_7 = new Sequence(1, 7);
-        var s_2_8 = new Sequence(2, 8);
-        var s_3_9 = new Sequence(3, 9);
+        Sequence s_1_7 = new(1, 7);
+        Sequence s_2_8 = new(2, 8);
+        Sequence s_3_9 = new(3, 9);
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(s_1_7.Next), exit: () => Action(5)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState",
@@ -998,7 +1014,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("CompositeState", effect: () => Action(0))),
                 new CompositeState("CompositeState", entry: () => Action(1), exit: () => Action(5)).Add(
                     new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(2))),
@@ -1025,7 +1041,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                 new SimpleState("SimpleState", entry: () => Action(1), exit: () => Action(-1)));
 
@@ -1047,7 +1063,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState", effect: () => Action(0))),
                 new SimpleState("SimpleState", entry: () => Action(1), exit: () => Action(-1))).Add(
                     new InternalTransition<int>(new CallTrigger<int>(Call), effect: Action));
@@ -1072,7 +1088,7 @@ public class StateMachineTests: TestFrame
 
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(entryCount), exit: () => Action(-1)).Add(
                     new InternalTransition<int>(new CallTrigger<int>(Call), effect: Action)));
@@ -1097,7 +1113,7 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine(entry: () => Action(-1), exit: () => Action(-1)))
         {
-            sm.Add(
+            _ = sm.Add(
                 new InitialState("InitialState").Add(new Transition("SimpleState1", effect: () => Action(0))),
                 new SimpleState("SimpleState1", entry: () => Action(1), exit: () => Action(2)).Add(
                     new Transition<int>("SimpleState2", new CallTrigger<int>(Call),
@@ -1106,7 +1122,7 @@ public class StateMachineTests: TestFrame
 
             sm.Initialize();
 
-            Assert.Throws<StateMachineException>(() => Call(3));
+            _ = Assert.Throws<StateMachineException>(() => Call(3));
         }
     }
 
@@ -1115,13 +1131,13 @@ public class StateMachineTests: TestFrame
     {
         using (sm = new StateMachine())
         {
-            sm.Add(new InitialState("InitialState").Add(new Transition("SimpleState1")), new SimpleState("SimpleState1"));
+            _ = sm.Add(new InitialState("InitialState").Add(new Transition("SimpleState1")), new SimpleState("SimpleState1"));
 
-            var compositeState = new CompositeState("CompositeState");
-            sm.Add(compositeState);
-            compositeState.Add(compositeState);
+            CompositeState compositeState = new("CompositeState");
+            _ = sm.Add(compositeState);
+            _ = compositeState.Add(compositeState);
 
-            Assert.Throws<StateMachineException>(() => sm.Initialize());
+            _ = Assert.Throws<StateMachineException>(() => sm.Initialize());
         }
     }
 
@@ -1149,8 +1165,7 @@ internal class Sequence
 {
     public Sequence(params object[] args) => sequence = args;
 
-    public int Next => (int) sequence[i++];
+    public int Next => (int)sequence[field++];
 
     private readonly object[] sequence;
-    private int i;
 }

@@ -1,8 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
@@ -11,7 +10,7 @@ namespace SimControl.TestUtils.Tests;
 /// Test output must be checked manually with log output, as <see cref="TestMethod"/> will always fail.
 /// </remarks>
 [Log, TestFixture]
-public class SetUpExceptionTest: TestFrame
+public class SetUpExceptionTest : TestFrame
 {
     #region Test SetUp/TearDown
 

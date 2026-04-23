@@ -1,13 +1,11 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 namespace SimControl.TestUtils;
 
 /// <summary>Test adapter for automatically disposing an <see cref="IDisposable"/> object.</summary>
 /// <typeparam name="TDisposable">The type of the disposable.</typeparam>
 /// <seealso cref="TestAdapter"/>
-public class DisposableTestAdapter<TDisposable>: TestAdapter where TDisposable : class, IDisposable
+public class DisposableTestAdapter<TDisposable> : TestAdapter where TDisposable : class, IDisposable
 {
     /// <summary>Initializes a new instance of the <see cref="DisposableTestAdapter{TDisposable}"/> class.</summary>
     /// <param name="disposable">The disposable.</param>

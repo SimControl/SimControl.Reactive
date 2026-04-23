@@ -1,11 +1,11 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO CR
 
 using System.Globalization;
 using System.Reflection;
 
-namespace SimControl.Log;
+namespace SimControl.Logging;
 
 /// <summary>
 /// Represents the culture used for diagnostics, providing identical English output in English language and
@@ -48,11 +48,11 @@ public static class InternationalCultureInfo
 
         // sets the default culture for threads in the current application domain.
         // note: when using .NET 4.5 use CultureInfo.DefaultThreadCurrentCulture.
-        typeof(CultureInfo).InvokeMember("s_userDefaultCulture",
+        _ = typeof(CultureInfo).InvokeMember("s_userDefaultCulture",
             BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null,
             new object[] { cultureInfo }, CultureInfo.InvariantCulture);
 
-        typeof(CultureInfo).InvokeMember("s_userDefaultUICulture",
+        _ = typeof(CultureInfo).InvokeMember("s_userDefaultUICulture",
             BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.SetField, null, null,
             new object[] { cultureInfoUI }, CultureInfo.InvariantCulture);
     }

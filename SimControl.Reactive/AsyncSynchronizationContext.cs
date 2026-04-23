@@ -1,9 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 namespace SimControl.Reactive;
 
@@ -14,12 +9,12 @@ public static class AsyncSynchronizationContext
     /// <param name="context">The context.</param>
     /// <param name="action"></param>
     /// <returns><see cref="Task"/></returns>
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public static Task SendAsync(this SynchronizationContext context, Action action)
     {
-        var tcs = new TaskCompletionSource<bool>();
+        TaskCompletionSource<bool> tcs = new();
 
-        context.Post(delegate {
+        context.Post(delegate
+        {
             try
             {
                 action();

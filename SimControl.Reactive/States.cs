@@ -1,8 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO CR
 
@@ -15,7 +11,7 @@ public interface IState
 */
 
 /// <summary>UML state machine "composite" state.</summary>
-public class CompositeState: ConcreteState //TODO sealed
+public class CompositeState : ConcreteState //TODO sealed
 {
     /// <summary>Initializes a new instance of the <see cref="CompositeState"/> class.</summary>
     /// <param name="name">State name.</param>
@@ -31,7 +27,7 @@ public class CompositeState: ConcreteState //TODO sealed
     /// <returns>This state instance</returns>
     public new CompositeState Add(params TransitionBase[] transitions)
     {
-        base.Add(transitions);
+        _ = base.Add(transitions);
         return this;
     }
 
@@ -42,7 +38,8 @@ public class CompositeState: ConcreteState //TODO sealed
     {
         // Contract.Requires(states != null);
 
-        foreach (State s in states) children[s.Name] = s;
+        foreach (State s in states)
+            children[s.Name] = s;
         return this;
     }
 
@@ -54,11 +51,11 @@ public class CompositeState: ConcreteState //TODO sealed
 
     internal State initialState;
 
-    private readonly Dictionary<string, State> children = new Dictionary<string, State>();
+    private readonly Dictionary<string, State> children = [];
 }
 
 /// <summary>Base class for concrete states.</summary>
-public class ConcreteState: State
+public class ConcreteState : State
 {
     /// <summary>Initializes a new instance of the <see cref="ConcreteState"/> class.</summary>
     /// <param name="name">The name.</param>
@@ -77,7 +74,8 @@ public class ConcreteState: State
 
         //TODO DeferrableTriggers = deferrableTriggers;
 
-        if (deferrableTriggers != null) throw new NotImplementedException("Deferrable triggers not implemented yet"); // TODO implement
+        if (deferrableTriggers != null)
+            throw new NotImplementedException("Deferrable triggers not implemented yet"); // TODO implement
     }
 
     internal Func<Task> DoActivity { get; }
@@ -88,7 +86,7 @@ public class ConcreteState: State
 }
 
 /// <summary>UML state machine "region" state.</summary>
-public sealed class OrthogonalState: ConcreteState
+public sealed class OrthogonalState : ConcreteState
 
 {
     /// <summary>Initializes a new instance of the <see cref="OrthogonalState"/> class.</summary>
@@ -107,7 +105,7 @@ public sealed class OrthogonalState: ConcreteState
     {
         // Contract.Requires(transitions != null);
 
-        base.Add(transitions);
+        _ = base.Add(transitions);
         return this;
     }
 
@@ -123,11 +121,11 @@ public sealed class OrthogonalState: ConcreteState
 
     internal IEnumerable<CompositeState> Children => children.Values;
 
-    private readonly Dictionary<string, CompositeState> children = new Dictionary<string, CompositeState>();
+    private readonly Dictionary<string, CompositeState> children = [];
 }
 
 /// <summary>UML state machine "simple" state.</summary>
-public sealed class SimpleState: ConcreteState
+public sealed class SimpleState : ConcreteState
 {
     /// <summary>Initializes a new instance of the <see cref="SimpleState"/> class.</summary>
     /// <param name="name">State name.</param>
@@ -158,7 +156,8 @@ public class State //TODO : IState
     {
         // Contract.Requires(transitions != null);
 
-        foreach (TransitionBase t in transitions) this.transitions[t.Name] = t;
+        foreach (TransitionBase t in transitions)
+            this.transitions[t.Name] = t;
         return this;
     }
 
@@ -181,7 +180,7 @@ public class State //TODO : IState
     internal bool doActivityStarted;
     internal State[] rootPath;
 
-    private readonly Dictionary<string, TransitionBase> transitions = new Dictionary<string, TransitionBase>();
+    private readonly Dictionary<string, TransitionBase> transitions = [];
     //TODO internal TransitionBase[]            completionTransitions;
     //TODO internal TransitionBase[]            timeTriggerTransitions;
     //TODO internal Dictionary<CallTriggerBase, TransitionBase[]> callTriggerTransitions = new Dictionary<CallTriggerBase, TransitionBase[]>();

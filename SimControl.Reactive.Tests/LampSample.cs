@@ -1,26 +1,25 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 using SimControl.TestUtils;
 
 // TODO CR
 
 namespace SimControl.Reactive.Tests;
 
-public class Lamp: IDisposable
+public class Lamp : IDisposable
 {
     public Lamp()
     {
-        sm.Add(
+        _ = sm.Add(
             new InitialState("*").Add(new Transition("LampOff")),
             new SimpleState("LampOff",
                 entry: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff.Entry", Counter),
                 exit: () => logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff.Exit", Counter))
-                .Add(new Transition("LampOn", new CallTrigger(On), effect: () => {
+                .Add(new Transition("LampOn", new CallTrigger(On), effect: () =>
+                {
                     logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "LampOff-LampOn.Effect", Counter);
                     Counter++;
                 })),
@@ -64,17 +63,17 @@ public class Lamp: IDisposable
 
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-    private StateMachine sm = new StateMachine();
+    private StateMachine sm = new();
 }
 
 [Log]
 [TestFixture]
-public class LampSample: TestFrame
+public class LampSample : TestFrame
 {
     [Test]
     public static void Lamp_OnOffTriggered_CounterIs1()
     {
-        using (var lamp = new Lamp())
+        using (Lamp lamp = new())
         {
             Task.Run(lamp.On).AssertTimeoutAsync().Wait();
             Task.Run(lamp.Off).AssertTimeoutAsync().Wait();

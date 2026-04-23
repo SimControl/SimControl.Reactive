@@ -1,28 +1,26 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Globalization;
-using System.Threading;
 using NLog;
 using NUnit.Framework;
 using SimControl.TestUtils;
+using System.Globalization;
 
 // TODO implement
 
-namespace SimControl.Log.Tests;
+namespace SimControl.Logging.Tests;
 
 [Log]
 [TestFixture]
-public class LogTests: TestFrame
+public class LogTests : TestFrame
 {
     [Test]
     public static void LogAttribute_Tests()
     {
-        using (var testClass = new TestClass())
+        using (TestClass testClass = new())
         {
-            testClass.Foo(456, "jkl");
-            testClass.Foo2(456, "jkl");
-            TestClass.StaticFoo(789, "mno");
+            _ = testClass.Foo(456, "jkl");
+            _ = testClass.Foo2(456, "jkl");
+            _ = TestClass.StaticFoo(789, "mno");
         }
     }
 
@@ -31,9 +29,9 @@ public class LogTests: TestFrame
     {
         int x = Foo(1);
 
-        int func(int i) => i + 1;
+        static int func(int i) => i + 1;
 
-        func(x);
+        _ = func(x);
     }
 
     private static int Foo(int i) => i + 1;
@@ -66,7 +64,7 @@ public class LogTests: TestFrame
 }
 
 [Log(LogLevel = LogAttributeLevel.Trace)]
-public class TestClass: IDisposable
+public class TestClass : IDisposable
 {
     ~TestClass() => Dispose(false);
 
@@ -106,5 +104,5 @@ public class TestClass: IDisposable
 
     private readonly string[] member3 = { "def", "ghi" };
     private readonly DateTime member5 = DateTime.Now;
-    private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+    private AutoResetEvent autoResetEvent = new(false);
 }

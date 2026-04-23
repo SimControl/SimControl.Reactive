@@ -1,14 +1,13 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO CR
 
-using System;
 using System.Globalization;
 
 namespace SimControl.Reactive;
 
 /// <summary>Internal transition.</summary>
-public sealed class InternalTransition: TransitionBase
+public sealed class InternalTransition : TransitionBase
 {
     /// <summary>Initializes a new instance of the <see cref="InternalTransition"/> class.</summary>
     /// <param name="trigger">Transition trigger.</param>
@@ -21,7 +20,7 @@ public sealed class InternalTransition: TransitionBase
 
 /// <summary>Local trransition.</summary>
 [Obsolete("Not implemented yet")]
-public sealed class LocalTransition: TransitionBase
+public sealed class LocalTransition : TransitionBase
 {
     /// <summary>Initializes a new instance of the <see cref="LocalTransition"/> class.</summary>
     /// <param name="trigger">The trigger.</param>
@@ -33,7 +32,7 @@ public sealed class LocalTransition: TransitionBase
 }
 
 /// <summary>External transition.</summary>
-public sealed class Transition: TransitionBase
+public sealed class Transition : TransitionBase
 {
     /// <summary>Initializes a new instance of the <see cref="Transition"/> class.</summary>
     /// <param name="target">Target state name.</param>
@@ -42,11 +41,7 @@ public sealed class Transition: TransitionBase
     /// <param name="effect">Transition effect action.</param>
     /// <param name="name">Transition name.</param>
     public Transition(string target, Trigger trigger = null, Constraint guard = null, Effect effect = null,
-                      string name = null) : base(TransitionKind.External, target, trigger, guard, effect, name)
-    {
-        ContractRequiredName(name);
-        // Contract.Requires(!string.IsNullOrWhiteSpace(target));
-    }
+                      string name = null) : base(TransitionKind.External, target, trigger, guard, effect, name) => ContractRequiredName(name);// Contract.Requires(!string.IsNullOrWhiteSpace(target));
 }
 
 /// <summary>Base class for transitions</summary>
@@ -109,12 +104,10 @@ public class TransitionBase
 /// <summary>Base class for triggers.</summary>
 public class Trigger
 {
-    internal virtual bool Matches(Trigger trigger)
-    {
+    internal virtual bool Matches(Trigger trigger) =>
         // Contract.Requires(trigger != null);
 
         // Contract.Assert(false);
 
-        return false;
-    }
+        false;
 }

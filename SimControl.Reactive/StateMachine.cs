@@ -1,11 +1,6 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 // TODO CR
 
@@ -47,7 +42,7 @@ public class Executed
 /// For a detailed description of UML state machines see "OMG Unified Modeling Language TM (OMG UML), Superstructure
 /// 2.3.pdf".
 /// </remarks>
-public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,*/
+public class StateMachine : CompositeState, IDisposable /*ActiveObjectCollection,*/
 {
     /// <summary>Initializes a new instance of the <see cref="StateMachine"/> class.</summary>
     /// <param name="entry">The entry.</param>
@@ -75,7 +70,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
     {
         // Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-        base.Add(transitions);
+        _ = base.Add(transitions);
         return this;
     }
 
@@ -86,7 +81,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
     {
         // Contract.Requires(ExecutionState == ExecutionStateValue.Uninitialized);
 
-        base.Add(states);
+        _ = base.Add(states);
         return this;
     }
 
@@ -142,7 +137,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
         State s = allStates[state];
 
-        return s == this || s.ParentState is OrthogonalState || ((CompositeState) s.ParentState).Active == s;
+        return s == this || s.ParentState is OrthogonalState || ((CompositeState)s.ParentState).Active == s;
     }
 
     /// <inheritdoc/>
@@ -163,12 +158,10 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
     }
 
     /// <summary>Triggers any pending completion events.</summary>
-    public void TriggerCompletionEvents()
-    {
+    public void TriggerCompletionEvents() =>
         // Contract.Requires(ExecutionState != ExecutionStateValue.Uninitialized && ExecutionState != ExecutionStateValue.Failed);
 
         Run();
-    }
 
     /// <summary>Releases unmanaged and - optionally - managed resources.</summary>
     /// <param name="disposing">
@@ -262,8 +255,8 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
     private void ExecuteTransition(TransitionBase t, object[] args)
     {
-        exited = new List<State>();
-        entered = new List<State>();
+        exited = [];
+        entered = [];
 
         int lcai = Math.Min(t.SourceState.rootPath.Length - 2, t.TargetState.rootPath.Length - 2);
 
@@ -375,7 +368,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
             if (c.Active == null)
                 throw new StateMachineException("No " + nameof(InitialState) + " found " + LogFormat.FormatArgs(c));
 
-            var ca = c.Active as ConcreteState;
+            ConcreteState ca = c.Active as ConcreteState;
 
             if (ca != null)
                 entered.Add(ca);
@@ -401,7 +394,8 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
                 Task doActivity = ca.DoActivity();
 
-                doActivity.ContinueWith(task => {
+                _ = doActivity.ContinueWith(task =>
+                {
                     ca.doActivityStarted = false;
 
                     if (task.IsFaulted)
@@ -417,7 +411,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
                     }
                     else if (task.IsCanceled)
                     {
-                        var ex = new TaskCanceledException();
+                        TaskCanceledException ex = new();
                         queuedEvents.Add(
                             new StateMachineEvent(
                                 new ExceptionTrigger(
@@ -476,7 +470,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
         {
             InvokeStateExit(c.Active);
 
-            var ca = c.Active as ConcreteState;
+            ConcreteState ca = c.Active as ConcreteState;
 
             if (ca != null)
                 exited.Add(ca);
@@ -523,7 +517,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
         if (t.Effect != null)
             try
             {
-                t.Effect.DynamicInvoke(args);
+                _ = t.Effect.DynamicInvoke(args);
             }
             catch (Exception e)
             {
@@ -552,7 +546,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
         foreach (TransitionBase t in s.Transitions)
         {
-            if (t.Trigger is TimeTrigger trigger&& trigger.Due > now && trigger.Due < result)
+            if (t.Trigger is TimeTrigger trigger && trigger.Due > now && trigger.Due < result)
                 result = trigger.Due;
         }
 
@@ -610,7 +604,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
             DateTime next = NextTimeTrigger(this, now);
 
             if (next != now && next != DateTime.MaxValue)
-                timer.Change((next - now).Milliseconds, Timeout.Infinite);
+                _ = timer.Change((next - now).Milliseconds, Timeout.Infinite);
 
             ExecutionState = ExecutionStateValue.Valid;
         }
@@ -648,7 +642,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
             // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
             // ExecutionStateValue.Running) return new State[] { }; else
-            var activeStates = new List<State>();
+            List<State> activeStates = [];
             AppendActiveSimpleStates(this, activeStates);
             return activeStates;
         }
@@ -665,7 +659,7 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
             // if (ExecutionState == ExecutionStateValue.Uninitialized || ExecutionState ==
             // ExecutionStateValue.Running) return new State[] { }; else
-            var activeStates = new List<State>();
+            List<State> activeStates = [];
             AppendActiveStates(this, activeStates);
             return activeStates;
         }
@@ -682,21 +676,16 @@ public class StateMachine: CompositeState, IDisposable /*ActiveObjectCollection,
 
     /// <summary>Gets all states.</summary>
     /// <value>The states.</value>
-    public ICollection<State> States
-    {
-        get
-        {
-            // Contract.Ensures(// Contract.Result<ICollection<State>>() != null);
+    public ICollection<State> States =>
+        // Contract.Ensures(// Contract.Result<ICollection<State>>() != null);
 
-            return allStates.Values;
-        }
-    }
+        allStates.Values;
 
     /// <summary>The cancellation token.</summary>
-    private readonly Dictionary<string, State> allStates = new Dictionary<string, State>();
+    private readonly Dictionary<string, State> allStates = [];
 
-    private readonly List<TransitionBase> allTransitions = new List<TransitionBase>();
-    private readonly List<StateMachineEvent> queuedEvents = new List<StateMachineEvent>();
+    private readonly List<TransitionBase> allTransitions = [];
+    private readonly List<StateMachineEvent> queuedEvents = [];
     private List<State> entered;
     private List<State> exited;
     private SynchronizationContext synchronizationContext;

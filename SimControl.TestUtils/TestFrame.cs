@@ -1,18 +1,14 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
+using NLog;
+using NUnit.Framework;
+using SimControl.Logging;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Channels;
-using System.Threading.Tasks;
-using NLog;
-using NUnit.Framework;
-using SimControl.Log;
 
 namespace SimControl.TestUtils;
 
@@ -27,12 +23,11 @@ public abstract class TestFrame
                                                           out int currentResolution);
     }
 
-    [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
     static TestFrame()
     {
         Assert.That(NativeMethods.NtQueryTimerResolution(out int minimumResolution, out int _, out int _),
             Is.EqualTo(0));
-        MinTimerResolution = (minimumResolution + 9999)/10000; // round to guaranteed timer sleep interval in ms
+        MinTimerResolution = (minimumResolution + 9999) / 10000; // round to guaranteed timer sleep interval in ms
     }
 
     #region Test SetUp/TearDown
@@ -57,11 +52,11 @@ public abstract class TestFrame
 
     /// <summary>Onetime test tear down.</summary>
     [Log, OneTimeTearDown]
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void OneTimeTearDown()
     {
         while (oneTimeTestAdapters.TryPop(out TestAdapter testAdapter))
-            try { testAdapter.Dispose(); }
+            try
+            { testAdapter.Dispose(); }
             catch (Exception e) { AddPendingException(e); }
 
         // force any unfinished and unreferenced tasks to terminate
@@ -89,11 +84,11 @@ public abstract class TestFrame
 
     /// <summary>Tear down test execution.</summary>
     [Log, TearDown]
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void TearDown()
     {
         while (testAdapters.TryPop(out TestAdapter testAdapter))
-            try { testAdapter.Dispose(); }
+            try
+            { testAdapter.Dispose(); }
             catch (Exception e) { AddPendingException(e); }
 
         // force any unfinished and unreferenced tasks to terminate
@@ -136,12 +131,12 @@ public abstract class TestFrame
 
     /// <summary>Force a Windows context switch.</summary>
     /// <remarks>Forces the CLI to suspend thread execution.</remarks>
-    public static void LongContextSwitch(int times = 3) => Thread.Sleep(MinTimerResolution*times);
+    public static void LongContextSwitch(int times = 3) => Thread.Sleep(MinTimerResolution * times);
 
     /// <summary>Force a Windows context switch asynchronous.</summary>
     /// <returns><see cref="Task"/></returns>
     /// <remarks>Forces the CLI to suspend thread execution.</remarks>
-    public static Task LongContextSwitchAsync(int times = 3) => Task.Delay(MinTimerResolution*times);
+    public static Task LongContextSwitchAsync(int times = 3) => Task.Delay(MinTimerResolution * times);
 
     /// <summary>Permit a Windows context switch.</summary>
     /// <remarks>Enables the CLI to suspend thread execution.</remarks>
@@ -160,7 +155,8 @@ public abstract class TestFrame
     [Obsolete("Refactor static singletons")] // TODO remove
     public static void SetPrivateStaticField(Type type, string field, object value)
     {
-        if (field.Length == 0) throw new ArgumentException("Field name must not be empty", nameof(field));
+        if (field.Length == 0)
+            throw new ArgumentException("Field name must not be empty", nameof(field));
 
         type.GetField(field, BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, value);
     }
@@ -174,20 +170,20 @@ public abstract class TestFrame
     /// <summary>Catches any exception fired by a onetime tear down action.</summary>
     /// <param name="action">The action.</param>
     /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void CatchOneTimeTearDownExceptions(Action action)
     {
-        try { action(); }
+        try
+        { action(); }
         catch (Exception e) { AddPendingException(e); }
     }
 
     /// <summary>Catches any exception fired by a tear down action.</summary>
     /// <param name="action">The action.</param>
     /// <remarks>The exception is re-thrown when all tear down actions are finished</remarks>
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void CatchTearDownExceptions(Action action)
     {
-        try { action(); }
+        try
+        { action(); }
         catch (Exception e) { AddPendingException(e); }
     }
 
@@ -224,7 +220,7 @@ public abstract class TestFrame
 
     [Log]
     private void AppDomainUnhandledExceptionHandler(object _, UnhandledExceptionEventArgs args) =>
-        AddPendingException((Exception) args.ExceptionObject);
+        AddPendingException((Exception)args.ExceptionObject);
 
     [Log]
     private void TaskSchedulerUnobservedTaskExceptionHandler(object _, UnobservedTaskExceptionEventArgs args)
@@ -235,7 +231,7 @@ public abstract class TestFrame
 
     private void ThrowPendingExceptions()
     {
-        var exceptions = new List<Exception>();
+        List<Exception> exceptions = [];
 
         while (pendingExceptions.Reader.TryRead(out Exception? e))
             exceptions.Add(e);

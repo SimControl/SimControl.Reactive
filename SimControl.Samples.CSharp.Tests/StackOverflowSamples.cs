@@ -1,10 +1,7 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 using SimControl.TestUtils;
 
 namespace SimControl.Samples.CSharp.ClassLibrary.Tests;
@@ -18,7 +15,7 @@ public static class LongTimeOperation
     }
 
     public static string Resource { get; set; }
-    private static int count = 0;
+    private static readonly int count = 0;
 }
 
 public class BarObject
@@ -39,11 +36,11 @@ public abstract class BaseFixture
     [Test]
     public void ShouldA() => Assert.That(TestManager.Device, Is.EqualTo(device));
 
-    private string device;
+    private readonly string device;
 }
 
 [TestFixture]
-public class DesktopTest: BaseFixture
+public class DesktopTest : BaseFixture
 {
     public DesktopTest() : base("desktop") { }
 
@@ -57,7 +54,7 @@ public class Foo
     { }
 
     public IEnumerable<BarObject> Bars { get; set; } =
-        new List<BarObject>() { new BarObject() { name = "johndoe", info = "wierdo" } };
+        [new BarObject() { name = "johndoe", info = "wierdo" }];
 }
 
 [TestFixture]
@@ -66,7 +63,7 @@ public class FooTests
     [Test]
     public void TestDefaultInList()
     {
-        Foo foo = new Foo();
+        Foo foo = new();
 
         Assert.That(foo.Bars.GetEnumerator().Current,
             Is.EqualTo(new BarObject() { name = "johndoe", info = "wierdo" }));
@@ -76,7 +73,7 @@ public class FooTests
 }
 
 [TestFixture]
-public class MobileTest: BaseFixture
+public class MobileTest : BaseFixture
 {
     public MobileTest() : base("mobile") { }
 
@@ -86,17 +83,14 @@ public class MobileTest: BaseFixture
 
 [Log]
 [TestFixture]
-public class StackOverflowSamples: TestFrame
+public class StackOverflowSamples : TestFrame
 {
     [TestCase("ears")]
     [TestCase("eyes", Ignore = "Bug is JIRA #FOO", Until = "2099-02-15")]
     [TestCase("nose")]
     [TestCase("mouth")]
     [TestCase("touch")]
-    public async Task CanUseSense(string sense)
-    {
-        Assert.That(sense, Is.Not.EqualTo("eyes"));
-    }
+    public async Task CanUseSense(string sense) => Assert.That(sense, Is.Not.EqualTo("eyes"));
 }
 
 [TestFixture]
@@ -118,10 +112,7 @@ public class TestFixture1
 public class TestFixture2
 {
     [OneTimeSetUp]
-    public void OneTimeSetUp()
-    {
-        resource = LongTimeOperation.Resource;
-    }
+    public void OneTimeSetUp() => resource = LongTimeOperation.Resource;
 
     [Test]
     public void Test1() => Assert.That(resource, Is.EqualTo("1"));

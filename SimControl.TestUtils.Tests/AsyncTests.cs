@@ -1,17 +1,14 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log]
 [TestFixture]
-public class AsyncTests: TestFrame
+public class AsyncTests : TestFrame
 {
     [Test, Apartment(ApartmentState.MTA)]
     public static async Task AsyncTestMethod__Apartment_MTA__current_SynchronizationContext_is_null__Async()
@@ -47,7 +44,8 @@ public class AsyncTests: TestFrame
 
     [Test]
     public static void Exception_thrown_in_task_on_other_thread__is_caught_in_wait() =>
-        Assert.That(Assert.Catch<AggregateException>(() => Task.Run(async () => {
+        Assert.That(Assert.Catch<AggregateException>(() => Task.Run(async () =>
+        {
             await ForceContextSwitchAsync().ConfigureAwait(false);
             throw new InvalidOperationException();
         }).Wait()).InnerException, Is.InstanceOf<InvalidOperationException>());
@@ -55,16 +53,17 @@ public class AsyncTests: TestFrame
     [Test]
     public static void SemaphoreSlim__released_in_task_on_other_thread__is_signaled()
     {
-        using var ready = new SemaphoreSlim(0, 1);
+        using SemaphoreSlim ready = new(0, 1);
 
-        Task task = Task.Run(async () => {
+        Task task = Task.Run(async () =>
+        {
             await PermitContextSwitchAsync().ConfigureAwait(false);
-            ready.Release();
+            _ = ready.Release();
             await ready.WaitAsync().AssertTimeoutAsync().ConfigureAwait(false);
         });
 
         ready.WaitAsync().AssertTimeoutAsync().Wait();
-        ready.Release();
+        _ = ready.Release();
 
         task.AssertTimeoutAsync().Wait();
     }

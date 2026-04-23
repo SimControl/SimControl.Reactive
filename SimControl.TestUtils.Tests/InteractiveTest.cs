@@ -1,15 +1,13 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log]
 [TestFixture]
-public class InteractiveTest: TestFrame
+public class InteractiveTest : TestFrame
 {
     [Test, InteractiveTest/*, ExclusivelyUses(nameof(InteractiveTestAttribute))*/]
     public static void InteractiveTest__DisplayMessageBox__ContinueAfterClickYes() => Task.Run(() =>

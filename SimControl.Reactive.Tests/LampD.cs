@@ -1,19 +1,18 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System;
 using NLog;
-using SimControl.Log;
+using SimControl.Logging;
 
 // TODO CR
 
 namespace SimControl.Reactive.Tests;
 
 // TODO [Log]
-public class Lamp2: IDisposable
+public class Lamp2 : IDisposable
 {
     public Lamp2()
     {
-        sm.Add(
+        _ = sm.Add(
             new InitialState("*")
                 .Add(new Transition("Ready", effect: () => logger.Message(LogLevel.Debug, ".* -> .Ready"))),
             new CompositeState("Ready").Add(
@@ -23,7 +22,8 @@ public class Lamp2: IDisposable
                     entry: () => logger.Message(LogLevel.Debug, ".Ready.Off - entry"),
                     exit: () => logger.Message(LogLevel.Debug, ".Ready.Off - exit"))
                     .Add(new Transition("On",
-                        new CallTrigger(On), effect: () => {
+                        new CallTrigger(On), effect: () =>
+                        {
                             logger.Message(LogLevel.Debug, ".Ready.Off -> .Ready.On");
                             Counter++;
                         })),
@@ -66,5 +66,5 @@ public class Lamp2: IDisposable
     { get; private set; }
 
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private StateMachine sm = new StateMachine();
+    private StateMachine sm = new();
 }

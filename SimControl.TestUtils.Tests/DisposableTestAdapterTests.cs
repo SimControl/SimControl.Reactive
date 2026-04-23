@@ -1,19 +1,18 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.Threading;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log, TestFixture]
-public class DisposableTestAdapterTests: TestFrame
+public class DisposableTestAdapterTests : TestFrame
 {
     [Test]
     public void Create_and_dispose_with_SemaphoreSlim__succeeds()
     {
-        using var disposableTestAdapter = new DisposableTestAdapter<SemaphoreSlim>(new SemaphoreSlim(0, 1));
-        disposableTestAdapter.Disposable.Release();
+        using DisposableTestAdapter<SemaphoreSlim> disposableTestAdapter = new(new SemaphoreSlim(0, 1));
+        _ = disposableTestAdapter.Disposable.Release();
         disposableTestAdapter.Disposable.WaitAsync().AssertTimeoutAsync().Wait();
     }
 }

@@ -1,6 +1,4 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO CR
 
@@ -16,7 +14,7 @@ public delegate DateTime DateTimeExpression();
 public delegate TimeSpan TimeSpanExpression();
 
 /// <summary>Trigger specifying a point in time.</summary>
-public sealed class DateTimeTrigger: TimeTrigger
+public sealed class DateTimeTrigger : TimeTrigger
 {
     /// <summary>Initializes a new instance of the <see cref="DateTimeTrigger"/> class.</summary>
     /// <param name="expression">Expression for computing the <see cref="DateTime"/> point in time.</param>
@@ -35,16 +33,14 @@ public sealed class DateTimeTrigger: TimeTrigger
 }
 
 /// <summary>Trigger specifying a time span.</summary>
-public sealed class TimeSpanTrigger: TimeTrigger
+public sealed class TimeSpanTrigger : TimeTrigger
 {
     /// <summary>Initializes a new instance of the <see cref="TimeSpanTrigger"/> class.</summary>
     /// <param name="expression">Expression for computing the <see cref="TimeSpan"/>.</param>
-    public TimeSpanTrigger(TimeSpanExpression expression)
-    {
+    public TimeSpanTrigger(TimeSpanExpression expression) =>
         // Contract.Requires(expression != null);
 
         this.expression = expression;
-    }
 
     internal override void Next() => Due = DateTime.Now + expression.Invoke();
 
@@ -52,7 +48,7 @@ public sealed class TimeSpanTrigger: TimeTrigger
 }
 
 /// <summary>Base class for time triggers.</summary>
-public abstract class TimeTrigger: Trigger
+public abstract class TimeTrigger : Trigger
 {
     internal abstract void Next();
     internal DateTime Due { get; set; }

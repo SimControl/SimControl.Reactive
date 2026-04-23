@@ -1,13 +1,11 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
-
-using System;
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
 // TODO CR
 
 namespace SimControl.Reactive;
 
 /// <summary>Exception thrown during state machine initialization if a transition source or target is not found.</summary>
-public class StateMachineException: Exception
+public class StateMachineException : Exception
 {
     /// <summary>Initializes a new instance of the <see cref="StateMachineException"/> class.</summary>
     public StateMachineException() { }

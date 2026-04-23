@@ -1,16 +1,16 @@
-﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. See LICENSE.txt in the project root for more information.
+﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
-using System.Diagnostics;
-using System.Threading.Channels;
 using NLog;
 using NUnit.Framework;
-using SimControl.Log;
+using SimControl.Logging;
 using SimControl.Samples.CSharp.ClassLibrary;
+using System.Diagnostics;
+using System.Threading.Channels;
 
 namespace SimControl.TestUtils.Tests;
 
 [Log, TestFixture/*, ExclusivelyUses(ProcessName)*/]
-public class ProcessTestAdapterTests: TestFrame
+public class ProcessTestAdapterTests : TestFrame
 {
 #if !NET5_0_OR_GREATER // TODO ConsoleApp tests for net5.0
 
@@ -20,7 +20,7 @@ public class ProcessTestAdapterTests: TestFrame
         ProcessTestAdapter.KillProcesses(ProcessName);
         Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-        using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait", out _, out _);
+        using ProcessTestAdapter processTestAdapter = new(ProcessName, "Wait", out _, out _);
         LongContextSwitch(50);
         Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
@@ -35,7 +35,7 @@ public class ProcessTestAdapterTests: TestFrame
         ProcessTestAdapter.KillProcesses(ProcessName);
         Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-        using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait", out _, out _);
+        using ProcessTestAdapter processTestAdapter = new(ProcessName, "Wait", out _, out _);
         LongContextSwitch(50);
         Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(1));
 
@@ -43,7 +43,7 @@ public class ProcessTestAdapterTests: TestFrame
         LongContextSwitch();
         Assert.That(Process.GetProcessesByName(ProcessName).Length, Is.EqualTo(0));
 
-        processTestAdapter.WaitForExitAssertTimeout();
+        _ = processTestAdapter.WaitForExitAssertTimeout();
     }
 
     [Test, IntegrationTest/*, ExclusivelyUses(ProcessName)*/]
@@ -51,10 +51,10 @@ public class ProcessTestAdapterTests: TestFrame
     {
         ProcessTestAdapter.KillProcesses(ProcessName);
 
-        using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Normal", out _, out _);
+        using ProcessTestAdapter processTestAdapter = new(ProcessName, "Normal", out _, out _);
         logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessRunning", processTestAdapter);
 
-        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.Success));
+        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int)ExitCode.Success));
 
         logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ProcessExited", processTestAdapter);
     }
@@ -64,12 +64,12 @@ public class ProcessTestAdapterTests: TestFrame
     {
         ProcessTestAdapter.KillProcesses(ProcessName);
 
-        using var processTestAdapter = new ProcessTestAdapter(ProcessName, "Wait",
+        using ProcessTestAdapter processTestAdapter = new(ProcessName, "Wait",
             out ChannelReader<string> standardOutput, out _);
         standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("MainAssembly"), DebugTimeout(5000)).Wait();
         processTestAdapter.Process.StandardInput.Close();
         standardOutput.ReadUntilAssertTimeoutAsync(s => s.Contains("Exit"), DebugTimeout(5000)).Wait();
-        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.ConsoleInputClosed));
+        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int)ExitCode.ConsoleInputClosed));
     }
 
     [Test, IntegrationTest/*, ExclusivelyUses(ProcessName)*/]
@@ -77,10 +77,10 @@ public class ProcessTestAdapterTests: TestFrame
     {
         ProcessTestAdapter.KillProcesses(ProcessName);
 
-        using var processTestAdapter = new ProcessTestAdapter(TestContext.CurrentContext.TestDirectory, ProcessName,
+        using ProcessTestAdapter processTestAdapter = new(TestContext.CurrentContext.TestDirectory, ProcessName,
             "Wait", out _, out _);
         processTestAdapter.Process.StandardInput.Close();
-        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int) ExitCode.ConsoleInputClosed));
+        Assert.That(processTestAdapter.WaitForExitAssertTimeout(), Is.EqualTo((int)ExitCode.ConsoleInputClosed));
     }
 
 #endif
