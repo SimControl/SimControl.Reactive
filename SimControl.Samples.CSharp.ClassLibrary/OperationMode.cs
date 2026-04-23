@@ -1,5 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
+// REVIEW
+
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract;
 
 /// <summary>WCF service operation mode enumeration.</summary>

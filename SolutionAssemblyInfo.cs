@@ -1,5 +1,7 @@
 ﻿// Copyright (c) SimControl e.U. - Wilhelm Medetz. All rights reserved. MIT License - see LICENSE.md
 
+// REVIEW
+
 using System.Reflection;
 
 // General Information about the product is controlled through the following set of attributes. Change these attribute
