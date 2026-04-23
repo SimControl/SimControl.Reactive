@@ -330,4 +330,3 @@ visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public
 [*.{cpp,h,in}]
 curly_bracket_next_line = true
 indent_brace_style = Allman
-
