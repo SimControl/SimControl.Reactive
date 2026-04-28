@@ -62,6 +62,7 @@
 *.gz        binary
 *.lz        binary
 *.lzma      binary
+*.msi       binary
 *.rar       binary
 *.tar       binary
 *.taz       binary
