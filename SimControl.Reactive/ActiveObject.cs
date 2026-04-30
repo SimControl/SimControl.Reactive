@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 #if false
 using System;
 using System.Collections.Generic;

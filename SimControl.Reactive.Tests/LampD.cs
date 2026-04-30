@@ -5,8 +5,6 @@
 using NLog;
 using SimControl.Logging;
 
-// TODO CR
-
 namespace SimControl.Reactive.Tests;
 
 // TODO [Log]

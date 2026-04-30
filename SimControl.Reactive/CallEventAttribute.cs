@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 //[Serializable, AttributeUsage(AttributeTargets.Method)]
 //public sealed class CallEventAttribute: OnMethodInvocationAspect
 //{

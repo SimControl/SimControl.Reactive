@@ -4,8 +4,6 @@
 
 using System.Diagnostics;
 
-// TODO CR
-
 namespace SimControl.Reactive;
 
 /// <summary>StateMachine execution states.</summary>

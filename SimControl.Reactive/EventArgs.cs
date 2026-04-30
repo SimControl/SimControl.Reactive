@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 namespace SimControl.Reactive;
 
 /// <summary>Generic EventArgs.</summary>

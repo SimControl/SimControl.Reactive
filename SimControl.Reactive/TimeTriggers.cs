@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 namespace SimControl.Reactive;
 
 /// <summary>Compute a <see cref="DateTime"/> point in time.</summary>

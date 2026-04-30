@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 namespace SimControl.Reactive;
 
 /// <summary>Encapsulates a constraint method that returns a bool value.</summary>

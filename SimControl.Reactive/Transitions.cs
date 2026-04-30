@@ -2,8 +2,6 @@
 
 // REVIEW
 
-// TODO CR
-
 using System.Globalization;
 
 namespace SimControl.Reactive;

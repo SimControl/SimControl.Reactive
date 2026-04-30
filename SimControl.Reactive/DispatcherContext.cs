@@ -8,8 +8,6 @@
 //using System.Threading.Tasks;
 //using System.Windows.Threading;
 
-// TODO CR
-
 //namespace SimControl.Rective
 //{
 //    /// <summary>Encapsulates a Windows (WPF) DispatcherSynchronizationContext.</summary>

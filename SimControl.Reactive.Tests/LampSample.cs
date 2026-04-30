@@ -7,8 +7,6 @@ using NUnit.Framework;
 using SimControl.Logging;
 using SimControl.TestUtils;
 
-// TODO CR
-
 namespace SimControl.Reactive.Tests;
 
 public class Lamp : IDisposable

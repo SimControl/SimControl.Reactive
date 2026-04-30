@@ -6,8 +6,6 @@ using System.Collections;
 using System.Globalization;
 using System.Text;
 
-// TODO CR
-
 namespace SimControl.Reactive;
 
 /// <summary>Utility class to format log messages.</summary>
