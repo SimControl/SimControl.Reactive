@@ -6,6 +6,7 @@
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 
     <!--
     <AnalysisLevel>latest</AnalysisLevel>
