@@ -2,8 +2,9 @@
 
 // REVIEW
 
-using SimControl.Logging;
 using System.Runtime.Serialization;
+
+using SimControl.Logging;
 
 namespace SimControl.Samples.CSharp.Wcf.ServiceContract;
 

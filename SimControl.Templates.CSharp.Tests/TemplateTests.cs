@@ -2,10 +2,12 @@
 
 // REVIEW
 
+using System.Threading.Channels;
+
 using NUnit.Framework;
+
 using SimControl.Logging;
 using SimControl.TestUtils;
-using System.Threading.Channels;
 
 namespace SimControl.Templates.CSharp.Tests;
 

@@ -2,11 +2,14 @@
 
 // REVIEW
 
-using NLog;
-using NUnit.Framework;
-using SimControl.Logging;
 using System.Diagnostics;
 using System.Threading.Channels;
+
+using NLog;
+
+using NUnit.Framework;
+
+using SimControl.Logging;
 
 namespace SimControl.TestUtils;
 
@@ -119,7 +122,10 @@ public class ProcessTestAdapter : TestAdapter
                 Process.Kill();
                 _ = Process.WaitForExit(TestFrame.DebugTimeout(timeout));
             }
-            catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), this, e); }
+            catch (Exception e)
+            {
+                logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), this, e);
+            }
 
             throw new AssertTimeoutException(timeout);
         }

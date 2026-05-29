@@ -22,7 +22,10 @@ public static class AsyncSynchronizationContext
                 action();
                 tcs.SetResult(true);
             }
-            catch (Exception e) { tcs.SetException(e); }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
         }, null);
 
         return tcs.Task;

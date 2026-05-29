@@ -2,10 +2,12 @@
 
 // REVIEW
 
-using NLog;
-using SimControl.Logging;
 using System.ServiceModel;
 using System.Threading.Channels;
+
+using NLog;
+
+using SimControl.Logging;
 
 namespace SimControl.TestUtils;
 
@@ -115,7 +117,10 @@ public static class AssertTimeoutExtensions
                 if (func(item))
                     return result;
             }
-            catch (OperationCanceledException) { throw new AssertTimeoutException(timeout); }
+            catch (OperationCanceledException)
+            {
+                throw new AssertTimeoutException(timeout);
+            }
     }
 
     /// <summary>Dispatch a message to a synchronization context asynchronous.</summary>
@@ -133,7 +138,10 @@ public static class AssertTimeoutExtensions
             {
                 tcs.SetResult(func());
             }
-            catch (Exception e) { tcs.SetException(e); }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
         }, null);
 
         return tcs.Task;

@@ -2,13 +2,15 @@
 
 // REVIEW
 
-using NLog;
-using SimControl.Logging;
-using SimControl.Samples.CSharp.ClassLibrary;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+using NLog;
+
+using SimControl.Logging;
+using SimControl.Samples.CSharp.ClassLibrary;
 
 namespace SimControl.Samples.CSharp.ConsoleApp;
 
@@ -49,7 +51,9 @@ public static class Program
                     ConfiguredTaskAwaitable task = Task.Run(() =>Task.Delay(-1, cts.Token)).ConfigureAwait(false);
                     cts.Cancel();
                     try
-                    { await task; }
+                    {
+                        await task;
+                    }
                     catch (TaskCanceledException) { }
                     Exit(ExitCode.InvalidCommandlineArguments);
                 }
@@ -84,7 +88,10 @@ public static class Program
                                 logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput",
                                     input);
                         }
-                        catch (ObjectDisposedException) { break; }
+                        catch (ObjectDisposedException)
+                        {
+                            break;
+                        }
                     }
                     break;
                 case "WCF":
@@ -175,7 +182,10 @@ public static class Program
             TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
             AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
         }
-        catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e); }
+        catch (Exception e)
+        {
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
+        }
     }
 
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();

@@ -2,15 +2,18 @@
 
 // REVIEW
 
-using NLog;
-using NUnit.Framework;
-using SimControl.Logging;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
+
+using NLog;
+
+using NUnit.Framework;
+
+using SimControl.Logging;
 
 namespace SimControl.TestUtils;
 
@@ -58,8 +61,13 @@ public abstract class TestFrame
     {
         while (oneTimeTestAdapters.TryPop(out TestAdapter testAdapter))
             try
-            { testAdapter.Dispose(); }
-            catch (Exception e) { AddPendingException(e); }
+            {
+                testAdapter.Dispose();
+            }
+            catch (Exception e)
+            {
+                AddPendingException(e);
+            }
 
         // force any unfinished and unreferenced tasks to terminate
         ForceGarbageCollection();
@@ -90,8 +98,13 @@ public abstract class TestFrame
     {
         while (testAdapters.TryPop(out TestAdapter testAdapter))
             try
-            { testAdapter.Dispose(); }
-            catch (Exception e) { AddPendingException(e); }
+            {
+                testAdapter.Dispose();
+            }
+            catch (Exception e)
+            {
+                AddPendingException(e);
+            }
 
         // force any unfinished and unreferenced tasks to terminate
         ForceGarbageCollection();
@@ -175,8 +188,13 @@ public abstract class TestFrame
     public void CatchOneTimeTearDownExceptions(Action action)
     {
         try
-        { action(); }
-        catch (Exception e) { AddPendingException(e); }
+        {
+            action();
+        }
+        catch (Exception e)
+        {
+            AddPendingException(e);
+        }
     }
 
     /// <summary>Catches any exception fired by a tear down action.</summary>
@@ -185,8 +203,13 @@ public abstract class TestFrame
     public void CatchTearDownExceptions(Action action)
     {
         try
-        { action(); }
-        catch (Exception e) { AddPendingException(e); }
+        {
+            action();
+        }
+        catch (Exception e)
+        {
+            AddPendingException(e);
+        }
     }
 
     /// <summary>Register a test adapter for this class.</summary>

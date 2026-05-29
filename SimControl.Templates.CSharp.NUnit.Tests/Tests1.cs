@@ -3,7 +3,9 @@
 // REVIEW
 
 using NLog;
+
 using NUnit.Framework;
+
 using SimControl.Logging;
 using SimControl.TestUtils;
 

@@ -2,12 +2,14 @@
 
 // REVIEW
 
-using NLog;
-using SimControl.Logging;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+using NLog;
+
+using SimControl.Logging;
 
 namespace SimControl.Templates.CSharp.ConsoleApp;
 
@@ -60,7 +62,10 @@ public static class Program
                         if (input is null)
                             break;
                     }
-                    catch (ObjectDisposedException) { break; }
+                    catch (ObjectDisposedException)
+                    {
+                        break;
+                    }
 
                     logger.Message(LogLevel.Info, LogMethod.GetCurrentMethodName(), "ConsoleInput", input);
 
@@ -70,7 +75,9 @@ public static class Program
                 cts.Cancel();
 
                 try
-                { await task; }
+                {
+                    await task;
+                }
                 catch (TaskCanceledException) { }
             }
         }
@@ -140,7 +147,10 @@ public static class Program
             TaskScheduler.UnobservedTaskException -= UnobservedTaskExceptionHandler;
             AppDomain.CurrentDomain.UnhandledException -= UnhandledExceptionEventHandler;
         }
-        catch (Exception e) { logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e); }
+        catch (Exception e)
+        {
+            logger.Exception(LogLevel.Error, LogMethod.GetCurrentMethodName(), null, e);
+        }
     }
 
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();

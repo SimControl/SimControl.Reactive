@@ -3,6 +3,7 @@
 // REVIEW
 
 using NLog;
+
 using SimControl.Logging;
 
 namespace SimControl.Samples.CSharp.ClassLibrary;

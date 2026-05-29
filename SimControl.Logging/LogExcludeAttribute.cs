@@ -2,9 +2,11 @@
 
 // REVIEW
 
-using ArxOne.MrAdvice.Advice;
-using NLog;
 using System.Reflection;
+
+using ArxOne.MrAdvice.Advice;
+
+using NLog;
 
 // TODO implement
 
@@ -49,7 +51,9 @@ public sealed class LogExcludeAttribute : Attribute, IMethodAdvice, IMethodAsync
                 context.Arguments);
 
         try
-        { context.Proceed(); }
+        {
+            context.Proceed();
+        }
         catch (Exception e)
         {
             if (exceptionLogLevel != NLog.LogLevel.Off && logger.IsEnabled(exceptionLogLevel))

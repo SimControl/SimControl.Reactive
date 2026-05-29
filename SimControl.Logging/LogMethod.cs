@@ -2,9 +2,10 @@
 
 // REVIEW
 
-using NLog;
 using System.Collections;
 using System.Runtime.CompilerServices;
+
+using NLog;
 
 // TODO implement
 

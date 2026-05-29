@@ -3,6 +3,7 @@
 // REVIEW
 
 using NLog;
+
 using SimControl.Logging;
 
 namespace SimControl.Samples.CSharp.ClassLibrary;
@@ -22,7 +23,9 @@ public static class VerifyJitOptimization
         logger.Message(LogLevel.Debug, LogMethod.GetCurrentMethodName(), "Count", count);
 
         try
-        { MethodA(); }
+        {
+            MethodA();
+        }
         catch (InvalidOperationException e)
         {
             logger.Exception(LogLevel.Debug, LogMethod.GetCurrentMethodName(), null, e);

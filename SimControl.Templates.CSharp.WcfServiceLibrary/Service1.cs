@@ -2,8 +2,9 @@
 
 // REVIEW
 
-using SimControl.Logging;
 using System;
+
+using SimControl.Logging;
 
 namespace SimControl.Templates.CSharp.WcfServiceLibrary
 {
