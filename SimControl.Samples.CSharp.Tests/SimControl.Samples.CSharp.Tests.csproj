@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net480;net10.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net10.0-windows</TargetFrameworks>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <UseWPF>true</UseWPF>
